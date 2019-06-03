@@ -1,0 +1,26 @@
+{
+    "name": "sas/blog-module",
+    "description": "Blog Module",
+    "version": "v1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "require": {
+        "shopware/platform": "dev-master"
+    },
+    "extra": {
+        "shopware-plugin-class": "Sas\\BlogModule\\BlogModule",
+        "label": {
+            "de-DE": "Blog Module",
+            "en-GB": "Blog Module"
+        },
+        "description": {
+            "de-DE": "Deutsche Beschreibung des Plugins",
+            "en-GB": "English description of the plugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sas\\BlogModule\\": "src/"
+        }
+    }
+}

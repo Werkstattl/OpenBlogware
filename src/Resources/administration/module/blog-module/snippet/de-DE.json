@@ -1,0 +1,16 @@
+{
+    "sas-blog": {
+        "general": {
+            "mainMenuItemGeneral": "Blog",
+            "mainMenuItemList": "Blog",
+            "mainMenuItemAdd": "Blog Eintrag anlegen",
+            "descriptionTextModule": "Verwaltung von Blog Einträge.",
+            "placeholderSearchBar": "Durchsuche alle Einträge"
+        },
+        "list": {
+            "textBlogOverview": "Blog Einträge",
+            "buttonAddBlogEntry": "Blog Eintrag erstellen",
+            "messageEmpty": "Keine Einträge vorhanden"
+        }
+    }
+}

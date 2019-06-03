@@ -1,0 +1,43 @@
+{% block sas_blog_list %}
+    <sw-page class="sas-blog-list">
+        <template slot="smart-bar-header">
+            <h2>
+            {% block sas_blog_list_smart_bar_header_title_text %}
+                {{ $tc('sas-blog.list.textBlogOverview') }}
+            {% endblock %}
+            {% block sas_blog_list_smart_bar_header_amount %}
+                <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+                    ({{ total }})
+                </span>
+            {% endblock %}
+            </h2>
+        </template>
+        {% block sas_blog_list_smart_bar_actions %}
+            <template slot="smart-bar-actions">
+                {% block sas_blog_list_smart_bar_actions_add %}
+                    <sw-button :routerLink="{ name: 'blog.module.create' }" variant="primary">
+                        {{ $tc('sas-blog.list.buttonAddBlogEntry') }}
+                    </sw-button>
+                {% endblock %}
+            </template>
+        {% endblock %}
+
+        <template slot="content">
+            {% block sas_blog_list_content %}
+                <sw-entity-listing
+                    v-if="blogEntries"
+                    :items="blogEntries"
+                    :repository="repository"
+                    :showSelection="false"
+                    :columns="columns"
+                    detailRoute="sas.blog.detail">
+                </sw-entity-listing>
+            {% endblock %}
+            
+            {% block sas_blog_list_empty_state %}
+                <sw-empty-state v-if="!isLoading && !total" :title="$tc('sas-blog.list.messageEmpty')"></sw-empty-state>
+            {% endblock %}
+        </template>
+
+    </sw-page>
+{% endblock %}
