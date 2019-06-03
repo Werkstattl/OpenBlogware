@@ -16,7 +16,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/sales-channel-api/v1/sas/get-blog-entries", name="sales-channel-api.action.sas.get-blog-entries", methods={"GET"})
      */
-    public function myFirstApi(Request $request, Context $context): JsonResponse
+    public function getAllBlogEntries(Request $request, Context $context): JsonResponse
     {
         /** @var EntityRepositoryInterface $blogRepository */
         $blogRepository = $this->container->get('sas_blog_entries.repository');
