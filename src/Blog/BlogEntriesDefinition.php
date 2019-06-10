@@ -3,6 +3,7 @@
 namespace Sas\BlogModule\Blog;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
@@ -44,7 +45,7 @@ class BlogEntriesDefinition extends EntityDefinition
     {
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
-            new IntField('active', 'active'),
+            new BoolField('active', 'active'),
             new StringField('title', 'title'),
             new StringField('slug', 'slug'),
             new StringField('teaser', 'teaser'),
