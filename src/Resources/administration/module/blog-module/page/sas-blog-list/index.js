@@ -2,6 +2,8 @@ import { Component } from 'src/core/shopware';
 import template from './sas-blog-list.twig';
 import Criteria from 'src/core/data-new/criteria.data';
 
+import './sas-blog-list.scss';
+
 Component.register('sas-blog-list', {
     template,
 

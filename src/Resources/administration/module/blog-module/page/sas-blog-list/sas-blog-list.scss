@@ -1,0 +1,20 @@
+@import '~scss/variables';
+
+$sas-blog-list-color-error: $color-crimson;
+$sas-blog-list-color-success: $color-emerald;
+
+.sas-blog-list {
+    .as-blog-list__content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    .is--inactive {
+        color: $sas-blog-list-color-error;
+    }
+
+    .is--active {
+        color: $sas-blog-list-color-success;
+    }
+}
