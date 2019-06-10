@@ -15,6 +15,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
  */
 class BlogEntriesCollection extends EntityCollection
 {
+    /**
+     * @return string
+     */
     protected function getExpectedClass(): string
     {
         return BlogEntriesEntity::class;

@@ -8,6 +8,9 @@ use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 class BlogModule extends Plugin
 {
+    /**
+     * @param UninstallContext $context
+     */
     public function uninstall(UninstallContext $context): void
     {
         parent::uninstall($context);

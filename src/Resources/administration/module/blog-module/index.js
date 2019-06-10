@@ -1,6 +1,7 @@
 import { Module } from 'src/core/shopware';
 import './page/sas-blog-list';
 import './page/sas-blog-create';
+import './page/sas-blog-detail';
 
 import deDE from './snippet/de-DE.json';
 import enGB from './snippet/en-GB.json';
@@ -30,6 +31,10 @@ Module.register('blog-module', {
                 default: 'sas-blog-create'
             },
             path: 'create'
+        },
+        detail: {
+            component: 'sas-blog-detail',
+            path: 'detail/:id'
         }
     },
 

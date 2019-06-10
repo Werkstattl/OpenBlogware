@@ -1,0 +1,48 @@
+{
+  "name": "codex-notifier",
+  "version": "1.1.2",
+  "description": "Simple notifications for your website",
+  "main": "./dist/bundle.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "build:dev": "webpack --config ./webpack.config.js --mode development --watch"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "CodeX Team",
+    "email": "team@ifmo.su"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codex-team/js-notifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codex-team/js-notifier/issues"
+  },
+  "homepage": "https://github.com/codex-team/js-notifier#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.8.0",
+    "eslint-config-codex": "github:codex-team/eslint-config",
+    "eslint-loader": "^2.1.1",
+    "postcss-clean": "^1.1.0",
+    "postcss-cssnext": "^2.11.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-nested": "^2.0.2",
+    "postcss-nested-ancestors": "^1.0.0",
+    "postcss-nesting": "^4.0.1",
+    "postcss-smart-import": "^0.7.4",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}

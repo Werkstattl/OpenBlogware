@@ -18,8 +18,10 @@ class Migration1559416986BlogEntries extends MigrationStep
             CREATE TABLE IF NOT EXISTS `sas_blog_entries` (
             `id` BINARY(16) NOT NULL,
             `title` VARCHAR(255) NOT NULL,
+            `slug` VARCHAR(255) NOT NULL,
+            `teaser` VARCHAR(255) NULL,
             `content` TEXT NOT NULL,
-            `active` TINYINT(1) DEFAULT 0,
+            `active` TINYINT DEFAULT 0,
             `created_at` DATETIME(3) NOT NULL,
             `updated_at` DATETIME(3) NULL,
             PRIMARY KEY (`id`)

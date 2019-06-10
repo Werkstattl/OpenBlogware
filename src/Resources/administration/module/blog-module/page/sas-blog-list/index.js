@@ -29,7 +29,7 @@ Component.register('sas-blog-list', {
                     property: 'title',
                     dataIndex: 'title',
                     label: 'Title',
-                    routerLink: 'sas.blog.detail',
+                    routerLink: 'blog.module.detail',
                     inlineEdit: 'string',
                     allowResize: true,
                     primary: true
@@ -50,6 +50,7 @@ Component.register('sas-blog-list', {
         this.repository = this.repositoryFactory.create('sas_blog_entries');
 
         this.repository.search(new Criteria(), this.context).then(result => {
+            console.log(this.context);
             console.log(result);
             this.total = result.total;
             this.blogEntries = result;

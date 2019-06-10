@@ -11,6 +11,13 @@
             "textBlogOverview": "Blog Einträge",
             "buttonAddBlogEntry": "Blog Eintrag erstellen",
             "messageEmpty": "Keine Einträge vorhanden"
+        },
+        "detail": {
+            "saveBlogEntry": "Eintrag speichern",
+            "activeLable": "Artikel aktiv",
+            "contentLable": "Markdown Inhalt",
+            "slugLable": "Slug",
+            "titleLable": "Titel"
         }
     }
 }
