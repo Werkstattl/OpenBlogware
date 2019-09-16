@@ -8,5 +8,10 @@
         <service id="Sas\BlogModule\Blog\BlogEntriesDefinition">
             <tag name="shopware.entity.definition" entity="sas_blog_entries" />
         </service>
+
+        <service id="Sas\BlogModule\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
+            <tag name="shopware.snippet.file"/>
+        </service>
+
     </services>
 </container>
