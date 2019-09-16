@@ -7,12 +7,37 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class BlogController extends AbstractController
+class BlogController extends StorefrontController
 {
+
+    /**
+     * @RouteScope(scopes={"storefront"})
+     * @Route("/blog", name="sns.frontend.blog", methods={"GET"})
+     */
+    public function indexAction(Context $context): Response
+    {
+        /** @var EntityRepositoryInterface $blogRepository */
+        $blogRepository = $this->container->get('sas_blog_entries.repository');
+
+        $criteria = new Criteria();
+
+        $criteria->addFilter(
+            new EqualsFilter('active', true)
+        );
+
+        $results = $blogRepository->search($criteria, $context);
+
+        $entries = (array) $results->getEntities()->getElements();
+
+        return $this->renderStorefront('@Storefront/page/blog.html.twig', ['entries' => $entries]);
+    }
 
     /**
      * @Route("/sales-channel-api/v1/sas/get-all-blog-entries", name="sales-channel-api.action.sas.get-blog-entries", methods={"GET"})
