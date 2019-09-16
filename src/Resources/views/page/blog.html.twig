@@ -1,0 +1,40 @@
+{% sw_extends '@Storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% block page_blog %}
+        <div class="cms-page blog-page">
+            {% block page_blog_headline %}
+                <div class="blog-headline text-center">
+                    <h1>
+                        {{ "blog.headline"|trans() }}
+                    </h1>
+                </div>
+            {% endblock %}
+
+            {% block page_blog_entries %}
+                <div class="row">
+                    {% if entries|length %}
+                        {% for item in entries %}
+                            <article class="col-12 col-sm-6">
+                                <div class="card mt-lg-5 mb-lg-2">
+                                    <div class="card-body">
+                                        <h2>
+                                            <a href="/blog/{{ item.slug }}" title="{{ item.title }}">{{ item.title }}</a>
+                                        </h2>
+                                        <p>{{ item.content }}</p>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                    <div class="col">
+                        <div class="alert alert-primary" role="alert">
+                            Keine Einträge vorhanden.
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}
