@@ -36,7 +36,28 @@ class BlogController extends StorefrontController
 
         $entries = (array) $results->getEntities()->getElements();
 
-        return $this->renderStorefront('@Storefront/page/blog.html.twig', ['entries' => $entries]);
+        return $this->renderStorefront('@Storefront/page/blog/index.html.twig', ['entries' => $entries]);
+    }
+
+    /**
+     * @RouteScope(scopes={"storefront"})
+     * @Route("/blog/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
+     */
+    public function detailAction(Context $context, $slug): Response
+    {
+        /** @var EntityRepositoryInterface $blogRepository */
+        $blogRepository = $this->container->get('sas_blog_entries.repository');
+
+        $criteria = new Criteria();
+
+        $criteria->addFilter(
+            new EqualsFilter('slug', $slug)
+        );
+
+        $results = $blogRepository->search($criteria, $context)->getEntities();
+        $entry = $results->first();
+
+        return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', ['entry' => $entry]);
     }
 
     /**
