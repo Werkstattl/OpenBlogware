@@ -19,7 +19,7 @@
                                 <div class="card mt-lg-5 mb-lg-2">
                                     <div class="card-body">
                                         <h2>
-                                            <a href="/blog/{{ item.slug }}" title="{{ item.title }}">{{ item.title }}</a>
+                                            <a href="{{ path('sns.frontend.blog.detail', {slug: item.slug}) }}" title="{{ item.title }}">{{ item.title }}</a>
                                         </h2>
                                         <p>{{ item.content }}</p>
                                     </div>
