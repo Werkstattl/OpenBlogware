@@ -8,8 +8,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaI
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
+use Shopware\Storefront\Page\GenericPageLoader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,12 +20,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class BlogController extends StorefrontController
 {
 
+    private $genericPageLoader;
+
+    public function __construct(GenericPageLoader $genericPageLoader)
+    {
+        $this->genericPageLoader = $genericPageLoader;
+    }
+
     /**
      * @RouteScope(scopes={"storefront"})
      * @Route("/blog", name="sns.frontend.blog", methods={"GET"})
      */
-    public function indexAction(Context $context): Response
+    public function indexAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext): Response
     {
+        $page = $this->genericPageLoader->load($request, $salesChannelContext);
+
         /** @var EntityRepositoryInterface $blogRepository */
         $blogRepository = $this->container->get('sas_blog_entries.repository');
 
@@ -32,19 +44,24 @@ class BlogController extends StorefrontController
             new EqualsFilter('active', true)
         );
 
-        $results = $blogRepository->search($criteria, $context);
+        $results = $blogRepository->search($criteria, $criteriaContext);
 
         $entries = (array) $results->getEntities()->getElements();
 
-        return $this->renderStorefront('@Storefront/page/blog/index.html.twig', ['entries' => $entries]);
+        return $this->renderStorefront('@Storefront/page/blog/index.html.twig', [
+            'page' => $page,
+            'entries' => $entries
+        ]);
     }
 
     /**
      * @RouteScope(scopes={"storefront"})
      * @Route("/blog/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
      */
-    public function detailAction(Context $context, $slug): Response
+    public function detailAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext, $slug): Response
     {
+        $page = $this->genericPageLoader->load($request, $salesChannelContext);
+
         /** @var EntityRepositoryInterface $blogRepository */
         $blogRepository = $this->container->get('sas_blog_entries.repository');
 
@@ -54,54 +71,13 @@ class BlogController extends StorefrontController
             new EqualsFilter('slug', $slug)
         );
 
-        $results = $blogRepository->search($criteria, $context)->getEntities();
+        $results = $blogRepository->search($criteria, $criteriaContext)->getEntities();
         $entry = $results->first();
 
-        return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', ['entry' => $entry]);
+        return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', [
+            'page' => $page,
+            'entry' => $entry
+        ]);
     }
 
-    /**
-     * @Route("/sales-channel-api/v1/sas/get-all-blog-entries", name="sales-channel-api.action.sas.get-blog-entries", methods={"GET"})
-     * @param Context $context
-     * @return JsonResponse
-     * @throws InconsistentCriteriaIdsException
-     */
-    public function getAllBlogEntries(Context $context): JsonResponse
-    {
-        /** @var EntityRepositoryInterface $blogRepository */
-        $blogRepository = $this->container->get('sas_blog_entries.repository');
-
-        $criteria = new Criteria();
-
-        $criteria->addFilter(
-            new EqualsFilter('active', true)
-        );
-
-        $results = $blogRepository->search($criteria, $context);
-
-        return new JsonResponse($results);
-    }
-
-    /**
-     * @Route("/sales-channel-api/v1/sas/get-blog-entry/{slug}", name="sales-channel-api.action.sas.get-blog-entry", methods={"GET"})
-     * @param Context $context
-     * @param $slug
-     * @return JsonResponse
-     * @throws InconsistentCriteriaIdsException
-     */
-    public function getBlogEntry(Context $context, $slug): JsonResponse
-    {
-        /** @var EntityRepositoryInterface $blogRepository */
-        $blogRepository = $this->container->get('sas_blog_entries.repository');
-
-        $criteria = new Criteria();
-
-        $criteria->addFilter(
-            new EqualsFilter('slug', $slug)
-        );
-
-        $results = $blogRepository->search($criteria, $context);
-
-        return new JsonResponse($results);
-    }
 }

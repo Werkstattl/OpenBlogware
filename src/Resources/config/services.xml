@@ -13,5 +13,9 @@
             <tag name="shopware.snippet.file"/>
         </service>
 
+        <service id="Sas\BlogModule\Controller\BlogController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+        </service>
+
     </services>
 </container>
