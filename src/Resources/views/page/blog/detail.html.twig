@@ -1,0 +1,12 @@
+{% sw_extends '@Storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% block page_blog_detail %}
+        <div class="cms-page blog-page-detail">
+            <article>
+                <h1>{{ entry.title }}</h1>
+                <p>{{ entry.content }}</p>
+            </article>
+        </div>
+    {% endblock %}
+{% endblock %}
