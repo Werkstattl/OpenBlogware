@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Comment Configuration</title>
+        <title lang="de-DE">Kommentar Einstellungen</title>
+        <input-field>
+            <name>disqus</name>
+            <copyable>true</copyable>
+            <label>Disqus comment integration</label>
+            <label lang="de-DE">Disqus Kommentar Integration</label>
+            <placeholder>YOUR_ID</placeholder>
+            <placeholder lang="de-DE">DEINE_ID</placeholder>
+            <helpText>Please fill in the ID of your Disqus account</helpText>
+            <helpText lang="de-DE">Bitte trage deine persönliche E-Mail Adresse ein</helpText>
+        </input-field>
+    </card>
+</config>

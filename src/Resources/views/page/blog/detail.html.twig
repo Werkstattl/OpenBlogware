@@ -3,10 +3,18 @@
 {% block base_content %}
     {% block page_blog_detail %}
         <div class="cms-page blog-page-detail">
-            <article>
-                <h1>{{ entry.title }}</h1>
-                <p>{{ entry.content }}</p>
-            </article>
+            {% block page_blog_detail_article %}
+                <article>
+                    <h1>{{ entry.title }}</h1>
+                    <p>{{ entry.content }}</p>
+                </article>
+            {% endblock %}
+
+            {% block page_blog_detail_disqus %}
+                {% if shopware.config.BlogModule.config.disqus|length %}
+                    {% sw_include '@Storefront/page/blog/disqus.html.twig' %}
+                {% endif %}
+            {% endblock %}
         </div>
     {% endblock %}
 {% endblock %}
