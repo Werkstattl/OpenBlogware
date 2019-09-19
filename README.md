@@ -1,4 +1,5 @@
-# Shopware Platform Blog Module
+# Shopware 6 Blog Plugin - Still in early development
+This Shopware 6 plugin adds a blog functionality to Shopwar 6
 
 ## Installation
 
