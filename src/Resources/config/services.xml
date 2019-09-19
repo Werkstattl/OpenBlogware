@@ -5,6 +5,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+
+        <service id="Sas\BlogModule\Twig\TextExtension">
+            <tag name="twig.extension"/>
+        </service>
+
         <service id="Sas\BlogModule\Blog\BlogEntriesDefinition">
             <tag name="shopware.entity.definition" entity="sas_blog_entries" />
         </service>
@@ -14,7 +19,8 @@
         </service>
 
         <service id="Sas\BlogModule\Controller\BlogController" public="true">
-            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
+            <argument id="shopware.cache" type="service"/>
         </service>
 
     </services>

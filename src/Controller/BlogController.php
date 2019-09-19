@@ -2,6 +2,7 @@
 
 namespace Sas\BlogModule\Controller;
 
+use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
@@ -12,19 +13,38 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Page\GenericPageLoader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class BlogController
+ * @package Sas\BlogModule\Controller
+ */
 class BlogController extends StorefrontController
 {
 
+    /**
+     * @var GenericPageLoader
+     */
     private $genericPageLoader;
 
-    public function __construct(GenericPageLoader $genericPageLoader)
+    /**
+     * @var AdapterInterface
+     */
+    private $cache;
+
+    /**
+     * BlogController constructor.
+     * @param GenericPageLoader $genericPageLoader
+     * @param AdapterInterface $cache
+     */
+    public function __construct(GenericPageLoader $genericPageLoader, AdapterInterface $cache)
     {
         $this->genericPageLoader = $genericPageLoader;
+        $this->cache = $cache;
     }
 
     /**
@@ -57,6 +77,7 @@ class BlogController extends StorefrontController
     /**
      * @RouteScope(scopes={"storefront"})
      * @Route("/blog/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
+     * @throws PageNotFoundException
      */
     public function detailAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext, $slug): Response
     {
@@ -73,6 +94,14 @@ class BlogController extends StorefrontController
 
         $results = $blogRepository->search($criteria, $criteriaContext)->getEntities();
         $entry = $results->first();
+
+        $item = $this->cache->getItem('sns_blog_detail_'.md5($entry->getId()));
+        if (!$item->isHit())
+        {
+            $item->set($entry);
+            $this->cache->save($item);
+        }
+        $entry = $item->get();
 
         return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', [
             'page' => $page,
