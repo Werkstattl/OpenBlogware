@@ -3,25 +3,27 @@
 {% block base_content %}
     {% block page_blog %}
         <div class="cms-page blog-page">
-            {% block page_blog_headline %}
+            {# block page_blog_headline %}
                 <div class="blog-headline text-center">
                     <h1>
                         {{ "blog.headline"|trans() }}
                     </h1>
                 </div>
-            {% endblock %}
+            {% endblock #}
 
             {% block page_blog_entries %}
-                <div class="row">
+                <div class="row justify-content-md-center">
+                    <div class="col-7">
                     {% if entries|length %}
                         {% for item in entries %}
-                            <article class="col-12 col-sm-6">
-                                <div class="card mt-lg-5 mb-lg-2">
+                            <article class="">
+                                <div class="card mb-lg-3">
                                     <div class="card-body">
+                                        <span class="text-muted">{{ item.createdAt|date("F d, Y") }}</span>
                                         <h2>
                                             <a href="{{ path('sns.frontend.blog.detail', {slug: item.slug}) }}" title="{{ item.title }}">{{ item.title }}</a>
                                         </h2>
-                                        <p>{{ item.content }}</p>
+                                        <p>{{ item.content|truncate(250, true) }}</p>
                                     </div>
                                 </div>
                             </article>
@@ -33,6 +35,7 @@
                         </div>
                     </div>
                     {% endif %}
+                    </div>
                 </div>
             {% endblock %}
         </div>
