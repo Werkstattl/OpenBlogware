@@ -1,7 +1,5 @@
 import { Component, Mixin } from 'src/core/shopware';
 import template from './sas-blog-create.html.twig';
-import './redactor/redactor.min';
-import './redactor/redactor.min.css';
 
 import slugify from 'slugify';
 
@@ -31,10 +29,6 @@ Component.register('sas-blog-create', {
     created() {
         this.repository = this.repositoryFactory.create('sas_blog_entries');
         this.getBlog();
-    },
-
-    mounted() {
-        $R('#sw-field--blog-content');
     },
 
     watch: {
