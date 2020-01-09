@@ -4,12 +4,6 @@
             <h2 v-html="blog.title"></h2>
         </template>
 
-        {% block sas_blog_detail_header_language_switch %}
-            <template #language-switch>
-                <sw-language-switch @on-change="onChangeLanguage"></sw-language-switch>
-            </template>
-        {% endblock %}
-
         {% block sas_blog_detail_actions %}
             <template #smart-bar-actions>
                 {% block sas_blog_detail_actions_edit %}

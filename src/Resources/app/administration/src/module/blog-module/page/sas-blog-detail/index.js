@@ -24,12 +24,6 @@ Component.register('sas-blog-detail', {
         };
     },
 
-    metaInfo() {
-        return {
-            title: this.$createTitle(this.blog.title)
-        };
-    },
-
     created() {
         this.createdComponent();
     },
