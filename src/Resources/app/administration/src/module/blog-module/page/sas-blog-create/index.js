@@ -6,7 +6,7 @@ import slugify from 'slugify';
 Component.register('sas-blog-create', {
     template,
 
-    inject: ['repositoryFactory', 'context'],
+    inject: ['repositoryFactory'],
 
     mixins: [Mixin.getByName('notification')],
 
@@ -47,14 +47,14 @@ Component.register('sas-blog-create', {
 
     methods: {
         getBlog() {
-            this.blog = this.repository.create(this.context);
+            this.blog = this.repository.create(Shopware.Context.api);
         },
 
         onClickSave() {
             this.isLoading = true;
 
             this.repository
-                .save(this.blog, this.context)
+                .save(this.blog, Shopware.Context.api)
                 .then(() => {
                     this.isLoading = false;
                     this.$router.push({ name: 'blog.module.index' });

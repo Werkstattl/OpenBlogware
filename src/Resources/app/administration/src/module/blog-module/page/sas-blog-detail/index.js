@@ -5,7 +5,7 @@ import template from './sas-blog-detail.html.twig';
 Component.register('sas-blog-detail', {
     template,
 
-    inject: ['repositoryFactory', 'context'],
+    inject: ['repositoryFactory'],
 
     beforeRouteLeave(to, from, next) {
         this.blogEditMode = false;
@@ -50,7 +50,7 @@ Component.register('sas-blog-detail', {
                 this.blogId = this.$route.params.id;
 
                 if (!this.createMode) {
-                    this.blogRepository.get(this.blogId, this.context).then(blog => {
+                    this.blogRepository.get(this.blogId, Shopware.Context.api).then(blog => {
                         this.blog = blog;
                     });
                 }

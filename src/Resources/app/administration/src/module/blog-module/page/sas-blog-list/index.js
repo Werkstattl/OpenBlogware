@@ -7,7 +7,7 @@ import './sas-blog-list.scss';
 Component.register('sas-blog-list', {
     template,
 
-    inject: ['repositoryFactory', 'context'],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
@@ -51,7 +51,7 @@ Component.register('sas-blog-list', {
         this.isLoading = true;
         this.repository = this.repositoryFactory.create('sas_blog_entries');
 
-        this.repository.search(new Criteria(), this.context).then(result => {
+        this.repository.search(new Criteria(), Shopware.Context.api).then(result => {
             console.log(this.context);
             console.log(result);
             this.total = result.total;
