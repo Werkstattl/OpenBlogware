@@ -32,19 +32,13 @@ class BlogController extends StorefrontController
     private $genericPageLoader;
 
     /**
-     * @var AdapterInterface
-     */
-    private $cache;
-
-    /**
      * BlogController constructor.
      * @param GenericPageLoader $genericPageLoader
      * @param AdapterInterface $cache
      */
-    public function __construct(GenericPageLoader $genericPageLoader, AdapterInterface $cache)
+    public function __construct(GenericPageLoader $genericPageLoader)
     {
         $this->genericPageLoader = $genericPageLoader;
-        $this->cache = $cache;
     }
 
     /**
@@ -76,7 +70,7 @@ class BlogController extends StorefrontController
 
     /**
      * @RouteScope(scopes={"storefront"})
-     * @Route("/blog/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
+     * @Route("/{category}/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
      * @throws PageNotFoundException
      */
     public function detailAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext, $slug): Response
@@ -95,13 +89,7 @@ class BlogController extends StorefrontController
         $results = $blogRepository->search($criteria, $criteriaContext)->getEntities();
         $entry = $results->first();
 
-        $item = $this->cache->getItem('sns_blog_detail_'.md5($entry->getId()));
-        if (!$item->isHit())
-        {
-            $item->set($entry);
-            $this->cache->save($item);
-        }
-        $entry = $item->get();
+        dd($entry);
 
         return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', [
             'page' => $page,

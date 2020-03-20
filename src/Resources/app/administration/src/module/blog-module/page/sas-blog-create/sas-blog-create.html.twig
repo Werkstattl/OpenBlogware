@@ -30,7 +30,7 @@
                         disabled
                         :label="$tc('sas-blog.detail.slugLable')">
                     </sw-text-field>
-                    <sw-textarea-field id="content" v-model="blog.content" type="textarea" :label="$tc('sas-blog.detail.contentLable')" placeholder="placeholder goes here..."></sw-textarea-field>
+                    <sw-text-editor  v-model="blog.content" :label="$tc('sas-blog.detail.contentLable')"></sw-text-editor>
                 </sw-card>
             </sw-card-view>
         </template>

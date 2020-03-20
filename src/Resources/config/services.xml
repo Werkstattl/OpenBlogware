@@ -20,7 +20,10 @@
 
         <service id="Sas\BlogModule\Controller\BlogController" public="true">
             <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
-            <argument id="cache.app" type="service"/>
+        </service>
+
+        <service id="Sas\BlogModule\DataResolver\BlogCmsElementResolver">
+            <tag name="shopware.cms.data_resolver" />
         </service>
 
     </services>
