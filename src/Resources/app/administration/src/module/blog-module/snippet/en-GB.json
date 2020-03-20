@@ -1,7 +1,24 @@
 {
     "sas-blog": {
+        "general": {
+            "mainMenuItemGeneral": "Blog",
+            "mainMenuItemList": "Blog",
+            "mainMenuItemAdd": "New blog entry",
+            "descriptionTextModule": "Verwaltung von Blog Einträge.",
+            "placeholderSearchBar": "Search all blog entries"
+        },
         "list": {
-            "textBlogOverview": "Blog Entries"
+            "textBlogOverview": "Blog entries",
+            "buttonAddBlogEntry": "Create blog entry",
+            "messageEmpty": "No blog entries ..."
+        },
+        "detail": {
+            "saveBlogEntry": "Save entry",
+            "activeLable": "Entry active",
+            "contentLable": "Markdown content",
+            "slugLable": "Slug",
+            "titleLable": "Title",
+            "mediaLable": "Teaser Image"
         }
     }
 }

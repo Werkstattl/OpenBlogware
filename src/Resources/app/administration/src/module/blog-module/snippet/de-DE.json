@@ -17,7 +17,8 @@
             "activeLable": "Artikel aktiv",
             "contentLable": "Markdown Inhalt",
             "slugLable": "Slug",
-            "titleLable": "Titel"
+            "titleLable": "Titel",
+            "mediaLable": "Teaser Image"
         }
     }
 }
