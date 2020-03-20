@@ -5,7 +5,7 @@
            {% for entry in element.data.blog %}
                <div class="col-12">
                    <article class="card mt-5">
-                       <a href="{{ entry.slug }}">
+                       <a href="{{ path('sas.frontend.blog.detail', { slug: entry.slug }) }}">
                            <div class="card-body">
                                <h2 class="card-title">{{ entry.title }}</h2>
                                {{ entry.content|raw }}

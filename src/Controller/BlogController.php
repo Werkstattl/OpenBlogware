@@ -70,7 +70,7 @@ class BlogController extends StorefrontController
 
     /**
      * @RouteScope(scopes={"storefront"})
-     * @Route("/{category}/{slug}", name="sns.frontend.blog.detail", methods={"GET"})
+     * @Route("/blog/{slug}", name="sas.frontend.blog.detail", methods={"GET"})
      * @throws PageNotFoundException
      */
     public function detailAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext, $slug): Response
