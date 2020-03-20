@@ -89,9 +89,7 @@ class BlogController extends StorefrontController
         $results = $blogRepository->search($criteria, $criteriaContext)->getEntities();
         $entry = $results->first();
 
-        dd($entry);
-
-        return $this->renderStorefront('@Storefront/page/blog/detail.html.twig', [
+        return $this->renderStorefront('@Storefront/storefront/page/blog/detail.html.twig', [
             'page' => $page,
             'entry' => $entry
         ]);

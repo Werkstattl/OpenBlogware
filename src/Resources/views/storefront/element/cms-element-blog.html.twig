@@ -1,19 +1,29 @@
 {% block element_blog %}
-    {{ dump(page) }}
-    <div class="cms-element-blog" style="max-width: 600px; margin: 0 auto;">
+    <div class="cms-element-blog">
        <div class="row">
-           {% for entry in element.data.blog %}
+           {% if element.data.blog|length %}
+               {% for entry in element.data.blog %}
+                   <div class="col-12">
+                       <article class="card mt-5">
+                           <a href="{{ path('sas.frontend.blog.detail', { slug: entry.slug }) }}">
+                               <div class="card-body">
+                                   <h2 class="card-title">{{ entry.title }}</h2>
+                                   {{ entry.content|raw }}
+                               </div>
+                           </a>
+                       </article>
+                   </div>
+               {% endfor %}
+           {% else %}
                <div class="col-12">
-                   <article class="card mt-5">
-                       <a href="{{ path('sas.frontend.blog.detail', { slug: entry.slug }) }}">
-                           <div class="card-body">
-                               <h2 class="card-title">{{ entry.title }}</h2>
-                               {{ entry.content|raw }}
-                           </div>
-                       </a>
-                   </article>
+                   <div class="alert alert-primary" role="alert">
+                       {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                           type:"info",
+                           content:"Currently there're no blog entries available."
+                       } %}
+                   </div>
                </div>
-           {% endfor %}
+           {% endif %}
        </div>
     </div>
 {% endblock %}
