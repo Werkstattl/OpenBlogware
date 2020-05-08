@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\Twig;
 
 use Twig\Extension\AbstractExtension;
@@ -14,7 +13,7 @@ class TextExtension extends AbstractExtension
         ];
     }
 
-    function twig_truncate_filter($value, $length = 30, $preserve = false, $separator = '...')
+    public function twig_truncate_filter($value, $length = 30, $preserve = false, $separator = '...')
     {
         if (mb_strlen($value) > $length) {
             if ($preserve) {
@@ -26,10 +25,9 @@ class TextExtension extends AbstractExtension
                 $length = $breakpoint;
             }
 
-            return rtrim(mb_substr($value, 0, $length)).$separator;
+            return rtrim(mb_substr($value, 0, $length)) . $separator;
         }
 
         return $value;
     }
-
 }

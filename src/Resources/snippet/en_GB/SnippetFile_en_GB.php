@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\Resources\snippet\en_GB;
 
 use Shopware\Core\System\Snippet\Files\SnippetFileInterface;

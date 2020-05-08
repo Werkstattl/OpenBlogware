@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -14,7 +13,8 @@ class Migration1559416986BlogEntries extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeQuery('
+        $connection->executeQuery(
+            '
             CREATE TABLE IF NOT EXISTS `sas_blog_entries` (
             `id` BINARY(16) NOT NULL,
             `title` VARCHAR(255) NOT NULL,

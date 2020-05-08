@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\DataResolver;
 
 use Sas\BlogModule\Blog\BlogEntriesDefinition;
@@ -39,7 +38,6 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         );
 
         return $criteriaCollection;
-
     }
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void

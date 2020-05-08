@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\Blog;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
@@ -108,5 +107,4 @@ class BlogEntriesEntity extends Entity
     {
         $this->active = $active;
     }
-
 }
