@@ -1,0 +1,13 @@
+{% block sas_editor_pro_partials_table %}
+    <table class="sas-editor-pro-table table">
+        <tbody>
+            {% for row in block.data.content %}
+            <tr>
+                {% for column in row %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

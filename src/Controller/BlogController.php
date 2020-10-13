@@ -2,91 +2,76 @@
 namespace Sas\BlogModule\Controller;
 
 use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
-use Shopware\Core\Framework\Context;
+use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Controller\StorefrontController;
+use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
 use Shopware\Storefront\Page\GenericPageLoader;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Shopware\Storefront\Page\Navigation\NavigationPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class BlogController
- * @package Sas\BlogModule\Controller
+ * @RouteScope(scopes={"storefront"})
  */
 class BlogController extends StorefrontController
 {
-
     /**
      * @var GenericPageLoader
      */
     private $genericPageLoader;
+    /**
+     * @var SalesChannelCmsPageLoader
+     */
+    private $cmsPageLoader;
 
     /**
-     * BlogController constructor.
-     * @param GenericPageLoader $genericPageLoader
-     * @param AdapterInterface  $cache
+     * @var SystemConfigService
      */
-    public function __construct(GenericPageLoader $genericPageLoader)
+    private $systemConfigService;
+
+    public function __construct(SystemConfigService $systemConfigService, GenericPageLoader $genericPageLoader, SalesChannelCmsPageLoader $cmsPageLoader)
     {
+        $this->systemConfigService = $systemConfigService;
         $this->genericPageLoader = $genericPageLoader;
+        $this->cmsPageLoader = $cmsPageLoader;
     }
 
     /**
-     * @RouteScope(scopes={"storefront"})
-     * @Route("/blog", name="sns.frontend.blog", methods={"GET"})
+     * @HttpCache()
+     * @Route("/sas_blog/{articleId}", name="sas.frontend.blog.detail", methods={"GET"})
      */
-    public function indexAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext): Response
+    public function detailAction(string $articleId, Request $request, SalesChannelContext $context): Response
     {
-        $page = $this->genericPageLoader->load($request, $salesChannelContext);
+        $page = $this->genericPageLoader->load($request, $context);
+        $page = NavigationPage::createFrom($page);
 
         /** @var EntityRepositoryInterface $blogRepository */
         $blogRepository = $this->container->get('sas_blog_entries.repository');
 
-        $criteria = new Criteria();
+        $criteria = new Criteria([$articleId]);
 
-        $criteria->addFilter(
-            new EqualsFilter('active', true)
-        );
-
-        $results = $blogRepository->search($criteria, $criteriaContext);
-
-        $entries = (array) $results->getEntities()->getElements();
-
-        return $this->renderStorefront('@Storefront/page/blog/index.html.twig', [
-            'page'    => $page,
-            'entries' => $entries,
-        ]);
-    }
-
-    /**
-     * @RouteScope(scopes={"storefront"})
-     * @Route("/blog/{slug}", name="sas.frontend.blog.detail", methods={"GET"})
-     * @param  mixed                 $slug
-     * @throws PageNotFoundException
-     */
-    public function detailAction(Request $request, SalesChannelContext $salesChannelContext, Context $criteriaContext, $slug): Response
-    {
-        $page = $this->genericPageLoader->load($request, $salesChannelContext);
-
-        /** @var EntityRepositoryInterface $blogRepository */
-        $blogRepository = $this->container->get('sas_blog_entries.repository');
-
-        $criteria = new Criteria();
-
-        $criteria->addFilter(
-            new EqualsFilter('slug', $slug)
-        );
-
-        $results = $blogRepository->search($criteria, $criteriaContext)->getEntities();
+        $results = $blogRepository->search($criteria, $context->getContext())->getEntities();
         $entry = $results->first();
 
-        return $this->renderStorefront('@Storefront/storefront/page/blog/detail.html.twig', [
+        if (!$entry) {
+            throw new PageNotFoundException($articleId);
+        }
+
+        $pages = $this->cmsPageLoader->load(
+            $request,
+            new Criteria([$this->systemConfigService->get('BlogModule.config.cmsBlogDetailPage')]),
+            $context
+        );
+
+        $page->setCmsPage($pages->first());
+
+        return $this->renderStorefront('@Storefront/storefront/page/content/index.html.twig', [
             'page'  => $page,
             'entry' => $entry,
         ]);

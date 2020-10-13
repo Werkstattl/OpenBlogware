@@ -1,0 +1,20 @@
+{% block sas_editor_pro_partials_blockquote %}
+    <blockquote class="sas-editor-pro-blockquote blockquote text-{{ block.data.alignment }}">
+
+        {% block sas_editor_pro_partials_blockquote_text %}
+            {% if block.data.text|length %}
+                <p class="mb-0">
+                    {{ block.data.text|raw}}
+                </p>
+            {% endif %}
+        {% endblock %}
+
+        {% block sas_editor_pro_partials_blockquote_footer %}
+            {% if block.data.caption|length %}
+                <footer class="blockquote-footer">
+                    <cite title="{{ block.data.caption|raw }}">{{ block.data.caption|raw }}</cite>
+                </footer>
+            {% endif %}
+        {% endblock %}
+    </blockquote>
+{% endblock %}

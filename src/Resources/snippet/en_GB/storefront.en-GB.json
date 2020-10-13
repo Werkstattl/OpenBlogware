@@ -1,5 +1,9 @@
 {
-    "blog": {
-        "headline": "Blog"
+    "sas-blog": {
+        "listing": {
+            "readMoreLabel": "read more",
+            "emptyResultMessage": "We couldn't find any results for your search request",
+            "filterPanelResetAll": "Reset"
+        }
     }
 }

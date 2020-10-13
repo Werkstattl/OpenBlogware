@@ -1,6 +1,42 @@
 {% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
 
-{% block layout_head_stylesheet %}
+{% block layout_head_meta_tags %}
+    {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
     {{ parent() }}
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css" rel="stylesheet" />
+{% endblock %}
+
+{% block layout_head_meta_tags_description %}{% if entry.translated.metaDescription %}{{ entry.translated.metaDescription|striptags|trim }}{% else %}{{ entry.translated.teaser }}{% endif %}{% endblock %}
+
+{% block layout_head_title %}
+    {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
+    {{ parent() }}
+{% endblock %}
+
+{% block layout_head_meta_tags_schema_webpage %}
+    {{ parent() }}
+    {% if page.cmsPage.id == shopware.config.BlogModule.config.cmsBlogDetailPage %}
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "NewsArticle",
+                "headline": "{{ entry.translated.title }}",
+                "datePublished": "{{ entry.createdAt|date }}",
+                "dateModified": "{{ entry.updatedAt|date }}",
+                "description": "{{ entry.translated.teaser }}",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"
+                },
+                 "publisher": {
+                    "@type": "Organization",
+                    "name": "{{ shopware.config.core.basicInformation.shopName }}",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ shopware.theme['sw-logo-desktop'] |sw_encode_url }}"
+                    }
+                }
+
+            }
+        </script>
+    {% endif %}
 {% endblock %}

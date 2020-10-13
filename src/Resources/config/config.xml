@@ -2,6 +2,17 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
+        <title>CMS page blog detail assignment</title>
+        <title lang="de-DE">CMS Seite Detail Ansicht zuweisen</title>
+        <component name="sw-entity-single-select">
+            <name>cmsBlogDetailPage</name>
+            <entity>cms_page</entity>
+            <title>Choose a CMS page for the blog detail page</title>
+        </component>
+    </card>
+
+    <!--
+    <card>
         <title>Comment Configuration</title>
         <title lang="de-DE">Kommentar Einstellungen</title>
         <input-field>
@@ -15,4 +26,5 @@
             <helpText lang="de-DE">Bitte trage deine persönliche E-Mail Adresse ein</helpText>
         </input-field>
     </card>
+    -->
 </config>

@@ -1,0 +1,7 @@
+{% block sas_editor_pro_partials_list %}
+    {{  block.data.style == 'ordered' ? '<ol>' : '<ul>' }}
+       {% for item in block.data.items %}
+           <li>{{ item|raw }}</li>
+       {% endfor %}
+    {{  block.data.style == 'ordered' ? '</ol>' : '</ul>' }}
+{% endblock %}

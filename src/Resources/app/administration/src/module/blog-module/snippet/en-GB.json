@@ -10,15 +10,71 @@
         "list": {
             "textBlogOverview": "Blog entries",
             "buttonAddBlogEntry": "Create blog entry",
-            "messageEmpty": "No blog entries ..."
+            "messageEmpty": "No blog entries ...",
+            "table": {
+                "title": "Title",
+                "active": "Active"
+            }
         },
         "detail": {
+            "serp": {
+                "metaDescription": "Meta Description",
+                "metaTitle": "Meta Title"
+            },
             "saveBlogEntry": "Save entry",
+            "buttonCancel": "Cancel",
             "activeLable": "Entry active",
             "contentLable": "Markdown content",
             "slugLable": "Slug",
-            "titleLable": "Title",
-            "mediaLable": "Teaser Image"
+            "titleLabel": "Title",
+            "mediaLable": "Teaser Image",
+            "titlePlaceholder": "Enter your blog title",
+            "teaserLabel": "Teaser",
+            "teaserPlaceholder": "The teaser text which will be shown as an introduction within the blog listing ...",
+            "editorCardTitle": "Your article",
+            "editor": {
+                "headerPlaceholder": "Type in your heading text",
+                "paragraphPlaceholder": "Start typing ...",
+                "warningTitle": "Warning title",
+                "warningMessage": "Write your warning message ...",
+                "quotePlaceholder": "Tell me about your quote ...",
+                "quoteCaption": "... the caption"
+            }
+        },
+        "elements": {
+            "listing": {
+                "config": {
+                    "paginationCount": "Pagination count"
+                },
+                "component": {
+                    "elementHeadline": "Blog listing element",
+                    "infoText": "The blog listing content will be automatically fetched by the element."
+                }
+            },
+            "detail": {
+                "component": {
+                    "elementHeadline": "Blog detail element",
+                    "infoText": "The blog detail content will be automatically fetched by the element. There's currently no configuration available."
+                }
+            }
+        },
+        "blocks": {
+            "blog": {
+                "listing": {
+                    "previewTitle": "Blog Listing",
+                    "label": "Blog Listing"
+                },
+                "detail": {
+                    "previewTitle": "Blog Detail View",
+                    "label": "Blog Detail"
+                }
+            }
+        }
+    },
+
+    "sw-seo-url-template-card": {
+        "routeNames": {
+            "sas-frontend-blog-detail": "Blog Detail Page"
         }
     }
 }

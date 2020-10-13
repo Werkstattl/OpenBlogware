@@ -1,0 +1,8 @@
+{% block sas_editor_pro_partials_simple_image %}
+    <figure class="sas-editor-pro-simple-image figure">
+        <img src="{{ block.data.url }}" class="figure-img img-fluid {{ block.data.withBorder ? 'img-thumbnail' }}" alt="{{ block.data.caption }}">
+        {% if block.data.caption|length %}
+            <figcaption class="figure-caption">{{ block.data.caption }}</figcaption>
+        {% endif %}
+    </figure>
+{% endblock %}

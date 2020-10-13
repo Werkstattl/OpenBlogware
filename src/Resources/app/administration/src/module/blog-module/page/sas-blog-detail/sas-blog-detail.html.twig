@@ -1,22 +1,129 @@
-{% block sas_blog_list %}
+{% block sas_blog_detail %}
     <sw-page class="sas-blog-list">
         <template #smart-bar-header>
             <h2 v-html="blog.title"></h2>
         </template>
 
-        {% block sas_blog_detail_actions %}
+        <template #language-switch>
+            <sw-language-switch @on-change="changeLanguage" :disabled="isCreateMode"></sw-language-switch>
+        </template>
+
+        {% block sas_blog_detail_smart_bar_actions %}
             <template #smart-bar-actions>
-                {% block sas_blog_detail_actions_edit %}
-                    <sw-button v-if="!blogEditMode && !createMode"
-                            variant="primary"
-                            :disabled="isLoading || isOrderPage"
-                            @click.prevent="onActivateBlogEditMode">
-                        Editieren
+                {% block sas_blog_list_smart_bar_actions_about %}
+                    <sw-button :disabled="blog != null && blog.isLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                        {{ $tc('sas-blog.detail.buttonCancel') }}
+                    </sw-button>
+                {% endblock %}
+                {% block sas_blog_list_smart_bar_actions_add %}
+                    <sw-button variant="primary" @click="onClickSave()">
+                        {{ $tc('sas-blog.detail.saveBlogEntry') }}
                     </sw-button>
                 {% endblock %}
             </template>
         {% endblock %}
 
+        <template #content>
+            <sw-container columns="65% 1fr" gap="40px" style="padding:40px">
+                <div>
+                    <sw-card>
+                        <sw-container columns="100%" gap="20px">
+
+                            <sw-text-field
+                                v-model="blog.title"
+                                required
+                                style="margin-bottom: 0;"
+                                :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
+                                :label="$tc('sas-blog.detail.titleLabel')">
+                            </sw-text-field>
+
+                            <sw-textarea-field type="textarea"
+                                v-model="blog.teaser"
+                                :placeholder="$tc('sas-blog.detail.teaserPlaceholder')"
+                                :label="$tc('sas-blog.detail.teaserLabel')">
+                            </sw-textarea-field>
+
+                        </sw-container>
+                    </sw-card>
+
+                    <sw-card :title="$tc('sas-blog.detail.editorCardTitle')">
+                        <div class="sas-cms-el-editor-pro">
+                            <div id="blog-editor"></div>
+                        </div>
+                    </sw-card>
+
+                    <!--
+                    <sw-card>
+                        <div class="serp-preview">
+                            <h3>{{ blog.metaTitle }}</h3>
+                            <cite>{{ blog.slug }}</cite>
+                            <p>{{ blog.metaDescription }}</p>
+                        </div>
+                        <sw-text-field
+                            v-model="blog.metaTitle"
+                            style="margin-top: 20px; margin-bottom: 0;"
+                            placeholder="Meta Title"
+                            :copyable="false"
+                            @keyup='metaTitleCharCount()'
+                            :copyableTooltip="false">
+                        </sw-text-field>
+                        <span style="font-size: 14px; text-align: right; display: block; padding-bottom: 20px; padding-top: 5px; opacity: .7;">{{ remainMetaTitleCharactersText }}</span>
+
+                        <sw-textarea-field
+                            v-model="blog.metaDescription"
+                            type="textarea"
+                            placeholder="Meta Description">
+                        </sw-textarea-field>
+                    </sw-card>
+                    -->
+                </div>
+                <div>
+                    <sw-text-field
+                        v-model="blog.slug"
+                        placeholder="Undefined"
+                        required
+                        disabled
+                        :label="$tc('sas-blog.detail.slugLable')">
+                    </sw-text-field>
+                    <sw-card style="margin: 0">
+                        <h3 style="margin-bottom: 5px;">Visiblity</h3>
+                        <sw-switch-field style="margin-top: 0; margin-bottom: 0" type="switch" :label="$tc('sas-blog.detail.activeLable')" v-model="blog.active"></sw-switch-field>
+                        <!--
+                        <p style="color: #189eff">Add a specific release date.</p>
+                        -->
+                    </sw-card>
+
+                    <sw-card style="margin-top: 20px;">
+                        <h3 style="margin-bottom: 5px;">SERP Preview</h3>
+                        <div class="serp-preview">
+                            <h3>{{ blog.metaTitle }}</h3>
+                            <cite>{{ blog.slug }}</cite>
+                            <p>{{ blog.metaDescription }}</p>
+                        </div>
+                        <sw-text-field
+                            v-model="blog.metaTitle"
+                            :placeholder="$tc('sas-blog.detail.serp.metaTitle')">
+                        </sw-text-field>
+
+                        <sw-textarea-field
+                            v-model="blog.metaDescription"
+                            type="textarea"
+                            :placeholder="$tc('sas-blog.detail.serp.metaDescription')">
+                        </sw-textarea-field>
+                    </sw-card>
+
+                    <!--
+                    <sw-card style="margin-top: 40px;">
+                        <h3 style="margin-bottom: 5px;">Tags</h3>
+                        <sw-multi-tag-select
+                            :value="['lorem', 'ipsum', 'dolor', 'sit']"
+                        ></sw-multi-tag-select>
+                    </sw-card>
+                    -->
+
+                </div>
+            </sw-container>
+        </template>
 
     </sw-page>
 {% endblock %}

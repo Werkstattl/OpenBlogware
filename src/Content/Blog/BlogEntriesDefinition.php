@@ -1,0 +1,60 @@
+<?php declare(strict_types=1);
+namespace Sas\BlogModule\Content\Blog;
+
+use Sas\BlogModule\Content\Blog\BlogTranslation\BlogTranslationDefinition;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+
+class BlogEntriesDefinition extends EntityDefinition
+{
+    /**
+     * @return string
+     */
+    public function getEntityName(): string
+    {
+        return 'sas_blog_entries';
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityClass(): string
+    {
+        return BlogEntriesEntity::class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCollectionClass(): string
+    {
+        return BlogEntriesCollection::class;
+    }
+
+    /**
+     * @return FieldCollection
+     */
+    protected function defineFields(): FieldCollection
+    {
+        return new FieldCollection([
+            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
+            new BoolField('active', 'active'),
+
+            new TranslatedField('title'),
+            new TranslatedField('slug'),
+            new TranslatedField('teaser'),
+            new TranslatedField('metaTitle'),
+            new TranslatedField('metaDescription'),
+            new TranslatedField('content'),
+
+            new TranslationsAssociationField(BlogTranslationDefinition::class, 'sas_blog_entries_id'),
+
+        ]);
+    }
+}

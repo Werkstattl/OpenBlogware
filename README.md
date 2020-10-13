@@ -4,3 +4,7 @@
 #### ⚠️Still in early development⚠️
 This Shopware 6 plugin adds a blog functionality to Shopware 6
 
+### Configuration
+The plugin makes use of two CMS Elements which are part of two different CMS Layouts.
+
+
