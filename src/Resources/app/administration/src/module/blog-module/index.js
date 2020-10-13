@@ -1,10 +1,35 @@
 import { Module } from 'src/core/shopware';
+
+/**
+ * Extensions
+ */
+import './extension/sw-cms/component/sw-cms-sidebar';
+
+/**
+ * Pages
+ */
 import './page/sas-blog-list';
 import './page/sas-blog-create';
 import './page/sas-blog-detail';
 
+/**
+ * Language Snippets
+ */
+
 import deDE from './snippet/de-DE.json';
 import enGB from './snippet/en-GB.json';
+
+/**
+ * CMS Blocks
+ */
+import './blocks/listing';
+import './blocks/detail';
+
+/**
+ * CMS Elements
+ */
+import './elements/blog-detail';
+import './elements/blog';
 
 Module.register('blog-module', {
     type: 'plugin',
@@ -40,10 +65,10 @@ Module.register('blog-module', {
 
     navigation: [
         {
+            id: 'sas-blog',
             label: 'sas-blog.general.mainMenuItemGeneral',
-            color: '#62ff80',
             path: 'blog.module.index',
-            icon: 'default-object-lab-flask'
+            parent: 'sw-content',
         }
     ]
 });

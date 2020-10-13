@@ -4,8 +4,7 @@
 .LSOverride
 
 ## node_modules
-src/Resources/node_modules
-src/Resources/app/administration/src/module/blog-module/page/sas-blog-create/redactor/
+node_modules
 
 ## other stuff
 /.idea

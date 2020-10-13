@@ -1,0 +1,23 @@
+{% block sas_editor_pro_partial_embed_container %}
+<div class="sas-editor-pro-partial-embed">
+
+    {% block sas_blog_partial_embed_video %}
+        <div class="embed-responsive embed-responsive-16by9">
+            {% block sas_blog_partial_embed_video_iframe %}
+                <iframe src="{{ block.data.embed }}"
+                        allowfullscreen="allowfullscreen"
+                        class="embed-responsive-item">
+                </iframe>
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block sas_blog_partial_embed_caption %}
+        {% if  block.data.caption|length %}
+            <div class="sas-editor-pro-partial-embed-caption">
+                {{ block.data.caption|raw }}
+            </div>
+        {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

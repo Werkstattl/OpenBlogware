@@ -1,0 +1,63 @@
+{% set currentPage = ((searchResult.criteria.offset + 1) / searchResult.criteria.limit )|round(0, 'ceil') %}
+{% set paginationConfig = { page: currentPage }|json_encode %}
+
+{% set listingPagination = {
+    params: params,
+    dataUrl: dataUrl,
+    filterUrl: filterUrl,
+    snippets: {
+        resetAllButtonText: 'sas-blog.listing.filterPanelResetAll'|trans|sw_sanitize
+    }
+} %}
+
+{% block sas_blog_listing %}
+    <div class="cms-element-product-listing-wrapper"
+         data-listing-pagination="true"
+         data-listing-pagination-options='{{ paginationConfig }}'
+         data-listing="true"
+         data-listing-options='{{ listingPagination|json_encode }}'>
+
+        <div class="cms-element-product-listing">
+            {% if searchResult.total > 0 %}
+                <div class="cms-element-sas-blog-listing-actions row justify-content-between">
+                    <div class="col-md-auto">
+                        {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                            entities: searchResult,
+                            criteria: searchResult.criteria
+                        } %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% block sas_element_blog_listing_row %}
+                <div class="cms-news-full-listing-row js-listing-wrapper">
+                    {% if searchResult.total > 0 %}
+                        {% block sas_element_blog_listing_col %}
+                            <div class="row">
+                                {% for article in searchResult %}
+                                    {% block sas_element_blog_listing_box %}
+                                        <div class="col-12 col-md-6 my-4">
+                                            {% sw_include '@Storefront/storefront/component/blog/card/box.html.twig' %}
+                                        </div>
+                                    {% endblock %}
+                                {% endfor %}
+                            </div>
+                        {% endblock %}
+                    {% else %}
+                        {% block sas_element_blog_listing_col_empty %}
+                            <div class="cms-listing-col col-12">
+                                {% block sas_element_blog_listing_col_empty_alert %}
+                                    {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                        type: 'info',
+                                        content: 'sas-blog.listing.emptyResultMessage'|trans|sw_sanitize
+                                    } %}
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    {% endif %}
+                </div>
+            {% endblock %}
+
+        </div>
+    </div>
+{% endblock %}

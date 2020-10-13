@@ -1,0 +1,20 @@
+{% block sas_blog_card %}
+    <article class="card">
+        <div class="card-body">
+            {% block sas_blog_card_title %}
+                <h2 class="card-title">
+                    {% block sas_blog_card_title_link %}
+                        <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
+                           title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
+                           class="text-decoration-none">
+                            {{ article.translated.title }}
+                        </a>
+                    {% endblock %}
+                </h2>
+            {% endblock %}
+            {% block sas_blog_card_teaser %}
+                <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
+            {% endblock %}
+        </div>
+    </article>
+{% endblock %}

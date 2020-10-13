@@ -1,14 +1,8 @@
-{% block sw_cms_element_maps %}
-    <div class="sas-cms-el-blog">
-        <div class="sas-cms-el-blog__content">
-            <h2>Blog</h2>
-            <hr>
-            <div class="sas-cms-el-blog-placeholder">
-                <div class="sas-cms-el-blog__placeholder"></div>
-                <div class="sas-cms-el-blog__placeholder"></div>
-                <div class="sas-cms-el-blog__placeholder"></div>
-                <div class="sas-cms-el-blog__placeholder"></div>
-            </div>
-        </div>
+{% block sas_cms_element_blog_listing %}
+    <div class="sas-cms-el-blog-listing">
+        <h2>{{ $tc('sas-blog.elements.listing.component.elementHeadline') }}</h2>
+        <sw-alert variant="info">
+            {{ $tc('sas-blog.elements.listing.component.infoText') }}
+        </sw-alert>
     </div>
 {% endblock %}

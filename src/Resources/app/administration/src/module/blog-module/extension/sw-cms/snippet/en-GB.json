@@ -1,0 +1,9 @@
+{
+    "sw-cms": {
+        "component": {
+            "sw-cms-sidebar": {
+                "blog": "Blog"
+            }
+        }
+    }
+}

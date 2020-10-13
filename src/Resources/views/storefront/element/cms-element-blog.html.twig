@@ -1,29 +1,28 @@
-{% block element_blog %}
-    <div class="cms-element-blog">
-       <div class="row">
-           {% if element.data.blog|length %}
-               {% for entry in element.data.blog %}
-                   <div class="col-12">
-                       <article class="card mt-5">
-                           <a href="{{ path('sas.frontend.blog.detail', { slug: entry.slug }) }}">
-                               <div class="card-body">
-                                   <h2 class="card-title">{{ entry.title }}</h2>
-                                   {{ entry.content|raw }}
-                               </div>
-                           </a>
-                       </article>
-                   </div>
-               {% endfor %}
-           {% else %}
-               <div class="col-12">
-                   <div class="alert alert-primary" role="alert">
-                       {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
-                           type:"info",
-                           content:"Currently there're no blog entries available."
-                       } %}
-                   </div>
-               </div>
-           {% endif %}
-       </div>
-    </div>
+{% block sas_element_blog_listing %}
+
+    {# @var result \Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult #}
+    {% set searchResult = element.data %}
+    {% set config = element.fieldConfig.elements %}
+
+    {% set slot = page.cmsPage.firstElementOfType('blog') %}
+
+    {% set filterUrl = null %}
+    {% set dataUrl = null %}
+
+    {% if page.header.navigation.active.id %}
+        {% set filterUrl = url('frontend.cms.navigation.filter', { navigationId: page.header.navigation.active.id }) %}
+        {% set dataUrl = url('frontend.cms.navigation.page', { navigationId: page.header.navigation.active.id }) %}
+    {% endif %}
+
+    {% set params = { slots: slot.id, 'no-aggregations': 1 } %}
+
+    {% block sas_element_blog_listing_wrapper %}
+        {% sw_include '@Storefront/storefront/component/blog/listing.html.twig' with {
+            searchResult: searchResult,
+            dataUrl: dataUrl,
+            filterUrl: filterUrl,
+            params: params,
+            config: config
+        } %}
+    {% endblock %}
 {% endblock %}

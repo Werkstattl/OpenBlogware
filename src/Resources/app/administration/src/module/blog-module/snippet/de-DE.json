@@ -10,15 +10,60 @@
         "list": {
             "textBlogOverview": "Blog Einträge",
             "buttonAddBlogEntry": "Blog Eintrag erstellen",
-            "messageEmpty": "Keine Einträge vorhanden"
+            "messageEmpty": "Keine Einträge vorhanden",
+            "table": {
+                "title": "Titel",
+                "active": "Aktiv"
+            }
         },
         "detail": {
             "saveBlogEntry": "Eintrag speichern",
+            "buttonCancel": "Abbrechen",
             "activeLable": "Artikel aktiv",
             "contentLable": "Markdown Inhalt",
             "slugLable": "Slug",
-            "titleLable": "Titel",
-            "mediaLable": "Teaser Image"
+            "titleLabel": "Titel",
+            "mediaLable": "Teaser Image",
+            "teaserLabel": "Teaser",
+            "teaserPlaceholder": "Der Teaser Text, welcher im Blog Listing angezeigt wird ...",
+            "editorCardTitle": "Dein Artikel",
+            "editor": {
+                "headerPlaceholder": "Überschrift",
+                "paragraphPlaceholder": "Fange an zu schreiben ...",
+                "warningTitle": "Titel der Warnung",
+                "warningMessage": "Deine Warnung ...",
+                "quotePlaceholder": "Verrate mir dein Zitat ...",
+                "quoteCaption": "... und den Autor"
+            }
+        },
+        "elements": {
+            "listing": {
+                "config": {
+                    "paginationCount": "Pagination count"
+                },
+                "component": {
+                    "elementHeadline": "Blog Listen Element",
+                    "infoText": "Der Blog Listen Inhalt wird automatisch in der Storefront ausgespielt."
+                }
+            },
+            "detail": {
+                "component": {
+                    "elementHeadline": "Blog Detail Element",
+                    "infoText": "Der Blog Inhalt wird automatisch in der Storefront ausgespielt. Derzeit gibt es keine Element Konfiguration."
+                }
+            }
+        },
+        "blocks": {
+            "blog": {
+                "listing": {
+                    "previewTitle": "Blog Liste",
+                    "label": "Blog Listen Ansicht"
+                },
+                "detail": {
+                    "previewTitle": "Blog Detail",
+                    "label": "Blog Detail"
+                }
+            }
         }
     }
 }

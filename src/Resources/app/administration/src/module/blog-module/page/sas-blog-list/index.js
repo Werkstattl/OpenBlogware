@@ -11,7 +11,6 @@ Component.register('sas-blog-list', {
 
     data() {
         return {
-            repository: null,
             blogEntries: null,
             total: 0,
             isLoading: true
@@ -24,39 +23,45 @@ Component.register('sas-blog-list', {
         };
     },
 
+    created() {
+        this.getList();
+    },
+
     computed: {
+        blogEntriesRepository() {
+            return this.repositoryFactory.create('sas_blog_entries');
+        },
+
         columns() {
             return [
                 {
                     property: 'title',
                     dataIndex: 'title',
-                    label: 'Title',
+                    label: this.$tc('sas-blog.list.table.title'),
                     routerLink: 'blog.module.detail',
-                    inlineEdit: 'string',
-                    allowResize: true,
                     primary: true
                 },
                 {
                     property: 'active',
-                    label: this.$tc('sw-product.list.columnActive'),
-                    inlineEdit: 'boolean',
-                    allowResize: true,
-                    align: 'center'
+                    label: this.$tc('sas-blog.list.table.active')
                 }
             ];
         }
     },
 
-    created() {
-        this.isLoading = true;
-        this.repository = this.repositoryFactory.create('sas_blog_entries');
+    methods: {
+        changeLanguage() {
+            this.getList();
+        },
 
-        this.repository.search(new Criteria(), Shopware.Context.api).then(result => {
-            console.log(this.context);
-            console.log(result);
-            this.total = result.total;
-            this.blogEntries = result;
-            this.isLoading = false;
-        });
+        getList() {
+            this.isLoading = true;
+
+            return this.blogEntriesRepository.search(new Criteria(), Shopware.Context.api).then((result) => {
+                this.total = result.total;
+                this.blogEntries = result;
+                this.isLoading = false;
+            })
+        }
     }
 });

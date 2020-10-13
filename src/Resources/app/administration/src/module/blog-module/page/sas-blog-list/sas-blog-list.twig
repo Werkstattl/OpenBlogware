@@ -12,6 +12,9 @@
             {% endblock %}
             </h2>
         </template>
+        <template #language-switch>
+            <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
+        </template>
         {% block sas_blog_list_smart_bar_actions %}
             <template slot="smart-bar-actions">
                 {% block sas_blog_list_smart_bar_actions_add %}
@@ -27,7 +30,7 @@
                 <sw-entity-listing
                     v-if="blogEntries"
                     :items="blogEntries"
-                    :repository="repository"
+                    :repository="blogEntriesRepository"
                     :showSelection="false"
                     :columns="columns"
                     detailRoute="blog.module.detail">
@@ -48,10 +51,10 @@
                             {% endblock %}
                         </template>
                     {% endblock %}
-                    
+
                 </sw-entity-listing>
             {% endblock %}
-            
+
             {% block sas_blog_list_empty_state %}
                 <sw-empty-state v-if="!isLoading && !total" :title="$tc('sas-blog.list.messageEmpty')"></sw-empty-state>
             {% endblock %}

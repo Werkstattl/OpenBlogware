@@ -1,0 +1,9 @@
+{
+    "sas-blog": {
+        "listing": {
+            "readMoreLabel": "mehr lesen",
+            "emptyResultMessage": "Wir konnten leider keine Suchergebnisse finden ...",
+            "filterPanelResetAll": "Zurück setzen"
+        }
+    }
+}

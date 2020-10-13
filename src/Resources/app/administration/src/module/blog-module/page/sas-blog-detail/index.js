@@ -1,60 +1,211 @@
 import { Component, Mixin } from 'src/core/shopware';
-import Criteria from 'src/core/data-new/criteria.data';
 import template from './sas-blog-detail.html.twig';
+import './sas-blog-detail.scss';
+
+import slugify from 'slugify';
+import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
+import Marker from "@editorjs/marker";
+import Paragraph from "@editorjs/paragraph";
+import Warning from "@editorjs/warning";
+import Table from "@editorjs/table";
+import Quote from "@editorjs/quote";
+import Embed from '@editorjs/embed'
+import SimpleImage from '@editorjs/simple-image';
+import Delimiter from '@editorjs/delimiter';
+import RawTool from '@editorjs/raw';
+import InlineCode from '@editorjs/inline-code';
+
 
 Component.register('sas-blog-detail', {
     template,
 
     inject: ['repositoryFactory'],
 
-    beforeRouteLeave(to, from, next) {
-        this.blogEditMode = false;
-        next();
+    mixins: [Mixin.getByName('notification')],
+
+    metaInfo() {
+        return {
+            title: this.$createTitle()
+        };
     },
 
     data() {
         return {
+            blog: {
+                title: 'Undefined',
+                slug: 'undefined',
+                teaser: null,
+                content: {},
+                metaTitle: null,
+                metaDescription: null,
+                active: false
+            },
+            maxMetaTitleCharacters: 150,
+            remainMetaTitleCharactersText: "150 characters left.",
+            configOptions: {},
             isLoading: false,
-            blog: null,
-            blogId: null,
-            blogEditMode: false,
-            languages: [],
-            language: {},
-            isSaveSuccessful: false
+            repository: null,
+            processSuccess: false
         };
     },
 
     created() {
-        this.createdComponent();
+        this.repository = this.repositoryFactory.create('sas_blog_entries');
+        this.getBlog();
     },
 
     watch: {
-        '$route.params.id'() {
-            this.createdComponent();
+        'blog.active': function() {
+            return this.blog.active ? 1 : 0;
+        },
+        'blog.title': function(value) {
+            if (typeof value !== 'undefined') {
+                this.blog.slug = slugify(value, {
+                    lower: true
+                });
+            }
         }
     },
 
     computed: {
-        blogRepository() {
-            return this.repositoryFactory.create('sas_blog_entries');
+        tooltipCancel() {
+            return {
+                message: 'ESC',
+                appearance: 'light'
+            };
         },
-        createMode() {
-            return this.$route.name.includes('create');
+        isCreateMode() {
+            console.log(this.blog);
         }
     },
 
     methods: {
-        createdComponent() {
-            this.isLoading = true;
-            if (this.$route.params.id) {
-                this.blogId = this.$route.params.id;
+        getBlog() {
+            this.repository
+                .get(this.$route.params.id, Shopware.Context.api)
+                .then((entity) => {
+                    this.blog = entity;
+                })
+                .then( () => {
+                    this.editorPro();
+                });
+        },
 
-                if (!this.createMode) {
-                    this.blogRepository.get(this.blogId, Shopware.Context.api).then(blog => {
-                        this.blog = blog;
+        changeLanguage() {
+            this.getBlog();
+            editor.isReady .then(() => { editor.destroy(); });
+            this.getBlog();
+        },
+
+        metaTitleCharCount() {
+            if(this.blog.metaTitle.length > this.maxMetaTitleCharacters){
+                this.remainMetaTitleCharactersText = "Exceeded "+this.maxMetaTitleCharacters+" characters limit.";
+            }else{
+                const remainCharacters = this.maxMetaTitleCharacters - this.blog.metaTitle.length;
+                this.remainMetaTitleCharactersText = `${remainCharacters} characters left.`;
+            }
+        },
+
+        editorPro() {
+            const editor = new EditorJS({
+                holder: `blog-editor`,
+                autofocus: true,
+                initialBlock: "paragraph",
+                tools: {
+                    header: {
+                        class: Header,
+                        shortcut: "CMD+SHIFT+H",
+                        config: {
+                            placeholder: this.$tc('sas-blog.detail.editor.headerPlaceholder'),
+                            levels: [2, 3, 4, 5, 6],
+                            defaultLevel: 3
+                        }
+                    },
+                    list: {
+                        class: List
+                    },
+                    inlineCode: {
+                        class: InlineCode,
+                        shortcut: 'CMD+SHIFT+M',
+                    },
+                    paragraph: {
+                        class: Paragraph,
+                        config: {
+                            placeholder: this.$tc('sas-blog.detail.editor.paragraphPlaceholder')
+                        }
+                    },
+                    warning: {
+                        class: Warning,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+SHIFT+W',
+                        config: {
+                            titlePlaceholder: this.$tc('sas-blog.detail.editor.warningTitle'),
+                            messagePlaceholder: this.$tc('sas-blog.detail.editor.warningMessage'),
+                        },
+                    },
+                    Marker: {
+                        class: Marker,
+                        shortcut: 'CMD+SHIFT+M',
+                    },
+                    image: SimpleImage,
+                    delimiter: Delimiter,
+                    raw: RawTool,
+                    table: {
+                        class: Table,
+                        inlineToolbar: true,
+                        config: {
+                            rows: 2,
+                            cols: 3,
+                        },
+                    },
+                    quote: {
+                        class: Quote,
+                        inlineToolbar: true,
+                        shortcut: 'CMD+SHIFT+O',
+                        config: {
+                            quotePlaceholder: this.$tc('sas-blog.detail.editor.quotePlaceholder'),
+                            captionPlaceholder: this.$tc('sas-blog.detail.editor.quoteCaption'),
+                        },
+                    },
+                    embed: Embed
+                },
+                data: this.blog.content,
+                onChange: (data) => {
+                    editor.save().then((outputData) => {
+                        this.blog.content = outputData;
+                    }).catch((error) => {
+                        this.createNotificationError({
+                            title: 'ERROR',
+                            message: error
+                        });
                     });
                 }
-            }
+            });
+        },
+
+        onClickSave() {
+            this.isLoading = true;
+
+            this.repository
+                .save(this.blog, Shopware.Context.api)
+                .then(() => {
+                    this.isLoading = false;
+                    this.$router.push({ name: 'blog.module.index' });
+                })
+                .catch(exception => {
+                    this.isLoading = false;
+
+                    this.createNotificationError({
+                        title: 'TODO // ERROR',
+                        message: exception
+                    });
+                });
+        },
+
+        onCancel() {
+            this.$router.push({ name: 'blog.module.index' });
         }
     }
 });
