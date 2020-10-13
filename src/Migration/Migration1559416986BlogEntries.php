@@ -53,11 +53,11 @@ class Migration1559416986BlogEntries extends MigrationStep
             INSERT INTO `seo_url_template` (`id`, `sales_channel_id`, `route_name`, `entity_name`, `template`, `is_valid`, `custom_fields`, `created_at`, `updated_at`)
             VALUES (:id, NULL, :routeName, :entityName, :template, 1, NULL, :createdAt, NULL);
         ', [
-            'id' => Uuid::randomBytes(),
-            'routeName' => 'sas.frontend.blog.detail',
+            'id'         => Uuid::randomBytes(),
+            'routeName'  => 'sas.frontend.blog.detail',
             'entityName' => 'sas_blog_entries',
-            'template' => 'Blog/{{ entry.title }}',
-            'createdAt' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            'template'   => 'Blog/{{ entry.title }}',
+            'createdAt'  => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
     }
 
