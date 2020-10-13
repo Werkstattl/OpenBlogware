@@ -17,7 +17,7 @@
     "extra": {
         "shopware-plugin-class": "Sas\\BlogModule\\SasBlogModule",
         "plugin-icon": "src/Resources/config/plugin.png",
-        "copyright": "by SMK Shape & Shift LTD",
+        "copyright": "by Christopher Dosin",
         "label": {
             "de-DE": "Blog Module",
             "en-GB": "Blog Module"
