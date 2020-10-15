@@ -13,7 +13,14 @@
                         } %}
 
                         {% sw_thumbnails 'blog-image-thumbnails' with {
-                            media: article.media
+                            media: article.media,
+                            sizes: {
+                                'xs': '501px',
+                                'sm': '315px',
+                                'md': '427px',
+                                'lg': '333px',
+                                'xl': '284px'
+                            }
                         } %}
                     {% else %}
                         <div class="blog-image-placeholder">

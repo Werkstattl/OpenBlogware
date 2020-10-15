@@ -24,7 +24,6 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         /* get the config from the element */
         $config = $slot->getFieldConfig();
 
-
         $criteria = new Criteria();
 
         $criteria->addFilter(
