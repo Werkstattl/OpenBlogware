@@ -21,7 +21,7 @@ import InlineCode from '@editorjs/inline-code';
 Component.register('sas-blog-detail', {
     template,
 
-    inject: ['repositoryFactory'],
+    inject: ['openMediaSidebar', 'repositoryFactory'],
 
     mixins: [Mixin.getByName('notification')],
 
