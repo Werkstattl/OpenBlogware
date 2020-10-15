@@ -71,7 +71,6 @@ class SasBlogModule extends Plugin
                 'folder' => [
                     'id' => $folderId,
                     'name' => 'Blog Media',
-                    'configurationId' => $configurationId,
                     'configuration' => [
                         'id' => $configurationId,
                         'private' => false,
