@@ -2,6 +2,7 @@
 namespace Sas\BlogModule;
 
 use Doctrine\DBAL\Connection;
+use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Sas\BlogModule\Util\Lifecycle;
 use Sas\BlogModule\Util\Update;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -60,12 +61,9 @@ class SasBlogModule extends Plugin
         /** @var EntityRepositoryInterface $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_default_folder.repository');
 
-        $folderId = Uuid::randomHex();
-        $configurationId = Uuid::randomHex();
-
         $mediaFolderRepository->create([
             [
-                'entity' => 'sas_blog_entries',
+                'entity' => BlogEntriesDefinition::ENTITY_NAME,
                 'associationFields' => ['media'],
                 'folder' => [
                     'name' => 'Blog Images',
