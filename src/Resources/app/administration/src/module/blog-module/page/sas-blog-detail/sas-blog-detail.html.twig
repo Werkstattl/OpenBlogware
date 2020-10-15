@@ -5,7 +5,7 @@
         </template>
 
         <template #language-switch>
-            <sw-language-switch @on-change="changeLanguage" :disabled="isCreateMode"></sw-language-switch>
+            <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
         </template>
 
         {% block sas_blog_detail_smart_bar_actions %}
@@ -29,6 +29,8 @@
                     <sw-card>
                         <sw-container columns="100%" gap="20px">
 
+                            {{ blog.id }}
+
                             <sw-text-field
                                 v-model="blog.title"
                                 required
@@ -50,10 +52,12 @@
                             </sw-upload-listener>
 
                             <sw-media-upload-v2
+                                v-if="!isLoading"
                                 variant="regular"
                                 :label="$tc('sas-blog.detail.teaserImageLabel')"
                                 :source="mediaItem"
                                 :uploadTag="blog.id"
+                                :defaultFolder="blog.getEntityName()"
                                 @media-drop="onMediaDropped">
                             </sw-media-upload-v2>
 

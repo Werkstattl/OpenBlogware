@@ -46,7 +46,7 @@ Component.register('sas-blog-detail', {
             maxMetaTitleCharacters: 150,
             remainMetaTitleCharactersText: "150 characters left.",
             configOptions: {},
-            isLoading: false,
+            isLoading: true,
             repository: null,
             processSuccess: false
         };
@@ -78,10 +78,6 @@ Component.register('sas-blog-detail', {
             };
         },
 
-        isCreateMode() {
-            console.log(this.blog);
-        },
-
         mediaItem() {
             return this.blog !== null ? this.blog.media : null;
         },
@@ -97,6 +93,7 @@ Component.register('sas-blog-detail', {
                 .get(this.$route.params.id, Shopware.Context.api)
                 .then((entity) => {
                     this.blog = entity;
+                    this.isLoading = false;
                 })
                 .then( () => {
                     this.editorPro();
@@ -231,7 +228,6 @@ Component.register('sas-blog-detail', {
         },
 
         onMediaDropped(dropItem) {
-            // to be consistent refetch entity with repository
             this.onSetMediaItem({ targetId: dropItem.id });
         }
     }
