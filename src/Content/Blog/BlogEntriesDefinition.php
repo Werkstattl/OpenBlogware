@@ -2,23 +2,28 @@
 namespace Sas\BlogModule\Content\Blog;
 
 use Sas\BlogModule\Content\Blog\BlogTranslation\BlogTranslationDefinition;
+use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class BlogEntriesDefinition extends EntityDefinition
 {
+    public const ENTITY_NAME = 'sas_blog_entries';
+
     /**
      * @return string
      */
     public function getEntityName(): string
     {
-        return 'sas_blog_entries';
+        return self::ENTITY_NAME;
     }
 
     /**
@@ -45,6 +50,9 @@ class BlogEntriesDefinition extends EntityDefinition
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
             new BoolField('active', 'active'),
+
+            (new FkField('media_id', 'mediaId', MediaDefinition::class)),
+            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true)),
 
             new TranslatedField('title'),
             new TranslatedField('slug'),

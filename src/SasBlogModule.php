@@ -3,10 +3,12 @@ namespace Sas\BlogModule;
 
 use Doctrine\DBAL\Connection;
 use Sas\BlogModule\Util\Lifecycle;
+use Sas\BlogModule\Util\Update;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
+use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class SasBlogModule extends Plugin
@@ -35,6 +37,13 @@ class SasBlogModule extends Plugin
         $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_entries`');
         $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_entries_translation`');
         $connection->executeQuery('SET FOREIGN_KEY_CHECKS=1;');
+    }
+
+    public function update(UpdateContext $updateContext): void
+    {
+        (new Update())->update($this->container, $updateContext);
+
+        parent::update($updateContext);
     }
 
     private function getLifeCycle(): Lifecycle
