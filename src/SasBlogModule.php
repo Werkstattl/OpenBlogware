@@ -47,6 +47,10 @@ class SasBlogModule extends Plugin
     {
         (new Update())->update($this->container, $updateContext);
 
+        if (\version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
+            $this->createBlogMediaFolder();
+        }
+
         parent::update($updateContext);
     }
 
