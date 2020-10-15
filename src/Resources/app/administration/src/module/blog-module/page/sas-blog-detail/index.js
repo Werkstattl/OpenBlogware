@@ -37,6 +37,7 @@ Component.register('sas-blog-detail', {
                 title: 'Undefined',
                 slug: 'undefined',
                 teaser: null,
+                teaserImage: null,
                 content: {},
                 metaTitle: null,
                 metaDescription: null,
@@ -76,9 +77,18 @@ Component.register('sas-blog-detail', {
                 appearance: 'light'
             };
         },
+
         isCreateMode() {
             console.log(this.blog);
-        }
+        },
+
+        mediaItem() {
+            return this.blog !== null ? this.blog.media : null;
+        },
+
+        mediaRepository() {
+            return this.repositoryFactory.create('media');
+        },
     },
 
     methods: {
@@ -206,6 +216,23 @@ Component.register('sas-blog-detail', {
 
         onCancel() {
             this.$router.push({ name: 'blog.module.index' });
+        },
+
+        onSetMediaItem({ targetId }) {
+            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
+                this.blog.mediaId = targetId;
+                this.blog.media = updatedMedia;
+            });
+        },
+
+        onRemoveMediaItem() {
+            this.blog.mediaId = null;
+            this.blog.media = null;
+        },
+
+        onMediaDropped(dropItem) {
+            // to be consistent refetch entity with repository
+            this.onSetMediaItem({ targetId: dropItem.id });
         }
     }
 });

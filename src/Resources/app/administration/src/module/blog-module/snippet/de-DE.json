@@ -25,6 +25,7 @@
             "titleLabel": "Titel",
             "mediaLable": "Teaser Image",
             "teaserLabel": "Teaser",
+            "teaserImageLabel": "Teaser Bild",
             "teaserPlaceholder": "Der Teaser Text, welcher im Blog Listing angezeigt wird ...",
             "editorCardTitle": "Dein Artikel",
             "editor": {

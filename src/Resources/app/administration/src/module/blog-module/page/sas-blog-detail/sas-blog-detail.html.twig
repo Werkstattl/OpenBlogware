@@ -43,6 +43,20 @@
                                 :label="$tc('sas-blog.detail.teaserLabel')">
                             </sw-textarea-field>
 
+                            <sw-upload-listener
+                                :uploadTag="blog.id"
+                                @media-upload-finish="onSetMediaItem"
+                                autoUpload>
+                            </sw-upload-listener>
+
+                            <sw-media-upload-v2
+                                variant="regular"
+                                :label="$tc('sas-blog.detail.teaserImageLabel')"
+                                :source="mediaItem"
+                                :uploadTag="blog.id"
+                                @media-drop="onMediaDropped">
+                            </sw-media-upload-v2>
+
                         </sw-container>
                     </sw-card>
 
