@@ -33,16 +33,7 @@ Component.register('sas-blog-detail', {
 
     data() {
         return {
-            blog: {
-                title: 'Undefined',
-                slug: 'undefined',
-                teaser: null,
-                teaserImage: null,
-                content: {},
-                metaTitle: null,
-                metaDescription: null,
-                active: false
-            },
+            blog: null,
             maxMetaTitleCharacters: 150,
             remainMetaTitleCharactersText: "150 characters left.",
             configOptions: {},
