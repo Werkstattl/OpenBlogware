@@ -58,23 +58,29 @@ class SasBlogModule extends Plugin
     public function createBlogMediaFolder(InstallContext $installContext): void
     {
         /** @var EntityRepositoryInterface $mediaFolderRepository */
-        $mediaFolderRepository = $this->container->get('media_folder.repository');
+        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
 
         $folderId = Uuid::randomHex();
         $configurationId = Uuid::randomHex();
 
         $mediaFolderRepository->create([
             [
-                'id' => $folderId,
                 'entity' => 'sas_blog_entries',
-                'name' => 'Blog Media',
                 'associationFields' => ['media'],
-                'configuration' => [
-                    'id' => $configurationId,
-                    'createThumbnails' => true,
-                    'keepAspectRatio' => true,
-                    'thumbnailQuality' => 80
-                ],
+                'folder' => [
+                    'name' => 'Blog Images',
+                    'useParentConfiguration' => false,
+                    'configuration' =>
+                        [
+                            'createThumbnails' => true,
+                            'mediaThumbnailSizes' => [
+                                [
+                                    'width' => 960,
+                                    'height' => 480
+                                ]
+                            ]
+                        ]
+                ]
             ],
         ], $installContext->getContext());
     }
