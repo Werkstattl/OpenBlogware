@@ -12,10 +12,7 @@
                     } %}
 
                     {% sw_thumbnails 'blog-image-thumbnails' with {
-                        media: article.media,
-                        sizes: {
-                            'default': '360px'
-                        }
+                        media: article.media
                     } %}
                 {% else %}
                     <div class="blog-image-placeholder">

@@ -73,8 +73,8 @@ class SasBlogModule extends Plugin
                             'createThumbnails' => true,
                             'mediaThumbnailSizes' => [
                                 [
-                                    'width' => 960,
-                                    'height' => 480
+                                    'width' => 650,
+                                    'height' => 330
                                 ]
                             ]
                         ]

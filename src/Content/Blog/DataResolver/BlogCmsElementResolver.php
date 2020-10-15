@@ -31,8 +31,6 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             new EqualsFilter('active', true)
         );
 
-        $criteria->addAssociation('media');
-
         $criteria->addSorting(new FieldSorting('createdAt', FieldSorting::DESCENDING));
 
         /* get the pagination limit from the element config */
