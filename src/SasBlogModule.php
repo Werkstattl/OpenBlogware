@@ -65,18 +65,15 @@ class SasBlogModule extends Plugin
 
         $mediaFolderRepository->create([
             [
+                'id' => $folderId,
                 'entity' => 'sas_blog_entries',
                 'name' => 'Blog Media',
                 'associationFields' => ['media'],
-                'folder' => [
-                    'id' => $folderId,
-                    'name' => 'Blog Media',
-                    'configuration' => [
-                        'id' => $configurationId,
-                        'private' => false,
-                        'createThumbnails'=> true,
-                        'thumbnailQuality' => 80
-                    ],
+                'configuration' => [
+                    'id' => $configurationId,
+                    'createThumbnails' => true,
+                    'keepAspectRatio' => true,
+                    'thumbnailQuality' => 80
                 ],
             ],
         ], $installContext->getContext());
