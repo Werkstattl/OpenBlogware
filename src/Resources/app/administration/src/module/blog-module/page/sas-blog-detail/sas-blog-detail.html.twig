@@ -27,9 +27,7 @@
             <sw-container columns="65% 1fr" gap="40px" style="padding:40px">
                 <div>
                     <sw-card>
-                        <sw-container columns="100%" gap="20px">
-
-                            {{ blog.id }}
+                        <sw-container columns="100%" gap="20px" v-if="!isLoading">
 
                             <sw-text-field
                                 v-model="blog.title"
@@ -52,7 +50,6 @@
                             </sw-upload-listener>
 
                             <sw-media-upload-v2
-                                v-if="!isLoading"
                                 variant="regular"
                                 :label="$tc('sas-blog.detail.teaserImageLabel')"
                                 :source="mediaItem"
