@@ -9,6 +9,7 @@ use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class SasBlogModule extends Plugin
@@ -16,6 +17,8 @@ class SasBlogModule extends Plugin
     public function install(InstallContext $installContext): void
     {
         parent::install($installContext);
+
+        $this->createBlogMediaFolder($installContext);
 
         $this->getLifeCycle()->install($installContext->getContext());
     }
@@ -44,6 +47,40 @@ class SasBlogModule extends Plugin
         (new Update())->update($this->container, $updateContext);
 
         parent::update($updateContext);
+    }
+
+    /**
+     * We need to create a folder for the blog media with it's,
+     * own configuration to generate thumbnails for the teaser image.
+     *
+     * @param $installContext
+     */
+    public function createBlogMediaFolder(InstallContext $installContext): void
+    {
+        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        $mediaFolderRepository = $this->container->get('media_folder.repository');
+
+        $folderId = Uuid::randomHex();
+        $configurationId = Uuid::randomHex();
+
+        $mediaFolderRepository->create([
+            [
+                'entity' => 'sas_blog_entries',
+                'name' => 'Blog Media',
+                'associationFields' => ['media'],
+                'folder' => [
+                    'id' => $folderId,
+                    'name' => 'Blog Media',
+                    'configurationId' => $configurationId,
+                    'configuration' => [
+                        'id' => $configurationId,
+                        'private' => false,
+                        'createThumbnails'=> true,
+                        'thumbnailQuality' => 80
+                    ],
+                ],
+            ],
+        ], $installContext->getContext());
     }
 
     private function getLifeCycle(): Lifecycle
