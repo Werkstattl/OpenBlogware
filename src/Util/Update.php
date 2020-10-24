@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Sas\BlogModule\Util;
 
 use Psr\Container\ContainerInterface;
@@ -28,6 +27,5 @@ class Update
             $blogEntriesMigration = new Migration1602739765AddTeaserImageColumnToBlogEntries();
             $blogEntriesMigration->update($connection);
         }
-
     }
 }

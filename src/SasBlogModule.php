@@ -13,7 +13,6 @@ use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
-use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class SasBlogModule extends Plugin
@@ -96,22 +95,22 @@ class SasBlogModule extends Plugin
 
         $mediaFolderRepository->create([
             [
-                'entity' => BlogEntriesDefinition::ENTITY_NAME,
+                'entity'            => BlogEntriesDefinition::ENTITY_NAME,
                 'associationFields' => ['media'],
-                'folder' => [
-                    'name' => 'Blog Images',
+                'folder'            => [
+                    'name'                   => 'Blog Images',
                     'useParentConfiguration' => false,
-                    'configuration' =>
+                    'configuration'          =>
                         [
-                            'createThumbnails' => true,
+                            'createThumbnails'    => true,
                             'mediaThumbnailSizes' => [
                                 [
-                                    'width' => 650,
-                                    'height' => 330
-                                ]
-                            ]
-                        ]
-                ]
+                                    'width'  => 650,
+                                    'height' => 330,
+                                ],
+                            ],
+                        ],
+                ],
             ],
         ], $context);
     }
