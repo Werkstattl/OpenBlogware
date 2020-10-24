@@ -1,8 +1,7 @@
 {% block sas_blog_card %}
     <article class="card">
         {% block sas_blog_card_teaser_image %}
-            {% if article.media %}
-                <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
+            <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
                    title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
                    class="blog-image-link">
                     {% if article.media.url %}
@@ -30,7 +29,6 @@
                         </div>
                     {% endif %}
                 </a>
-            {% endif %}
         {% endblock %}
         {% block sas_blog_card_body %}
             <div class="card-body">
