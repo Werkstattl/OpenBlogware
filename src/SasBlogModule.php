@@ -5,6 +5,7 @@ use Doctrine\DBAL\Connection;
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Sas\BlogModule\Util\Lifecycle;
 use Sas\BlogModule\Util\Update;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
@@ -19,7 +20,7 @@ class SasBlogModule extends Plugin
     {
         parent::install($installContext);
 
-        $this->createBlogMediaFolder($installContext);
+        $this->createBlogMediaFolder($installContext->getContext());
 
         $this->getLifeCycle()->install($installContext->getContext());
     }
@@ -45,13 +46,13 @@ class SasBlogModule extends Plugin
 
     public function update(UpdateContext $updateContext): void
     {
+        parent::update($updateContext);
+
         (new Update())->update($this->container, $updateContext);
 
         if (\version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
-            $this->createBlogMediaFolder();
+            $this->createBlogMediaFolder($updateContext->getContext());
         }
-
-        parent::update($updateContext);
     }
 
     /**
@@ -60,7 +61,7 @@ class SasBlogModule extends Plugin
      *
      * @param $installContext
      */
-    public function createBlogMediaFolder(InstallContext $installContext): void
+    public function createBlogMediaFolder(Context $context): void
     {
         /** @var EntityRepositoryInterface $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_default_folder.repository');
@@ -84,7 +85,7 @@ class SasBlogModule extends Plugin
                         ]
                 ]
             ],
-        ], $installContext->getContext());
+        ], $context);
     }
 
     private function getLifeCycle(): Lifecycle
