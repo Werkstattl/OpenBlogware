@@ -7,6 +7,8 @@ use Sas\BlogModule\Util\Lifecycle;
 use Sas\BlogModule\Util\Update;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
@@ -36,6 +38,32 @@ class SasBlogModule extends Plugin
             return;
         }
 
+        /**
+         * We need to uninstall our media media folder entry,
+         * however we should clean this up within a next update :)
+         */
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new EqualsAnyFilter('entity', [
+                BlogEntriesDefinition::ENTITY_NAME,
+            ])
+        );
+
+        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
+
+        $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context->getContext())->getIds();
+
+        if (!empty($mediaFolderIds)) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $mediaFolderIds);
+            $mediaFolderRepository->delete($ids, $context->getContext());
+        }
+
+        /**
+         * And of course we need to drop our tables
+         */
         $connection = $this->container->get(Connection::class);
 
         $connection->executeQuery('SET FOREIGN_KEY_CHECKS=0;');
@@ -59,7 +87,7 @@ class SasBlogModule extends Plugin
      * We need to create a folder for the blog media with it's,
      * own configuration to generate thumbnails for the teaser image.
      *
-     * @param $installContext
+     * @param Context $context
      */
     public function createBlogMediaFolder(Context $context): void
     {
