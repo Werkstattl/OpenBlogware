@@ -103,8 +103,8 @@ class SasBlogModule extends Plugin
         ], $context);
     }
 
-    private function deleteDefaultMediaFolder(Context $context): void {
-
+    private function deleteDefaultMediaFolder(Context $context): void
+    {
         $criteria = new Criteria();
         $criteria->addFilter(
             new EqualsAnyFilter('entity', [
@@ -125,7 +125,8 @@ class SasBlogModule extends Plugin
         }
     }
 
-    private function deleteMediaFolder(Context $context): void {
+    private function deleteMediaFolder(Context $context): void
+    {
         $criteria = new Criteria();
         $criteria->addFilter(
             new EqualsFilter('name', 'Blog Images')
@@ -146,14 +147,15 @@ class SasBlogModule extends Plugin
         }
     }
 
-    private function checkForThumbnailSizes(Context $context): void {
+    private function checkForThumbnailSizes(Context $context): void
+    {
         $criteria = new Criteria();
         $criteria->addFilter(
             new MultiFilter(
                 MultiFilter::CONNECTION_AND,
                 [
                     new EqualsFilter('width', 650),
-                    new EqualsFilter('height', 330)
+                    new EqualsFilter('height', 330),
                 ]
             )
         );
