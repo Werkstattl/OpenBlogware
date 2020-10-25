@@ -40,13 +40,13 @@ class SasBlogModule extends Plugin
         }
 
         /**
-         * We need to uninstall our default media folder
-         * and media folder.
+         * We need to uninstall our default media folder,
+         * the media folder and the thumbnail sizes.
          * However, we have to clean this up within a next update :)
          */
-        $this->checkForThumbnailSizes($context->getContext());
         $this->deleteMediaFolder($context->getContext());
         $this->deleteDefaultMediaFolder($context->getContext());
+        $this->checkForThumbnailSizes($context->getContext());
 
         /**
          * And of course we need to drop our tables
