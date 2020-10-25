@@ -9,6 +9,8 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
@@ -38,27 +40,13 @@ class SasBlogModule extends Plugin
         }
 
         /**
-         * We need to uninstall our media media folder entry,
-         * however we should clean this up within a next update :)
+         * We need to uninstall our default media folder
+         * and media folder.
+         * However, we have to clean this up within a next update :)
          */
-        $criteria = new Criteria();
-        $criteria->addFilter(
-            new EqualsAnyFilter('entity', [
-                BlogEntriesDefinition::ENTITY_NAME,
-            ])
-        );
-
-        /** @var EntityRepositoryInterface $mediaFolderRepository */
-        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
-
-        $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context->getContext())->getIds();
-
-        if (!empty($mediaFolderIds)) {
-            $ids = array_map(static function ($id) {
-                return ['id' => $id];
-            }, $mediaFolderIds);
-            $mediaFolderRepository->delete($ids, $context->getContext());
-        }
+        $this->checkForThumbnailSizes($context->getContext());
+        $this->deleteMediaFolder($context->getContext());
+        $this->deleteDefaultMediaFolder($context->getContext());
 
         /**
          * And of course we need to drop our tables
@@ -113,6 +101,74 @@ class SasBlogModule extends Plugin
                 ],
             ],
         ], $context);
+    }
+
+    private function deleteDefaultMediaFolder(Context $context): void {
+
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new EqualsAnyFilter('entity', [
+                BlogEntriesDefinition::ENTITY_NAME,
+            ])
+        );
+
+        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
+
+        $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context)->getIds();
+
+        if (!empty($mediaFolderIds)) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $mediaFolderIds);
+            $mediaFolderRepository->delete($ids, $context);
+        }
+    }
+
+    private function deleteMediaFolder(Context $context): void {
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new EqualsFilter('name', 'Blog Images')
+        );
+
+        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        $mediaFolderRepository = $this->container->get('media_folder.repository');
+
+        $mediaFolderRepository->search($criteria, $context);
+
+        $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context)->getIds();
+
+        if (!empty($mediaFolderIds)) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $mediaFolderIds);
+            $mediaFolderRepository->delete($ids, $context);
+        }
+    }
+
+    private function checkForThumbnailSizes(Context $context): void {
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new MultiFilter(
+                MultiFilter::CONNECTION_AND,
+                [
+                    new EqualsFilter('width', 650),
+                    new EqualsFilter('height', 330)
+                ]
+            )
+        );
+
+        /** @var EntityRepositoryInterface $thumbnailSizeRepository */
+        $thumbnailSizeRepository = $this->container->get('media_thumbnail_size.repository');
+
+        $thumbnailIds = $thumbnailSizeRepository->searchIds($criteria, $context)->getIds();
+
+        if (!empty($thumbnailIds)) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $thumbnailIds);
+            $thumbnailSizeRepository->delete($ids, $context);
+        }
     }
 
     private function getLifeCycle(): Lifecycle
