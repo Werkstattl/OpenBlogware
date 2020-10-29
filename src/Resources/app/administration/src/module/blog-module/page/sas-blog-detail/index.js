@@ -17,11 +17,12 @@ import Delimiter from '@editorjs/delimiter';
 import RawTool from '@editorjs/raw';
 import InlineCode from '@editorjs/inline-code';
 
+const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('sas-blog-detail', {
     template,
 
-    inject: ['openMediaSidebar', 'repositoryFactory'],
+    inject: ['repositoryFactory'],
 
     mixins: [Mixin.getByName('notification')],
 
@@ -76,6 +77,8 @@ Component.register('sas-blog-detail', {
         mediaRepository() {
             return this.repositoryFactory.create('media');
         },
+
+        ...mapPropertyErrors('sasBlogEntries', ['title']),
     },
 
     methods: {
@@ -220,6 +223,11 @@ Component.register('sas-blog-detail', {
 
         onMediaDropped(dropItem) {
             this.onSetMediaItem({ targetId: dropItem.id });
-        }
+        },
+
+        openMediaSidebar() {
+            this.$parent.$parent.$parent.$parent.$refs.mediaSidebarItem.openContent();
+        },
+
     }
 });

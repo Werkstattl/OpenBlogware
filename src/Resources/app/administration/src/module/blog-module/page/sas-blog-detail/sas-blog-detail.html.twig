@@ -34,7 +34,8 @@
                                 required
                                 style="margin-bottom: 0;"
                                 :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
-                                :label="$tc('sas-blog.detail.titleLabel')">
+                                :label="$tc('sas-blog.detail.titleLabel')"
+                                :error="sasBlogEntriesTitleError">
                             </sw-text-field>
 
                             <sw-textarea-field type="textarea"
@@ -57,6 +58,7 @@
                                 :defaultFolder="blog.getEntityName()"
                                 :allowMultiSelect="false"
                                 @media-drop="onMediaDropped"
+                                @media-upload-sidebar-open="openMediaSidebar"
                                 @media-upload-remove-image="onRemoveMediaItem">
                             </sw-media-upload-v2>
 
