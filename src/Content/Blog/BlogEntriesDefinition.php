@@ -61,7 +61,7 @@ class BlogEntriesDefinition extends EntityDefinition
             new TranslatedField('metaDescription'),
             (new TranslatedField('content'))->addFlags(new Required()),
 
-            new TranslationsAssociationField(BlogTranslationDefinition::class, 'sas_blog_entries_id'),
+            (new TranslationsAssociationField(BlogTranslationDefinition::class, 'sas_blog_entries_id'))->addFlags(new Required()),
 
         ]);
     }
