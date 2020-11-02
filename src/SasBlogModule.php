@@ -46,6 +46,7 @@ class SasBlogModule extends Plugin
          */
         $this->deleteMediaFolder($context->getContext());
         $this->deleteDefaultMediaFolder($context->getContext());
+        $this->deleteSeoUrlTemplate($context->getContext());
         $this->checkForThumbnailSizes($context->getContext());
 
         /**
@@ -147,6 +148,28 @@ class SasBlogModule extends Plugin
         }
     }
 
+    private function deleteSeoUrlTemplate(Context $context): void
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new EqualsFilter('entityName', 'sas_blog_entries')
+        );
+
+        /** @var EntityRepositoryInterface $seoUrlTemplateRepository */
+        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
+
+        $seoUrlTemplateRepository->search($criteria, $context);
+
+        $seoUrlTemplateIds = $seoUrlTemplateRepository->searchIds($criteria, $context)->getIds();
+
+        if (!empty($seoUrlTemplateIds)) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $seoUrlTemplateIds);
+            $seoUrlTemplateRepository->delete($ids, $context);
+        }
+    }
+
     private function checkForThumbnailSizes(Context $context): void
     {
         $criteria = new Criteria();
@@ -175,7 +198,7 @@ class SasBlogModule extends Plugin
 
     private function getLifeCycle(): Lifecycle
     {
-        /** @var SystemConfigService $systemConfig */
+        /** @var SystemConfigSedeleteCmsPagevice $systemConfig */
         $systemConfig = $this->container->get(SystemConfigService::class);
 
         /** @var EntityRepositoryInterface $cmsPageRepository */

@@ -78,7 +78,7 @@ Component.register('sas-blog-detail', {
             return this.repositoryFactory.create('media');
         },
 
-        ...mapPropertyErrors('sasBlogEntries', ['title'])
+        ...mapPropertyErrors('blog', ['title', 'slug'])
     },
 
     methods: {
@@ -152,7 +152,6 @@ Component.register('sas-blog-detail', {
                     },
                     image: SimpleImage,
                     delimiter: Delimiter,
-                    raw: RawTool,
                     table: {
                         class: Table,
                         inlineToolbar: true,
@@ -197,11 +196,6 @@ Component.register('sas-blog-detail', {
                 })
                 .catch(exception => {
                     this.isLoading = false;
-
-                    this.createNotificationError({
-                        title: 'TODO // ERROR',
-                        message: exception
-                    });
                 });
         },
 

@@ -54,12 +54,12 @@ class BlogEntriesDefinition extends EntityDefinition
             (new FkField('media_id', 'mediaId', MediaDefinition::class)),
             (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true)),
 
-            (new TranslatedField('title'))->addFlags(new Required()),
-            (new TranslatedField('slug'))->addFlags(new Required()),
+            new TranslatedField('title'),
+            new TranslatedField('slug'),
             new TranslatedField('teaser'),
             new TranslatedField('metaTitle'),
             new TranslatedField('metaDescription'),
-            (new TranslatedField('content'))->addFlags(new Required()),
+            new TranslatedField('content'),
 
             (new TranslationsAssociationField(BlogTranslationDefinition::class, 'sas_blog_entries_id'))->addFlags(new Required()),
 
