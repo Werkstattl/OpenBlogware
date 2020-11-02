@@ -38,7 +38,7 @@ class BlogTranslationDefinition extends EntityTranslationDefinition
             new StringField('teaser', 'teaser'),
             new StringField('meta_title', 'metaTitle'),
             new StringField('meta_description', 'metaDescription'),
-            new JsonField('content', 'content')
+            new JsonField('content', 'content'),
         ]);
     }
 }
