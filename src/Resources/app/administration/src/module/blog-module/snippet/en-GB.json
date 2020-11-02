@@ -30,6 +30,7 @@
             "mediaLable": "Teaser Image",
             "titlePlaceholder": "Enter your blog title",
             "teaserLabel": "Teaser",
+            "teaserImageLabel": "Teaser Image",
             "teaserPlaceholder": "The teaser text which will be shown as an introduction within the blog listing ...",
             "editorCardTitle": "Your article",
             "editor": {

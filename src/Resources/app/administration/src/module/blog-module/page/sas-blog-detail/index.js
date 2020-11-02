@@ -17,6 +17,7 @@ import Delimiter from '@editorjs/delimiter';
 import RawTool from '@editorjs/raw';
 import InlineCode from '@editorjs/inline-code';
 
+const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('sas-blog-detail', {
     template,
@@ -33,19 +34,11 @@ Component.register('sas-blog-detail', {
 
     data() {
         return {
-            blog: {
-                title: 'Undefined',
-                slug: 'undefined',
-                teaser: null,
-                content: {},
-                metaTitle: null,
-                metaDescription: null,
-                active: false
-            },
+            blog: null,
             maxMetaTitleCharacters: 150,
             remainMetaTitleCharactersText: "150 characters left.",
             configOptions: {},
-            isLoading: false,
+            isLoading: true,
             repository: null,
             processSuccess: false
         };
@@ -76,9 +69,16 @@ Component.register('sas-blog-detail', {
                 appearance: 'light'
             };
         },
-        isCreateMode() {
-            console.log(this.blog);
-        }
+
+        mediaItem() {
+            return this.blog !== null ? this.blog.media : null;
+        },
+
+        mediaRepository() {
+            return this.repositoryFactory.create('media');
+        },
+
+        ...mapPropertyErrors('blog', ['title', 'slug'])
     },
 
     methods: {
@@ -87,6 +87,7 @@ Component.register('sas-blog-detail', {
                 .get(this.$route.params.id, Shopware.Context.api)
                 .then((entity) => {
                     this.blog = entity;
+                    this.isLoading = false;
                 })
                 .then( () => {
                     this.editorPro();
@@ -151,7 +152,6 @@ Component.register('sas-blog-detail', {
                     },
                     image: SimpleImage,
                     delimiter: Delimiter,
-                    raw: RawTool,
                     table: {
                         class: Table,
                         inlineToolbar: true,
@@ -196,16 +196,32 @@ Component.register('sas-blog-detail', {
                 })
                 .catch(exception => {
                     this.isLoading = false;
-
-                    this.createNotificationError({
-                        title: 'TODO // ERROR',
-                        message: exception
-                    });
                 });
         },
 
         onCancel() {
             this.$router.push({ name: 'blog.module.index' });
-        }
+        },
+
+        onSetMediaItem({ targetId }) {
+            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
+                this.blog.mediaId = targetId;
+                this.blog.media = updatedMedia;
+            });
+        },
+
+        onRemoveMediaItem() {
+            this.blog.mediaId = null;
+            this.blog.media = null;
+        },
+
+        onMediaDropped(dropItem) {
+            this.onSetMediaItem({ targetId: dropItem.id });
+        },
+
+        openMediaSidebar() {
+            this.$parent.$parent.$parent.$parent.$refs.mediaSidebarItem.openContent();
+        },
+
     }
 });

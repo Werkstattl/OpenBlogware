@@ -5,7 +5,7 @@
         </template>
 
         <template #language-switch>
-            <sw-language-switch @on-change="changeLanguage" :disabled="isCreateMode"></sw-language-switch>
+            <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
         </template>
 
         {% block sas_blog_detail_smart_bar_actions %}
@@ -27,14 +27,15 @@
             <sw-container columns="65% 1fr" gap="40px" style="padding:40px">
                 <div>
                     <sw-card>
-                        <sw-container columns="100%" gap="20px">
+                        <sw-container columns="100%" gap="20px" v-if="blog != null">
 
                             <sw-text-field
                                 v-model="blog.title"
                                 required
                                 style="margin-bottom: 0;"
                                 :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
-                                :label="$tc('sas-blog.detail.titleLabel')">
+                                :label="$tc('sas-blog.detail.titleLabel')"
+                                :error="blogTitleError">
                             </sw-text-field>
 
                             <sw-textarea-field type="textarea"
@@ -43,10 +44,27 @@
                                 :label="$tc('sas-blog.detail.teaserLabel')">
                             </sw-textarea-field>
 
+                            <sw-upload-listener
+                                :uploadTag="blog.id"
+                                @media-upload-finish="onSetMediaItem"
+                                autoUpload>
+                            </sw-upload-listener>
+
+                            <sw-media-upload-v2
+                                variant="regular"
+                                :label="$tc('sas-blog.detail.teaserImageLabel')"
+                                :source="mediaItem"
+                                :uploadTag="blog.id"
+                                :defaultFolder="blog.getEntityName()"
+                                :allowMultiSelect="false"
+                                @media-drop="onMediaDropped"
+                                @media-upload-remove-image="onRemoveMediaItem">
+                            </sw-media-upload-v2>
+
                         </sw-container>
                     </sw-card>
 
-                    <sw-card :title="$tc('sas-blog.detail.editorCardTitle')">
+                    <sw-card>
                         <div class="sas-cms-el-editor-pro">
                             <div id="blog-editor"></div>
                         </div>
@@ -83,6 +101,7 @@
                         placeholder="Undefined"
                         required
                         disabled
+                        :error="blogSlugError"
                         :label="$tc('sas-blog.detail.slugLable')">
                     </sw-text-field>
                     <sw-card style="margin: 0">

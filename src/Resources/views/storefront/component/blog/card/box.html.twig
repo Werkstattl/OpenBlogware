@@ -1,20 +1,57 @@
 {% block sas_blog_card %}
     <article class="card">
-        <div class="card-body">
-            {% block sas_blog_card_title %}
-                <h2 class="card-title">
-                    {% block sas_blog_card_title_link %}
-                        <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
-                           title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
-                           class="text-decoration-none">
-                            {{ article.translated.title }}
-                        </a>
+        {% block sas_blog_card_teaser_image %}
+            <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
+                   title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
+                   class="blog-image-link">
+                    {% if article.media.url %}
+                        {% set attributes = {
+                            'class': 'blog-image card-img-top',
+                            'alt': (article.media.translated.alt ?: article.media.fileName),
+                            'title': (article.media.translated.title ?: article.media.fileName)
+                        } %}
+
+                        {% sw_thumbnails 'blog-image-thumbnails' with {
+                            media: article.media,
+                            sizes: {
+                                'xs': '501px',
+                                'sm': '315px',
+                                'md': '427px',
+                                'lg': '333px',
+                                'xl': '284px'
+                            }
+                        } %}
+                    {% else %}
+                        <div class="blog-image-placeholder">
+                            {% sw_icon 'placeholder' style {
+                                'size': 'fluid'
+                            } %}
+                        </div>
+                    {% endif %}
+                </a>
+        {% endblock %}
+        {% block sas_blog_card_body %}
+            <div class="card-body">
+                <div class="">
+                    {% block sas_blog_card_title %}
+                        <h2 class="card-title mt-3 d-flex items-center justify-content-between">
+                            {% block sas_blog_card_title_link %}
+                                <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
+                                   title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
+                                   class="text-decoration-none">
+                                    {{ article.translated.title }}
+                                </a>
+                            {% endblock %}
+                            {% block sas_blog_card_title_date %}
+                                <small>{{ article.createdAt|date("m. F Y") }}</small>
+                            {% endblock %}
+                        </h2>
                     {% endblock %}
-                </h2>
-            {% endblock %}
-            {% block sas_blog_card_teaser %}
-                <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
-            {% endblock %}
-        </div>
+                </div>
+                {% block sas_blog_card_teaser %}
+                    <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
+                {% endblock %}
+            </div>
+        {% endblock %}
     </article>
 {% endblock %}

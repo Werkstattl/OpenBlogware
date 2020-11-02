@@ -1,5 +1,7 @@
 import { Module } from 'src/core/shopware';
 
+import './component/editorjs';
+
 /**
  * Extensions
  */
