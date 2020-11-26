@@ -1,4 +1,4 @@
-import { Component } from 'src/core/shopware';
+import { Component, Mixin } from 'src/core/shopware';
 import template from './sas-blog-list.twig';
 import Criteria from 'src/core/data-new/criteria.data';
 
@@ -9,11 +9,18 @@ Component.register('sas-blog-list', {
 
     inject: ['repositoryFactory'],
 
+    mixins: [
+        Mixin.getByName('salutation'),
+        Mixin.getByName('listing')
+    ],
+
     data() {
         return {
+            categoryId: null,
             blogEntries: null,
             total: 0,
-            isLoading: true
+            isLoading: true,
+            currentLanguageId: Shopware.Context.api.languageId
         };
     },
 
@@ -32,6 +39,10 @@ Component.register('sas-blog-list', {
             return this.repositoryFactory.create('sas_blog_entries');
         },
 
+        blogCategoryRepository() {
+            return this.repositoryFactory.create('sas_blog_category');
+        },
+
         columns() {
             return [
                 {
@@ -39,25 +50,46 @@ Component.register('sas-blog-list', {
                     dataIndex: 'title',
                     label: this.$tc('sas-blog.list.table.title'),
                     routerLink: 'blog.module.detail',
-                    primary: true
+                    primary: true,
+                    inlineEdit: 'string'
+                },
+                {
+                    property: 'author',
+                    label: this.$tc('sas-blog.list.table.author'),
+                    inlineEdit: false,
                 },
                 {
                     property: 'active',
-                    label: this.$tc('sas-blog.list.table.active')
+                    label: this.$tc('sas-blog.list.table.active'),
+                    inlineEdit: 'boolean'
                 }
             ];
         }
     },
 
     methods: {
-        changeLanguage() {
+        changeLanguage(newLanguageId) {
+            this.currentLanguageId = newLanguageId;
             this.getList();
+        },
+
+        changeCategoryId(categoryId) {
+            if (categoryId && categoryId !== this.categoryId) {
+                this.categoryId = categoryId;
+                this.getList();
+            }
         },
 
         getList() {
             this.isLoading = true;
+            const criteria = new Criteria();
+            criteria.addAssociation('author');
+            criteria.addAssociation('blogCategories');
 
-            return this.blogEntriesRepository.search(new Criteria(), Shopware.Context.api).then((result) => {
+            if (this.categoryId) {
+                criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
+            }
+            return this.blogEntriesRepository.search(criteria, Shopware.Context.api).then((result) => {
                 this.total = result.total;
                 this.blogEntries = result;
                 this.isLoading = false;
