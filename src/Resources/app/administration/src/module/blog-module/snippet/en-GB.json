@@ -19,6 +19,7 @@
         },
         "detail": {
             "serp": {
+                "title": "SERP preview",
                 "metaDescription": "Meta Description",
                 "metaTitle": "Meta Title"
             },
@@ -36,6 +37,9 @@
             "editorCardTitle": "Your article",
             "editorLabel": "Blog Content",
             "editorPlaceholder": "Start your blog post ...",
+            "visibility": {
+                "title": "Visibility"
+            },
             "editor": {
                 "headerPlaceholder": "Type in your heading text",
                 "paragraphPlaceholder": "Start typing ...",

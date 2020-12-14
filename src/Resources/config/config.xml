@@ -8,25 +8,26 @@
             <name>cmsBlogDetailPage</name>
             <entity>cms_page</entity>
             <title>Choose a CMS page for the blog detail page</title>
+            <title lang="de-DE">Wähle eine CMS Seite für die Blog Detail Ansicht aus</title>
         </component>
 
     </card>
 
     <card>
-        <title>Meta Configuration</title>
-        <title lang="de-DE">Metakonfiguration</title>
+        <title>SEO Meta Configuration</title>
+        <title lang="de-DE">SEO Metakonfiguration</title>
 
         <input-field type="int">
             <name>maximumMetaTitleCharacter</name>
             <label>Maximum meta title characters</label>
-            <label lang="de-DE">Maximale Meta-Titelzeichen</label>
-            <defaultValue>160</defaultValue>
+            <label lang="de-DE">Maximale Zeichen des Meta Titels</label>
+            <defaultValue>60</defaultValue>
         </input-field>
 
         <input-field type="int">
             <name>maximumMetaDescriptionCharacter</name>
             <label>Maximum meta description characters</label>
-            <label lang="de-DE">Maximale Meta-Beschreibungszeichen</label>
+            <label lang="de-DE">Maximale Zeichen der Meta Beschreibung</label>
             <defaultValue>160</defaultValue>
         </input-field>
     </card>
