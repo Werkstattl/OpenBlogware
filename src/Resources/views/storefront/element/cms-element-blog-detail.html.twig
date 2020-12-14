@@ -34,6 +34,12 @@
                     {% endif %}
                 </div>
 
+                {% block sas_blog_detail_article_blocks_content %}
+                    <div>
+                        {{ element.data.content|raw }}
+                    </div>
+                {% endblock %}
+
                 {% for block in element.data.translated.content.blocks %}
                     {% sw_include('@Storefront/storefront/component/blog/_partials/_block_' ~ block.type) ~ '.html.twig' %}
                 {% endfor %}

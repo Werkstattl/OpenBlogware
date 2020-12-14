@@ -70,7 +70,7 @@ class BlogController extends StorefrontController
 
         $pages = $this->cmsPageLoader->load(
             $request,
-            new Criteria([$this->systemConfigService->get('BlogModule.config.cmsBlogDetailPage')]),
+            new Criteria([$this->systemConfigService->get('SasBlogModule.config.cmsBlogDetailPage')]),
             $context
         );
 

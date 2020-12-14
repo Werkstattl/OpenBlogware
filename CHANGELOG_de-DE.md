@@ -1,3 +1,6 @@
+# 1.2.0
+* editor.js wurde durch den Shopware default Editor ersetzt
+
 # 1.1.5
 * Added missing German author translations
 

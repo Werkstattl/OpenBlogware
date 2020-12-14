@@ -78,5 +78,10 @@
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater"/>
             <tag name="shopware.entity_indexer"/>
         </service>
+
+        <service id="Sas\BlogModule\Core\Content\Blog\Cms\Type\BlogSingleSelectDataResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
     </services>
 </container>

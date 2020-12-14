@@ -1,0 +1,24 @@
+{% block sas_cms_element_blog_single_select_config %}
+    <div class="sw-cms-el-config-blog-single-select">
+        <sw-entity-single-select
+            :placeholder="$tc('sas-blog.elements.single-select.label')"
+            :label="$tc('sas-blog.elements.single-select.label')"
+            entity="sas_blog_entries"
+            v-model="element.config.blogEntry.value">
+
+            <template #selection-label-property="{ item }">
+                <slot name="selection-label-property" v-bind="{ item }">
+                    {{ item.translated.title || item.name }}
+                </slot>
+            </template>
+
+            <template #result-item="{ item, index }">
+                <slot name="result-item" v-bind="{ item, index }">
+                    <li is="sw-select-result" v-bind="{ item, index }">
+                        {{ item.translated.title || item.name }}
+                    </li>
+                </slot>
+            </template>
+        </sw-entity-single-select>
+    </div>
+{% endblock %}

@@ -29,6 +29,8 @@
             "teaserImageLabel": "Teaser Bild",
             "teaserPlaceholder": "Der Teaser Text, welcher im Blog Listing angezeigt wird ...",
             "editorCardTitle": "Dein Artikel",
+            "editorLabel": "Blog Inhalt",
+            "editorPlaceholder": "Starte deinen Blog Beitrag ...",
             "editor": {
                 "headerPlaceholder": "Überschrift",
                 "paragraphPlaceholder": "Fange an zu schreiben ...",
@@ -70,6 +72,9 @@
                     "elementHeadline": "Blog Detail Element",
                     "infoText": "Der Blog Inhalt wird automatisch in der Storefront ausgespielt. Derzeit gibt es keine Element Konfiguration."
                 }
+            },
+            "single-select": {
+                "label": "Wähle einen Blog Eintrag"
             }
         },
         "blocks": {

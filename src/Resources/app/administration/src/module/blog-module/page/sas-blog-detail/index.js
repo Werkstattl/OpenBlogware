@@ -4,26 +4,13 @@ import Criteria from 'src/core/data-new/criteria.data';
 import './sas-blog-detail.scss';
 
 import slugify from 'slugify';
-import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import Marker from "@editorjs/marker";
-import Paragraph from "@editorjs/paragraph";
-import Warning from "@editorjs/warning";
-import Table from "@editorjs/table";
-import Quote from "@editorjs/quote";
-import Embed from '@editorjs/embed'
-import SimpleImage from '@editorjs/simple-image';
-import Delimiter from '@editorjs/delimiter';
-import RawTool from '@editorjs/raw';
-import InlineCode from '@editorjs/inline-code';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('sas-blog-detail', {
     template,
 
-    inject: ['repositoryFactory'],
+    inject: ['repositoryFactory', 'systemConfigApiService'],
 
     mixins: [Mixin.getByName('notification')],
 
@@ -36,18 +23,16 @@ Component.register('sas-blog-detail', {
     data() {
         return {
             blog: null,
-            maxMetaTitleCharacters: 150,
-            remainMetaTitleCharactersText: "150 characters left.",
+            maximumMetaTitleCharacter: 160,
+            maximumMetaDescriptionCharacter: 160,
             configOptions: {},
             isLoading: true,
-            repository: null,
             processSuccess: false
         };
     },
 
     created() {
-        this.repository = this.repositoryFactory.create('sas_blog_entries');
-        this.getBlog();
+        this.createdComponent();
     },
 
     watch: {
@@ -64,11 +49,8 @@ Component.register('sas-blog-detail', {
     },
 
     computed: {
-        tooltipCancel() {
-            return {
-                message: 'ESC',
-                appearance: 'light'
-            };
+        repository() {
+            return this.repositoryFactory.create('sas_blog_entries');
         },
 
         mediaItem() {
@@ -83,111 +65,39 @@ Component.register('sas-blog-detail', {
     },
 
     methods: {
-        getBlog() {
+        async createdComponent() {
+            this.isLoading = true;
+
+            await Promise.all([
+                this.getPluginConfig(),
+                this.getBlog()
+            ]);
+
+            this.isLoading = false;
+        },
+
+        async getPluginConfig() {
+            const config = await this.systemConfigApiService.getValues('SasBlogModule.config');
+
+            this.maximumMetaTitleCharacter = config['SasBlogModule.config.maximumMetaTitleCharacter'];
+            this.maximumMetaDescriptionCharacter = config['SasBlogModule.config.maximumMetaDescriptionCharacter'];
+        },
+
+        async getBlog() {
             const criteria = new Criteria();
             criteria.addAssociation('blogCategories');
 
-            this.repository
+            return this.repository
                 .get(this.$route.params.id, Shopware.Context.api, criteria)
                 .then((entity) => {
                     this.blog = entity;
-                    this.isLoading = false;
-                })
-                .then( () => {
-                    this.editorPro();
+
+                    return Promise.resolve();
                 });
         },
 
-        changeLanguage() {
-            this.getBlog();
-            editor.isReady .then(() => { editor.destroy(); });
-            this.getBlog();
-        },
-
-        metaTitleCharCount() {
-            if(this.blog.metaTitle.length > this.maxMetaTitleCharacters){
-                this.remainMetaTitleCharactersText = "Exceeded "+this.maxMetaTitleCharacters+" characters limit.";
-            }else{
-                const remainCharacters = this.maxMetaTitleCharacters - this.blog.metaTitle.length;
-                this.remainMetaTitleCharactersText = `${remainCharacters} characters left.`;
-            }
-        },
-
-        editorPro() {
-            const editor = new EditorJS({
-                holder: `blog-editor`,
-                autofocus: true,
-                initialBlock: "paragraph",
-                tools: {
-                    header: {
-                        class: Header,
-                        shortcut: "CMD+SHIFT+H",
-                        config: {
-                            placeholder: this.$tc('sas-blog.detail.editor.headerPlaceholder'),
-                            levels: [2, 3, 4, 5, 6],
-                            defaultLevel: 3
-                        }
-                    },
-                    list: {
-                        class: List
-                    },
-                    inlineCode: {
-                        class: InlineCode,
-                        shortcut: 'CMD+SHIFT+M',
-                    },
-                    paragraph: {
-                        class: Paragraph,
-                        config: {
-                            placeholder: this.$tc('sas-blog.detail.editor.paragraphPlaceholder')
-                        }
-                    },
-                    warning: {
-                        class: Warning,
-                        inlineToolbar: true,
-                        shortcut: 'CMD+SHIFT+W',
-                        config: {
-                            titlePlaceholder: this.$tc('sas-blog.detail.editor.warningTitle'),
-                            messagePlaceholder: this.$tc('sas-blog.detail.editor.warningMessage'),
-                        },
-                    },
-                    Marker: {
-                        class: Marker,
-                        shortcut: 'CMD+SHIFT+M',
-                    },
-                    image: SimpleImage,
-                    delimiter: Delimiter,
-                    raw: RawTool,
-                    table: {
-                        class: Table,
-                        inlineToolbar: true,
-                        config: {
-                            rows: 2,
-                            cols: 3,
-                        },
-                    },
-                    quote: {
-                        class: Quote,
-                        inlineToolbar: true,
-                        shortcut: 'CMD+SHIFT+O',
-                        config: {
-                            quotePlaceholder: this.$tc('sas-blog.detail.editor.quotePlaceholder'),
-                            captionPlaceholder: this.$tc('sas-blog.detail.editor.quoteCaption'),
-                        },
-                    },
-                    embed: Embed
-                },
-                data: this.blog.content,
-                onChange: (data) => {
-                    editor.save().then((outputData) => {
-                        this.blog.content = outputData;
-                    }).catch((error) => {
-                        this.createNotificationError({
-                            title: 'ERROR',
-                            message: error
-                        });
-                    });
-                }
-            });
+        async changeLanguage() {
+            await this.getBlog();
         },
 
         onClickSave() {

@@ -27,7 +27,7 @@ class BlogTranslationEntity extends TranslationEntity
     protected $slug;
 
     /**
-     * @var array|null
+     * @var string
      */
     protected $content;
 
@@ -111,17 +111,17 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return array|null
+     * @return string
      */
-    public function getContent(): ?array
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * @param array|null $content
+     * @param string $content
      */
-    public function setContent(?array $content): void
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }

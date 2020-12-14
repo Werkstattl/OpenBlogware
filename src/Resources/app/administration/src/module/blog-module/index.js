@@ -6,6 +6,8 @@ import './component/editorjs';
  * Extensions
  */
 import './extension/sw-cms/component/sw-cms-sidebar';
+import './extension/component/form/sas-text-field';
+import './extension/component/form/sas-textarea-field';
 
 /**
  * Pages
@@ -32,6 +34,7 @@ import './blocks/detail';
  */
 import './elements/blog-detail';
 import './elements/blog';
+import './elements/blog-single-select';
 
 /**
  * Blog Category

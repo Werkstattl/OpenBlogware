@@ -1,3 +1,7 @@
+# 1.2.0
+* Replaced editor.js with Shopware's default text editor
+* Added `Blog Single Select` CMS element, to show a single blog entry card
+
 # 1.1.5
 * Added missing German author translations
 

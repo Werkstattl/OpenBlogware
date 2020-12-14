@@ -34,6 +34,8 @@
             "teaserImageLabel": "Teaser Image",
             "teaserPlaceholder": "The teaser text which will be shown as an introduction within the blog listing ...",
             "editorCardTitle": "Your article",
+            "editorLabel": "Blog Content",
+            "editorPlaceholder": "Start your blog post ...",
             "editor": {
                 "headerPlaceholder": "Type in your heading text",
                 "paragraphPlaceholder": "Start typing ...",
@@ -58,6 +60,9 @@
             "category": {
                 "label": "Categories",
                 "placeholder": "Select blog's categories"
+            },
+            "warning": {
+                "maxTextCountReached": "There're {charLeft} character(s) left"
             }
         },
         "elements": {
@@ -86,6 +91,9 @@
                     "elementHeadline": "Blog detail element",
                     "infoText": "The blog detail content will be automatically fetched by the element. There's currently no configuration available."
                 }
+            },
+            "single-select": {
+                "label": "Select a blog entry"
             }
         },
         "blocks": {

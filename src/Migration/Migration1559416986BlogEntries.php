@@ -37,7 +37,7 @@ class Migration1559416986BlogEntries extends MigrationStep
             `teaser` VARCHAR(255) NULL,
             `meta_title` VARCHAR(255) NULL,
             `meta_description` VARCHAR(255) NULL,
-            `content` JSON NULL,
+            `content` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NULL,
             `created_at` DATETIME(3) NOT NULL,
             `updated_at` DATETIME(3) NULL,
             PRIMARY KEY (`sas_blog_entries_id`, `language_id`),

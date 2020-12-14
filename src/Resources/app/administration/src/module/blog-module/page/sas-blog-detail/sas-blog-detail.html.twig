@@ -11,7 +11,7 @@
         {% block sas_blog_detail_smart_bar_actions %}
             <template #smart-bar-actions>
                 {% block sas_blog_list_smart_bar_actions_about %}
-                    <sw-button :disabled="blog != null && blog.isLoading" v-tooltip.bottom="tooltipCancel" @click="onCancel">
+                    <sw-button :disabled="blog != null && blog.isLoading" @click="onCancel">
                         {{ $tc('sas-blog.detail.buttonCancel') }}
                     </sw-button>
                 {% endblock %}
@@ -24,26 +24,25 @@
         {% endblock %}
 
         <template #content>
-            <sw-container columns="2fr 1fr" gap="40px" class="sas-blog-detail-container">
+            <sw-container columns="2fr 1fr" gap="40px" class="sas-blog-detail-container" v-if="blog != null">
                 <div>
                     <sw-card>
-                        <sw-container columns="100%" gap="20px" v-if="blog != null">
+                        <sw-container columns="100%" gap="20px">
 
-                            <sw-text-field
+                            <sas-text-field
                                 v-model="blog.title"
                                 required
-                                style="margin-bottom: 0;"
                                 :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
                                 :label="$tc('sas-blog.detail.titleLabel')"
                                 :error="blogTitleError">
-                            </sw-text-field>
+                            </sas-text-field>
 
-                            <sw-textarea-field type="textarea"
+                            <sas-textarea-field type="textarea"
                                 v-model="blog.teaser"
                                :error="blogTeaserError"
                                :placeholder="$tc('sas-blog.detail.teaserPlaceholder')"
                                 :label="$tc('sas-blog.detail.teaserLabel')">
-                            </sw-textarea-field>
+                            </sas-textarea-field>
 
                             <sw-upload-listener
                                 :uploadTag="blog.id"
@@ -65,11 +64,18 @@
                         </sw-container>
                     </sw-card>
 
+                    {% block sas_blog_detail_card_editor %}
                     <sw-card>
-                        <div class="sas-cms-el-editor-pro">
-                            <div id="blog-editor"></div>
-                        </div>
+                        {% block sas_blog_detail_card_editor %}
+                            <sw-text-editor
+                                v-model="blog.content"
+                                :label="$tc('sas-blog.detail.editorLabel')"
+                                :placeholder="$tc('sas-blog.detail.editorPlaceholder')"
+                            >
+                            </sw-text-editor>
+                        {% endblock %}
                     </sw-card>
+                    {% endblock %}
 
                     <!--
                     <sw-card>
@@ -105,15 +111,15 @@
                         :error="blogSlugError"
                         :label="$tc('sas-blog.detail.slugLable')">
                     </sw-text-field>
-                    <sw-card style="margin: 0">
-                        <h3 style="margin-bottom: 5px;">Visiblity</h3>
+                    <sw-card>
+                        <h3>Visiblity</h3>
                         <sw-switch-field style="margin-top: 0; margin-bottom: 0" type="switch" :label="$tc('sas-blog.detail.activeLable')" v-model="blog.active"></sw-switch-field>
                         <!--
                         <p style="color: #189eff">Add a specific release date.</p>
                         -->
                     </sw-card>
 
-                    <sw-card style="margin-top: 20px">
+                    <sw-card>
                         <sw-entity-single-select
                             class="sas-blog-author-base-form__salutation-select"
                             entity="sas_blog_author"
@@ -134,7 +140,7 @@
                     </sw-card>
 
 
-                    <sw-card style="margin-top: 20px;">
+                    <sw-card>
                         <sas-blog-category-tree-field
                             required
                             v-model="blog.blogCategories"
@@ -148,23 +154,25 @@
                         -->
                     </sw-card>
 
-                    <sw-card style="margin-top: 20px;">
-                        <h3 style="margin-bottom: 5px;">SERP Preview</h3>
+                    <sw-card class="serp-preview-card">
+                        <h3>SERP Preview</h3>
                         <div class="serp-preview">
                             <h3>{{ blog.metaTitle }}</h3>
                             <cite>{{ blog.slug }}</cite>
                             <p>{{ blog.metaDescription }}</p>
                         </div>
-                        <sw-text-field
+                        <sas-text-field
                             v-model="blog.metaTitle"
+                            :maxLength="maximumMetaTitleCharacter"
                             :placeholder="$tc('sas-blog.detail.serp.metaTitle')">
-                        </sw-text-field>
+                        </sas-text-field>
 
-                        <sw-textarea-field
+                        <sas-textarea-field
                             v-model="blog.metaDescription"
+                            :maxLength="maximumMetaDescriptionCharacter"
                             type="textarea"
                             :placeholder="$tc('sas-blog.detail.serp.metaDescription')">
-                        </sw-textarea-field>
+                        </sas-textarea-field>
                     </sw-card>
 
                     <!--
