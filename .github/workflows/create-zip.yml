@@ -6,6 +6,9 @@ on:
         tags:
             - '*'
 
+env:
+    PLUGIN_NAME: SasBlogModule
+
 jobs:
     CreateZip:
         runs-on: ubuntu-latest
@@ -18,15 +21,15 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v2.3.1
                 with:
-                    path: SasBlogModule
+                    path: ${PLUGIN_NAME}
 
             -   name: Build & create zip
                 run: |
-                    cp -r "./SasBlogModule" "/plugins/SasBlogModule"
+                    cp -r "./${PLUGIN_NAME}" "/plugins/${PLUGIN_NAME}"
                     npm install --prefix "./${PLUGIN_NAME}/src/Resources/app/administration/"
-                    COMPOSER="composer-ci.json" composer install -d "/plugins/SasBlogModule" --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --ignore-platform-reqs
+                    COMPOSER="composer-ci.json" composer install -d "/plugins/${PLUGIN_NAME}" --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --ignore-platform-reqs
                     start-mysql
-                    pack-plugin "SasBlogModule"
+                    pack-plugin "${PLUGIN_NAME}"
 
             -   name: Create Release
                 if: startsWith(github.ref, 'refs/tags/')
@@ -48,6 +51,6 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 with:
                     upload_url: ${{ steps.create_release.outputs.upload_url }}
-                    asset_path: SasBlogModule.zip
-                    asset_name: SasBlogModule.zip
+                    asset_path: ${PLUGIN_NAME}.zip
+                    asset_name: ${PLUGIN_NAME}.zip
                     asset_content_type: application/zip
