@@ -1,6 +1,8 @@
 name: Create zip
 on:
     push:
+        branches:
+            - master
         tags:
             - '*'
 
