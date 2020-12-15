@@ -16,14 +16,14 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v2.3.1
                 with:
-                    path: SasBlog
+                    path: SasBlogModule
 
             -   name: Build & create zip
                 run: |
-                    cp -r "./SasBlog" "/plugins/SasBlog"
-                    COMPOSER="composer-ci.json" composer install -d "/plugins/SasBlog" --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --ignore-platform-reqs
+                    cp -r "./SasBlogModule" "/plugins/SasBlogModule"
+                    COMPOSER="composer-ci.json" composer install -d "/plugins/SasBlogModule" --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --ignore-platform-reqs
                     start-mysql
-                    pack-plugin "SasBlog"
+                    pack-plugin "SasBlogModule"
 
             -   name: Create Release
                 if: startsWith(github.ref, 'refs/tags/')
@@ -45,6 +45,6 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 with:
                     upload_url: ${{ steps.create_release.outputs.upload_url }}
-                    asset_path: SasBlog.zip
-                    asset_name: SasBlog.zip
+                    asset_path: SasBlogModule.zip
+                    asset_name: SasBlogModule.zip
                     asset_content_type: application/zip
