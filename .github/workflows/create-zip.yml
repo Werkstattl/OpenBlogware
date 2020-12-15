@@ -7,7 +7,7 @@ on:
 jobs:
     CreateZip:
         runs-on: ubuntu-latest
-        container: ghcr.io/friendsofshopware/platform-plugin-dev:v6.3.1
+        container: ghcr.io/friendsofshopware/platform-plugin-dev:v6.3.3
         steps:
             -   name: Get the version
                 id: get_version
@@ -21,6 +21,7 @@ jobs:
             -   name: Build & create zip
                 run: |
                     cp -r "./SasBlogModule" "/plugins/SasBlogModule"
+                    npm install --prefix "./${PLUGIN_NAME}/src/Resources/app/administration/"
                     COMPOSER="composer-ci.json" composer install -d "/plugins/SasBlogModule" --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader --ignore-platform-reqs
                     start-mysql
                     pack-plugin "SasBlogModule"
