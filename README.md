@@ -3,6 +3,12 @@
 # Shopware 6 Blog Plugin
 After the plugin installation you can find the entity if you hop to `content -> blog`.
 
+![](https://res.cloudinary.com/dtgdh7noz/image/upload/v1608026832/Bildschirmfoto_2020-12-15_um_12.06.25_ahbgze.png)
+*Blog overview page with categories*
+
+![](https://res.cloudinary.com/dtgdh7noz/image/upload/v1608026833/Bildschirmfoto_2020-12-15_um_12.06.31_tz3qql.png)
+*blog detail view*
+
 ### Configuration
 The plugin makes use of two CMS Elements which are part of two different CMS Layouts.
 During the plugin installation those two CMS pages will be created for you:
