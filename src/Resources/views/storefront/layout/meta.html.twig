@@ -32,12 +32,13 @@
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
-                "@type": "NewsArticle",
+                "@type": "BlogPosting",
                 "headline": "{{ entry.translated.title }}",
                 "datePublished": "{{ entry.createdAt|date }}",
                 "dateModified": "{{ entry.updatedAt|date }}",
                 "description": "{{ entry.translated.teaser }}",
                 "author": "{{ entry.author.translated.name }}",
+                {% if entry.media.thumbnails.elements|length %}"image":{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %},{% endif %}
                 "mainEntityOfPage": {
                     "@type": "WebPage",
                     "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"

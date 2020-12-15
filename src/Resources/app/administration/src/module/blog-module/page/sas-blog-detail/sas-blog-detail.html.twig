@@ -51,16 +51,18 @@
                                 autoUpload>
                             </sw-upload-listener>
 
-                            <sw-media-upload-v2
+                            <sw-media-compact-upload-v2
                                 variant="regular"
                                 :label="$tc('sas-blog.detail.teaserImageLabel')"
                                 :source="mediaItem"
                                 :uploadTag="blog.id"
                                 :defaultFolder="blog.getEntityName()"
                                 :allowMultiSelect="false"
-                                @media-drop="onMediaDropped"
-                                @media-upload-remove-image="onRemoveMediaItem">
-                            </sw-media-upload-v2>
+                                :fileAccept="fileAccept"
+                                @media-upload-remove-image="onRemoveMediaItem"
+                                @selection-change="setMedia"
+                                @media-drop="onMediaDropped">
+                            </sw-media-compact-upload-v2>
 
                         </sw-container>
                     </sw-card>
@@ -95,8 +97,11 @@
                     {% block sas_blog_detail_card_visibility %}
                         <sw-card>
                             {% block sas_blog_detail_field_visibility %}
-                                <h3>{{ $tc('sas-blog.detail.visibility.title') }}</h3>
                                 <sw-switch-field style="margin-top: 0; margin-bottom: 0" type="switch" :label="$tc('sas-blog.detail.visibility.label')" v-model="blog.active"></sw-switch-field>
+                            {% endblock %}
+
+                            {% block sas_blog_detail_field_detail_teaser %}
+                                <sw-switch-field style="margin-top: 0; margin-bottom: 0" type="switch" :label="$tc('sas-blog.detail.detailTeaser.label')" v-model="blog.detailTeaserImage"></sw-switch-field>
                             {% endblock %}
                             <!--
                             <p style="color: #189eff">Add a specific release date.</p>

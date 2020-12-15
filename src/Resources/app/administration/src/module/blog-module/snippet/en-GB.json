@@ -38,7 +38,10 @@
             "editorLabel": "Blog Content",
             "editorPlaceholder": "Start your blog post ...",
             "visibility": {
-                "title": "Visibility"
+                "label": "Article active"
+            },
+            "detailTeaser": {
+                "label": "Show teaser image on detail page"
             },
             "editor": {
                 "headerPlaceholder": "Type in your heading text",

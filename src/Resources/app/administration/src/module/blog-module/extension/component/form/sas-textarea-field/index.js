@@ -10,7 +10,7 @@ Component.extend('sas-textarea-field', 'sw-textarea-field', {
         maxLength: {
             type: Number,
             required: false,
-            default: 5000
+            default: 255
         },
         textCountBeforeWarning: {
             type: Number,

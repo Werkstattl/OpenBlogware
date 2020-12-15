@@ -14,7 +14,7 @@
             "table": {
                 "title": "Titel",
                 "active": "Aktiv",
-                "author": "Author"
+                "author": "Autor"
             }
         },
         "detail": {
@@ -31,6 +31,12 @@
             "editorCardTitle": "Dein Artikel",
             "editorLabel": "Blog Inhalt",
             "editorPlaceholder": "Starte deinen Blog Beitrag ...",
+            "visibility": {
+                "label": "Artikel aktiv"
+            },
+            "detailTeaser": {
+                "label": "Zeige Teaser Image auf Detailseite"
+            },
             "editor": {
                 "headerPlaceholder": "Überschrift",
                 "paragraphPlaceholder": "Fange an zu schreiben ...",
@@ -41,20 +47,20 @@
             },
             "notification": {
                 "save-success": {
-                    "title": "Success!",
-                    "text": "Your blog entry has been saved."
+                    "title": "Erfolreich!",
+                    "text": "Dein Blog Artikel wurde gespeichert."
                 },
                 "error": {
-                    "missingCategory": "Please choose at least one blog category!"
+                    "missingCategory": "Bitte wähle mind. eine Kategorie!"
                 }
             },
             "author": {
-                "label": "Author",
-                "placeholder": "Select a blog's author"
+                "label": "Autor",
+                "placeholder": "Wähle einen Autor"
             },
             "category": {
-                "label": "Categories",
-                "placeholder": "Select blog's categories"
+                "label": "Kategorien",
+                "placeholder": "Wähle eine Kategorie"
             }
         },
         "elements": {
@@ -92,24 +98,24 @@
     },
     "sas-blog-category": {
         "general": {
-            "treeHeadline": "Blog categories",
-            "mainMenuItemIndex": "Categories",
+            "treeHeadline": "Blog Kategorien",
+            "mainMenuItemIndex": "Kategorien",
             "mainMenuItemList": "Overview",
-            "descriptionTextModule": "Manage categories here.",
-            "headlineCategories": "Categories",
-            "placeholderSearchBar": "Search categories...",
-            "buttonCreate": "Create category",
-            "buttonSafeCategory": "Save",
-            "descriptionLabel": "Description",
-            "messageSaveSuccess": "Category \"{name}\" has been saved.",
+            "descriptionTextModule": "Verwalte hier deine Kategorien.",
+            "headlineCategories": "Kategorien",
+            "placeholderSearchBar": "Suche in Kategorien...",
+            "buttonCreate": "Kategorie erstellen",
+            "buttonSafeCategory": "Speichern",
+            "descriptionLabel": "Beschreibung",
+            "messageSaveSuccess": "Kategorie \"{name}\" wurde gespeichert.",
             "useAsLogo": "Use as display image",
-            "treeHeadSelected": "{count} selected",
-            "emptyStateHeadline": "No category selected",
+            "treeHeadSelected": "{count} ausgewählt",
+            "emptyStateHeadline": "Keine Kategorie ausgewählt",
             "actions": {
-                "actionsDisabledInLanguage": "Categories can only be created in the default language.",
-                "createSub": "New subcategory",
-                "createBefore": "New category before",
-                "createAfter": "New category after"
+                "actionsDisabledInLanguage": "Kategorien können nur in der Default Sprache erstellt werden.",
+                "createSub": "Neue Unterkategorie",
+                "createBefore": "Neue Kategorie davor",
+                "createAfter": "Neue Kategorie danach"
             }
         }
     },
@@ -165,7 +171,7 @@
     },
     "sas-blog-tree-item": {
         "actions": {
-            "edit": "Edit"
+            "edit": "Editieren"
         }
     }
 }

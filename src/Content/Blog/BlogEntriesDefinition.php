@@ -56,6 +56,7 @@ class BlogEntriesDefinition extends EntityDefinition
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
             new BoolField('active', 'active'),
+            new BoolField('detail_teaser_image', 'detailTeaserImage'),
 
             (new FkField('media_id', 'mediaId', MediaDefinition::class)),
             (new FkField('author_id', 'authorId', BlogAuthorDefinition::class))->addFlags(new Required()),

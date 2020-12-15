@@ -27,7 +27,8 @@ Component.register('sas-blog-detail', {
             maximumMetaDescriptionCharacter: 160,
             configOptions: {},
             isLoading: true,
-            processSuccess: false
+            processSuccess: false,
+            fileAccept: 'image/*'
         };
     },
 
@@ -137,6 +138,12 @@ Component.register('sas-blog-detail', {
                 this.blog.media = updatedMedia;
             });
         },
+
+        setMedia([mediaItem], mediaAssoc) {
+            this.blog.mediaId = mediaItem.id;
+            this.blog.media = mediaItem;
+        },
+
 
         onRemoveMediaItem() {
             this.blog.mediaId = null;

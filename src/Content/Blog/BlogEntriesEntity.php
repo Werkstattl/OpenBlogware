@@ -17,6 +17,11 @@ class BlogEntriesEntity extends Entity
     protected $active;
 
     /**
+     * @var bool
+     */
+    protected $detailTeaserImage;
+
+    /**
      * @var BlogTranslationCollection|null
      */
     protected $translations;
@@ -36,51 +41,97 @@ class BlogEntriesEntity extends Entity
      */
     protected $author;
 
+    /**
+     * @return string
+     */
     public function getAuthorId(): string
     {
         return $this->authorId;
     }
 
+    /**
+     * @param string $authorId
+     */
     public function setAuthorId(string $authorId): void
     {
         $this->authorId = $authorId;
     }
 
+    /**
+     * @return BlogAuthorEntity|null
+     */
     public function getAuthor(): ?BlogAuthorEntity
     {
         return $this->author;
     }
 
+    /**
+     * @param BlogAuthorEntity $author
+     */
     public function setAuthor(BlogAuthorEntity $author): void
     {
         $this->author = $author;
     }
 
+    /**
+     * @return int
+     */
     public function getActive(): int
     {
         return $this->active;
     }
 
+    /**
+     * @param int $active
+     */
     public function setActive(int $active): void
     {
         $this->active = $active;
     }
 
+    /**
+     * @return bool
+     */
+    public function getDetailTeaserImage(): bool
+    {
+        return $this->detailTeaserImage;
+    }
+
+    /**
+     * @param bool $detailTeaserImage
+     */
+    public function setDetailTeaserImage(bool $detailTeaserImage): void
+    {
+        $this->detailTeaserImage = $detailTeaserImage;
+    }
+
+    /**
+     * @return BlogTranslationCollection|null
+     */
     public function getTranslations(): ?BlogTranslationCollection
     {
         return $this->translations;
     }
 
+    /**
+     * @param BlogTranslationCollection|null $translations
+     */
     public function setTranslations(?BlogTranslationCollection $translations): void
     {
         $this->translations = $translations;
     }
 
+    /**
+     * @return BlogCategoryCollection|null
+     */
     public function getBlogCategories(): ?BlogCategoryCollection
     {
         return $this->blogCategories;
     }
 
+    /**
+     * @param BlogCategoryCollection $blogCategories
+     */
     public function setBlogCategories(BlogCategoryCollection $blogCategories): void
     {
         $this->blogCategories = $blogCategories;
