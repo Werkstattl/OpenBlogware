@@ -1,7 +1,7 @@
 {% block sas_block_partials_category %}
     {% set categoriesName = [] %}
     {% for category in categories %}
-        {% set categoriesName = categoriesName|merge([category.name]) %}
+        {% set categoriesName = categoriesName|merge([category.translated.name]) %}
     {% endfor %}
     <figure class="sas-category figure">
         <figcaption class="figure-caption">{% sw_icon 'folder-thumbnail' style { 'size': 'sm' } %}

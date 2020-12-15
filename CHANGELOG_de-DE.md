@@ -1,3 +1,6 @@
+# 1.2.2
+* Fehler der Übersetzung der Kategorie im Twig Template behoben
+
 # 1.2.1
 * editor.js entfernt
 * fehlende Beschreibung Übersetzung hinzugefügt
