@@ -69,8 +69,6 @@ Component.register('sas-blog-detail', {
         async createdComponent() {
             this.isLoading = true;
 
-            console.log(Shopware.Context.api.language);
-
             await Promise.all([
                 this.getPluginConfig(),
                 this.getBlog()
