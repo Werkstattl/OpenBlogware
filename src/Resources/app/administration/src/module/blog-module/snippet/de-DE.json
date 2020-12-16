@@ -5,7 +5,8 @@
             "mainMenuItemList": "Blog",
             "mainMenuItemAdd": "Blog Eintrag anlegen",
             "descriptionTextModule": "Verwaltung von Blog Einträge.",
-            "placeholderSearchBar": "Durchsuche alle Einträge"
+            "placeholderSearchBar": "Durchsuche alle Einträge",
+            "tooltipLanguageSwitch": "Du musst zuerst einen Eintrag in der Systemsprache anlegen"
         },
         "list": {
             "textBlogOverview": "Blog Einträge",

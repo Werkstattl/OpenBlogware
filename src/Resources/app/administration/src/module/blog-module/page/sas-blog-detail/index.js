@@ -3,7 +3,7 @@ import template from './sas-blog-detail.html.twig';
 import Criteria from 'src/core/data-new/criteria.data';
 import './sas-blog-detail.scss';
 
-import slugify from 'slugify';
+import slugify from '@slugify';
 
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
@@ -68,6 +68,8 @@ Component.register('sas-blog-detail', {
     methods: {
         async createdComponent() {
             this.isLoading = true;
+
+            console.log(Shopware.Context.api.language);
 
             await Promise.all([
                 this.getPluginConfig(),

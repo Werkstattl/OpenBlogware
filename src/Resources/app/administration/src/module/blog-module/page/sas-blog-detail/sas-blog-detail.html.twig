@@ -5,13 +5,17 @@
         </template>
 
         <template #language-switch>
-            <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
+            <sw-language-switch
+                @on-change="changeLanguage"
+                :disabled="blog._isNew"
+                v-if="blog">
+            </sw-language-switch>
         </template>
 
         {% block sas_blog_detail_smart_bar_actions %}
             <template #smart-bar-actions>
                 {% block sas_blog_list_smart_bar_actions_about %}
-                    <sw-button :disabled="blog != null && blog.isLoading" @click="onCancel">
+                    <sw-button :disabled="blog && blog.isLoading" @click="onCancel">
                         {{ $tc('sas-blog.detail.buttonCancel') }}
                     </sw-button>
                 {% endblock %}
@@ -24,7 +28,7 @@
         {% endblock %}
 
         <template #content>
-            <sw-container columns="2fr 1fr" gap="40px" class="sas-blog-detail-container" v-if="blog != null">
+            <sw-container columns="2fr 1fr" gap="40px" class="sas-blog-detail-container" v-if="blog">
                 <div>
                     {% block sas_blog_detail_card_header %}
                         <sw-card>
@@ -81,7 +85,6 @@
                         </sw-card>
                     {% endblock %}
                 </div>
-
                 <div v-if="blog">
                     {% block sas_blog_detail_field_slug %}
                         <sw-text-field

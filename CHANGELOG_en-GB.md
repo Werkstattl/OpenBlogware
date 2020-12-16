@@ -1,3 +1,7 @@
+# 1.2.3
+* fixed and improved language selection while creating an entry, because an entry has always to be 
+in the system language first, before you can switch to another language
+
 # 1.2.2
 * fixed category translated issue in twig template
 

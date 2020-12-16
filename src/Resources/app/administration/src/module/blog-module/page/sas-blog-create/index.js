@@ -8,6 +8,12 @@ Component.extend('sas-blog-create', 'sas-blog-detail', {
                 Shopware.State.commit('context/setApiLanguageId', Shopware.Context.api.languageId)
             }
 
+            if (!this.blog) {
+                if (!Shopware.State.getters['context/isSystemDefaultLanguage']) {
+                    Shopware.State.commit('context/resetLanguageToDefault');
+                }
+            }
+
             this.$super('createdComponent');
         },
 

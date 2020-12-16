@@ -1,3 +1,7 @@
+# 1.2.3
+* Es wird nun dir Systemsprache beim erstellen eines Artikels geprüft, welches zuvor zu Fehlern führte,
+da Einträge immer zuerst in der Systemsprache angelegt werden müssen.
+
 # 1.2.2
 * Fehler der Übersetzung der Kategorie im Twig Template behoben
 

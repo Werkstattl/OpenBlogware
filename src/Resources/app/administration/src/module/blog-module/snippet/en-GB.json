@@ -5,7 +5,8 @@
             "mainMenuItemList": "Blog",
             "mainMenuItemAdd": "New blog entry",
             "descriptionTextModule": "Verwaltung von Blog Einträge.",
-            "placeholderSearchBar": "Search all blog entries"
+            "placeholderSearchBar": "Search all blog entries",
+            "tooltipLanguageSwitch": "Create an entry first in the system language"
         },
         "list": {
             "textBlogOverview": "Blog entries",
