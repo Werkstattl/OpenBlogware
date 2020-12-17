@@ -118,6 +118,9 @@
                 "createBefore": "Neue Kategorie davor",
                 "createAfter": "Neue Kategorie danach"
             }
+        },
+        "modal": {
+            "textDeleteMultipleConfirm": "Bist du sicher das du die ausgewählten Elemente \"{count}\" löschen möchtest?"
         }
     },
     "sas-blog-author": {
