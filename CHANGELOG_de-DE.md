@@ -1,3 +1,6 @@
+# 1.2.4
+* Es können nun auch Kategorien in einer non-system Sprache (Default Sprache welche während der Installation angegeben wird) übersetzt werden
+
 # 1.2.3
 * Es wird nun dir Systemsprache beim erstellen eines Artikels geprüft, welches zuvor zu Fehlern führte,
 da Einträge immer zuerst in der Systemsprache angelegt werden müssen.

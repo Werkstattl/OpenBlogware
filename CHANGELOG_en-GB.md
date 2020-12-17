@@ -1,3 +1,6 @@
+# 1.2.4
+* Added the possibility to translate categories in non-system language
+
 # 1.2.3
 * fixed and improved language selection while creating an entry, because an entry has always to be 
 in the system language first, before you can switch to another language
