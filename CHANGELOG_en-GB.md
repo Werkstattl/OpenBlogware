@@ -1,3 +1,6 @@
+#1.2.5
+* Adjusted date output in blog box template
+
 # 1.2.4
 * Added the possibility to translate categories in non-system language
 

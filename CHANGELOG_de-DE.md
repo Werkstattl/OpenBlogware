@@ -1,3 +1,6 @@
+#1.2.5
+* Datumsausgabe im Blog Box Template angepasst
+
 # 1.2.4
 * Es können nun auch Kategorien in einer non-system Sprache (Default Sprache welche während der Installation angegeben wird) übersetzt werden
 
