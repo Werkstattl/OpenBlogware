@@ -1,7 +1,0 @@
-{% set heading_level = block.data.level | default(2) %}
-
-{% block sas_editor_pro_partial_heading %}
-    <h{{heading_level}} class="sas-editor-pro-heading level-{{ heading_level }}">
-        {{ block.data.text }}
-    </h{{heading_level}}>
-{% endblock %}
