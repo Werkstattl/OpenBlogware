@@ -43,6 +43,8 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        $slot->setData($result->get('sas_blog')->first());
+        if (!empty($result->get('sas_blog')->first())) {
+            $slot->setData($result->get('sas_blog')->first());
+        }
     }
 }
