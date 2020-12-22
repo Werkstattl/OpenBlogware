@@ -6,6 +6,14 @@
                 "category": "Kategorien"
             }
         },
+        "element": {
+            "detail": {
+                "warning": {
+                    "heading": "Fehler beim laden der Blog Detail Ansicht",
+                    "content": "Vielleicht hast du das Blog Detail CMS Element auf derselben Seite wie das CMS Listing Element?"
+                }
+            }
+        },
         "listing": {
             "readMoreLabel": "mehr lesen",
             "emptyResultMessage": "Wir konnten leider keine Suchergebnisse finden ...",

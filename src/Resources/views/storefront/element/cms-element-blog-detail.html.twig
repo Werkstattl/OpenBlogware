@@ -1,75 +1,83 @@
 {% block sas_blog_detail %}
-    <article class="sas-blog-detail row"
+    {% if element.data %}
+        <article class="sas-blog-detail row"
              itemprop="article"
              itemscope
-             itemtype="https://schema.org/Article">
+             itemtype="https://schema.org/BlogPosting">
 
-        {% block sas_blog_detail_article_item_meta_published %}
-            <meta itemprop="datePublished" content="{{ element.data.createdAt|date }}">
-        {% endblock %}
+            {% block sas_blog_detail_article_item_meta_published %}
+                <meta itemprop="datePublished" content="{{ element.data.createdAt|date }}">
+            {% endblock %}
 
-        {% block page_product_detail_review_item_info_date %}
-            <div class="col-12 sas-blog-detail-item-date">
-                <p><small>{{ element.data.createdAt|date }}</small></p>
-            </div>
-        {% endblock %}
+            {% block page_product_detail_review_item_info_date %}
+                <div class="col-12 sas-blog-detail-item-date">
+                    <p><small>{{ element.data.createdAt|date }}</small></p>
+                </div>
+            {% endblock %}
 
-        {% block sas_blog_detail_article_blocks %}
-            <div class="col-12 sas-blog-detail-article">
+            {% block sas_blog_detail_article_blocks %}
+                <div class="col-12 sas-blog-detail-article">
 
-                {% block sas_blog_detail_article_teaser_image %}
-                    {% if element.data.detailTeaserImage %}
-                        {% set attributes = {
-                            'class': 'blog-image-teaser card-img-top',
-                            'alt': (element.data.media.translated.alt ?: element.data.media.fileName),
-                            'title': (element.data.media.translated.title ?: element.data.media.fileName)
-                        } %}
+                    {% block sas_blog_detail_article_teaser_image %}
+                        {% if element.data.detailTeaserImage %}
+                            {% set attributes = {
+                                'class': 'blog-image-teaser card-img-top',
+                                'alt': (element.data.media.translated.alt ?: element.data.media.fileName),
+                                'title': (element.data.media.translated.title ?: element.data.media.fileName)
+                            } %}
 
-                        {% sw_thumbnails 'blog-image-teaser' with {
-                            media: element.data.media,
-                            sizes: {
-                                'xs': '501px',
-                                'sm': '315px',
-                                'md': '427px',
-                                'lg': '333px',
-                                'xl': '284px'
-                            }
-                        } %}
-                    {% endif %}
-                {% endblock %}
+                            {% sw_thumbnails 'blog-image-teaser' with {
+                                media: element.data.media,
+                                sizes: {
+                                    'xs': '501px',
+                                    'sm': '315px',
+                                    'md': '427px',
+                                    'lg': '333px',
+                                    'xl': '284px'
+                                }
+                            } %}
+                        {% endif %}
+                    {% endblock %}
 
-                {% block sas_blog_detail_article_title %}
-                    <h1 class="sas-blog-detail-title" itemprop="headline">
-                        {{ element.data.translated.title }}
-                    </h1>
-                {% endblock %}
+                    {% block sas_blog_detail_article_title %}
+                        <h1 class="sas-blog-detail-title" itemprop="headline">
+                            {{ element.data.translated.title }}
+                        </h1>
+                    {% endblock %}
 
-                {% block sas_blog_detail_article_meta %}
-                    <div class="sas-blog-detail-article-meta">
-                        {% block sas_blog_detail_article_meta_author %}
-                            {% if element.data.author %}
-                                {% sw_include '@Storefront/storefront/component/blog/_partials/_block_author.html.twig' with {
-                                    author: element.data.author
-                                } %}
-                            {% endif %}
-                        {% endblock %}
+                    {% block sas_blog_detail_article_meta %}
+                        <div class="sas-blog-detail-article-meta">
+                            {% block sas_blog_detail_article_meta_author %}
+                                {% if element.data.author %}
+                                    {% sw_include '@Storefront/storefront/component/blog/_partials/_block_author.html.twig' with {
+                                        author: element.data.author
+                                    } %}
+                                {% endif %}
+                            {% endblock %}
 
-                        {% block sas_blog_detail_article_meta_categories %}
-                            {% if element.data.blogCategories %}
-                                {% sw_include '@Storefront/storefront/component/blog/_partials/_block_category.html.twig' with {
-                                    categories: element.data.blogCategories
-                                } %}
-                            {% endif %}
-                        {% endblock %}
-                    </div>
-                {% endblock %}
+                            {% block sas_blog_detail_article_meta_categories %}
+                                {% if element.data.blogCategories %}
+                                    {% sw_include '@Storefront/storefront/component/blog/_partials/_block_category.html.twig' with {
+                                        categories: element.data.blogCategories
+                                    } %}
+                                {% endif %}
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
 
-                {% block sas_blog_detail_article_blocks_content %}
-                    <div>
-                        {{ element.data.content|raw }}
-                    </div>
-                {% endblock %}
-            </div>
-        {% endblock %}
-    </article>
+                    {% block sas_blog_detail_article_blocks_content %}
+                        <div>
+                            {{ element.data.content|raw }}
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </article>
+    {% else %}
+        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+            type: "warning",
+            content: 'sas-blog.element.detail.warning.content'|trans,
+            heading: 'sas-blog.element.detail.warning.heading'|trans
+        } %}
+    {% endif %}
 {% endblock %}

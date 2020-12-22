@@ -6,10 +6,6 @@
 
     <services>
 
-        <service id="Sas\BlogModule\Twig\TextExtension">
-            <tag name="twig.extension"/>
-        </service>
-
         <service id="Sas\BlogModule\Content\Blog\BlogEntriesDefinition">
             <tag name="shopware.entity.definition" entity="sas_blog_entries" />
         </service>
@@ -79,7 +75,7 @@
             <tag name="shopware.entity_indexer"/>
         </service>
 
-        <service id="Sas\BlogModule\Core\Content\Blog\Cms\Type\BlogSingleSelectDataResolver">
+        <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogSingleSelectDataResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
 

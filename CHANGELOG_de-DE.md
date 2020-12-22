@@ -1,3 +1,8 @@
+# 1.2.7
+* Fehler behoben, welcher auftrat, wenn man das Blog listing + Blog detail Element auf derselben CMS Seite hat
+* Überflüssigen Twig Filter entfernt
+* Single Select Data Resolver verschoben
+
 # 1.2.6
 * Single Select blog CMS Element & Block verbessert
 
