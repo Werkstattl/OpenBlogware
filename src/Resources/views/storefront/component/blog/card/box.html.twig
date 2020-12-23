@@ -2,7 +2,7 @@
     <article class="card">
         {% block sas_blog_card_teaser_image %}
             <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
-                   title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
+                   title="{{ article.translated.title }}"
                    class="blog-image-link">
                     {% if article.media.url %}
                         {% set attributes = {
@@ -37,7 +37,7 @@
                         <h2 class="card-title mt-3 d-flex items-center justify-content-between">
                             {% block sas_blog_card_title_link %}
                                 <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
-                                   title="{{ "sas-blog.listing.readMoreLabel"|trans|sw_sanitize }}"
+                                   title="{{ article.translated.title }}"
                                    class="text-decoration-none">
                                     {{ article.translated.title }}
                                 </a>
