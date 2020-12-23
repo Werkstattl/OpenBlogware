@@ -1,3 +1,7 @@
+# 1.2.8
+* Strukturierte Daten Autor Fehler behoben
+* read more title der Beitrags ersetzt durch title
+
 # 1.2.7
 * Fehler behoben, welcher auftrat, wenn man das Blog listing + Blog detail Element auf derselben CMS Seite hat
 * Überflüssigen Twig Filter entfernt

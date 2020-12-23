@@ -1,3 +1,7 @@
+# 1.2.8
+* Fixed an issue with structure data of the author
+* replaced "read more" title name with the actual article title
+
 # 1.2.7
 * Fixed error if you have a blog listing + blog detail element on the same CMS page
 * Removed unnecessary twig filter
