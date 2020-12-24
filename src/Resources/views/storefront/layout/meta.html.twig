@@ -41,7 +41,8 @@
                     "@type": "Person",
                     "name": "{{ entry.author.translated.name }}"
                 },
-                {% if entry.media.thumbnails.elements|length %}"image":{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %},{% endif %}
+                {% if entry.media.thumbnails.elements|length %}
+                "image":[{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %}],{% endif %}
                 "mainEntityOfPage": {
                     "@type": "WebPage",
                     "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"
