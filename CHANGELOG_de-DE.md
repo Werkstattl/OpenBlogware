@@ -1,3 +1,6 @@
+# 1.2.9
+* Teaser Thumbnail Größe angepasst
+
 # 1.2.8
 * Strukturierte Daten Autor Fehler behoben
 * read more title der Beitrags ersetzt durch title

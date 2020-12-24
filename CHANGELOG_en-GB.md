@@ -1,3 +1,6 @@
+# 1.2.9
+* Teaser thumbnail size adjusted
+
 # 1.2.8
 * Fixed an issue with structure data of the author
 * replaced "read more" title name with the actual article title
