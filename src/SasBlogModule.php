@@ -31,7 +31,6 @@ class SasBlogModule extends Plugin
     }
 
     /**
-     * @param UninstallContext $context
      */
     public function uninstall(UninstallContext $context): void
     {
@@ -86,7 +85,7 @@ class SasBlogModule extends Plugin
 
         (new Update())->update($this->container, $updateContext);
 
-        if (\version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
+        if (version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
             $this->createBlogMediaFolder($updateContext->getContext());
         }
     }
@@ -95,7 +94,6 @@ class SasBlogModule extends Plugin
      * We need to create a folder for the blog media with it's,
      * own configuration to generate thumbnails for the teaser image.
      *
-     * @param Context $context
      */
     public function createBlogMediaFolder(Context $context): void
     {
@@ -107,17 +105,17 @@ class SasBlogModule extends Plugin
 
         $mediaFolderRepository->create([
             [
-                'entity'            => BlogEntriesDefinition::ENTITY_NAME,
+                'entity' => BlogEntriesDefinition::ENTITY_NAME,
                 'associationFields' => ['media'],
-                'folder'            => [
-                    'name'                   => 'Blog Images',
+                'folder' => [
+                    'name' => 'Blog Images',
                     'useParentConfiguration' => false,
-                    'configuration'          =>
-                        [
-                            'createThumbnails'    => true,
+                    'configuration'
+                        => [
+                            'createThumbnails' => true,
                             'mediaThumbnailSizes' => [
                                 [
-                                    'width'  => 650,
+                                    'width' => 650,
                                     'height' => 330,
                                 ],
                             ],

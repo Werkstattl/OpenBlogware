@@ -14,16 +14,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
  */
 class BlogAuthorCollection extends EntityCollection
 {
+    public function getApiAlias(): string
+    {
+        return 'sas_blog_author_collection';
+    }
+
     /**
-     * @return string
      */
     protected function getExpectedClass(): string
     {
         return BlogAuthorEntity::class;
-    }
-
-    public function getApiAlias(): string
-    {
-        return 'sas_blog_author_collection';
     }
 }

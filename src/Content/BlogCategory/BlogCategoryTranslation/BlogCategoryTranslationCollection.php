@@ -14,13 +14,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
  */
 class BlogCategoryTranslationCollection extends EntityCollection
 {
-    protected function getExpectedClass(): string
-    {
-        return BlogCategoryTranslationEntity::class;
-    }
-
     public function getApiAlias(): string
     {
         return 'sas_blog_category_translation_collection';
+    }
+
+    protected function getExpectedClass(): string
+    {
+        return BlogCategoryTranslationEntity::class;
     }
 }

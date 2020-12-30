@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 namespace Sas\BlogModule\Content\BlogCategory;
 
+use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 use Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
-use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 
 class BlogCategoryEntity extends Entity
 {

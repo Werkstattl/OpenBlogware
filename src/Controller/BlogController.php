@@ -26,6 +26,7 @@ class BlogController extends StorefrontController
      * @var GenericPageLoader
      */
     private $genericPageLoader;
+
     /**
      * @var SalesChannelCmsPageLoaderInterface
      */
@@ -82,7 +83,7 @@ class BlogController extends StorefrontController
         $page->setMetaInformation($metaInformation);
 
         return $this->renderStorefront('@Storefront/storefront/page/content/index.html.twig', [
-            'page'  => $page,
+            'page' => $page,
             'entry' => $entry,
         ]);
     }

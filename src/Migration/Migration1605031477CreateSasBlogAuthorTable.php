@@ -62,13 +62,13 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
             $defaultAuthorId = Uuid::fromHexToBytes(SasBlogModule::ANONYMOUS_AUTHOR_ID);
 
             $connection->insert('sas_blog_author', [
-                'id'            => $defaultAuthorId,
-                'first_name'    => 'N/A',
-                'last_name'     => 'N/A',
+                'id' => $defaultAuthorId,
+                'first_name' => 'N/A',
+                'last_name' => 'N/A',
                 'salutation_id' => $notSpecified,
-                'display_name'  => 'Anonymous',
-                'email'         => 'N/A',
-                'created_at'    => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                'display_name' => 'Anonymous',
+                'email' => 'N/A',
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             ]);
         }
 

@@ -42,7 +42,6 @@ class BlogEntriesEntity extends Entity
     protected $author;
 
     /**
-     * @return string
      */
     public function getAuthorId(): string
     {
@@ -50,7 +49,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param string $authorId
      */
     public function setAuthorId(string $authorId): void
     {
@@ -58,7 +56,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return BlogAuthorEntity|null
      */
     public function getAuthor(): ?BlogAuthorEntity
     {
@@ -66,7 +63,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param BlogAuthorEntity $author
      */
     public function setAuthor(BlogAuthorEntity $author): void
     {
@@ -74,7 +70,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return int
      */
     public function getActive(): int
     {
@@ -82,7 +77,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param int $active
      */
     public function setActive(int $active): void
     {
@@ -90,7 +84,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return bool
      */
     public function getDetailTeaserImage(): bool
     {
@@ -98,7 +91,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param bool $detailTeaserImage
      */
     public function setDetailTeaserImage(bool $detailTeaserImage): void
     {
@@ -106,7 +98,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return BlogTranslationCollection|null
      */
     public function getTranslations(): ?BlogTranslationCollection
     {
@@ -114,7 +105,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param BlogTranslationCollection|null $translations
      */
     public function setTranslations(?BlogTranslationCollection $translations): void
     {
@@ -122,7 +112,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return BlogCategoryCollection|null
      */
     public function getBlogCategories(): ?BlogCategoryCollection
     {
@@ -130,7 +119,6 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @param BlogCategoryCollection $blogCategories
      */
     public function setBlogCategories(BlogCategoryCollection $blogCategories): void
     {

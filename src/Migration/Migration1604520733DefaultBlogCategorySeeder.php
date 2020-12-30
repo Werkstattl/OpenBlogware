@@ -29,11 +29,11 @@ class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
         $translations = new Translations(
             [
                 'sas_blog_category_id' => $categoryId,
-                'name'                 => 'Allgemeines',
+                'name' => 'Allgemeines',
             ],
             [
                 'sas_blog_category_id' => $categoryId,
-                'name'                 => 'General',
+                'name' => 'General',
             ]
         );
 

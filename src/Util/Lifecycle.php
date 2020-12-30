@@ -19,10 +19,7 @@ class Lifecycle
     private $cmsPageRepository;
 
     /**
-     * InstallUninstall constructor.
      *
-     * @param SystemConfigService       $systemConfig
-     * @param EntityRepositoryInterface $cmsPageRepository
      */
     public function __construct(
         SystemConfigService $systemConfig,
@@ -44,19 +41,19 @@ class Lifecycle
 
         $cmsPage = [
             [
-                'id'          => $blogListingCmsPageId,
-                'type'        => 'page',
-                'name'        => 'Blog Listing',
-                'sections'    => [
+                'id' => $blogListingCmsPageId,
+                'type' => 'page',
+                'name' => 'Blog Listing',
+                'sections' => [
                     [
-                        'id'       => Uuid::randomHex(),
-                        'type'     => 'default',
+                        'id' => Uuid::randomHex(),
+                        'type' => 'default',
                         'position' => 0,
-                        'blocks'   => [
+                        'blocks' => [
                             [
                                 'position' => 1,
-                                'type'     => 'blog-listing',
-                                'slots'    => [
+                                'type' => 'blog-listing',
+                                'slots' => [
                                     ['type' => 'blog', 'slot' => 'listing'],
                                 ],
                             ],
@@ -65,19 +62,19 @@ class Lifecycle
                 ],
             ],
             [
-                'id'          => $blogDetailCmsPageId,
-                'type'        => 'page',
-                'name'        => 'Blog Detail',
-                'sections'    => [
+                'id' => $blogDetailCmsPageId,
+                'type' => 'page',
+                'name' => 'Blog Detail',
+                'sections' => [
                     [
-                        'id'       => Uuid::randomHex(),
-                        'type'     => 'default',
+                        'id' => Uuid::randomHex(),
+                        'type' => 'default',
                         'position' => 0,
-                        'blocks'   => [
+                        'blocks' => [
                             [
                                 'position' => 1,
-                                'type'     => 'blog-detail',
-                                'slots'    => [
+                                'type' => 'blog-detail',
+                                'slots' => [
                                     ['type' => 'blog-detail', 'slot' => 'blogDetail'],
                                 ],
                             ],

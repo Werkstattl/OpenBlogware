@@ -47,7 +47,6 @@ class BlogTranslationEntity extends TranslationEntity
     protected $metaDescription;
 
     /**
-     * @return string
      */
     public function getBlogId(): string
     {
@@ -55,7 +54,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string $blogId
      */
     public function setBlogId(string $blogId): void
     {
@@ -63,7 +61,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return BlogEntriesEntity
      */
     public function getBlog(): BlogEntriesEntity
     {
@@ -71,7 +68,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param BlogEntriesEntity $blog
      */
     public function setBlog(BlogEntriesEntity $blog): void
     {
@@ -79,7 +75,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string
      */
     public function getTitle(): string
     {
@@ -87,7 +82,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string $title
      */
     public function setTitle(string $title): void
     {
@@ -95,7 +89,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string
      */
     public function getSlug(): string
     {
@@ -103,7 +96,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string $slug
      */
     public function setSlug(string $slug): void
     {
@@ -111,7 +103,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string
      */
     public function getContent(): string
     {
@@ -119,7 +110,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string $content
      */
     public function setContent(string $content): void
     {
@@ -127,7 +117,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string
      */
     public function getTeaser(): string
     {
@@ -135,7 +124,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string $teaser
      */
     public function setTeaser(string $teaser): void
     {
@@ -143,7 +131,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string|null
      */
     public function getMetaTitle(): ?string
     {
@@ -151,7 +138,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string|null $metaTitle
      */
     public function setMetaTitle(?string $metaTitle): void
     {
@@ -159,7 +145,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @return string|null
      */
     public function getMetaDescription(): ?string
     {
@@ -167,7 +152,6 @@ class BlogTranslationEntity extends TranslationEntity
     }
 
     /**
-     * @param string|null $metaDescription
      */
     public function setMetaDescription(?string $metaDescription): void
     {

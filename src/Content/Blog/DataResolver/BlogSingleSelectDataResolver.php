@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Sas\BlogModule\Content\Blog\DataResolver;
 
-
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;

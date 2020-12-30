@@ -25,7 +25,6 @@ class BlogEntriesDefinition extends EntityDefinition
     public const ENTITY_NAME = 'sas_blog_entries';
 
     /**
-     * @return string
      */
     public function getEntityName(): string
     {
@@ -33,7 +32,6 @@ class BlogEntriesDefinition extends EntityDefinition
     }
 
     /**
-     * @return string
      */
     public function getEntityClass(): string
     {
@@ -41,7 +39,6 @@ class BlogEntriesDefinition extends EntityDefinition
     }
 
     /**
-     * @return string
      */
     public function getCollectionClass(): string
     {
@@ -49,7 +46,6 @@ class BlogEntriesDefinition extends EntityDefinition
     }
 
     /**
-     * @return FieldCollection
      */
     protected function defineFields(): FieldCollection
     {

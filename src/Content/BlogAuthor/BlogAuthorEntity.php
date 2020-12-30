@@ -136,6 +136,7 @@ class BlogAuthorEntity extends Entity
         $translated = parent::getTranslated();
 
         $translated['name'] = $this->getFirstName() . ' ' . $this->getLastName();
+
         return $translated;
     }
 }

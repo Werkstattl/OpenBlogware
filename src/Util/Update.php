@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 namespace Sas\BlogModule\Util;
 
+use Doctrine\DBAL\Connection;
 use Psr\Container\ContainerInterface;
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Sas\BlogModule\Migration\Migration1602739765AddTeaserImageColumnToBlogEntries;
-use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
-use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
 class Update
 {
     public function update(ContainerInterface $container, UpdateContext $updateContext): void
     {
-        if (\version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
+        if (version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
             $this->updateTo110($container);
         }
     }

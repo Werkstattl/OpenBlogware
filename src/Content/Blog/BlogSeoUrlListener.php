@@ -12,16 +12,16 @@ class BlogSeoUrlListener implements EventSubscriberInterface
      */
     private $seoUrlUpdater;
 
+    public function __construct(SeoUrlUpdater $seoUrlUpdater)
+    {
+        $this->seoUrlUpdater = $seoUrlUpdater;
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
             'sas_blog_entries.written' => 'onBlogUpdated',
         ];
-    }
-
-    public function __construct(SeoUrlUpdater $seoUrlUpdater)
-    {
-        $this->seoUrlUpdater = $seoUrlUpdater;
     }
 
     public function onBlogUpdated(EntityWrittenEvent $event): void
