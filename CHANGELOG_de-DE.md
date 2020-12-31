@@ -1,3 +1,8 @@
+# 1.2.10
+* Storefront lokales datum fix
+* Autor in der Storefront hinzugefügt
+* Generelle Überarbeitung des Stylings im Listing
+
 # 1.2.9
 * Teaser Thumbnail Größe angepasst
 

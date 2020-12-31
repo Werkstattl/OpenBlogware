@@ -1,3 +1,8 @@
+# 1.2.10
+* Storefront date locale fix
+* Added author to the storefront
+* Overhauled general styling of the listing
+
 # 1.2.9
 * Teaser thumbnail size adjusted
 

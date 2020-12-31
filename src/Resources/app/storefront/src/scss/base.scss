@@ -1,6 +1,34 @@
 .blog-image,
 .blog-image-placeholder {
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
-    height: 350px;
+    height: 250px;
+}
+
+.blog-card {
+
+    .card-text {
+        height: 85px;
+    }
+
+    .card-footer {
+        display: flex;
+        align-items: center;
+        background: none;
+        padding: 0;
+        margin-top: 25px;
+
+        .blog-author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .blog-author-display-name {
+            font-weight: $font-weight-bold;
+            margin-bottom: 0;
+        }
+    }
 }

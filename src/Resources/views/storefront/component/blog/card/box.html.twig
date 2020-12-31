@@ -1,5 +1,5 @@
 {% block sas_blog_card %}
-    <article class="card">
+    <article class="card blog-card">
         {% block sas_blog_card_teaser_image %}
             <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
                    title="{{ article.translated.title }}"
@@ -29,18 +29,20 @@
         {% endblock %}
         {% block sas_blog_card_body %}
             <div class="card-body">
-                <div class="">
+                <div class="d-flex flex-column">
+                    {% block sas_blog_card_title_date %}
+                        <p class="mt-2 mb-1 d-flex align-items-center blog-date">
+                            <small>{{ article.createdAt|format_date('short', locale=app.request.locale) }}</small>
+                        </p>
+                    {% endblock %}
                     {% block sas_blog_card_title %}
-                        <h2 class="card-title mt-3 d-flex items-center justify-content-between">
+                        <h2 class="card-title mt-0">
                             {% block sas_blog_card_title_link %}
                                 <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
                                    title="{{ article.translated.title }}"
                                    class="text-decoration-none">
                                     {{ article.translated.title }}
                                 </a>
-                            {% endblock %}
-                            {% block sas_blog_card_title_date %}
-                                <small>{{ article.createdAt|date("m. F Y") }}</small>
                             {% endblock %}
                         </h2>
                     {% endblock %}
@@ -50,5 +52,30 @@
                 {% endblock %}
             </div>
         {% endblock %}
+        <div class="card-footer text-muted">
+            {% if article.author.media.url %}
+                {% set attributes = {
+                    'class': 'blog-author-avatar',
+                    'alt': (article.author.media.translated.alt ?: article.author.media.fileName),
+                    'title': (article.author.media.translated.title ?: article.author.media.fileName)
+                } %}
+
+                {% sw_thumbnails 'blog-author-avatar-thumbnails' with {
+                    media: article.author.media,
+                    sizes: {
+                    'xs': '80px'
+                }
+                    } %}
+            {% else %}
+                <div class="blog-image-placeholder">
+                    {% sw_icon 'placeholder' style {
+                        'size': 'fluid'
+                        } %}
+                </div>
+            {% endif %}
+            <p class="blog-author-display-name">{{ article.author.displayName }}<br>
+                <small class="text-muted">{{ article.author.blogs|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
+            </p>
+        </div>
     </article>
 {% endblock %}

@@ -36,6 +36,8 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             new EqualsFilter('active', true)
         );
 
+        $criteria->addAssociations(['author', 'author.media', 'author.blogs', 'blogCategories']);
+
         $criteria->addSorting(new FieldSorting('createdAt', FieldSorting::DESCENDING));
 
         if ($config->has('showType') && $config->get('showType')->getValue() === 'select') {
