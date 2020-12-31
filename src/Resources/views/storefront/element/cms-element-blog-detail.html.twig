@@ -6,7 +6,7 @@
              itemtype="https://schema.org/BlogPosting">
 
             {% block sas_blog_detail_article_item_meta_published %}
-                <meta itemprop="datePublished" content="{{ element.data.createdAt|date }}">
+                <meta itemprop="datePublished" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
             {% endblock %}
 
             {% block page_product_detail_review_item_info_date %}
