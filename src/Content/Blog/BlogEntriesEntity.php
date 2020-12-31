@@ -41,85 +41,61 @@ class BlogEntriesEntity extends Entity
      */
     protected $author;
 
-    /**
-     */
     public function getAuthorId(): string
     {
         return $this->authorId;
     }
 
-    /**
-     */
     public function setAuthorId(string $authorId): void
     {
         $this->authorId = $authorId;
     }
 
-    /**
-     */
     public function getAuthor(): ?BlogAuthorEntity
     {
         return $this->author;
     }
 
-    /**
-     */
     public function setAuthor(BlogAuthorEntity $author): void
     {
         $this->author = $author;
     }
 
-    /**
-     */
     public function getActive(): int
     {
         return $this->active;
     }
 
-    /**
-     */
     public function setActive(int $active): void
     {
         $this->active = $active;
     }
 
-    /**
-     */
     public function getDetailTeaserImage(): bool
     {
         return $this->detailTeaserImage;
     }
 
-    /**
-     */
     public function setDetailTeaserImage(bool $detailTeaserImage): void
     {
         $this->detailTeaserImage = $detailTeaserImage;
     }
 
-    /**
-     */
     public function getTranslations(): ?BlogTranslationCollection
     {
         return $this->translations;
     }
 
-    /**
-     */
     public function setTranslations(?BlogTranslationCollection $translations): void
     {
         $this->translations = $translations;
     }
 
-    /**
-     */
     public function getBlogCategories(): ?BlogCategoryCollection
     {
         return $this->blogCategories;
     }
 
-    /**
-     */
     public function setBlogCategories(BlogCategoryCollection $blogCategories): void
     {
         $this->blogCategories = $blogCategories;
