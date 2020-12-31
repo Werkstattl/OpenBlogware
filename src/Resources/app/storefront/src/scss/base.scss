@@ -1,5 +1,6 @@
-.blog-image {
-    object-fit: cover;
+.blog-image,
+.blog-image-placeholder {
+    object-fit: contain;
     width: 100%;
     height: 350px;
 }
