@@ -28,7 +28,7 @@ class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
             new EqualsFilter('id', $config->get('blogEntry')->getValue())
         );
 
-        $criteria->addAssociation('blogCategories');
+        $criteria->addAssociations(['author', 'author.media', 'author.blogs', 'blogCategories']);
 
         $criteriaCollection = new CriteriaCollection();
 
