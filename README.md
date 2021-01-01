@@ -3,6 +3,9 @@
 # Shopware 6 Blog Plugin
 After the plugin installation you can find the entity if you hop to `content -> blog`.
 
+![](https://sbp-plugin-images.s3.eu-west-1.amazonaws.com/phpZoe2dS)
+*Blog listing view*
+
 ![](https://res.cloudinary.com/dtgdh7noz/image/upload/v1608026832/Bildschirmfoto_2020-12-15_um_12.06.25_ahbgze.png)
 *Blog overview page with categories*
 
