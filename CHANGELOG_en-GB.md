@@ -1,3 +1,8 @@
+# 1.2.11
+* Listing show author is optional, enabled or disabled by the plugin configuration
+* Added `sas_blog_card_footer` and `sas_blog_card_footer_author` twig block
+* Fixed empty placeholder author image styling
+
 # 1.2.10
 * Storefront date locale fix
 * Added author to the storefront
