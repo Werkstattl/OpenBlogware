@@ -32,6 +32,19 @@
         </input-field>
     </card>
 
+    <card>
+        <title>Article box configuration</title>
+        <title lang="de-DE">Artikel Box Konfiguration</title>
+
+        <input-field type="bool">
+            <name>showAuthor</name>
+            <label>Show author</label>
+            <label lang="de-DE">Autor anzeigen</label>
+            <defaultValue>1</defaultValue>
+        </input-field>
+
+    </card>
+
     <!--
     <card>
         <title>Comment Configuration</title>
