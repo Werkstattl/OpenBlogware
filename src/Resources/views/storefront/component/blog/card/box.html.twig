@@ -52,30 +52,37 @@
                 {% endblock %}
             </div>
         {% endblock %}
-        <div class="card-footer text-muted">
-            {% if article.author.media.url %}
-                {% set attributes = {
-                    'class': 'blog-author-avatar',
-                    'alt': (article.author.media.translated.alt ?: article.author.media.fileName),
-                    'title': (article.author.media.translated.title ?: article.author.media.fileName)
-                } %}
 
-                {% sw_thumbnails 'blog-author-avatar-thumbnails' with {
-                    media: article.author.media,
-                    sizes: {
-                    'xs': '80px'
-                }
-                    } %}
-            {% else %}
-                <div class="blog-image-placeholder">
-                    {% sw_icon 'placeholder' style {
-                        'size': 'fluid'
+        {% block sas_blog_card_footer %}
+        <div class="card-footer text-muted">
+            {% block sas_blog_card_footer_author %}
+                {% if shopware.config.SasBlogModule.config.showAuthor %}
+                    {% if article.author.media.url %}
+                        {% set attributes = {
+                            'class': 'blog-author-avatar',
+                            'alt': (article.author.media.translated.alt ?: article.author.media.fileName),
+                            'title': (article.author.media.translated.title ?: article.author.media.fileName)
                         } %}
-                </div>
-            {% endif %}
-            <p class="blog-author-display-name">{{ article.author.displayName }}<br>
-                <small class="text-muted">{{ article.author.blogs|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
-            </p>
+
+                        {% sw_thumbnails 'blog-author-avatar-thumbnails' with {
+                            media: article.author.media,
+                            sizes: {
+                            'xs': '80px'
+                        }
+                            } %}
+                    {% else %}
+                        <div class="blog-image-placeholder">
+                            {% sw_icon 'placeholder' style {
+                                'size': 'fluid'
+                                } %}
+                        </div>
+                    {% endif %}
+                    <p class="blog-author-display-name">{{ article.author.displayName }}<br>
+                        <small class="text-muted">{{ article.author.blogs|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
+                    </p>
+                {% endif %}
+            {% endblock %}
         </div>
+        {% endblock %}
     </article>
 {% endblock %}
