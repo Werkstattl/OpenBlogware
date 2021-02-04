@@ -2,21 +2,24 @@
 <div class="sw-cms-el-config-blog">
 
     {% block sas_cms_element_blog_listing_config_paginationCount_field %}
-        <sw-select-field
+        <sw-number-field
+            numberType="int"
+            :step="1"
+            :min="1"
+            :max="null"
             v-model="element.config.paginationCount.value"
+            :digits="2"
+            :allowEmpty="false"
             :label="$tc('sas-blog.elements.listing.config.paginationCount')">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-        </sw-select-field>
+        </sw-number-field>
     {% endblock %}
 
     {% block sas_cms_element_blog_listing_config_show_type %}
         <sw-select-field :label="$tc('sas-blog.elements.listing.config.showType.label')"
                          v-model="element.config.showType.value">
             {% block sas_cms_element_download_card_config_layout_select_options %}
-            <option value="all">{{ $tc('sas-blog.elements.listing.config.showType.options.all') }}</option>
-            <option value="select">{{ $tc('sas-blog.elements.listing.config.showType.options.select') }}</option>
+                <option value="all">{{ $tc('sas-blog.elements.listing.config.showType.options.all') }}</option>
+                <option value="select">{{ $tc('sas-blog.elements.listing.config.showType.options.select') }}</option>
             {% endblock %}
         </sw-select-field>
     {% endblock %}
@@ -31,6 +34,26 @@
             class="sw-product-detail__select-category"
             :placeholder="$tc('sas-blog.elements.listing.config.blogCategories.placeholder')">
         </sas-blog-category-tree-field>
+    {% endblock %}
+
+    {% block sas_cms_element_blog_listing_config_show_filter_select %}
+        <sw-card
+            :title="$tc('sas-blog.elements.listing.config.showFilter.label')"
+            :hero="false"
+            :isLoading="false"
+            :large="false"
+            class="sw-blog-config-filter">
+
+            <sw-checkbox-field
+                :label="$tc('sas-blog.elements.listing.config.showFilter.options.filter.category')"
+                v-model="element.config.showCategoryFilter.value">
+            </sw-checkbox-field>
+
+            <sw-checkbox-field
+                :label="$tc('sas-blog.elements.listing.config.showFilter.options.filter.author')"
+                v-model="element.config.showAuthorFilter.value">
+            </sw-checkbox-field>
+        </sw-card>
     {% endblock %}
 
 </div>
