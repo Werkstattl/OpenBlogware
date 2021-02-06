@@ -31,7 +31,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         /* get the config from the element */
         $config = $slot->getFieldConfig();
 
-        $dateTime = (new \DateTime());
+        $dateTime = new \DateTime();
 
         $criteria = new Criteria();
 
@@ -44,7 +44,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             'author',
             'author.media',
             'author.blogs',
-            'blogCategories'
+            'blogCategories',
         ]);
 
         $criteria->addSorting(

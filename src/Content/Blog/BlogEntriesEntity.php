@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Sas\BlogModule\Content\Blog;
 
-use DateTimeInterface;
 use Sas\BlogModule\Content\Blog\BlogTranslation\BlogTranslationCollection;
 use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
 use Sas\BlogModule\Content\BlogCategory\BlogCategoryCollection;
@@ -43,7 +42,7 @@ class BlogEntriesEntity extends Entity
     protected $author;
 
     /**
-     * @var DateTimeInterface
+     * @var \DateTimeInterface
      */
     protected $publishedAt;
 
@@ -108,19 +107,16 @@ class BlogEntriesEntity extends Entity
     }
 
     /**
-     * @return DateTimeInterface
      */
-    public function getPublishedAt(): DateTimeInterface
+    public function getPublishedAt(): \DateTimeInterface
     {
         return $this->publishedAt;
     }
 
     /**
-     * @param DateTimeInterface $publishedAt
      */
-    public function setPublishedAt(DateTimeInterface $publishedAt): void
+    public function setPublishedAt(\DateTimeInterface $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
     }
-
 }
