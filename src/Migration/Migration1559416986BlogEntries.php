@@ -15,7 +15,7 @@ class Migration1559416986BlogEntries extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeQuery(
+        $connection->executeUpdate(
             '
             CREATE TABLE IF NOT EXISTS `sas_blog_entries` (
             `id` BINARY(16) NOT NULL,
@@ -28,7 +28,7 @@ class Migration1559416986BlogEntries extends MigrationStep
         '
         );
 
-        $connection->executeQuery(
+        $connection->executeUpdate(
             '
             CREATE TABLE IF NOT EXISTS `sas_blog_entries_translation` (
             `sas_blog_entries_id` BINARY(16) NOT NULL,
