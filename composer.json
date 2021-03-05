@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "shopware/core": ">=6.3.0 < 6.4.0",
-        "shopware/storefront": ">=6.3.0 < 6.4.0",
-        "shopware/administration": ">=6.3.0 < 6.4.0"
+        "shopware/core": "*",
+        "shopware/storefront": "*",
+        "shopware/administration": "*"
     },
     "extra": {
         "shopware-plugin-class": "Sas\\BlogModule\\SasBlogModule",
