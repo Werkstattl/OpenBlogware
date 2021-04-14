@@ -1,6 +1,6 @@
 import template from './sas-blog-category-tree.html.twig';
+const Criteria = Shopware.Data.Criteria;
 const { Component } = Shopware;
-import Criteria from 'src/core/data-new/criteria.data';
 
 Component.extend('sas-blog-category-tree', 'sw-category-tree', {
     template,

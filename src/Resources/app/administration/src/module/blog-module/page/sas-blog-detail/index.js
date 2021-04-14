@@ -1,10 +1,10 @@
 import { Component, Mixin } from 'src/core/shopware';
 import template from './sas-blog-detail.html.twig';
-import Criteria from 'src/core/data-new/criteria.data';
 import './sas-blog-detail.scss';
 
 import slugify from '@slugify';
 
+const Criteria = Shopware.Data.Criteria;
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Component.register('sas-blog-detail', {

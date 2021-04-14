@@ -1,7 +1,8 @@
 import template from './sas-blog-author-list.html.twig';
 import { Component, Mixin } from 'src/core/shopware';
-import Criteria from 'src/core/data-new/criteria.data';
 import './sas-blog-author-list.scss';
+
+const Criteria = Shopware.Data.Criteria;
 
 Component.register('sas-blog-author-list', {
     template,
