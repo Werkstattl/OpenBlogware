@@ -1,3 +1,6 @@
+# 1.4.0
+* Added Shopware 6.4 compability
+
 # 1.3.1
 * Added DESC sorting to admin blog listing
 

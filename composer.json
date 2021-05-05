@@ -1,7 +1,7 @@
 {
     "name": "sas/blog-module",
     "description": "Blog Module",
-    "version": "1.3.1",
+    "version": "14.0",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
@@ -12,9 +12,7 @@
         }
     ],
     "require": {
-        "shopware/core": "*",
-        "shopware/storefront": "*",
-        "shopware/administration": "*"
+        "shopware/core": "~6.4.0"
     },
     "extra": {
         "shopware-plugin-class": "Sas\\BlogModule\\SasBlogModule",
