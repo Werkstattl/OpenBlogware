@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Util;
 
 use Shopware\Core\Framework\Context;

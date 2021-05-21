@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogCategory;
 
 use Doctrine\DBAL\Connection;
@@ -101,9 +102,7 @@ class BlogCategoryIndexer extends EntityIndexer
         }
 
         // tree should be updated immediately
-        foreach ($ids as $id) {
-            $this->treeUpdater->update($id, BlogCategoryDefinition::ENTITY_NAME, $event->getContext());
-        }
+        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $event->getContext());
 
         $children = $this->fetchChildren($ids, $event->getContext()->getVersionId());
 
@@ -128,10 +127,8 @@ class BlogCategoryIndexer extends EntityIndexer
         // listen to parent id changes
         $this->childCountUpdater->update(BlogCategoryDefinition::ENTITY_NAME, $ids, $context);
 
-        foreach ($ids as $id) {
-            // listen to parent id changes
-            $this->treeUpdater->update($id, BlogCategoryDefinition::ENTITY_NAME, $context);
-        }
+        // listen to parent id changes
+        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $context);
 
         $this->connection->commit();
     }

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\Blog;
 
 use Shopware\Core\Content\Seo\SeoUrlUpdater;

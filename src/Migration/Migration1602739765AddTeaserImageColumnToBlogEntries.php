@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -13,7 +14,7 @@ class Migration1602739765AddTeaserImageColumnToBlogEntries extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             ALTER TABLE
               sas_blog_entries
             ADD

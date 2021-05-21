@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -39,7 +40,7 @@ class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
 
         $this->importTranslation(BlogCategoryTranslationDefinition::ENTITY_NAME, $translations, $connection);
 
-        $blogs = $connection->fetchAll('SELECT id FROM ' . BlogEntriesDefinition::ENTITY_NAME) ?? [];
+        $blogs = $connection->fetchAllAssociative('SELECT id FROM ' . BlogEntriesDefinition::ENTITY_NAME) ?? [];
 
         $queue = new MultiInsertQueryQueue($connection, 50);
 

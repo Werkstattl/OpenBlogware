@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void            add(BlogAuthorTranslationEntity $entity)
- * @method void            set(string $key, BlogAuthorTranslationEntity $entity)
+ * @method void                             add(BlogAuthorTranslationEntity $entity)
+ * @method void                             set(string $key, BlogAuthorTranslationEntity $entity)
  * @method BlogAuthorTranslationEntity[]    getIterator()
  * @method BlogAuthorTranslationEntity[]    getElements()
  * @method BlogAuthorTranslationEntity|null get(string $key)

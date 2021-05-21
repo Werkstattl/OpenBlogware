@@ -170,6 +170,9 @@
                 "createBefore": "New category before",
                 "createAfter": "New category after"
             }
+        },
+        "modal": {
+            "textDeleteMultipleConfirm": "Are you sure you want to delete the {count} selected blogs?"
         }
     },
     "sas-blog-author": {

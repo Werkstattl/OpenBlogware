@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogCategory;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void                add(BlogCategoryEntity $entity)
- * @method void                set(string $key, BlogCategoryEntity $entity)
+ * @method void                    add(BlogCategoryEntity $entity)
+ * @method void                    set(string $key, BlogCategoryEntity $entity)
  * @method BlogCategoryEntity[]    getIterator()
  * @method BlogCategoryEntity[]    getElements()
  * @method BlogCategoryEntity|null get(string $key)

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation;
 
 use Sas\BlogModule\Content\BlogCategory\BlogCategoryDefinition;

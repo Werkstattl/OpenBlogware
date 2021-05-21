@@ -14,7 +14,7 @@ class Migration1612160298CreatePubslihedDateColumn extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             ALTER TABLE
               sas_blog_entries
             ADD
@@ -23,7 +23,7 @@ class Migration1612160298CreatePubslihedDateColumn extends MigrationStep
               created_at
         ');
 
-        $connection->executeUpdate('
+        $connection->executeStatement('
             UPDATE sas_blog_entries SET published_at = created_at
         ');
     }

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -16,7 +17,7 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `sas_blog_author` (
                 `id` BINARY(16) NOT NULL,
                 `salutation_id` BINARY(16) NOT NULL,
@@ -37,7 +38,7 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `sas_blog_author_translation` (
                 `description` LONGTEXT NULL,
                 `custom_fields` JSON NULL,
@@ -54,9 +55,9 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $notSpecified = $connection->fetchColumn("SELECT id from salutation WHERE salutation_key = 'not_specified' LIMIT 1");
+        $notSpecified = $connection->fetchOne("SELECT id from salutation WHERE salutation_key = 'not_specified' LIMIT 1");
 
-        $defaultAuthorId = $connection->fetchColumn('SELECT id from sas_blog_author LIMIT 1');
+        $defaultAuthorId = $connection->fetchOne('SELECT id from sas_blog_author LIMIT 1');
 
         if (empty($defaultAuthorId)) {
             $defaultAuthorId = Uuid::fromHexToBytes(SasBlogModule::ANONYMOUS_AUTHOR_ID);
@@ -72,7 +73,7 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
             ]);
         }
 
-        $connection->executeUpdate("
+        $connection->executeStatement("
             ALTER TABLE sas_blog_entries ADD COLUMN author_id BINARY(16) NOT NULL DEFAULT '" . $defaultAuthorId . "' AFTER active;
         ");
     }

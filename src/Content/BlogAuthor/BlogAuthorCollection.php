@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogAuthor;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void              add(BlogAuthorEntity $entity)
- * @method void              set(string $key, BlogAuthorEntity $entity)
+ * @method void                  add(BlogAuthorEntity $entity)
+ * @method void                  set(string $key, BlogAuthorEntity $entity)
  * @method BlogAuthorEntity[]    getIterator()
  * @method BlogAuthorEntity[]    getElements()
  * @method BlogAuthorEntity|null get(string $key)
@@ -19,8 +20,6 @@ class BlogAuthorCollection extends EntityCollection
         return 'sas_blog_author_collection';
     }
 
-    /**
-     */
     protected function getExpectedClass(): string
     {
         return BlogAuthorEntity::class;

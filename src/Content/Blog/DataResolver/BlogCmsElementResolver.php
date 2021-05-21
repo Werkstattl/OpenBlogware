@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\Blog\DataResolver;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
@@ -37,7 +38,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
 
         $criteria->addFilter(
             new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(DATE_ATOM)])
+            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
         );
 
         $criteria->addAssociations([

@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\Blog;
 
 use Sas\BlogModule\Content\Blog\BlogTranslation\BlogTranslationCollection;
@@ -106,15 +107,11 @@ class BlogEntriesEntity extends Entity
         $this->blogCategories = $blogCategories;
     }
 
-    /**
-     */
     public function getPublishedAt(): \DateTimeInterface
     {
         return $this->publishedAt;
     }
 
-    /**
-     */
     public function setPublishedAt(\DateTimeInterface $publishedAt): void
     {
         $this->publishedAt = $publishedAt;

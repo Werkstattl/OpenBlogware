@@ -154,6 +154,9 @@
                 "createBefore": "Neue Kategorie davor",
                 "createAfter": "Neue Kategorie danach"
             }
+        },
+        "modal": {
+            "textDeleteMultipleConfirm": "Möchtest Du diese {count} blogs Kategorien wirklich löschen?"
         }
     },
     "sas-blog-author": {

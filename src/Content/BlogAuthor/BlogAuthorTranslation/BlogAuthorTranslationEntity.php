@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation;
 
 use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;

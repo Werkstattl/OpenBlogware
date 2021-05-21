@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Controller;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;

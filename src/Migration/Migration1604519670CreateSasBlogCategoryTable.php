@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -13,7 +14,7 @@ class Migration1604519670CreateSasBlogCategoryTable extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `sas_blog_category` (
                 `id` BINARY(16) NOT NULL,
                 `parent_id` BINARY(16) NULL,
@@ -29,7 +30,7 @@ class Migration1604519670CreateSasBlogCategoryTable extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `sas_blog_category_translation` (
                 `name` VARCHAR(255) NOT NULL,
                 `custom_fields` JSON NULL,
@@ -46,7 +47,7 @@ class Migration1604519670CreateSasBlogCategoryTable extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $connection->executeUpdate('
+        $connection->executeStatement('
             CREATE TABLE IF NOT EXISTS `sas_blog_blog_category` (
                 `sas_blog_entries_id` BINARY(16) NOT NULL,
                 `sas_blog_category_id` BINARY(16) NOT NULL,

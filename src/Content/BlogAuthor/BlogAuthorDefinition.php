@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Content\BlogAuthor;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
@@ -24,29 +25,21 @@ class BlogAuthorDefinition extends EntityDefinition
 {
     public const ENTITY_NAME = 'sas_blog_author';
 
-    /**
-     */
     public function getEntityName(): string
     {
         return self::ENTITY_NAME;
     }
 
-    /**
-     */
     public function getEntityClass(): string
     {
         return BlogAuthorEntity::class;
     }
 
-    /**
-     */
     public function getCollectionClass(): string
     {
         return BlogAuthorCollection::class;
     }
 
-    /**
-     */
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([

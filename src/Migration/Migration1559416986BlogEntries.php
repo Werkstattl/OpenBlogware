@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule\Migration;
 
 use Doctrine\DBAL\Connection;
@@ -15,7 +16,7 @@ class Migration1559416986BlogEntries extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeUpdate(
+        $connection->executeStatement(
             '
             CREATE TABLE IF NOT EXISTS `sas_blog_entries` (
             `id` BINARY(16) NOT NULL,
@@ -28,7 +29,7 @@ class Migration1559416986BlogEntries extends MigrationStep
         '
         );
 
-        $connection->executeUpdate(
+        $connection->executeStatement(
             '
             CREATE TABLE IF NOT EXISTS `sas_blog_entries_translation` (
             `sas_blog_entries_id` BINARY(16) NOT NULL,
@@ -50,7 +51,7 @@ class Migration1559416986BlogEntries extends MigrationStep
         '
         );
 
-        $connection->executeUpdate('
+        $connection->executeStatement('
             INSERT INTO `seo_url_template` (`id`, `sales_channel_id`, `route_name`, `entity_name`, `template`, `is_valid`, `custom_fields`, `created_at`, `updated_at`)
             VALUES (:id, NULL, :routeName, :entityName, :template, 1, NULL, :createdAt, NULL);
         ', [

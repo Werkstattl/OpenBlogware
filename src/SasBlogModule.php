@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
+
 namespace Sas\BlogModule;
 
 use Doctrine\DBAL\Connection;
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Sas\BlogModule\Util\Lifecycle;
 use Sas\BlogModule\Util\Update;
-use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -31,8 +31,6 @@ class SasBlogModule extends Plugin
         $this->getLifeCycle()->install($installContext->getContext());
     }
 
-    /**
-     */
     public function uninstall(UninstallContext $context): void
     {
         parent::uninstall($context);
@@ -41,7 +39,7 @@ class SasBlogModule extends Plugin
             return;
         }
 
-        /**
+        /*
          * We need to uninstall our default media folder,
          * the media folder and the thumbnail sizes.
          * However, we have to clean this up within a next update :)
@@ -56,14 +54,14 @@ class SasBlogModule extends Plugin
          */
         $connection = $this->container->get(Connection::class);
 
-        $connection->executeQuery('SET FOREIGN_KEY_CHECKS=0;');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_entries`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_entries_translation`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_blog_category`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_category_translation`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_category`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_author_translation`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `sas_blog_author`');
+        $connection->executeStatement('SET FOREIGN_KEY_CHECKS=0;');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_entries`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_entries_translation`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_blog_category`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_category_translation`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_category`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_author_translation`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_author`');
 
         /** @var EntityRepositoryInterface $cmsBlockRepo */
         $cmsBlockRepo = $this->container->get('cms_block.repository');
@@ -94,7 +92,6 @@ class SasBlogModule extends Plugin
     /**
      * We need to create a folder for the blog media with it's,
      * own configuration to generate thumbnails for the teaser image.
-     *
      */
     public function createBlogMediaFolder(Context $context): void
     {
@@ -111,16 +108,15 @@ class SasBlogModule extends Plugin
                 'folder' => [
                     'name' => 'Blog Images',
                     'useParentConfiguration' => false,
-                    'configuration'
-                        => [
-                            'createThumbnails' => true,
-                            'mediaThumbnailSizes' => [
-                                [
-                                    'width' => 650,
-                                    'height' => 330,
-                                ],
+                    'configuration' => [
+                        'createThumbnails' => true,
+                        'mediaThumbnailSizes' => [
+                            [
+                                'width' => 650,
+                                'height' => 330,
                             ],
                         ],
+                    ],
                 ],
             ],
         ], $context);
