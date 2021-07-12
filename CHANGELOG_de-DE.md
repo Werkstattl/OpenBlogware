@@ -1,3 +1,6 @@
+# 1.4.1
+* fixed migration issue with the salutation if the default `not_specified` was deleted
+
 # 1.4.0
 * Added Shopware 6.4 compability
 
