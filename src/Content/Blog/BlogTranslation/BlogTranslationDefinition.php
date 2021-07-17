@@ -41,6 +41,7 @@ class BlogTranslationDefinition extends EntityTranslationDefinition
             new StringField('meta_title', 'metaTitle'),
             new StringField('meta_description', 'metaDescription'),
             (new LongTextField('content', 'content'))->addFlags(new AllowHtml()),
+            (new CustomFields())->addFlags(new ApiAware())
         ]);
     }
 }
