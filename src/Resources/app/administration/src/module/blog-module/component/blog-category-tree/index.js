@@ -26,15 +26,24 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
     },
 
     computed: {
+        defaultLayout() {
+            return null;
+        },
+
         category() {
             return this.blogCategory;
         },
+
         categoryRepository() {
             return this.repositoryFactory.create('sas_blog_category');
         },
     },
 
     methods: {
+        loadDefaultLayout() {
+            // nth
+            Promise.resolve();
+        },
         createdComponent() {
             this.getCategory();
             this.$super('createdComponent');

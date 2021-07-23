@@ -13,6 +13,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
 use Shopware\Storefront\Page\GenericPageLoader;
+use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Shopware\Storefront\Page\Navigation\NavigationPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,7 @@ class BlogController extends StorefrontController
      */
     private $systemConfigService;
 
-    public function __construct(SystemConfigService $systemConfigService, GenericPageLoader $genericPageLoader, SalesChannelCmsPageLoaderInterface $cmsPageLoader)
+    public function __construct(SystemConfigService $systemConfigService, GenericPageLoaderInterface $genericPageLoader, SalesChannelCmsPageLoaderInterface $cmsPageLoader)
     {
         $this->systemConfigService = $systemConfigService;
         $this->genericPageLoader = $genericPageLoader;
