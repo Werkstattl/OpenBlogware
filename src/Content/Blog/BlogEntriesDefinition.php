@@ -50,28 +50,28 @@ class BlogEntriesDefinition extends EntityDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
-            new BoolField('active', 'active'),
-            new BoolField('detail_teaser_image', 'detailTeaserImage'),
+            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey(), new ApiAware()),
+            (new BoolField('active', 'active'))->addFlags(new ApiAware()),
+            (new BoolField('detail_teaser_image', 'detailTeaserImage'))->addFlags(new ApiAware()),
 
-            (new FkField('media_id', 'mediaId', MediaDefinition::class)),
+            new FkField('media_id', 'mediaId', MediaDefinition::class),
             (new FkField('author_id', 'authorId', BlogAuthorDefinition::class))->addFlags(new Required()),
-            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true)),
+            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
 
-            new TranslatedField('title'),
-            new TranslatedField('slug'),
-            new TranslatedField('teaser'),
-            new TranslatedField('metaTitle'),
-            new TranslatedField('metaDescription'),
-            new TranslatedField('content'),
+            (new TranslatedField('title'))->addFlags(new ApiAware()),
+            (new TranslatedField('slug'))->addFlags(new ApiAware()),
+            (new TranslatedField('teaser'))->addFlags(new ApiAware()),
+            (new TranslatedField('metaTitle'))->addFlags(new ApiAware()),
+            (new TranslatedField('metaDescription'))->addFlags(new ApiAware()),
+            (new TranslatedField('content'))->addFlags(new ApiAware()),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
 
-            (new DateField('published_at', 'publishedAt'))->addFlags(new Required()),
+            (new DateField('published_at', 'publishedAt'))->addFlags(new Required(), new ApiAware()),
 
             (new TranslationsAssociationField(BlogTranslationDefinition::class, 'sas_blog_entries_id'))->addFlags(new Required()),
 
-            (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_entries_id', 'sas_blog_category_id'))->addFlags(new CascadeDelete()),
-            new ManyToOneAssociationField('author', 'author_id', BlogAuthorDefinition::class, 'id', false),
+            (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_entries_id', 'sas_blog_category_id'))->addFlags(new CascadeDelete(), new ApiAware()),
+            (new ManyToOneAssociationField('author', 'author_id', BlogAuthorDefinition::class, 'id', false))->addFlags(new ApiAware())
         ]);
     }
 }

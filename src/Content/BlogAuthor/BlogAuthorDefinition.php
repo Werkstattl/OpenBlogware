@@ -7,6 +7,7 @@ use Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslatio
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
@@ -43,20 +44,20 @@ class BlogAuthorDefinition extends EntityDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
+            (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey(), new ApiAware()),
 
-            new FkField('media_id', 'mediaId', MediaDefinition::class),
+            (new FkField('media_id', 'mediaId', MediaDefinition::class))->addFlags(new ApiAware()),
             (new FkField('salutation_id', 'salutationId', SalutationDefinition::class))->addFlags(new Required()),
 
-            (new StringField('first_name', 'firstName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
-            (new StringField('last_name', 'lastName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
-            (new StringField('email', 'email'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
-            (new StringField('display_name', 'displayName'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new StringField('first_name', 'firstName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING), new ApiAware()),
+            (new StringField('last_name', 'lastName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING), new ApiAware()),
+            (new StringField('email', 'email'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new ApiAware()),
+            (new StringField('display_name', 'displayName'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new ApiAware()),
 
-            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true)),
+            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
 
-            new TranslatedField('description'),
-            new TranslatedField('customFields'),
+            (new TranslatedField('description'))->addFlags(new ApiAware()),
+            (new TranslatedField('customFields'))->addFlags(new ApiAware()),
 
             new TranslationsAssociationField(BlogAuthorTranslationDefinition::class, 'sas_blog_author_id'),
 

@@ -51,6 +51,10 @@
             </call>
         </service>
 
+        <service id="Sas\BlogModule\Controller\StoreApi\BlogController" public="true">
+            <argument id="sas_blog_entries.repository" type="service"/>
+        </service>
+
         <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogCmsElementResolver">
             <tag name="shopware.cms.data_resolver" />
         </service>

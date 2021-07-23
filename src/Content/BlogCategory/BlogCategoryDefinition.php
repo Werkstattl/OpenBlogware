@@ -49,7 +49,7 @@ class BlogCategoryDefinition extends EntityDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
+            (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required(), new ApiAware()),
             (new VersionField())->addFlags(new ApiAware()),
 
             new ParentFkField(self::class),
@@ -60,8 +60,8 @@ class BlogCategoryDefinition extends EntityDefinition
             new TreePathField('path', 'path'),
             new ChildCountField(),
 
-            (new TranslatedField('name'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
-            new TranslatedField('customFields'),
+            (new TranslatedField('name'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new ApiAware()),
+            (new TranslatedField('customFields'))->addFlags(new ApiAware()),
 
             new ParentAssociationField(self::class, 'id'),
             new ChildrenAssociationField(self::class),
