@@ -36,7 +36,7 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
             return this.repositoryFactory.create('sas_blog_entries');
         },
 
-        selectedBlogEntry() { 
+        selectedBlogEntry() {
             return this.element.config.blogEntry.value;
         }
     },
@@ -46,7 +46,7 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
             this.initElementConfig('blog-single-select');
             this.initElementData('blog-single-select');
 
-            if(this.element.config.blogEntry.value) {
+            if (this.element.config.blogEntry.value) {
                 this.getEntityProperties();
             }
         },

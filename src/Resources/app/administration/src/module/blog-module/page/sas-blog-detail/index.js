@@ -38,10 +38,10 @@ Component.register('sas-blog-detail', {
     },
 
     watch: {
-        'blog.active': function() {
+        'blog.active': function () {
             return this.blog.active ? 1 : 0;
         },
-        'blog.title': function(value) {
+        'blog.title': function (value) {
             if (typeof value !== 'undefined') {
                 this.blog.slug = slugify(value, {
                     lower: true

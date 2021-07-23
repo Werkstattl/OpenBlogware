@@ -16,7 +16,7 @@ class Migration1626760242AddCustomFieldToBlogTranslation extends MigrationStep
     {
         $connection->executeStatement('
             ALTER TABLE `sas_blog_entries_translation`
-                ADD IF NOT EXISTS `custom_fields` json DEFAULT NULL AFTER `content`;
+                ADD COLUMN `custom_fields` json DEFAULT NULL AFTER `content`;
         ');
     }
 

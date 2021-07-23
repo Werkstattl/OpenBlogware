@@ -6,7 +6,6 @@ use OpenApi\Annotations as OA;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Routing\Annotation\Entity;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
@@ -20,8 +19,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BlogController extends AbstractBlogController
 {
-    public function __construct(protected EntityRepositoryInterface $blogRepository)
+    /**
+     * @var EntityRepositoryInterface
+     */
+    private $blogRepository;
+
+    public function __construct(EntityRepositoryInterface $blogRepository)
     {
+        $this->blogRepository = $blogRepository;
     }
 
     public function getDecorated(): AbstractBlogController
