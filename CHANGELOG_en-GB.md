@@ -1,3 +1,8 @@
+# 1.5.0
+* Added ApiAware flags & store-api controller for usage in PWA and Elasticsearch [https://github.com/Drumm3r](Drumm3r)
+* Implemented custom fields [https://github.com/gRoberts84](gRoberts84)
+* Fixed Bug which caused that you can't create a blog category anymore
+
 # 1.4.1
 * fixed migration issue with the salutation if the default `not_specified` was deleted
 
