@@ -37,6 +37,16 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
         categoryRepository() {
             return this.repositoryFactory.create('sas_blog_category');
         },
+
+        disableContextMenu() {
+            if (!this.allowEdit) {
+                return true;
+            }
+
+            this.allowCreate = this.currentLanguageId === Shopware.Context.api.systemLanguageId;
+            this.allowDelete = this.currentLanguageId === Shopware.Context.api.systemLanguageId;
+            return false;
+        },
     },
 
     methods: {
