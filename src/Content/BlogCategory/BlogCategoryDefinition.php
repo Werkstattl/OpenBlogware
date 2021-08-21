@@ -68,7 +68,7 @@ class BlogCategoryDefinition extends EntityDefinition
 
             (new TranslationsAssociationField(BlogCategoryTranslationDefinition::class, 'sas_blog_category_id'))->addFlags(new Required()),
 
-            (new ManyToManyAssociationField('blogs', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new CascadeDelete()),
+            (new ManyToManyAssociationField('blogs', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new CascadeDelete(), new ApiAware()),
             (new OneToManyAssociationField('navigationSalesChannels', SalesChannelDefinition::class, 'navigation_category_id')),
             (new OneToManyAssociationField('footerSalesChannels', SalesChannelDefinition::class, 'footer_category_id')),
             (new OneToManyAssociationField('serviceSalesChannels', SalesChannelDefinition::class, 'service_category_id')),
