@@ -1,3 +1,7 @@
+# 1.5.1
+* Extended the core search, to be able to search also for blog entries
+* Fixed bug for the PWA usage
+
 # 1.5.0
 * Added ApiAware flags & store-api controller for usage in PWA and Elasticsearch [https://github.com/Drumm3r](Drumm3r)
 * Implemented custom fields [https://github.com/gRoberts84](gRoberts84)

@@ -28,6 +28,21 @@
             "filterPanelResetAll": "Zurück setzen",
             "filterBlogCategoriesDisplayName": "Kategorien",
             "filterBlogAuthorDisplayName": "Autor"
+        },
+        "search": {
+            "tabs": {
+                "product": "Produkt",
+                "blog": "Blog Eintrag"
+            },
+            "in": "In",
+            "searchAllResults": "Suchergebnis für Blogs anzeigen",
+            "searchResults": "{1} 1 Eintrag|]1,Inf[ %count% Eingaben",
+            "headline": "{0} Zu \"%searchTerm%\" wurde kein Blog gefunden | {1} Zu \"%searchTerm%\" wurde 1 Blog gefunden | ]1,Inf[ Zu \"%searchTerm%\" wurden %count% Blogs gefunden",
+            "emptyResult": "Wir konnten leider keine Suchergebnisse finden ..."
         }
+    },
+    "header": {
+        "searchAllResults": "Alle Produkte anzeigen Suchergebnis",
+        "searchPlaceholder": "Suche nach Produkten, Blogeinträgen, Autoren..."
     }
 }

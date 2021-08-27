@@ -1,0 +1,18 @@
+{% sw_extends '@Storefront/storefront/page/search/index.html.twig' %}
+
+{% block page_search %}
+    <div class="cms-page search-page">
+        {% block page_search_headline %}
+            <h1 class="search-headline">
+                {% block page_search_headline_text %}
+                    {{ "sas-blog.search.headline"|trans({
+                        '%count%': page.listing.total,
+                        '%searchTerm%': page.searchTerm,
+                    }) }}
+                {% endblock %}
+            </h1>
+        {% endblock %}
+
+        {% sw_include '@Storefront/storefront/page/blog-search/search-pagelet.html.twig' with { page: page } %}
+    </div>
+{% endblock %}

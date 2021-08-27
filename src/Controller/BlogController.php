@@ -3,16 +3,17 @@
 namespace Sas\BlogModule\Controller;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
-use Shopware\Storefront\Page\GenericPageLoader;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Shopware\Storefront\Page\Navigation\NavigationPage;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,26 +25,57 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BlogController extends StorefrontController
 {
-    /**
-     * @var GenericPageLoader
-     */
-    private $genericPageLoader;
+    private GenericPageLoaderInterface $genericPageLoader;
+    private SalesChannelCmsPageLoaderInterface $cmsPageLoader;
+    private SystemConfigService $systemConfigService;
+    private EntityRepositoryInterface $blogRepository;
+    private BlogSearchPageLoader $blogSearchPageLoader;
 
-    /**
-     * @var SalesChannelCmsPageLoaderInterface
-     */
-    private $cmsPageLoader;
-
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
-
-    public function __construct(SystemConfigService $systemConfigService, GenericPageLoaderInterface $genericPageLoader, SalesChannelCmsPageLoaderInterface $cmsPageLoader)
-    {
+    public function __construct(
+        SystemConfigService $systemConfigService,
+        GenericPageLoaderInterface $genericPageLoader,
+        SalesChannelCmsPageLoaderInterface $cmsPageLoader,
+        EntityRepositoryInterface $blogRepository,
+        BlogSearchPageLoader $blogSearchPageLoader
+    ) {
         $this->systemConfigService = $systemConfigService;
         $this->genericPageLoader = $genericPageLoader;
         $this->cmsPageLoader = $cmsPageLoader;
+        $this->blogRepository = $blogRepository;
+        $this->blogSearchPageLoader = $blogSearchPageLoader;
+    }
+
+    /**
+     * @HttpCache()
+     * @Route("/sas_blog/search", name="sas.frontend.blog.search", methods={"GET"})
+     */
+    public function search(Request $request, SalesChannelContext $context): Response
+    {
+        try {
+            $page = $this->blogSearchPageLoader->load($request, $context);
+        } catch (MissingRequestParameterException $missingRequestParameterException) {
+            return $this->forwardToRoute('frontend.home.page');
+        }
+
+        return $this->renderStorefront('@Storefront/storefront/page/blog-search/index.html.twig', ['page' => $page]);
+    }
+
+    /**
+     * @HttpCache()
+     * @Route("/widgets/blog-search", name="widgets.blog.search.pagelet", methods={"GET", "POST"}, defaults={"XmlHttpRequest"=true})
+     *
+     * @throws MissingRequestParameterException
+     */
+    public function ajax(Request $request, SalesChannelContext $context): Response
+    {
+        $request->request->set('no-aggregations', true);
+
+        $page = $this->blogSearchPageLoader->load($request, $context);
+
+        $response = $this->renderStorefront('@Storefront/storefront/page/blog-search/search-pagelet.html.twig', ['page' => $page]);
+        $response->headers->set('x-robots-tag', 'noindex');
+
+        return $response;
     }
 
     /**
@@ -55,14 +87,11 @@ class BlogController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page = NavigationPage::createFrom($page);
 
-        /** @var EntityRepositoryInterface $blogRepository */
-        $blogRepository = $this->container->get('sas_blog_entries.repository');
-
         $criteria = new Criteria([$articleId]);
 
         $criteria->addAssociations(['author.salutation', 'blogCategories']);
 
-        $results = $blogRepository->search($criteria, $context->getContext())->getEntities();
+        $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
         /** @var BlogEntriesEntity $entry */
         $entry = $results->first();

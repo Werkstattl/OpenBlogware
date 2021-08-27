@@ -1,0 +1,82 @@
+{% sw_extends '@Storefront/storefront/layout/header/search-suggest.html.twig' %}
+
+{% set productTotal = page.searchResult.total  %}
+{% set blogResult = page.searchResult.extensions.blogResult %}
+{% set blogTotal = blogResult.total|default(0) %}
+
+{% block layout_search_suggest_results %}
+    <div class="row">
+        <div class="col-md-3 col-12">
+            <div class="nav flex-md-column flex-row nav-pills justify-content-around" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                {% block layout_search_suggest_results_tab_pane_product %}
+                    <a class="nav-link flex-fill text-md-left text-center {% if productTotal >= blogTotal %}show active{% endif %}" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="true">
+                        {{ 'sas-blog.search.tabs.product'|trans|sw_sanitize }} <span class="badge badge-light">{{ productTotal }}</span>
+                    </a>
+                {% endblock %}
+
+                {% block layout_search_suggest_results_tab_pane_blog %}
+                    <a class="nav-link flex-fill text-md-left text-center {% if blogTotal > productTotal %}active{% endif %}" id="v-pills-blog-tab" data-toggle="pill" href="#v-pills-blog" role="tab" aria-controls="v-pills-blog" aria-selected="false">
+                        {{ 'sas-blog.search.tabs.blog'|trans|sw_sanitize }} <span class="badge badge-light">{{ blogTotal }}</span>
+                    </a>
+                {% endblock %}
+
+                {% block layout_search_suggest_results_tab_pane_others %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="col-md-9 col-12">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade {% if productTotal >= blogTotal %}show active{% endif %}" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-product-tab">
+                    {{ parent() }}
+
+                    {% block layout_search_suggest_result_blog_total %}
+                        {% if productTotal == 0 %}
+                            {% block layout_search_suggest_blog_no_result %}
+                                <li class="search-suggest-no-result">
+                                    {{ "header.searchNoResult"|trans|sw_sanitize }}
+                                </li>
+                            {% endblock %}
+
+                        {% else %}
+                            <li class="js-result search-suggest-total">
+                                <div class="row align-items-center no-gutters">
+                                    {% block layout_search_suggest_result_total_product_link %}
+                                        <div class="col">
+                                            <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}"
+                                               title="{{ "header.searchAllResults"|trans|striptags }}"
+                                               class="search-suggest-total-link">
+                                                {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
+                                                {{ "header.searchAllResults"|trans|sw_sanitize }}
+                                            </a>
+                                        </div>
+                                    {% endblock %}
+
+                                    {% block layout_search_suggest_result_total_product_count %}
+                                        <div class="col-auto search-suggest-total-count">
+                                            {{ "header.searchResults"|trans({
+                                                '%count%': productTotal,
+                                            })|sw_sanitize }}
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+                {% block layout_search_suggest_results_tab_pane_content_blog %}
+                    <div class="tab-pane fade {% if blogTotal > productTotal %}show active{% endif %}" id="v-pills-blog" role="tabpanel" aria-labelledby="v-pills-blog-tab">
+                        {% sw_include "@Storefront/storefront/layout/header/blog-suggest-tab-content.html.twig" with {
+                            blogResult: blogResult,
+                            searchTerm: page.searchTerm
+                        } only %}
+                    </div>
+                {% endblock %}
+                {% block layout_search_suggest_results_tab_pane_content_others %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block layout_search_suggest_result_total %}
+{% endblock %}

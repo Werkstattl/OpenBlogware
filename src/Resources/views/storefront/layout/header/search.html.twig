@@ -1,0 +1,46 @@
+{% sw_extends '@Storefront/storefront/layout/header/search.html.twig' %}
+
+{% block layout_header_search %}
+    {% if app.request.attributes.get('_route') == 'sas.frontend.blog.search' %}
+        <div class="collapse"
+             id="searchCollapse">
+            <div class="header-search">
+                <form action="{{ path('sas.frontend.blog.search') }}"
+                      method="get"
+                      data-search-form="true"
+                      data-url="{{ path('frontend.search.suggest') }}?search="
+                      class="header-search-form">
+                    {% block layout_header_search_input_group %}
+                        <div class="input-group">
+                            {% block layout_header_search_input %}
+                                <input type="search"
+                                       name="search"
+                                       class="form-control header-search-input"
+                                       autocomplete="off"
+                                       autocapitalize="off"
+                                       placeholder="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                       aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                       value="{{ page.searchTerm }}"
+                                >
+                            {% endblock %}
+
+                            {% block layout_header_search_button %}
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                            class="btn header-search-btn"
+                                            aria-label="{{ "header.searchButton"|trans|striptags }}">
+                                    <span class="header-search-icon">
+                                        {% sw_icon 'search' %}
+                                    </span>
+                                    </button>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </form>
+            </div>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

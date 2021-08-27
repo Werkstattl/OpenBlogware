@@ -46,6 +46,8 @@
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
             <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
             <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
+            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument id="Sas\BlogModule\Page\Search\BlogSearchPageLoader" type="service"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -86,5 +88,15 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
+        <service id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated" decorates="Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRoute">
+            <argument type="service" id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated.inner"/>
+            <argument type="service" id="sas_blog_entries.repository"/>
+        </service>
+
+        <service id="Sas\BlogModule\Page\Search\BlogSearchPageLoader">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
     </services>
 </container>

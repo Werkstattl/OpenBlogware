@@ -1,0 +1,91 @@
+{% block layout_search_suggest_result_blog_container %}
+    {% for blog in blogResult %}
+        {% block layout_search_suggest_result_blog %}
+            <li class="search-suggest-product js-result">
+                {% block layout_search_suggest_result_link %}
+                    <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': blog.id}) }}"
+                       title="{{ blog.translated.title }}"
+                       class="search-suggest-product-link">
+                        <div class="row align-items-center no-gutters">
+                            {% block layout_search_suggest_result_image %}
+                                <div class="col-auto search-suggest-product-image-container">
+                                    {% if blog.media.url %}
+                                        {% sw_thumbnails 'search-suggest-product-image-thumbnails' with {
+                                            media: blog.media,
+                                            sizes: {
+                                                'default': '100px'
+                                            },
+                                            attributes: {
+                                                'class': 'search-suggest-product-image',
+                                                'alt': (blog.media.translated.alt ?: ''),
+                                                'title': (blog.media.translated.title ?: '')
+                                            }
+                                        } %}
+                                    {% else %}
+                                        {% sw_icon 'placeholder' style {
+                                            'size': 'lg'
+                                        } %}
+                                    {% endif %}
+                                </div>
+                            {% endblock %}
+
+                            {% block layout_search_suggest_result_blog_title %}
+                                <div class="col search-suggest-product-name">
+                                    {{ blog.translated.title|striptags|u.truncate(60, '...', false) }}
+                                </div>
+                            {% endblock %}
+
+                            {% block layout_search_suggest_result_blog_category %}
+                                <div class="col-auto search-suggest-product-price">
+
+                                    {% if blog.blogCategories.count > 0 %}
+                                        {% set category = blog.blogCategories.last %}
+
+                                        <small>{{ "sas-blog.search.in"|trans|sw_sanitize }}</small>
+
+                                        <span>{{ category.translated.name }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </a>
+                {% endblock %}
+            </li>
+        {% endblock %}
+    {% endfor %}
+
+    {% if blogResult.count == 0 %}
+        {% block layout_search_suggest_blog_no_result %}
+            <li class="search-suggest-no-result">
+                {{ "sas-blog.search.emptyResult"|trans|sw_sanitize }}
+            </li>
+        {% endblock %}
+
+    {% else %}
+        {% block layout_search_suggest_result_total_blog %}
+            <li class="js-result search-suggest-total">
+                <div class="row align-items-center no-gutters">
+                    {% block layout_search_suggest_result_total_blog_link %}
+                        <div class="col">
+                            <a href="{{ path('sas.frontend.blog.search') }}?search={{ searchTerm }}"
+                               title="{{ "sas-blog.search.searchAllResults"|trans|striptags }}"
+                               class="search-suggest-total-link">
+                                {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
+                                {{ "sas-blog.search.searchAllResults"|trans|sw_sanitize }}
+                            </a>
+                        </div>
+                    {% endblock %}
+
+                    {% block layout_search_suggest_result_total_blog_count %}
+                        <div class="col-auto search-suggest-total-count">
+                            {{ "sas-blog.search.searchResults"|trans({
+                                '%count%': blogResult.count,
+                            })|sw_sanitize }}
+                        </div>
+                    {% endblock %}
+                </div>
+            </li>
+        {% endblock %}
+
+    {% endif %}
+{% endblock %}
