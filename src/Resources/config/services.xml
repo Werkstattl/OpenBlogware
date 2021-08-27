@@ -88,7 +88,7 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated" decorates="Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRoute">
+        <service id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated" decorates="Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRoute" public="true">
             <argument type="service" id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated.inner"/>
             <argument type="service" id="sas_blog_entries.repository"/>
         </service>
