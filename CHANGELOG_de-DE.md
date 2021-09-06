@@ -1,3 +1,6 @@
+# 1.5.3
+* Added missing compiled files
+
 # 1.5.2
 * Blog Pro compability
 
