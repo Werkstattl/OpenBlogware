@@ -1,3 +1,6 @@
+# 1.5.2
+* Blog Pro compability
+
 # 1.5.1
 * Extended the core search, to be able to search also for blog entries
 * Fixed bug for the PWA usage
