@@ -11,7 +11,6 @@ import './extension/component/form/sas-textarea-field';
  * Pages
  */
 import './page/sas-blog-list';
-import './page/sas-blog-create';
 import './page/sas-blog-detail';
 
 /**
@@ -74,13 +73,20 @@ Module.register('blog-module', {
         },
         create: {
             components: {
-                default: 'sas-blog-create'
+                default: 'sas-blog-detail'
             },
             path: 'create'
         },
         detail: {
             component: 'sas-blog-detail',
-            path: 'detail/:id'
+            path: 'detail/:id',
+            props: {
+                default: (route) => {
+                    return {
+                        blogId: route.params.id,
+                    };
+                },
+            },
         },
         author: {
             path: 'author',

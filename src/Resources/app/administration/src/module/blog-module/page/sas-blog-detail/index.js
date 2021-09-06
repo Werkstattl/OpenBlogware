@@ -20,6 +20,16 @@ Component.register('sas-blog-detail', {
         };
     },
 
+    props: {
+        blogId: {
+            type: String,
+            required: false,
+            default() {
+                return null;
+            },
+        },
+    },
+
     data() {
         return {
             blog: null,
@@ -47,7 +57,10 @@ Component.register('sas-blog-detail', {
                     lower: true
                 });
             }
-        }
+        },
+        blogId() {
+            this.createdComponent();
+        },
     },
 
     computed: {
@@ -77,6 +90,10 @@ Component.register('sas-blog-detail', {
             return { name: 'blog.module.index' };
         },
 
+        isCreateMode() {
+            return this.$route.name === 'blog.module.create';
+        },
+
         ...mapPropertyErrors(
             'blog', [
                 'title',
@@ -90,7 +107,15 @@ Component.register('sas-blog-detail', {
 
     methods: {
         async createdComponent() {
-            this.isLoading = true;
+            if(this.isCreateMode) {
+                if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
+                    Shopware.State.commit('context/setApiLanguageId', Shopware.Context.api.languageId)
+                }
+
+                if (!Shopware.State.getters['context/isSystemDefaultLanguage']) {
+                    Shopware.State.commit('context/resetLanguageToDefault');
+                }
+            }
 
             await Promise.all([
                 this.getPluginConfig(),
@@ -108,11 +133,17 @@ Component.register('sas-blog-detail', {
         },
 
         async getBlog() {
+            if(!this.blogId) {
+                this.blog = this.repository.create(Shopware.Context.api);
+
+                return;
+            }
+
             const criteria = new Criteria();
             criteria.addAssociation('blogCategories');
 
             return this.repository
-                .get(this.$route.params.id, Shopware.Context.api, criteria)
+                .get(this.blogId, Shopware.Context.api, criteria)
                 .then((entity) => {
                     this.blog = entity;
 
@@ -167,7 +198,6 @@ Component.register('sas-blog-detail', {
             this.blog.media = mediaItem;
         },
 
-
         onRemoveMediaItem() {
             this.blog.mediaId = null;
             this.blog.media = null;
@@ -180,6 +210,5 @@ Component.register('sas-blog-detail', {
         openMediaSidebar() {
             this.$parent.$parent.$parent.$parent.$refs.mediaSidebarItem.openContent();
         },
-
     }
 });

@@ -89,14 +89,12 @@
 
                     {% block sas_blog_detail_card_editor %}
                         <sw-card>
-                            {% block sas_blog_detail_card_editor %}
-                                <sw-text-editor
-                                    v-model="blog.content"
-                                    :label="$tc('sas-blog.detail.editorLabel')"
-                                    :placeholder="$tc('sas-blog.detail.editorPlaceholder')"
-                                >
-                                </sw-text-editor>
-                            {% endblock %}
+                            <sw-text-editor
+                                v-model="blog.content"
+                                :label="$tc('sas-blog.detail.editorLabel')"
+                                :placeholder="$tc('sas-blog.detail.editorPlaceholder')"
+                            >
+                            </sw-text-editor>
                         </sw-card>
                     {% endblock %}
                 </div>
