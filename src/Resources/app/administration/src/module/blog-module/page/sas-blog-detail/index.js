@@ -39,7 +39,8 @@ Component.register('sas-blog-detail', {
             isLoading: true,
             processSuccess: false,
             fileAccept: 'image/*',
-            moduleData: this.$route.meta.$module
+            moduleData: this.$route.meta.$module,
+            isProVersion: false,
         };
     },
 
