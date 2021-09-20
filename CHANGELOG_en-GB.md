@@ -1,3 +1,6 @@
+# 1.5.4
+* Fixed blog pro loading
+
 # 1.5.3
 * Added missing compiled files
 
