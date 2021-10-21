@@ -1,5 +1,5 @@
 import template from './sas-blog-author-list.html.twig';
-import { Component, Mixin } from 'src/core/shopware';
+const { Component, Mixin } = Shopware;
 import './sas-blog-author-list.scss';
 
 const Criteria = Shopware.Data.Criteria;
