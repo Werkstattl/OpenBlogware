@@ -113,6 +113,8 @@ class BlogController extends StorefrontController
 
         $page->setMetaInformation($metaInformation);
 
+        $page->setNavigationId($page->getHeader()->getNavigation()->getActive()->getId());
+
         return $this->renderStorefront('@Storefront/storefront/page/content/index.html.twig', [
             'page' => $page,
             'entry' => $entry,
