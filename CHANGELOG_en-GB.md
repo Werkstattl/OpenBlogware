@@ -16,8 +16,8 @@
 * Fixed bug for the PWA usage
 
 # 1.5.0
-* Added ApiAware flags & store-api controller for usage in PWA and Elasticsearch [https://github.com/Drumm3r](Drumm3r)
-* Implemented custom fields [https://github.com/gRoberts84](gRoberts84)
+* Added ApiAware flags & store-api controller for usage in PWA and Elasticsearch [Drumm3r](https://github.com/Drumm3r)
+* Implemented custom fields [gRoberts84](https://github.com/gRoberts84)
 * Fixed Bug which caused that you can't create a blog category anymore
 
 # 1.4.1
