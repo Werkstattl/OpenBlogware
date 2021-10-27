@@ -1,6 +1,6 @@
 # 1.5.5
-* change access to global Shopware object [https://github.com/wrongspot](wrongspot)
-* set navigation id by active navigation [https://github.com/Drumm3r](Drumm3r)
+* change access to global Shopware object [wrongspot](https://github.com/wrongspot)
+* set navigation id by active navigation [Drumm3r](https://github.com/Drumm3r)
 
 # 1.5.4
 * Fixed blog pro loading
