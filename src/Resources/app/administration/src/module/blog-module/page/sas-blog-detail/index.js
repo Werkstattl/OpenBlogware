@@ -59,8 +59,8 @@ Component.register('sas-blog-detail', {
                 criteria.addFilter(
                     Criteria.equals('slug', value)
                 );
-                this.repository.search(criteria, Shopware.Context.api).then(result => {
-                        if (this.$route.name === "blog.module.detail"){
+                this.repository.search(criteria, Shopware.Context.api).then((result) => {
+                        if (this.$route.name === "blog.module.detail") {
                             this.slugDetailsPage(result, value);
 
                             return;
@@ -225,19 +225,21 @@ Component.register('sas-blog-detail', {
         },
 
         slugDetailsPage(result, value) {
-            this.blog.slug = slugify(value, {lower: true});
+            this.blog.slug = slugify(value, { lower: true });
 
             if (result[0]['slug'] !== this.slugBlog) {
                 this.blog.slug = value + "-" + "1";
             }
         },
 
-        slugCreatePage(result,value){
+        slugCreatePage(result, value) {
             if (result.length > 0) {
                 this.blog.slug = value + "-" + "1";
-            }else {
-                this.blog.slug = slugify(value, {lower: true});
+
+                return;
             }
+
+            this.blog.slug = slugify(value, { lower: true });
         }
     }
 });
