@@ -41,6 +41,7 @@ Component.register('sas-blog-detail', {
             fileAccept: 'image/*',
             moduleData: this.$route.meta.$module,
             isProVersion: false,
+            slugBlog: null,
         };
     },
 
@@ -54,8 +55,18 @@ Component.register('sas-blog-detail', {
         },
         'blog.title': function (value) {
             if (typeof value !== 'undefined') {
-                this.blog.slug = slugify(value, {
-                    lower: true
+                const criteria = new Criteria();
+                criteria.addFilter(
+                    Criteria.equals('slug', value)
+                );
+                this.repository.search(criteria, Shopware.Context.api).then((result) => {
+                        if (this.$route.name === "blog.module.detail") {
+                            this.slugDetailsPage(result, value);
+
+                            return;
+                        }
+
+                        this.slugCreatePage(result, value);
                 });
             }
         },
@@ -147,9 +158,10 @@ Component.register('sas-blog-detail', {
                 .get(this.blogId, Shopware.Context.api, criteria)
                 .then((entity) => {
                     this.blog = entity;
-
+                    this.slugBlog = this.blog.slug;
                     return Promise.resolve();
                 });
+
         },
 
         async changeLanguage() {
@@ -211,5 +223,23 @@ Component.register('sas-blog-detail', {
         openMediaSidebar() {
             this.$parent.$parent.$parent.$parent.$refs.mediaSidebarItem.openContent();
         },
+
+        slugDetailsPage(result, value) {
+            this.blog.slug = slugify(value, { lower: true });
+
+            if (result[0]['slug'] !== this.slugBlog) {
+                this.blog.slug = value + "-" + "1";
+            }
+        },
+
+        slugCreatePage(result, value) {
+            if (result.length > 0) {
+                this.blog.slug = value + "-" + "1";
+
+                return;
+            }
+
+            this.blog.slug = slugify(value, { lower: true });
+        }
     }
 });
