@@ -12,17 +12,23 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductSuggestDecorated extends AbstractProductSuggestRoute
 {
     private AbstractProductSuggestRoute $decorated;
     private EntityRepositoryInterface $blogRepository;
+    private SystemConfigService $systemConfigService;
 
-    public function __construct(AbstractProductSuggestRoute $decorated, EntityRepositoryInterface $blogRepository)
-    {
+    public function __construct(
+        AbstractProductSuggestRoute $decorated,
+        EntityRepositoryInterface $blogRepository,
+        SystemConfigService $systemConfigService
+    ) {
         $this->decorated = $decorated;
         $this->blogRepository = $blogRepository;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function getDecorated(): AbstractProductSuggestRoute
@@ -35,13 +41,17 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         SalesChannelContext $context,
         Criteria $criteria
     ): ProductSuggestRouteResponse {
+
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
-        $limit = $response->getListingResult()->getCriteria()->getLimit();
+        if ($this->systemConfigService->get('SasBlogModule.config.enableSearchBox')) {
 
-        $blogResult = $this->getBlogs($request->get('search'), $limit, $context->getContext());
+            $limit = $response->getListingResult()->getCriteria()->getLimit();
+            $blogResult = $this->getBlogs($request->get('search'), $limit, $context->getContext());
+            $response->getListingResult()->addExtension('blogResult', $blogResult);
 
-        $response->getListingResult()->addExtension('blogResult', $blogResult);
+            return $response;
+        }
 
         return $response;
     }

@@ -44,6 +44,19 @@
 
     </card>
 
+    <card>
+        <title>Search box configuration</title>
+        <title lang="de-DE">Suche Box Konfiguration</title>
+
+        <input-field type="bool">
+            <name>enableSearchBox</name>
+            <label>Show Search Box</label>
+            <label lang="de-DE">Anzeigen Suche Box</label>
+            <defaultValue>1</defaultValue>
+        </input-field>
+
+    </card>
+
     <!--
     <card>
         <title>Comment Configuration</title>
