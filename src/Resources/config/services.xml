@@ -99,5 +99,11 @@
             <argument id="sas_blog_entries.repository" type="service"/>
             <argument type="service" id="event_dispatcher"/>
         </service>
+
+        <service id="Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider" >
+            <argument type="service" id="sas_blog_entries.repository" />
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <tag name="shopware.sitemap_url_provider" />
+        </service>
     </services>
 </container>
