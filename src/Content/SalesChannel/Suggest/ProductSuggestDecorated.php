@@ -44,14 +44,14 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
 
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
-        if ($this->systemConfigService->get('SasBlogModule.config.enableSearchBox')) {
-
-            $limit = $response->getListingResult()->getCriteria()->getLimit();
-            $blogResult = $this->getBlogs($request->get('search'), $limit, $context->getContext());
-            $response->getListingResult()->addExtension('blogResult', $blogResult);
+        if (!$this->systemConfigService->get('SasBlogModule.config.enableSearchBox')) {
 
             return $response;
         }
+
+        $limit = $response->getListingResult()->getCriteria()->getLimit();
+        $blogResult = $this->getBlogs($request->get('search'), $limit, $context->getContext());
+        $response->getListingResult()->addExtension('blogResult', $blogResult);
 
         return $response;
     }
