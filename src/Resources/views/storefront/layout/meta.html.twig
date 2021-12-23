@@ -34,7 +34,7 @@
                 "@context": "https://schema.org",
                 "@type": "BlogPosting",
                 "headline": "{{ entry.translated.title }}",
-                "datePublished": "{{ entry.createdAt|date }}",
+                "datePublished": "{{ entry.publishedAt|date }}",
                 "dateModified": "{{ entry.updatedAt|date }}",
                 "description": "{{ entry.translated.teaser }}",
                 "author": {
