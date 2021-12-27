@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss version="2.0">
+    <channel>
+        {% if page.header.navigation.active.translated.metaTitle %}
+            <title>{{ page.header.navigation.active.translated.metaTitle|striptags|trim }}</title>
+        {% else %}
+            <title>Blog</title>
+        {% endif %}
+        <link>{{ app.request.schemeAndHttpHost }}</link>
+        <language>{{ app.request.locale }}</language>
+        {% if page.header.navigation.active.translated.metaDescription %}
+            <description>{{ page.header.navigation.active.translated.metaDescription|striptags|trim|u.truncate(maxLength ?? 160, '…') }}</description>
+        {% endif %}
+        {% for result in results %}
+            <item>
+                <title>{{ result.translated.metaTitle|striptags|trim }}</title>
+                <link>{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</link>
+                <guid isPermaLink="true">{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</guid>
+                <description>{{ result.translated.metaDescription|striptags|trim|u.truncate(maxLength ?? 160, '…') }}</description>
+                {% if result.author.email != "N/A" %}
+                    <author>{{ result.author.email ~ " (" ~ result.author.displayName ~ ")"}}</author>
+                {% endif %}
+                <pubDate>{{ result.publishedAt | date("d M Y H:i:s T") }}</pubDate>
+            </item>
+        {% endfor %}
+    </channel>
+</rss>

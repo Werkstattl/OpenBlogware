@@ -45,3 +45,7 @@ where you can also select from all available variables.
 
 ![](https://res.cloudinary.com/dtgdh7noz/image/upload/v1602580850/Bildschirmfoto_2020-10-13_um_12.20.25_xxnrro.png)
 *SEO URL template*
+
+## RSS Feed
+For access **RSS Feed** url you can use this path `/blog/rss`
+Example(`http://Your-domain/blog/rss`)
