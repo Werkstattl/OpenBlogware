@@ -9,6 +9,8 @@ use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
@@ -18,14 +20,8 @@ class BlogUrlProvider extends AbstractUrlProvider
     public const CHANGE_FREQ = 'daily';
     public const PRIORITY = 1.0;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
     private EntityRepositoryInterface $blogRepository;
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
     public function __construct(
@@ -43,17 +39,22 @@ class BlogUrlProvider extends AbstractUrlProvider
 
     public function getName(): string
     {
-        return 'custom';
+        return 'sasBlog';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getUrls(SalesChannelContext $context, int $limit, ?int $offset = null): UrlResult
     {
         $criteria = new Criteria();
+
+        $dateTime = new \DateTime();
+
         $criteria->setLimit($limit);
         $criteria->setOffset($offset);
+
+        $criteria->addFilter(
+            new EqualsFilter('active', true),
+            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
+        );
 
         $blogEntities = $this->blogRepository->search($criteria, $context->getContext());
 
@@ -66,9 +67,6 @@ class BlogUrlProvider extends AbstractUrlProvider
 
         $urls = [];
 
-        /**
-         * @var BlogEntriesEntity $blogEntity
-         */
         foreach ($blogEntities as $blogEntity) {
             $blogUrl = new Url();
             $blogUrl->setLastmod($blogEntity->getUpdatedAt() ?? new \DateTime());
