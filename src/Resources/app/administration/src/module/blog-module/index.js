@@ -56,8 +56,8 @@ Module.register('blog-module', {
     name: 'Blog',
     title: 'sas-blog.general.mainMenuItemGeneral',
     description: 'sas-blog.general.descriptionTextModule',
-    color: '#62ff80',
-    icon: 'default-object-lab-flask',
+    color: '#F965AF',
+    icon: 'default-symbol-content',
 
     snippets: {
         'de-DE': deDE,
