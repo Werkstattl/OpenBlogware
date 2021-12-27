@@ -2,6 +2,7 @@
 
 {% block layout_head_meta_tags %}
     {% if activeRoute == 'sas.frontend.blog.detail' %}
+        <link rel="canonical" href="{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}" />
         {% if entry.translated.metaTitle %}
             {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
         {% else %}
