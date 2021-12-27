@@ -56,17 +56,19 @@ Component.register('sas-blog-detail', {
         'blog.title': function (value) {
             if (typeof value !== 'undefined') {
                 const criteria = new Criteria();
+                const valueSlug = slugify(this.germanUmlaute(value.toLowerCase()), { lower: true });
+
                 criteria.addFilter(
-                    Criteria.equals('slug', value)
+                    Criteria.equals('slug', valueSlug)
                 );
                 this.repository.search(criteria, Shopware.Context.api).then((result) => {
                         if (this.$route.name === "blog.module.detail") {
-                            this.slugDetailsPage(result, value);
+                            this.slugDetailsPage(result, valueSlug);
 
                             return;
                         }
 
-                        this.slugCreatePage(result, value);
+                        this.slugCreatePage(result, valueSlug);
                 });
             }
         },
@@ -225,7 +227,7 @@ Component.register('sas-blog-detail', {
         },
 
         slugDetailsPage(result, value) {
-            this.blog.slug = slugify(value, { lower: true });
+            this.blog.slug = value;
 
             if (result[0]['slug'] !== this.slugBlog) {
                 this.blog.slug = value + "-" + "1";
@@ -239,7 +241,16 @@ Component.register('sas-blog-detail', {
                 return;
             }
 
-            this.blog.slug = slugify(value, { lower: true });
-        }
+            this.blog.slug = value;
+        },
+
+        germanUmlaute(string) {
+
+            return string
+                .replace(/ä/g, "ae")
+                .replace(/ö/g, "oe")
+                .replace(/ü/g, "ue")
+                .replace(/ß/g, "ss");
+        },
     }
 });
