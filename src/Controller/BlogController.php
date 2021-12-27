@@ -9,6 +9,7 @@ use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -124,13 +125,19 @@ class BlogController extends StorefrontController
 
     /**
      * @HttpCache()
-     * @Route("/blog/rss", name="sas.frontend.blog.rss", methods={"GET"})
+     * @Route("/blog/rss", name="frontend.sas.blog.rss", methods={"GET"})
      */
     public function rss(Request $request, SalesChannelContext $context): Response
     {
         $criteria = new Criteria();
+
+        $dateTime = new \DateTime();
+
         $criteria->addAssociations(['author.salutation']);
-        $criteria->addFilter(new EqualsFilter('active', 1));
+
+        $criteria->addFilter(
+            new EqualsFilter('active', true),
+            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)]));
 
         $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
@@ -138,8 +145,8 @@ class BlogController extends StorefrontController
         $page = NavigationPage::createFrom($page);
 
         $response = $this->renderStorefront('@SasBlogModule/storefront/page/rss.html.twig', [
-            "results"=> $results,
-            "page"=> $page
+            'results' => $results,
+            'page' => $page
         ]);
         $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
