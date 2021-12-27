@@ -1,6 +1,8 @@
 {% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
 
 {% block layout_head_meta_tags %}
+    <link rel="canonical" href="{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}" />
+    
     {% if activeRoute == 'sas.frontend.blog.detail' %}
         {% if entry.translated.metaTitle %}
             {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
