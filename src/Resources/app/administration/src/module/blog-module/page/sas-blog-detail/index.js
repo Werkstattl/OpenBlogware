@@ -33,6 +33,7 @@ Component.register('sas-blog-detail', {
     data() {
         return {
             blog: null,
+            language: null,
             maximumMetaTitleCharacter: 160,
             maximumMetaDescriptionCharacter: 160,
             configOptions: {},
@@ -42,11 +43,16 @@ Component.register('sas-blog-detail', {
             moduleData: this.$route.meta.$module,
             isProVersion: false,
             slugBlog: null,
+            localeLanguage: null
         };
     },
 
     created() {
         this.createdComponent();
+    },
+    updated() {
+        this.getLocaleLanguage();
+        this.slugMaker(slugify(this.slugBlog, {locale:this.localeLanguage, lower: true}));
     },
 
     watch: {
@@ -55,21 +61,14 @@ Component.register('sas-blog-detail', {
         },
         'blog.title': function (value) {
             if (typeof value !== 'undefined') {
-                const criteria = new Criteria();
-                const valueSlug = slugify(this.germanUmlaute(value.toLowerCase()), { lower: true });
 
-                criteria.addFilter(
-                    Criteria.equals('slug', valueSlug)
-                );
-                this.repository.search(criteria, Shopware.Context.api).then((result) => {
-                        if (this.$route.name === "blog.module.detail") {
-                            this.slugDetailsPage(result, valueSlug);
+                this.getLocaleLanguage();
 
-                            return;
-                        }
-
-                        this.slugCreatePage(result, valueSlug);
-                });
+                if (this.localeLanguage !== null) {
+                    this.slugMaker(value);
+                } else {
+                    this.blog.slug = value;
+                }
             }
         },
         blogId() {
@@ -80,6 +79,10 @@ Component.register('sas-blog-detail', {
     computed: {
         repository() {
             return this.repositoryFactory.create('sas_blog_entries');
+        },
+
+        languageRepository() {
+            return this.repositoryFactory.create('locale');
         },
 
         mediaItem() {
@@ -168,6 +171,7 @@ Component.register('sas-blog-detail', {
 
         async changeLanguage() {
             await this.getBlog();
+            await this.slugMaker(slugify(this.slugBlog, {locale:this.localeLanguage, lower: true}));
         },
 
         onClickSave() {
@@ -228,29 +232,49 @@ Component.register('sas-blog-detail', {
 
         slugDetailsPage(result, value) {
             this.blog.slug = value;
-
-            if (result[0]['slug'] !== this.slugBlog) {
-                this.blog.slug = value + "-" + "1";
+            if (result.length > 0) {
+                if (result[0]['slug'] !== this.slugBlog) {
+                    this.blog.slug = value + "-" + "1";
+                }
             }
         },
 
         slugCreatePage(result, value) {
+
             if (result.length > 0) {
+
                 this.blog.slug = value + "-" + "1";
 
                 return;
             }
-
             this.blog.slug = value;
         },
 
-        germanUmlaute(string) {
-
-            return string
-                .replace(/ä/g, "ae")
-                .replace(/ö/g, "oe")
-                .replace(/ü/g, "ue")
-                .replace(/ß/g, "ss");
+        async getLocaleLanguage() {
+            return this.languageRepository.get(Shopware.Context.api.language.localeId, Shopware.Context.api).then((result) => {
+                this.localeLanguage = result.code.substr(0, result.code.length-3).toLowerCase();
+                return Promise.resolve(this.localeLanguage);
+            });
         },
+
+        slugMaker(value){
+
+            const valueSlug = slugify(value, {locale:this.localeLanguage, lower: true});
+            const criteria = new Criteria();
+            criteria.addFilter(
+                Criteria.equals('slug', valueSlug)
+            );
+
+            this.repository.search(criteria, Shopware.Context.api).then((result) => {
+
+                if (this.$route.name === "blog.module.detail") {
+                    this.slugDetailsPage(result, slugify(value, {locale:this.localeLanguage, lower: true}));
+
+                    return;
+                }
+
+                this.slugCreatePage(result, slugify(value, {locale:this.localeLanguage, lower: true}));
+            });
+        }
     }
 });
