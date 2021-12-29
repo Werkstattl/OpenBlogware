@@ -33,7 +33,6 @@ Component.register('sas-blog-detail', {
     data() {
         return {
             blog: null,
-            language: null,
             maximumMetaTitleCharacter: 160,
             maximumMetaDescriptionCharacter: 160,
             configOptions: {},
@@ -43,16 +42,12 @@ Component.register('sas-blog-detail', {
             moduleData: this.$route.meta.$module,
             isProVersion: false,
             slugBlog: null,
-            localeLanguage: null
+            localeLanguage: null,
         };
     },
 
     created() {
         this.createdComponent();
-    },
-    updated() {
-        this.getLocaleLanguage();
-        this.slugMaker(slugify(this.slugBlog, {locale:this.localeLanguage, lower: true}));
     },
 
     watch: {
@@ -77,11 +72,11 @@ Component.register('sas-blog-detail', {
     },
 
     computed: {
-        repository() {
+        blogRepository() {
             return this.repositoryFactory.create('sas_blog_entries');
         },
 
-        languageRepository() {
+        localeRepository() {
             return this.repositoryFactory.create('locale');
         },
 
@@ -136,7 +131,8 @@ Component.register('sas-blog-detail', {
 
             await Promise.all([
                 this.getPluginConfig(),
-                this.getBlog()
+                this.getBlog(),
+                this.getLocaleLanguage(),
             ]);
 
             this.isLoading = false;
@@ -151,7 +147,7 @@ Component.register('sas-blog-detail', {
 
         async getBlog() {
             if(!this.blogId) {
-                this.blog = this.repository.create(Shopware.Context.api);
+                this.blog = this.blogRepository.create(Shopware.Context.api);
 
                 return;
             }
@@ -159,7 +155,7 @@ Component.register('sas-blog-detail', {
             const criteria = new Criteria();
             criteria.addAssociation('blogCategories');
 
-            return this.repository
+            return this.blogRepository
                 .get(this.blogId, Shopware.Context.api, criteria)
                 .then((entity) => {
                     this.blog = entity;
@@ -171,7 +167,7 @@ Component.register('sas-blog-detail', {
 
         async changeLanguage() {
             await this.getBlog();
-            await this.slugMaker(slugify(this.slugBlog, {locale:this.localeLanguage, lower: true}));
+            await this.slugMaker(this.slugBlog);
         },
 
         onClickSave() {
@@ -185,7 +181,7 @@ Component.register('sas-blog-detail', {
 
             this.isLoading = true;
 
-            this.repository
+            this.blogRepository
                 .save(this.blog, Shopware.Context.api)
                 .then(() => {
                     this.isLoading = false;
@@ -251,30 +247,36 @@ Component.register('sas-blog-detail', {
         },
 
         async getLocaleLanguage() {
-            return this.languageRepository.get(Shopware.Context.api.language.localeId, Shopware.Context.api).then((result) => {
+            return this.localeRepository.get(Shopware.Context.api.language.localeId, Shopware.Context.api).then((result) => {
                 this.localeLanguage = result.code.substr(0, result.code.length-3).toLowerCase();
                 return Promise.resolve(this.localeLanguage);
             });
         },
 
-        slugMaker(value){
+        slugMaker(value) {
 
-            const valueSlug = slugify(value, {locale:this.localeLanguage, lower: true});
-            const criteria = new Criteria();
-            criteria.addFilter(
-                Criteria.equals('slug', valueSlug)
-            );
+            value = (value === null) ? "" : value;
 
-            this.repository.search(criteria, Shopware.Context.api).then((result) => {
+            if (this.localeLanguage !== "") {
 
-                if (this.$route.name === "blog.module.detail") {
-                    this.slugDetailsPage(result, slugify(value, {locale:this.localeLanguage, lower: true}));
+                const criteria = new Criteria();
+                const valueSlug = slugify(value, { locale: this.localeLanguage, lower: true });
 
-                    return;
-                }
+                criteria.addFilter(
+                    Criteria.equals('slug', valueSlug)
+                );
 
-                this.slugCreatePage(result, slugify(value, {locale:this.localeLanguage, lower: true}));
-            });
+                this.blogRepository.search(criteria, Shopware.Context.api).then((result) => {
+
+                    if (this.$route.name === "blog.module.detail") {
+                        this.slugDetailsPage(result, slugify(value, { locale: this.localeLanguage, lower: true }));
+
+                        return;
+                    }
+
+                    this.slugCreatePage(result, slugify(value, { locale: this.localeLanguage, lower: true }));
+                });
+            }
         }
     }
 });
