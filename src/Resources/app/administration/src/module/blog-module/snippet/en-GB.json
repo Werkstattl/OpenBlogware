@@ -229,5 +229,18 @@
         "actions": {
             "edit": "Edit"
         }
+    },
+    "sw-privileges": {
+        "permissions": {
+            "sas-blog": {
+               "label": "Blog"
+            },
+            "sas-blog-author": {
+                "label": "Author Blog"
+            },
+            "sas-blog-category": {
+                "label": "Category Blog"
+            }
+        }
     }
 }
