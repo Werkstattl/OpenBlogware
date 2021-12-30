@@ -8,6 +8,13 @@ import './extension/component/form/sas-text-field';
 import './extension/component/form/sas-textarea-field';
 
 /**
+ * privileges
+ */
+import './page/sas-blog-detail/acl';
+import './page/sas-blog-author/acl';
+import './page/sas-blog-list/acl';
+
+/**
  * Pages
  */
 import './page/sas-blog-list';
@@ -16,7 +23,6 @@ import './page/sas-blog-detail';
 /**
  * Language Snippets
  */
-
 import deDE from './snippet/de-DE.json';
 import enGB from './snippet/en-GB.json';
 
@@ -124,6 +130,13 @@ Module.register('blog-module', {
             label: 'sas-blog.general.mainMenuItemGeneral',
             path: 'blog.module.index',
             parent: 'sw-content',
+            meta: {
+                privilege: [
+                    'sas-blog-category:read',
+                    'sas_blog_author:read',
+                    'sas_blog_entries:read',
+                ],
+            }
         }
     ]
 });
