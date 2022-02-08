@@ -3,6 +3,7 @@
 namespace Sas\BlogModule\Core\Content\Sitemap\Provider;
 
 use Doctrine\DBAL\Connection;
+use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\Url;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
@@ -13,7 +14,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
 
 class BlogUrlProvider extends AbstractUrlProvider
 {

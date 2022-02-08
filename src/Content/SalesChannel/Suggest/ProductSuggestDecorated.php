@@ -18,7 +18,9 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductSuggestDecorated extends AbstractProductSuggestRoute
 {
     private AbstractProductSuggestRoute $decorated;
+
     private EntityRepositoryInterface $blogRepository;
+
     private SystemConfigService $systemConfigService;
 
     public function __construct(
@@ -41,11 +43,9 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         SalesChannelContext $context,
         Criteria $criteria
     ): ProductSuggestRouteResponse {
-
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
         if (!$this->systemConfigService->get('SasBlogModule.config.enableSearchBox')) {
-
             return $response;
         }
 

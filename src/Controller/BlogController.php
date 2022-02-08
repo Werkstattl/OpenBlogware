@@ -28,9 +28,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends StorefrontController
 {
     private GenericPageLoaderInterface $genericPageLoader;
+
     private SalesChannelCmsPageLoaderInterface $cmsPageLoader;
+
     private SystemConfigService $systemConfigService;
+
     private EntityRepositoryInterface $blogRepository;
+
     private BlogSearchPageLoader $blogSearchPageLoader;
 
     public function __construct(
@@ -137,7 +141,8 @@ class BlogController extends StorefrontController
 
         $criteria->addFilter(
             new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)]));
+            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
+        );
 
         $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
@@ -146,7 +151,7 @@ class BlogController extends StorefrontController
 
         $response = $this->renderStorefront('@SasBlogModule/storefront/page/rss.html.twig', [
             'results' => $results,
-            'page' => $page
+            'page' => $page,
         ]);
         $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
