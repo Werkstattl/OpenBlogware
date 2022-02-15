@@ -58,6 +58,7 @@
         </service>
 
         <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogCmsElementResolver">
+            <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
             <tag name="shopware.cms.data_resolver" />
         </service>
 
@@ -105,5 +106,10 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="shopware.sitemap_url_provider" />
         </service>
+        
+        <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
+            <tag name="kernel.event_subscriber" />
+        </service>
+
     </services>
 </container>
