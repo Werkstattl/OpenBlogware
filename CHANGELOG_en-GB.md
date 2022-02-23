@@ -1,3 +1,6 @@
+# 1.5.7
+* Fixed compiled administration file
+
 # 1.5.6
 * Integrated ACL [#84](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/84/files)
 * Sitemap generation [#78](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/78/files)
