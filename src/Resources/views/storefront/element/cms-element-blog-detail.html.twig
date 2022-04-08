@@ -49,9 +49,9 @@
                         {% if element.fieldconfig.elements.showAuthor.value or element.fieldconfig.elements.showCategory.value %}
                             <div class="sas-blog-detail-article-meta">
                                 {% block sas_blog_detail_article_meta_author %}
-                                    {% if element.fieldconfig.elements.showAuthor.value and element.data.author %}
+                                    {% if element.fieldconfig.elements.showAuthor.value and element.data.blogAuthor %}
                                         {% sw_include '@Storefront/storefront/component/blog/_partials/_block_author.html.twig' with {
-                                            author: element.data.author
+                                            author: element.data.blogAuthor
                                         } %}
                                     {% endif %}
                                 {% endblock %}

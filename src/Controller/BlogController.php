@@ -95,7 +95,7 @@ class BlogController extends StorefrontController
 
         $criteria = new Criteria([$articleId]);
 
-        $criteria->addAssociations(['author.salutation', 'blogCategories']);
+        $criteria->addAssociations(['blogAuthor.salutation', 'blogCategories']);
 
         $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
@@ -115,7 +115,7 @@ class BlogController extends StorefrontController
         $page->setCmsPage($pages->first());
         $metaInformation = $page->getMetaInformation();
 
-        $metaInformation->setAuthor($entry->getAuthor()->getTranslated()['name']);
+        $metaInformation->setAuthor($entry->getBlogAuthor()->getTranslated()['name']);
 
         $page->setMetaInformation($metaInformation);
 
@@ -137,7 +137,7 @@ class BlogController extends StorefrontController
 
         $dateTime = new \DateTime();
 
-        $criteria->addAssociations(['author.salutation']);
+        $criteria->addAssociations(['blogAuthor.salutation']);
 
         $criteria->addFilter(
             new EqualsFilter('active', true),

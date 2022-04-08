@@ -48,9 +48,9 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         );
 
         $criteria->addAssociations([
-            'author',
-            'author.media',
-            'author.blogs',
+            'blogAuthor',
+            'blogAuthor.media',
+            'blogAuthor.blogEntries',
             'blogCategories',
         ]);
 

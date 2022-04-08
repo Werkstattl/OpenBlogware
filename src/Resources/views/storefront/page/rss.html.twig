@@ -17,8 +17,8 @@
                 <link>{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</link>
                 <guid isPermaLink="true">{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</guid>
                 <description>{{ result.translated.metaDescription|striptags|trim|u.truncate(maxLength ?? 160, '…') }}</description>
-                {% if result.author.email != "N/A" %}
-                    <author>{{ result.author.email ~ " (" ~ result.author.displayName ~ ")"}}</author>
+                {% if result.blogAuthor.email != "N/A" %}
+                    <author>{{ result.blogAuthor.email ~ " (" ~ result.blogAuthor.displayName ~ ")"}}</author>
                 {% endif %}
                 <pubDate>{{ result.publishedAt | date("d M Y H:i:s T") }}</pubDate>
             </item>

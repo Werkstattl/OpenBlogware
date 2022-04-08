@@ -10,9 +10,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class BlogAuthorTranslationDefinition extends EntityTranslationDefinition
 {
+    public const ENTITY_NAME = 'sas_blog_author_translation';
+
     public function getEntityName(): string
     {
-        return 'sas_blog_author_translation';
+        return self::ENTITY_NAME;
     }
 
     public function getCollectionClass(): string

@@ -70,7 +70,7 @@
                     <template slot="column-author" slot-scope="{ item }">
                         {% block sas_blog_list_grid_columns_author_content %}
                             <router-link :to="{ name: 'blog.module.author.detail', params: { id: item.authorId } }">
-                                {{ salutation(item.author) }}
+                                {{ salutation(item.blogAuthor) }}
                             </router-link>
                         {% endblock %}
                     </template>

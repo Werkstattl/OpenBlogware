@@ -6,6 +6,7 @@ use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 use Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use Shopware\Core\System\SalesChannel\SalesChannelCollection;
 
 class BlogCategoryEntity extends Entity
 {
@@ -64,7 +65,22 @@ class BlogCategoryEntity extends Entity
     /**
      * @var BlogEntriesCollection|null
      */
-    protected $blogs;
+    protected $blogEntries;
+
+    /**
+     * @var SalesChannelCollection|null
+     */
+    protected $navigationSalesChannels;
+
+    /**
+     * @var SalesChannelCollection|null
+     */
+    protected $footerSalesChannels;
+
+    /**
+     * @var SalesChannelCollection|null
+     */
+    protected $serviceSalesChannels;
 
     public function getParentId(): ?string
     {
@@ -166,13 +182,43 @@ class BlogCategoryEntity extends Entity
         $this->translations = $translations;
     }
 
-    public function getBlogs(): ?BlogEntriesCollection
+    public function getBlogEntries(): ?BlogEntriesCollection
     {
-        return $this->blogs;
+        return $this->blogEntries;
     }
 
-    public function setBlogs(BlogEntriesCollection $blogs): void
+    public function setBlogEntries(BlogEntriesCollection $blogEntries): void
     {
-        $this->blogs = $blogs;
+        $this->blogEntries = $blogEntries;
+    }
+
+    public function getNavigationSalesChannels(): ?SalesChannelCollection
+    {
+        return $this->navigationSalesChannels;
+    }
+
+    public function setNavigationSalesChannels(SalesChannelCollection $navigationSalesChannels): void
+    {
+        $this->navigationSalesChannels = $navigationSalesChannels;
+    }
+
+    public function getFooterSalesChannels(): ?SalesChannelCollection
+    {
+        return $this->footerSalesChannels;
+    }
+
+    public function setFooterSalesChannels(SalesChannelCollection $footerSalesChannels): void
+    {
+        $this->footerSalesChannels = $footerSalesChannels;
+    }
+
+    public function getServiceSalesChannels(): ?SalesChannelCollection
+    {
+        return $this->serviceSalesChannels;
+    }
+
+    public function setServiceSalesChannels(SalesChannelCollection $serviceSalesChannels): void
+    {
+        $this->serviceSalesChannels = $serviceSalesChannels;
     }
 }

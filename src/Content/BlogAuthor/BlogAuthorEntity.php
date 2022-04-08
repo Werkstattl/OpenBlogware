@@ -4,13 +4,16 @@ namespace Sas\BlogModule\Content\BlogAuthor;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 use Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationCollection;
+use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use Shopware\Core\System\Salutation\SalutationEntity;
 
 class BlogAuthorEntity extends Entity
 {
     use EntityIdTrait;
+    use EntityCustomFieldsTrait;
 
     /**
      * @var string
@@ -43,6 +46,11 @@ class BlogAuthorEntity extends Entity
     protected $salutation;
 
     /**
+     * @var string|null
+     */
+    protected $description;
+
+    /**
      * @var BlogAuthorTranslationCollection|null
      */
     protected $translations;
@@ -50,7 +58,17 @@ class BlogAuthorEntity extends Entity
     /**
      * @var BlogEntriesCollection|null
      */
-    protected $blogs;
+    protected $blogEntries;
+
+    /**
+     * @var string
+     */
+    protected $mediaId;
+
+    /**
+     * @var MediaEntity|null
+     */
+    protected $media;
 
     public function getTranslations(): ?BlogAuthorTranslationCollection
     {
@@ -62,14 +80,14 @@ class BlogAuthorEntity extends Entity
         $this->translations = $translations;
     }
 
-    public function getBlogs(): ?BlogEntriesCollection
+    public function getBlogEntries(): ?BlogEntriesCollection
     {
-        return $this->blogs;
+        return $this->blogEntries;
     }
 
-    public function setBlogs(BlogEntriesCollection $blogs): void
+    public function setBlogEntries(BlogEntriesCollection $blogEntries): void
     {
-        $this->blogs = $blogs;
+        $this->blogEntries = $blogEntries;
     }
 
     public function getSalutation(): ?SalutationEntity
@@ -90,6 +108,16 @@ class BlogAuthorEntity extends Entity
     public function setSalutationId(string $salutationId): void
     {
         $this->salutationId = $salutationId;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 
     public function getFirstName(): string
@@ -139,5 +167,25 @@ class BlogAuthorEntity extends Entity
         $translated['name'] = $this->getFirstName() . ' ' . $this->getLastName();
 
         return $translated;
+    }
+
+    public function getMediaId(): string
+    {
+        return $this->mediaId;
+    }
+
+    public function setMediaId(string $mediaId): void
+    {
+        $this->mediaId = $mediaId;
+    }
+
+    public function getMedia(): ?MediaEntity
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?MediaEntity $media): void
+    {
+        $this->media = $media;
     }
 }

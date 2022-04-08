@@ -10,7 +10,7 @@
             <tag name="shopware.entity.definition" entity="sas_blog_entries" />
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogTranslation\BlogTranslationDefinition">
+        <service id="Sas\BlogModule\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
@@ -32,6 +32,18 @@
 
         <service id="Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition">
             <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="Sas\BlogModule\Content\Extension\MediaExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="Sas\BlogModule\Content\Extension\LanguageExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="Sas\BlogModule\Content\Extension\SalutationExtension">
+            <tag name="shopware.entity.extension"/>
         </service>
 
         <service id="Sas\BlogModule\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
@@ -106,7 +118,7 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <tag name="shopware.sitemap_url_provider" />
         </service>
-        
+
         <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
             <tag name="kernel.event_subscriber" />
         </service>

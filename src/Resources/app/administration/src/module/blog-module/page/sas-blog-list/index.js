@@ -83,7 +83,7 @@ Component.register('sas-blog-list', {
         getList() {
             this.isLoading = true;
             const criteria = new Criteria();
-            criteria.addAssociation('author');
+            criteria.addAssociation('blogAuthor');
             criteria.addAssociation('blogCategories');
 
             criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false))

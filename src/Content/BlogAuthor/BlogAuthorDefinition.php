@@ -54,14 +54,13 @@ class BlogAuthorDefinition extends EntityDefinition
             (new StringField('email', 'email'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING, false), new ApiAware()),
             (new StringField('display_name', 'displayName'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new ApiAware()),
 
-            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
-
             (new TranslatedField('description'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
 
             new TranslationsAssociationField(BlogAuthorTranslationDefinition::class, 'sas_blog_author_id'),
 
-            (new OneToManyAssociationField('blogs', BlogEntriesDefinition::class, 'author_id', 'id'))->addFlags(new CascadeDelete(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
+            (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
+            (new OneToManyAssociationField('blogEntries', BlogEntriesDefinition::class, 'author_id', 'id'))->addFlags(new CascadeDelete(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class, 'id', false),
         ]);
     }

@@ -10,12 +10,12 @@ class BlogAuthorTranslationEntity extends TranslationEntity
     /**
      * @var string
      */
-    protected $blogAuthorId;
+    protected $sasBlogAuthorId;
 
     /**
      * @var BlogAuthorEntity|null
      */
-    protected $blogAuthor;
+    protected $sasBlogAuthor;
 
     /**
      * @var string
@@ -27,27 +27,27 @@ class BlogAuthorTranslationEntity extends TranslationEntity
      */
     protected $customFields;
 
-    public function getBlogAuthorId(): string
+    public function getSasBlogAuthorId(): string
     {
-        return $this->blogAuthorId;
+        return $this->sasBlogAuthorId;
     }
 
-    public function setBlogAuthorId(string $blogAuthorId): void
+    public function setSasBlogAuthorId(string $sasBlogAuthorId): void
     {
-        $this->blogAuthorId = $blogAuthorId;
+        $this->sasBlogAuthorId = $sasBlogAuthorId;
     }
 
-    public function getBlogAuthor(): ?BlogAuthorEntity
+    public function getSasBlogAuthor(): ?BlogAuthorEntity
     {
-        return $this->blogAuthor;
+        return $this->sasBlogAuthor;
     }
 
-    public function setBlogAuthor(BlogAuthorEntity $blogAuthor): void
+    public function setSasBlogAuthor(BlogAuthorEntity $sasBlogAuthor): void
     {
-        $this->blogAuthor = $blogAuthor;
+        $this->sasBlogAuthor = $sasBlogAuthor;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

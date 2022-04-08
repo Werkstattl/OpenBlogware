@@ -1,21 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\BlogTranslation;
+namespace Sas\BlogModule\Content\Blog\BlogEntriesTranslation;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
-class BlogTranslationEntity extends TranslationEntity
+class BlogEntriesTranslationEntity extends TranslationEntity
 {
+    use EntityCustomFieldsTrait;
+
     /**
      * @var string
      */
-    protected $blogId;
+    protected $sasBlogEntriesId;
 
     /**
      * @var BlogEntriesEntity
      */
-    protected $blog;
+    protected $sasBlogEntries;
 
     /**
      * @var string
@@ -47,27 +50,27 @@ class BlogTranslationEntity extends TranslationEntity
      */
     protected $metaDescription;
 
-    public function getBlogId(): string
+    public function getSasBlogEntriesId(): string
     {
-        return $this->blogId;
+        return $this->sasBlogEntriesId;
     }
 
-    public function setBlogId(string $blogId): void
+    public function setSasBlogEntriesId(string $sasBlogEntriesId): void
     {
-        $this->blogId = $blogId;
+        $this->sasBlogEntriesId = $sasBlogEntriesId;
     }
 
-    public function getBlog(): BlogEntriesEntity
+    public function getSasBlogEntries(): BlogEntriesEntity
     {
-        return $this->blog;
+        return $this->sasBlogEntries;
     }
 
-    public function setBlog(BlogEntriesEntity $blog): void
+    public function setSasBlogEntries(BlogEntriesEntity $sasBlogEntries): void
     {
-        $this->blog = $blog;
+        $this->sasBlogEntries = $sasBlogEntries;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -77,7 +80,7 @@ class BlogTranslationEntity extends TranslationEntity
         $this->title = $title;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -87,7 +90,7 @@ class BlogTranslationEntity extends TranslationEntity
         $this->slug = $slug;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -97,7 +100,7 @@ class BlogTranslationEntity extends TranslationEntity
         $this->content = $content;
     }
 
-    public function getTeaser(): string
+    public function getTeaser(): ?string
     {
         return $this->teaser;
     }
