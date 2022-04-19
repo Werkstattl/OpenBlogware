@@ -19,6 +19,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationFiel
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TreeLevelField;
@@ -53,6 +54,7 @@ class BlogCategoryDefinition extends EntityDefinition
             (new VersionField())->addFlags(new ApiAware()),
 
             new ParentFkField(self::class),
+            (new ReferenceVersionField(self::class, 'parent_version_id')),
 
             new FkField('after_category_id', 'afterCategoryId', self::class),
 
@@ -68,7 +70,7 @@ class BlogCategoryDefinition extends EntityDefinition
 
             (new TranslationsAssociationField(BlogCategoryTranslationDefinition::class, 'sas_blog_category_id'))->addFlags(new Required()),
 
-            (new ManyToManyAssociationField('blogs', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new CascadeDelete()),
+            (new ManyToManyAssociationField('blogEntries', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new CascadeDelete()),
             (new OneToManyAssociationField('navigationSalesChannels', SalesChannelDefinition::class, 'navigation_category_id')),
             (new OneToManyAssociationField('footerSalesChannels', SalesChannelDefinition::class, 'footer_category_id')),
             (new OneToManyAssociationField('serviceSalesChannels', SalesChannelDefinition::class, 'service_category_id')),

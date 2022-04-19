@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\BlogTranslation;
+namespace Sas\BlogModule\Content\Blog\BlogEntriesTranslation;
 
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
@@ -12,21 +12,23 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
-class BlogTranslationDefinition extends EntityTranslationDefinition
+class BlogEntriesTranslationDefinition extends EntityTranslationDefinition
 {
+    public const ENTITY_NAME = 'sas_blog_entries_translation';
+
     public function getEntityName(): string
     {
-        return 'sas_blog_entries_translation';
+        return self::ENTITY_NAME;
     }
 
     public function getCollectionClass(): string
     {
-        return BlogTranslationCollection::class;
+        return BlogEntriesTranslationCollection::class;
     }
 
     public function getEntityClass(): string
     {
-        return BlogTranslationEntity::class;
+        return BlogEntriesTranslationEntity::class;
     }
 
     protected function getParentDefinitionClass(): string

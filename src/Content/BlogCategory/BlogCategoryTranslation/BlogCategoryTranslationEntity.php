@@ -20,14 +20,14 @@ class BlogCategoryTranslationEntity extends TranslationEntity
     /**
      * @var string
      */
-    protected $blogCategoryId;
+    protected $sasBlogCategoryId;
 
     /**
      * @var BlogCategoryEntity|null
      */
-    protected $blogCategory;
+    protected $sasBlogCategory;
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -47,23 +47,23 @@ class BlogCategoryTranslationEntity extends TranslationEntity
         $this->customFields = $customFields;
     }
 
-    public function getBlogCategoryId(): string
+    public function getSasBlogCategoryId(): string
     {
-        return $this->blogCategoryId;
+        return $this->sasBlogCategoryId;
     }
 
-    public function setBlogCategoryId(string $blogCategoryId): void
+    public function setSasBlogCategoryId(string $sasBlogCategoryId): void
     {
-        $this->blogCategoryId = $blogCategoryId;
+        $this->sasBlogCategoryId = $sasBlogCategoryId;
     }
 
-    public function getBlogCategory(): ?BlogCategoryEntity
+    public function getSasBlogCategory(): ?BlogCategoryEntity
     {
-        return $this->blogCategory;
+        return $this->sasBlogCategory;
     }
 
-    public function setBlogCategory(BlogCategoryEntity $blogCategory): void
+    public function setSasBlogCategory(BlogCategoryEntity $sasBlogCategory): void
     {
-        $this->blogCategory = $blogCategory;
+        $this->sasBlogCategory = $sasBlogCategory;
     }
 }

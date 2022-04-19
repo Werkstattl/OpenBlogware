@@ -8,7 +8,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Shopware\Core\Framework\Routing\Annotation\Entity;
 use Shopware\Core\Framework\Struct\Collection;
 
 class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
@@ -22,12 +21,12 @@ class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
 
     public function getEntityClass(): string
     {
-        return Entity::class;
+        return BlogCategoryTranslationEntity::class;
     }
 
     public function getCollectionClass(): string
     {
-        return Collection::class;
+        return BlogCategoryTranslationCollection::class;
     }
 
     protected function getParentDefinitionClass(): string

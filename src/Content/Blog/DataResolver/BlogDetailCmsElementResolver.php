@@ -29,7 +29,7 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
             new EqualsFilter('active', true),
             new EqualsFilter('id', $resolverContext->getRequest()->get('articleId'))
         );
-        $criteria->addAssociations(['author', 'blogCategories']);
+        $criteria->addAssociations(['blogAuthor', 'blogCategories']);
 
         $criteriaCollection = new CriteriaCollection();
 

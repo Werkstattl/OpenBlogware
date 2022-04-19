@@ -56,16 +56,16 @@
         {% block sas_blog_card_footer %}
         <div class="card-footer text-muted">
             {% block sas_blog_card_footer_author %}
-                {% if shopware.config.SasBlogModule.config.showAuthor %}
-                    {% if article.author.media.url %}
+                {% if config('SasBlogModule').config.showAuthor %}
+                    {% if article.blogAuthor.media.url %}
                         {% set attributes = {
                             'class': 'blog-author-avatar',
-                            'alt': (article.author.media.translated.alt ?: article.author.media.fileName),
-                            'title': (article.author.media.translated.title ?: article.author.media.fileName)
+                            'alt': (article.blogAuthor.media.translated.alt ?: article.blogAuthor.media.fileName),
+                            'title': (article.blogAuthor.media.translated.title ?: article.blogAuthor.media.fileName)
                         } %}
 
                         {% sw_thumbnails 'blog-author-avatar-thumbnails' with {
-                            media: article.author.media,
+                            media: article.blogAuthor.media,
                             sizes: {
                             'xs': '80px'
                         }
@@ -77,8 +77,8 @@
                                 } %}
                         </div>
                     {% endif %}
-                    <p class="blog-author-display-name">{{ article.author.displayName }}<br>
-                        <small class="text-muted">{{ article.author.blogs|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
+                    <p class="blog-author-display-name">{{ article.blogAuthor.displayName }}<br>
+                        <small class="text-muted">{{ article.blogAuthor.blogEntries|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
                     </p>
                 {% endif %}
             {% endblock %}
