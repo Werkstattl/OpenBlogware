@@ -113,11 +113,16 @@ class BlogController extends StorefrontController
         );
 
         $page->setCmsPage($pages->first());
-        $metaInformation = $page->getMetaInformation();
 
-        $metaInformation->setAuthor($entry->getBlogAuthor()->getTranslated()['name']);
-
-        $page->setMetaInformation($metaInformation);
+        if ($metaInformation = $page->getMetaInformation()) {
+            $metaTitle = $entry->getMetaTitle() ?? $entry->getTitle();
+            $metaDescription = $entry->getMetaDescription() ?? $entry->getTeaser();
+            $metaAuthor = $entry->getBlogAuthor()->getTranslated()['name'];
+            $metaInformation->setMetaTitle($metaTitle ?? '');
+            $metaInformation->setMetaDescription($metaDescription ?? '');
+            $metaInformation->setAuthor($metaAuthor ?? '');
+            $page->setMetaInformation($metaInformation);
+        }
 
         $page->setNavigationId($page->getHeader()->getNavigation()->getActive()->getId());
 

@@ -1,30 +1,19 @@
 {% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
 
+{% if activeRoute == 'sas.frontend.blog.detail' and entry.media.url %}
+    {% set metaImage = entry.media.url|striptags|trim %}
+{% endif %}
+
 {% block layout_head_meta_tags %}
     {% if activeRoute == 'sas.frontend.blog.detail' %}
-        <link rel="canonical" href="{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}" />
-        {% if entry.translated.metaTitle %}
-            {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
-        {% else %}
-            {% set metaTitle = entry.translated.title|striptags|trim %}
-        {% endif %}
+        <link rel="canonical" href="{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"/>
     {% endif %}
     {{ parent() }}
 {% endblock %}
 
-{% block layout_head_meta_tags_description %}{% if activeRoute == 'sas.frontend.blog.detail' %}{% if entry.translated.metaDescription %}{{ entry.translated.metaDescription|striptags|trim }}{% else %}{{ entry.translated.teaser }}{% endif %}{% else %}{{ parent() }}{% endif %}{% endblock %}
-
-{% block layout_head_title %}
-    {% if activeRoute == 'sas.frontend.blog.detail' %}
-        {% if entry.translated.metaTitle %}
-            {% set metaTitle = entry.translated.metaTitle|striptags|trim %}
-        {% else %}
-            {% set metaTitle = entry.translated.title|striptags|trim %}
-        {% endif %}
-    {% endif %}
-
-    {{ parent() }}
-{% endblock %}
+{% block layout_head_meta_tags_image_og %}{{ metaImage ?? parent() }}{% endblock %}
+{% block layout_head_meta_tags_image_twitter %}{{ metaImage ?? parent() }}{% endblock %}
+{% block layout_head_meta_tags_image_meta %}{{ metaImage ?? parent() }}{% endblock %}
 
 {% block layout_head_meta_tags_schema_webpage %}
     {{ parent() }}
@@ -56,7 +45,6 @@
                         "url": "{{ shopware.theme['sw-logo-desktop'] |sw_encode_url }}"
                     }
                 }
-
             }
         </script>
     {% endif %}
