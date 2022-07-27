@@ -1,0 +1,13 @@
+@import "~scss/variables";
+
+.sas-cms-el-newest-listing {
+    width: 100%;
+    border: 1px solid #dadee5;
+    border-radius: 4px;
+    background: $color-white;
+    padding: 10px;
+
+    h2 {
+        margin: 10px;
+    }
+}

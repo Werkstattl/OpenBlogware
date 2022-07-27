@@ -1,0 +1,9 @@
+{% block sas_element_blog_newest_listing %}
+
+    {% block sas_element_blog_newest_listing_wrapper %}
+        {% sw_include '@Storefront/storefront/component/blog/newest-listing.html.twig' with {
+            searchResult: element.data,
+        } %}
+    {% endblock %}
+
+{% endblock %}

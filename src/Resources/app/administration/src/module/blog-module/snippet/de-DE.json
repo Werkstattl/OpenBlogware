@@ -114,6 +114,29 @@
                 "label": "Blog Single Select",
                 "selectFieldLabel": "Wähle einen Blog Eintrag",
                 "previewText": "Lorem Ipsum Dolor"
+            },
+            "newestListing": {
+                "config": {
+                    "itemCount": "Anzahl der Artikel",
+                    "showType": {
+                        "label": "Typ anzeigen",
+                        "options": {
+                            "all": "Alle",
+                            "select": "Kategorien auswählen"
+                        }
+                    },
+                    "blogCategories": {
+                        "label": "Kategorien",
+                        "placeholder": "Kategorien auswählen"
+                    }
+                },
+                "component": {
+                    "elementHeadline": "Blog neuestes Listenelement",
+                    "infoText": "Der Inhalt des Blogs mit den neuesten Einträgen wird automatisch von diesem Element abgerufen."
+                },
+                "preview": {
+                    "label": "Blog Neueste Auflistung"
+                }
             }
         },
         "blocks": {
@@ -129,6 +152,10 @@
                 "singleEntry": {
                     "previewTitle": "Einzelner Blogeintrag",
                     "label": "Einzelner Blogeintrag"
+                },
+                "newestListing": {
+                    "previewTitle": "Blog Neueste Auflistung",
+                    "label": "Blog Neueste Auflistung"
                 }
             }
         }

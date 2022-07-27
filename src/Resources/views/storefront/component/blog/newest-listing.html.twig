@@ -1,0 +1,28 @@
+{% block sas_element_blog_newest_listing_row %}
+    <div class="cms-news-full-listing-row js-listing-wrapper">
+        {% if searchResult.total > 0 %}
+            {% block sas_element_blog_newest_listing_col %}
+                <div class="row">
+                    {% for article in searchResult %}
+                        {% block sas_element_blog_newest_listing_box %}
+                            <div class="col-12 col-md-4 col-lg-3 my-4">
+                                {% sw_include '@Storefront/storefront/component/blog/card/box.html.twig' %}
+                            </div>
+                        {% endblock %}
+                    {% endfor %}
+                </div>
+            {% endblock %}
+        {% else %}
+            {% block sas_element_blog_newest_listing_col_empty %}
+                <div class="cms-listing-col col-12">
+                    {% block sas_element_blog_newest_listing_col_empty_alert %}
+                        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                            type: 'info',
+                            content: 'sas-blog.search.emptyResult'|trans|sw_sanitize
+                        } %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        {% endif %}
+    </div>
+{% endblock %}
