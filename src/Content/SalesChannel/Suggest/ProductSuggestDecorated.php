@@ -8,6 +8,7 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
@@ -50,13 +51,13 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         }
 
         $limit = $response->getListingResult()->getCriteria()->getLimit();
-        $blogResult = $this->getBlogs($request->get('search'), $limit, $context->getContext());
+        $blogResult = $this->getBlogs($request->get('search'), $context->getSalesChannel()->getId(), $limit, $context->getContext());
         $response->getListingResult()->addExtension('blogResult', $blogResult);
 
         return $response;
     }
 
-    private function getBlogs(string $term, int $limit, Context $context): EntitySearchResult
+    private function getBlogs(string $term, string $saleChannelId, int $limit, Context $context): EntitySearchResult
     {
         $criteria = new Criteria();
         $criteria->setTerm($term);
@@ -67,6 +68,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
 
         $criteria->addFilter(
             new EqualsFilter('active', true),
+            new ContainsFilter('customFields.sales_channels_id', $saleChannelId),
             new RangeFilter('publishedAt', [RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM)])
         );
 

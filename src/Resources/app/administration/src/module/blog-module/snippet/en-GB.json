@@ -70,6 +70,10 @@
                 "label": "Categories",
                 "placeholder": "Select blog's categories"
             },
+            "salesChannels": {
+                "labelSalesChannels": "Sales Channel",
+                "placeholderSalesChannels": "Add Sales Channels..."
+            },
             "warning": {
                 "maxTextCountReached": "There're {charLeft} character(s) left"
             }

@@ -63,6 +63,10 @@
             "category": {
                 "label": "Kategorien",
                 "placeholder": "Wähle eine Kategorie"
+            },
+            "salesChannels": {
+                "labelSalesChannels": "Verkaufskanal",
+                "placeholderSalesChannels": "Wähle Verkaufskanäle aus ..."
             }
         },
         "elements": {

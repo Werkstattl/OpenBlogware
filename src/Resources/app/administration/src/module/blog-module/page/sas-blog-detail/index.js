@@ -33,6 +33,7 @@ Component.register('sas-blog-detail', {
     data() {
         return {
             blog: null,
+            salesChannels: null,
             maximumMetaTitleCharacter: 160,
             maximumMetaDescriptionCharacter: 160,
             configOptions: {},
@@ -78,6 +79,10 @@ Component.register('sas-blog-detail', {
 
         localeRepository() {
             return this.repositoryFactory.create('locale');
+        },
+
+        salesChannelRepository() {
+            return this.repositoryFactory.create('sales_channel');
         },
 
         mediaItem() {
@@ -133,6 +138,7 @@ Component.register('sas-blog-detail', {
                 this.getPluginConfig(),
                 this.getBlog(),
                 this.getLocaleLanguage(),
+                this.getSalesChannels(),
             ]);
 
             this.isLoading = false;
@@ -159,6 +165,7 @@ Component.register('sas-blog-detail', {
                 .get(this.blogId, Shopware.Context.api, criteria)
                 .then((entity) => {
                     this.blog = entity;
+                    this.getSalesChannels();
                     this.slugBlog = this.blog.slug;
                     return Promise.resolve();
                 });
@@ -181,8 +188,15 @@ Component.register('sas-blog-detail', {
 
             this.isLoading = true;
 
+            let salesChannelsIdArray = [];
+            this.salesChannels.map(function(value) {
+                salesChannelsIdArray.push ( value.id);
+            });
+            this.blog.customFields = {'sales_channels_id' : salesChannelsIdArray};
+
             this.blogRepository
                 .save(this.blog, Shopware.Context.api)
+
                 .then(() => {
                     this.isLoading = false;
                     this.$router.push({ name: 'blog.module.detail', params: {id: this.blog.id} });
@@ -247,10 +261,10 @@ Component.register('sas-blog-detail', {
         },
 
         async getLocaleLanguage() {
-            return this.localeRepository.get(Shopware.Context.api.language.localeId, Shopware.Context.api).then((result) => {
-                this.localeLanguage = result.code.substr(0, result.code.length-3).toLowerCase();
+            if(Shopware.State.get('session').currentLocale !== null) {
+                this.localeLanguage = Shopware.State.get('session').currentLocale.substr(0, Shopware.State.get('session').currentLocale.length - 3).toLowerCase();
                 return Promise.resolve(this.localeLanguage);
-            });
+            }
         },
 
         slugMaker(value) {
@@ -277,6 +291,18 @@ Component.register('sas-blog-detail', {
                     this.slugCreatePage(result, slugify(value, { locale: this.localeLanguage, lower: true }));
                 });
             }
-        }
+        },
+
+        async getSalesChannels() {
+            let salesChannelsId = this.blog ? this.blog.customFields : null;
+            const criteria = new Criteria();
+            if ((typeof salesChannelsId === "object") && (this.blog)) {
+                criteria.addFilter(
+                    Criteria.equalsAny('id', this.blog.customFields['sales_channels_id']),
+                );
+            }
+
+            this.salesChannels =  await this.salesChannelRepository.search(criteria);
+        },
     }
 });
