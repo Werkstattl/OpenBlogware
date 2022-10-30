@@ -110,10 +110,24 @@ class SasBlogModule extends Plugin
                     'useParentConfiguration' => false,
                     'configuration' => [
                         'createThumbnails' => true,
+                        'keepAspectRatio' => true,
+                        'thumbnailQuality' => 90,
                         'mediaThumbnailSizes' => [
                             [
+                                'width' => 330,
+                                'height' => 185,
+                            ],
+                            [
                                 'width' => 650,
-                                'height' => 330,
+                                'height' => 365,
+                            ],
+                            [
+                                'width' => 900,
+                                'height' => 506,
+                            ],
+                            [
+                                'width' => 1280,
+                                'height' => 720,
                             ],
                         ],
                     ],
