@@ -3,6 +3,7 @@
 namespace Sas\BlogModule\Core\Content\Sitemap\Provider;
 
 use Doctrine\DBAL\Connection;
+use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\Url;
@@ -56,7 +57,8 @@ class BlogUrlProvider extends AbstractUrlProvider
             new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
         );
 
-        $blogEntities = $this->blogRepository->search($criteria, $context->getContext());
+        /** @var BlogEntriesCollection $blogEntities */
+        $blogEntities = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
         if ($blogEntities->count() === 0) {
             return new UrlResult([], null);
@@ -67,6 +69,7 @@ class BlogUrlProvider extends AbstractUrlProvider
 
         $urls = [];
 
+        /*  @var BlogEntriesEntity  $blogEntity */
         foreach ($blogEntities as $blogEntity) {
             $blogUrl = new Url();
             $blogUrl->setLastmod($blogEntity->getUpdatedAt() ?? new \DateTime());
@@ -75,8 +78,19 @@ class BlogUrlProvider extends AbstractUrlProvider
             $blogUrl->setResource(BlogEntriesEntity::class);
             $blogUrl->setIdentifier($blogEntity->getId());
 
-            if (isset($seoUrls[$blogEntity->getId()])) {
-                $blogUrl->setLoc($seoUrls[$blogEntity->getId()]['seo_path_info']);
+            if (!\array_key_exists($blogEntity->getId(), $seoUrls)) {
+                $urls[] = $blogUrl;
+                continue;
+            }
+
+            $seoUrl = $seoUrls[$blogEntity->getId()];
+            if (!\array_key_exists('seo_path_info', $seoUrl)) {
+                $urls[] = $blogUrl;
+                continue;
+            }
+
+            if (\is_string($seoUrl['seo_path_info'])) {
+                $blogUrl->setLoc($seoUrl['seo_path_info']);
             }
 
             $urls[] = $blogUrl;
