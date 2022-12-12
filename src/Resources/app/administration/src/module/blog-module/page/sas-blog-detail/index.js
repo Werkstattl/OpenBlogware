@@ -2,7 +2,7 @@ const { Component, Mixin } = Shopware;
 import template from './sas-blog-detail.html.twig';
 import './sas-blog-detail.scss';
 
-import slugify from '@slugify';
+import slugify from 'slugify';
 
 const Criteria = Shopware.Data.Criteria;
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
