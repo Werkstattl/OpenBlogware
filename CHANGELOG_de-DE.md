@@ -2,6 +2,7 @@
 * Beheben der vorgegebenen Thumbnail-Größen [#110](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/110/files)
 * Newest blog items [#108](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/108/files)
 * Fix Block is overwritten instead of added [#116](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/116/files)
+* Beheben Sie das Problem mit der Sitemap:generate [#75](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/75/files)
 
 # 1.5.8
 * Fix error when run bin/console dal:validation [#97](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/97/files)

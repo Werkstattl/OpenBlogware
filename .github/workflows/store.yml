@@ -1,0 +1,16 @@
+name: PackPlugin
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        uses: FriendsOfShopware/actions/.github/workflows/store.yml@main
+        with:
+            extensionName: SasBlogModule
+            shopwareVersion: '6.4.10'
+        secrets:
+            accountUser: ${{ secrets.ACCOUNT_USER }}
+            accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
+            ghToken: ${{ secrets.GITHUB_TOKEN }}
