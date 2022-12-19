@@ -10,7 +10,11 @@ const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 Component.register('sas-blog-detail', {
     template,
 
-    inject: ['repositoryFactory', 'systemConfigApiService'],
+    inject: [
+        'repositoryFactory',
+        'systemConfigApiService',
+        'feature',
+    ],
 
     mixins: [Mixin.getByName('notification')],
 
@@ -188,11 +192,13 @@ Component.register('sas-blog-detail', {
 
             this.isLoading = true;
 
-            let salesChannelsIdArray = [];
-            this.salesChannels.map(function(value) {
-                salesChannelsIdArray.push ( value.id);
-            });
-            this.blog.customFields = {'sales_channels_id' : salesChannelsIdArray};
+            if (this.feature.isActive('FEATURE_SAS_BLOG_V2')) {
+                let salesChannelsIdArray = [];
+                this.salesChannels.map(function (value) {
+                    salesChannelsIdArray.push(value.id);
+                });
+                this.blog.customFields = {'sales_channels_id': salesChannelsIdArray};
+            }
 
             this.blogRepository
                 .save(this.blog, Shopware.Context.api)
@@ -294,6 +300,10 @@ Component.register('sas-blog-detail', {
         },
 
         async getSalesChannels() {
+            if (!this.feature.isActive('FEATURE_SAS_BLOG_V2')) {
+                return;
+            }
+
             let salesChannelsId = this.blog ? this.blog.customFields : null;
             const criteria = new Criteria();
             if ((typeof salesChannelsId === "object") && (this.blog)) {
@@ -302,7 +312,7 @@ Component.register('sas-blog-detail', {
                 );
             }
 
-            this.salesChannels =  await this.salesChannelRepository.search(criteria);
+            this.salesChannels = await this.salesChannelRepository.search(criteria);
         },
     }
 });

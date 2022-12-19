@@ -102,6 +102,14 @@
             <tag name="shopware.entity_indexer"/>
         </service>
 
+        <service id="Sas\BlogModule\Content\Blog\BlogEntitiesIndexer">
+            <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="sas_blog_entries.repository"/>
+
+            <tag name="shopware.entity_indexer"/>
+        </service>
+
         <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogSingleSelectDataResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
@@ -124,8 +132,17 @@
             <tag name="shopware.sitemap_url_provider" />
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
-            <tag name="kernel.event_subscriber" />
+        <service id="Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider" >
+            <argument type="service" id="sas_blog_entries.repository" />
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
+            <tag name="shopware.sitemap_url_provider" />
+        </service>
+
+        <service id="Sas\BlogModule\Storefront\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener" >
+            <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
+            <argument type="service" id="sas_blog_entries.repository" />
+            <tag name="kernel.event_subscriber"/>
         </service>
 
     </services>

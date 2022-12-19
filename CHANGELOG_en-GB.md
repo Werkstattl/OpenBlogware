@@ -1,3 +1,7 @@
+# 1.5.10
+* Fix to create new seo urls for new sales channel [#75](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/75/files)
+* Added a feature flag is FEATURE_SAS_BLOG_V2
+
 # 1.5.9
 * Fix default thumbnail size [#110](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/110/files)
 * Newest blog items [#108](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/108/files)

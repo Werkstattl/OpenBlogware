@@ -1,3 +1,7 @@
+# 1.5.10
+* Fix zum Erstellen neuer SEO-URLs für neue Vertriebskanäle [#75](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/75/files)
+* Ein Feature-Flag wurde hinzugefügt: FEATURE_SAS_BLOG_V2
+
 # 1.5.9
 * Beheben der vorgegebenen Thumbnail-Größen [#110](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/110/files)
 * Newest blog items [#108](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/pull/108/files)

@@ -12,6 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Feature;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,9 +69,12 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
 
         $criteria->addFilter(
             new EqualsFilter('active', true),
-            new ContainsFilter('customFields.sales_channels_id', $saleChannelId),
             new RangeFilter('publishedAt', [RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM)])
         );
+
+        if (Feature::isActive('FEATURE_SAS_BLOG_V2')) {
+            $criteria->addFilter(new ContainsFilter('customFields.sales_channels_id', $saleChannelId));
+        }
 
         return $this->blogRepository->search($criteria, $context);
     }

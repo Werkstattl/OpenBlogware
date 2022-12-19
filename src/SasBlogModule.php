@@ -4,18 +4,24 @@ namespace Sas\BlogModule;
 
 use Doctrine\DBAL\Connection;
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
+use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
+use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
 use Sas\BlogModule\Util\Lifecycle;
 use Sas\BlogModule\Util\Update;
+use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
+use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
+use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateEntity;
+use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class SasBlogModule extends Plugin
@@ -47,7 +53,6 @@ class SasBlogModule extends Plugin
         $this->deleteMediaFolder($context->getContext());
         $this->deleteDefaultMediaFolder($context->getContext());
         $this->deleteSeoUrlTemplate($context->getContext());
-        $this->checkForThumbnailSizes($context->getContext());
 
         /**
          * And of course we need to drop our tables
@@ -87,6 +92,11 @@ class SasBlogModule extends Plugin
         if (version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
             $this->createBlogMediaFolder($updateContext->getContext());
         }
+
+        if (version_compare($updateContext->getCurrentPluginVersion(), '1.5.10', '<')) {
+            $this->fixSeoUrlTemplate($updateContext->getContext());
+            $this->updateSeoUrls($updateContext->getContext());
+        }
     }
 
     /**
@@ -96,12 +106,12 @@ class SasBlogModule extends Plugin
     public function createBlogMediaFolder(Context $context): void
     {
         $this->deleteDefaultMediaFolder($context);
-        $this->checkForThumbnailSizes($context);
+        $thumbnailSizes = $this->getThumbnailSizes($context);
 
         /** @var EntityRepositoryInterface $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_default_folder.repository');
 
-        $mediaFolderRepository->create([
+        $data = [
             [
                 'entity' => BlogEntriesDefinition::ENTITY_NAME,
                 'associationFields' => ['media'],
@@ -112,28 +122,13 @@ class SasBlogModule extends Plugin
                         'createThumbnails' => true,
                         'keepAspectRatio' => true,
                         'thumbnailQuality' => 90,
-                        'mediaThumbnailSizes' => [
-                            [
-                                'width' => 330,
-                                'height' => 185,
-                            ],
-                            [
-                                'width' => 650,
-                                'height' => 365,
-                            ],
-                            [
-                                'width' => 900,
-                                'height' => 506,
-                            ],
-                            [
-                                'width' => 1280,
-                                'height' => 720,
-                            ],
-                        ],
+                        'mediaThumbnailSizes' => $thumbnailSizes,
                     ],
                 ],
             ],
-        ], $context);
+        ];
+
+        $mediaFolderRepository->create($data, $context);
     }
 
     private function deleteDefaultMediaFolder(Context $context): void
@@ -202,30 +197,64 @@ class SasBlogModule extends Plugin
         }
     }
 
-    private function checkForThumbnailSizes(Context $context): void
+    private function getThumbnailSizes(Context $context): array
     {
+        $mediaThumbnailSizes = [
+            "330x185" => [
+                "width" => 330,
+                "height" => 185,
+            ],
+            "650x365" => [
+                "width" => 650,
+                "height" => 365,
+            ],
+            "900x506" => [
+                "width" => 900,
+                "height" => 506,
+            ],
+            "1280x720" => [
+                "width" => 1280,
+                "height" => 720,
+            ],
+        ];
+
         $criteria = new Criteria();
-        $criteria->addFilter(
-            new MultiFilter(
-                MultiFilter::CONNECTION_AND,
-                [
-                    new EqualsFilter('width', 650),
-                    new EqualsFilter('height', 330),
-                ]
-            )
-        );
 
         /** @var EntityRepositoryInterface $thumbnailSizeRepository */
         $thumbnailSizeRepository = $this->container->get('media_thumbnail_size.repository');
 
-        $thumbnailIds = $thumbnailSizeRepository->searchIds($criteria, $context)->getIds();
+        $thumbnailSizes = $thumbnailSizeRepository->search($criteria, $context)->getEntities();
 
-        if (!empty($thumbnailIds)) {
-            $ids = array_map(static function ($id) {
-                return ['id' => $id];
-            }, $thumbnailIds);
-            $thumbnailSizeRepository->delete($ids, $context);
+        $mediaThumbnailSizesAddedIds = [];
+        /** @var MediaThumbnailSizeEntity $thumbnailSize */
+        foreach ($thumbnailSizes as $thumbnailSize) {
+            $key = $thumbnailSize->getWidth() . 'x' .$thumbnailSize->getHeight();
+            if (array_key_exists($key, $mediaThumbnailSizes)) {
+                $mediaThumbnailSize = $mediaThumbnailSizes[$key];
+                $mediaThumbnailSizesAddedIds[$key] = array_merge(
+                    ["id" => $thumbnailSize->getId()],
+                    $mediaThumbnailSize,
+                );
+                unset($mediaThumbnailSizes[$key]);
+            }
         }
+
+        $mediaThumbnailSizesCreateData = [];
+        foreach ($mediaThumbnailSizes as $key => $mediaThumbnailSize) {
+            $data = array_merge(
+                ["id" => Uuid::randomHex()],
+                $mediaThumbnailSize,
+            );
+
+            $mediaThumbnailSizesCreateData[$key] = $data;
+            $mediaThumbnailSizesAddedIds[$key] = $data;
+        }
+
+        if (count($mediaThumbnailSizesCreateData) > 0) {
+            $thumbnailSizeRepository->create(array_values($mediaThumbnailSizesCreateData), $context);
+        }
+
+        return array_values($mediaThumbnailSizesAddedIds);
     }
 
     private function getLifeCycle(): Lifecycle
@@ -240,5 +269,84 @@ class SasBlogModule extends Plugin
             $systemConfig,
             $cmsPageRepository
         );
+    }
+
+    private function fixSeoUrlTemplate(Context $context): void
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('routeName', BlogSeoUrlRoute::ROUTE_NAME));
+        $criteria->addFilter(new EqualsFilter('entityName', BlogEntriesDefinition::ENTITY_NAME));
+
+        /** @var EntityRepositoryInterface $seoUrlTemplateRepository */
+        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
+
+        /** @var SeoUrlTemplateCollection $seoUrlTemplates */
+        $seoUrlTemplates = $seoUrlTemplateRepository->search($criteria, $context)->getEntities();
+
+        $update = [];
+        /** @var SeoUrlTemplateEntity $seoUrlTemplate */
+        foreach ($seoUrlTemplates as $seoUrlTemplate) {
+            // If the clients fixed it in SEO template we don't have to do again
+            if (strpos($seoUrlTemplate->getTemplate(), 'entry.translated')) {
+                continue;
+            }
+
+            // We found the issue
+            if (!strpos($seoUrlTemplate->getTemplate(), 'entry.title')) {
+                continue;
+            }
+
+            $templateReplaced = str_replace('entry.title', 'entry.translated.title', $seoUrlTemplate->getTemplate());
+            if (!\is_string($templateReplaced)) {
+                continue;
+            }
+
+            $update[] = [
+                'id' => $seoUrlTemplate->getId(),
+                'template' => $templateReplaced
+            ];
+        }
+
+        if (count($update) === 0) {
+            return;
+        }
+
+        $seoUrlTemplateRepository->update($update, $context);
+    }
+
+    private function updateSeoUrls(Context $context): void
+    {
+        $blogArticlesIds = $this->getBlogArticlesIds();
+        if (count($blogArticlesIds) === 0) {
+            return;
+        }
+
+        $eventDispatcher = $this->container->get('event_dispatcher');
+        $eventDispatcher->dispatch(new BlogIndexerEvent($blogArticlesIds, $context));
+    }
+
+    private function getBlogArticlesIds(): array
+    {
+        /** @var Connection $connection */
+        $connection = $this->container->get(Connection::class);
+        if (!$connection->getSchemaManager()->tablesExist([BlogEntriesDefinition::ENTITY_NAME])) {
+            return [];
+        }
+
+        $now = (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT);
+
+        $query = $connection->createQueryBuilder();
+        $query->select([
+            'LOWER(HEX(id)) as id',
+        ]);
+        $query->where('active = true')->andWhere('published_at <= :now');
+        $query->setParameter('now', $now);
+        $query->from(BlogEntriesDefinition::ENTITY_NAME);
+        $results = $query->execute()->fetchAllAssociative();
+        if (empty($results)) {
+            return [];
+        }
+
+        return array_column($results, 'id');
     }
 }

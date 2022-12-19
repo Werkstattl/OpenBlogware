@@ -28,7 +28,7 @@ class BlogSeoUrlRoute implements SeoUrlRouteInterface
         return new SeoUrlRouteConfig(
             $this->definition,
             self::ROUTE_NAME,
-            'blog/{{ entry.blogCategories.first.translated.name|lower }}/{{ entry.title|lower }}'
+            'blog/{{ entry.blogCategories.first.translated.name|lower }}/{{ entry.translated.title|lower }}'
         );
     }
 

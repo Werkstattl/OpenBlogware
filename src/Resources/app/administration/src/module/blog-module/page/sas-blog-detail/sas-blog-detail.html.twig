@@ -172,7 +172,7 @@
                             {% block sas_blog_detail_field_sales_channels %}
                                 <sw-entity-multi-select
                                     required
-                                    v-if="salesChannels"
+                                    v-if="salesChannels && feature.isActive('FEATURE_SAS_BLOG_V2')"
                                     id="salesChannels"
                                     v-model="salesChannels"
                                     class="sw-product-detail__select-category"
