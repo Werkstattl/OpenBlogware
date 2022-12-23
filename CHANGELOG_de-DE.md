@@ -1,3 +1,6 @@
+# 1.5.10.1
+* Ein Bug innerhalb der SEO Templates wurde gefixed.
+
 # 1.5.10
 * Fix zum Erstellen neuer SEO-URLs für neue Vertriebskanäle [#75](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/75/files)
 * Ein Feature-Flag wurde hinzugefügt: FEATURE_SAS_BLOG_V2

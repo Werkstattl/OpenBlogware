@@ -1,3 +1,6 @@
+# 1.5.10.1
+* Fixed the SEO template setting
+
 # 1.5.10
 * Fix to create new seo urls for new sales channel [#75](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/75/files)
 * Added a feature flag is FEATURE_SAS_BLOG_V2
