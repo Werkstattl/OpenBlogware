@@ -1,4 +1,4 @@
-# 1.5.10.1
+# 1.5.11
 * Ein Bug innerhalb der SEO Templates wurde gefixed.
 
 # 1.5.10
