@@ -24,11 +24,15 @@ class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
         $config = $slot->getFieldConfig();
 
         $criteria = new Criteria();
+        $blogEntryConfig = $config->get('blogEntry') ?? null;
+
+        if ($blogEntryConfig === null) {
+            return null;
+        }
 
         $criteria->addFilter(
-            new EqualsFilter('id', $config->get('blogEntry')->getValue())
+            new EqualsFilter('id', $blogEntryConfig->getValue())
         );
-
         $criteria->addAssociations(['blogAuthor', 'blogAuthor.media', 'blogAuthor.blogEntries', 'blogCategories']);
 
         $criteriaCollection = new CriteriaCollection();
@@ -44,8 +48,10 @@ class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        if ($result->get('sas_blog_single_select')->first() !== null) {
-            $slot->setData($result->get('sas_blog_single_select')->first());
+        $result = $result->get('sas_blog_single_select') ?? null;
+
+        if ($result !== null && $result->first() !== null) {
+            $slot->setData($result->first());
         }
     }
 }

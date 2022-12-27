@@ -8,10 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BlogSeoUrlListener implements EventSubscriberInterface
 {
-    /**
-     * @var SeoUrlUpdater
-     */
-    private $seoUrlUpdater;
+    private SeoUrlUpdater $seoUrlUpdater;
 
     public function __construct(SeoUrlUpdater $seoUrlUpdater)
     {

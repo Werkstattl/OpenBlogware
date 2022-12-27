@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - ./src
+    excludes_analyse:
+        - ./src/Resources/app/administration/node_modules/*
+        - ./src/Resources/app/storefront/node_modules/*

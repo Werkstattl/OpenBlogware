@@ -2,7 +2,9 @@
 
 namespace Sas\BlogModule\Controller;
 
+use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
 use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
 use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
@@ -17,6 +19,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
+use Shopware\Storefront\Page\MetaInformation;
 use Shopware\Storefront\Page\Navigation\NavigationPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,27 +100,41 @@ class BlogController extends StorefrontController
 
         $criteria->addAssociations(['blogAuthor.salutation', 'blogCategories']);
 
+        /** @var BlogEntriesCollection $results */
         $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
-        /** @var BlogEntriesEntity $entry */
-        $entry = $results->first();
+        $cmsBlogDetailPageId = $this->systemConfigService->get('SasBlogModule.config.cmsBlogDetailPage');
+        if (!\is_string($cmsBlogDetailPageId)) {
+            throw new PageNotFoundException($articleId);
+        }
 
-        if (!$entry) {
+        if (!$results->first()) {
+            throw new PageNotFoundException($articleId);
+        }
+
+        $entry = $results->first();
+        if (!$entry instanceof BlogEntriesEntity) {
             throw new PageNotFoundException($articleId);
         }
 
         $pages = $this->cmsPageLoader->load(
             $request,
-            new Criteria([$this->systemConfigService->get('SasBlogModule.config.cmsBlogDetailPage')]),
+            new Criteria([$cmsBlogDetailPageId]),
             $context
         );
 
         $page->setCmsPage($pages->first());
 
-        if ($metaInformation = $page->getMetaInformation()) {
+        $blogAuthor = $entry->getBlogAuthor();
+        if (!$blogAuthor instanceof BlogAuthorEntity) {
+            throw new PageNotFoundException($articleId);
+        }
+
+        $metaInformation = $page->getMetaInformation();
+        if ($metaInformation instanceof MetaInformation) {
             $metaTitle = $entry->getMetaTitle() ?? $entry->getTitle();
             $metaDescription = $entry->getMetaDescription() ?? $entry->getTeaser();
-            $metaAuthor = $entry->getBlogAuthor()->getTranslated()['name'];
+            $metaAuthor = $blogAuthor->getTranslated()['name'];
             $metaInformation->setMetaTitle($metaTitle ?? '');
             $metaInformation->setMetaDescription($metaDescription ?? '');
             $metaInformation->setAuthor($metaAuthor ?? '');

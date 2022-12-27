@@ -25,7 +25,6 @@ class Migration1604519670CreateSasBlogCategoryTable extends MigrationStep
                 `created_at` DATETIME(3) NOT NULL,
                 `updated_at` DATETIME(3) NULL,
                 PRIMARY KEY (`id`),
-                KEY `fk.sas_blog_category.parent_id` (`parent_id`),
                 CONSTRAINT `fk.sas_blog_category.parent_id` FOREIGN KEY (`parent_id`) REFERENCES `sas_blog_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');

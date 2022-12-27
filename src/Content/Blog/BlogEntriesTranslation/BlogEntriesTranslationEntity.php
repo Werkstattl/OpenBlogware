@@ -10,45 +10,21 @@ class BlogEntriesTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;
 
-    /**
-     * @var string
-     */
-    protected $sasBlogEntriesId;
+    protected string $sasBlogEntriesId;
 
-    /**
-     * @var BlogEntriesEntity
-     */
-    protected $sasBlogEntries;
+    protected BlogEntriesEntity $sasBlogEntries;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $slug;
+    protected string $slug;
 
-    /**
-     * @var string
-     */
-    protected $content;
+    protected string $content;
 
-    /**
-     * @var string
-     */
-    protected $teaser;
+    protected string $teaser;
 
-    /**
-     * @var string|null
-     */
-    protected $metaTitle;
+    protected ?string $metaTitle;
 
-    /**
-     * @var string|null
-     */
-    protected $metaDescription;
+    protected ?string $metaDescription;
 
     public function getSasBlogEntriesId(): string
     {

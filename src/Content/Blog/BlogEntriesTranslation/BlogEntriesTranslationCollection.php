@@ -5,8 +5,8 @@ namespace Sas\BlogModule\Content\Blog\BlogEntriesTranslation;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void                       add(BlogEntriesTranslationEntity $entity)
- * @method void                       set(string $key, BlogEntriesTranslationEntity $entity)
+ * @method void                              add(BlogEntriesTranslationEntity $entity)
+ * @method void                              set(string $key, BlogEntriesTranslationEntity $entity)
  * @method BlogEntriesTranslationEntity[]    getIterator()
  * @method BlogEntriesTranslationEntity[]    getElements()
  * @method BlogEntriesTranslationEntity|null get(string $key)

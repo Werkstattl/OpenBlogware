@@ -7,25 +7,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
 class BlogCategoryTranslationEntity extends TranslationEntity
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var array|null
-     */
-    protected $customFields;
+    protected ?array $customFields;
 
-    /**
-     * @var string
-     */
-    protected $sasBlogCategoryId;
+    protected string $sasBlogCategoryId;
 
-    /**
-     * @var BlogCategoryEntity|null
-     */
-    protected $sasBlogCategory;
+    protected ?BlogCategoryEntity $sasBlogCategory;
 
     public function getName(): ?string
     {

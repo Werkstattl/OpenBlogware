@@ -51,8 +51,8 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
             return $response;
         }
 
-        $limit = $response->getListingResult()->getCriteria()->getLimit();
-        $blogResult = $this->getBlogs($request->get('search'), $context->getSalesChannel()->getId(), $limit, $context->getContext());
+        $limit = $response->getListingResult()->getCriteria()->getLimit() ?? 1;
+        $blogResult = $this->getBlogs($request->get('search'), $context->getSalesChannel()->getId(), (int) $limit, $context->getContext());
         $response->getListingResult()->addExtension('blogResult', $blogResult);
 
         return $response;

@@ -18,26 +18,25 @@ class BlogEntitiesIndexer extends EntityIndexer
 
     private EntityRepositoryInterface $repository;
 
-    public function getName(): string
-    {
-        return 'sas.blog.entities.indexer';
-    }
-
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         IteratorFactory $iteratorFactory,
         EntityRepositoryInterface $repository
-    )
-    {
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->iteratorFactory = $iteratorFactory;
         $this->repository = $repository;
     }
 
+    public function getName(): string
+    {
+        return 'sas.blog.entities.indexer';
+    }
+
     public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage
     {
         $blogEntriesUpdates = $event->getPrimaryKeys(BlogEntriesDefinition::ENTITY_NAME);
-        if (count($blogEntriesUpdates) === 0) {
+        if (\count($blogEntriesUpdates) === 0) {
             return null;
         }
 
@@ -53,7 +52,7 @@ class BlogEntitiesIndexer extends EntityIndexer
             return;
         }
 
-       $this->eventDispatcher->dispatch(new BlogIndexerEvent($ids, $message->getContext(), $message->getSkip()));
+        $this->eventDispatcher->dispatch(new BlogIndexerEvent($ids, $message->getContext(), $message->getSkip()));
     }
 
     public function iterate($offset): ?EntityIndexingMessage

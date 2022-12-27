@@ -69,7 +69,7 @@ class BlogUrlProvider extends AbstractUrlProvider
         if ($blogEntities->count() === 0) {
             return new UrlResult([], null);
         }
-        $this->eventDispatcher->dispatch(new BlogIndexerEvent($blogEntities->getIds(),$context->getContext()));
+        $this->eventDispatcher->dispatch(new BlogIndexerEvent($blogEntities->getIds(), $context->getContext()));
         $seoUrls = $this->getSeoUrls($blogEntities->getIds(), 'sas.frontend.blog.detail', $context, $this->connection);
 
         $seoUrls = FetchModeHelper::groupUnique($seoUrls);

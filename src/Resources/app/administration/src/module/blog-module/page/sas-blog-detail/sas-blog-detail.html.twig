@@ -47,44 +47,44 @@
                 <div>
                     {% block sas_blog_detail_card_header %}
                         <sw-card>
-                        <sw-container columns="100%" gap="20px">
+                            <sw-container columns="100%" gap="20px">
 
-                            <sas-text-field
-                                v-model="blog.title"
-                                required
-                                :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
-                                :label="$tc('sas-blog.detail.titleLabel')"
-                                :error="blogTitleError">
-                            </sas-text-field>
+                                <sas-text-field
+                                    v-model="blog.title"
+                                    required
+                                    :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
+                                    :label="$tc('sas-blog.detail.titleLabel')"
+                                    :error="blogTitleError">
+                                </sas-text-field>
 
-                            <sas-textarea-field type="textarea"
-                                v-model="blog.teaser"
-                               :error="blogTeaserError"
-                               :placeholder="$tc('sas-blog.detail.teaserPlaceholder')"
-                                :label="$tc('sas-blog.detail.teaserLabel')">
-                            </sas-textarea-field>
+                                <sas-textarea-field type="textarea"
+                                                    v-model="blog.teaser"
+                                                    :error="blogTeaserError"
+                                                    :placeholder="$tc('sas-blog.detail.teaserPlaceholder')"
+                                                    :label="$tc('sas-blog.detail.teaserLabel')">
+                                </sas-textarea-field>
 
-                            <sw-upload-listener
-                                :uploadTag="blog.id"
-                                @media-upload-finish="onSetMediaItem"
-                                autoUpload>
-                            </sw-upload-listener>
+                                <sw-upload-listener
+                                    :uploadTag="blog.id"
+                                    @media-upload-finish="onSetMediaItem"
+                                    autoUpload>
+                                </sw-upload-listener>
 
-                            <sw-media-compact-upload-v2
-                                variant="regular"
-                                :label="$tc('sas-blog.detail.teaserImageLabel')"
-                                :source="mediaItem"
-                                :uploadTag="blog.id"
-                                :defaultFolder="blog.getEntityName()"
-                                :allowMultiSelect="false"
-                                :fileAccept="fileAccept"
-                                @media-upload-remove-image="onRemoveMediaItem"
-                                @selection-change="setMedia"
-                                @media-drop="onMediaDropped">
-                            </sw-media-compact-upload-v2>
+                                <sw-media-compact-upload-v2
+                                    variant="regular"
+                                    :label="$tc('sas-blog.detail.teaserImageLabel')"
+                                    :source="mediaItem"
+                                    :uploadTag="blog.id"
+                                    :defaultFolder="blog.getEntityName()"
+                                    :allowMultiSelect="false"
+                                    :fileAccept="fileAccept"
+                                    @media-upload-remove-image="onRemoveMediaItem"
+                                    @selection-change="setMedia"
+                                    @media-drop="onMediaDropped">
+                                </sw-media-compact-upload-v2>
 
-                        </sw-container>
-                    </sw-card>
+                            </sw-container>
+                        </sw-card>
                     {% endblock %}
 
                     {% block sas_blog_detail_card_editor %}
@@ -224,7 +224,7 @@
                                     :placeholder="$tc('sas-blog.detail.serp.metaDescription')">
                                 </sas-textarea-field>
                             {% endblock %}
-                    </sw-card>
+                        </sw-card>
                     {% endblock %}
 
                 </div>

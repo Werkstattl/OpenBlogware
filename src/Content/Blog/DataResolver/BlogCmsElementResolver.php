@@ -11,6 +11,7 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
@@ -58,17 +59,24 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             new FieldSorting('publishedAt', FieldSorting::DESCENDING)
         );
 
-        if ($config->has('showType') && $config->get('showType')->getValue() === 'select') {
-            $blogCategories = $config->get('blogCategories') ? $config->get('blogCategories')->getValue() : [];
+        $showTypeConfig = $config->get('showType') ?? null;
+        $blogCategoriesConfig = null;
 
-            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategories));
+        if ($showTypeConfig !== null && $showTypeConfig->getValue() === 'select') {
+            $blogCategoriesConfig = $config->get('blogCategories') ?? null;
+        }
+
+        if ($blogCategoriesConfig !== null && \is_array($blogCategoriesConfig->getValue())) {
+            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategoriesConfig->getValue()));
         }
 
         $request = $resolverContext->getRequest();
         $limit = 1;
 
-        if ($config->has('paginationCount') && $config->get('paginationCount')->getValue()) {
-            $limit = (int) $config->get('paginationCount')->getValue();
+        $paginationCountConfig = $config->get('paginationCount') ?? null;
+
+        if ($paginationCountConfig !== null && $paginationCountConfig->getValue()) {
+            $limit = (int) $paginationCountConfig->getValue();
         }
 
         $context = $resolverContext->getSalesChannelContext();
@@ -93,7 +101,12 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        $slot->setData($result->get('sas_blog'));
+        $sasBlog = $result->get('sas_blog');
+        if (!$sasBlog instanceof EntitySearchResult) {
+            return;
+        }
+
+        $slot->setData($sasBlog);
     }
 
     private function handlePagination(int $limit, Request $request, Criteria $criteria, SalesChannelContext $context): void

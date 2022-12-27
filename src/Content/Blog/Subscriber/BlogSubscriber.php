@@ -148,6 +148,10 @@ class BlogSubscriber implements EventSubscriberInterface
             $ids = $request->request->get($input, '');
         }
 
+        if (!\is_string($ids)) {
+            return [];
+        }
+
         $ids = explode('|', $ids);
 
         return array_filter($ids);

@@ -9,15 +9,9 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class Lifecycle
 {
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfig;
+    private SystemConfigService $systemConfig;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $cmsPageRepository;
+    private EntityRepositoryInterface $cmsPageRepository;
 
     public function __construct(
         SystemConfigService $systemConfig,

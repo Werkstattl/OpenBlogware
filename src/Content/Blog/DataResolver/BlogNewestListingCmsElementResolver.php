@@ -11,6 +11,7 @@ use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\FieldConfigCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
@@ -29,8 +30,6 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
     /**
      * Returns the definition of the element.
      * Usually it's name of the element component.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -44,10 +43,6 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
      * It dispatches an event to modify the criteria object
      * It creates criteria collection based on the criteria
      * It returns the criteria collection
-     *
-     * @param CmsSlotEntity $slot
-     * @param ResolverContext $resolverContext
-     * @return CriteriaCollection|null
      */
     public function collect(CmsSlotEntity $slot, ResolverContext $resolverContext): ?CriteriaCollection
     {
@@ -71,15 +66,16 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
     /**
      * Perform additional logic on the data that has been resolved
      * It sets the resolved data to the cms slot
-     *
-     * @param CmsSlotEntity $slot
-     * @param ResolverContext $resolverContext
-     * @param ElementDataCollection $result
-     * @return void
      */
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        $slot->setData($result->get(BlogEntriesDefinition::ENTITY_NAME));
+        $sasBlog = $result->get(BlogEntriesDefinition::ENTITY_NAME);
+
+        if (!$sasBlog instanceof EntitySearchResult) {
+            return;
+        }
+
+        $slot->setData($sasBlog);
     }
 
     /**
@@ -92,9 +88,6 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
      * It checks if the configuration has categories and sets filter to get only entries with the given category
      * It checks if the configuration has a limit then it sets the limit
      * It returns the criteria
-     *
-     * @param FieldConfigCollection $config
-     * @return Criteria
      */
     private function createCriteria(FieldConfigCollection $config): Criteria
     {
@@ -102,7 +95,7 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
 
         $criteria->addFilter(new EqualsFilter('active', true));
         $criteria->addFilter(new RangeFilter('publishedAt', [
-            RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM)
+            RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM),
         ]));
 
         $criteria->addSorting(new FieldSorting('publishedAt', FieldSorting::DESCENDING));
@@ -111,17 +104,25 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
             'blogAuthor',
             'blogAuthor.media',
             'blogAuthor.blogEntries',
-            'blogCategories'
+            'blogCategories',
         ]);
 
-        if ($config->has('showType') && $config->get('showType')->getValue() === 'select') {
-            $blogCategories = $config->get('blogCategories') ? $config->get('blogCategories')->getValue() : [];
-            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategories));
+        $showTypeConfig = $config->get('showType') ?? null;
+        $blogCategoriesConfig = null;
+
+        if ($showTypeConfig !== null && $showTypeConfig->getValue() === 'select') {
+            $blogCategoriesConfig = $config->get('blogCategories') ?? null;
+        }
+
+        if ($blogCategoriesConfig !== null && \is_array($blogCategoriesConfig->getValue())) {
+            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategoriesConfig->getValue()));
         }
 
         $limit = 1;
-        if ($config->has('itemCount') && $config->get('itemCount')->getValue()) {
-            $limit = (int) $config->get('itemCount')->getValue();
+        $itemCountConfig = $config->get('itemCount') ?? null;
+
+        if ($itemCountConfig !== null && $itemCountConfig->getValue()) {
+            $limit = (int) $itemCountConfig->getValue();
         }
 
         $criteria->setLimit($limit);

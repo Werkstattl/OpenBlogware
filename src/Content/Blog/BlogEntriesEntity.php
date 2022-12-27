@@ -15,45 +15,21 @@ class BlogEntriesEntity extends Entity
     use EntityIdTrait;
     use EntityCustomFieldsTrait;
 
-    /**
-     * @var string|null
-     */
-    protected $title;
+    protected ?string $title;
 
-    /**
-     * @var string|null
-     */
-    protected $slug;
+    protected ?string $slug;
 
-    /**
-     * @var string|null
-     */
-    protected $teaser;
+    protected ?string $teaser;
 
-    /**
-     * @var string|null
-     */
-    protected $metaTitle;
+    protected ?string $metaTitle;
 
-    /**
-     * @var string|null
-     */
-    protected $metaDescription;
+    protected ?string $metaDescription;
 
-    /**
-     * @var string|null
-     */
-    protected $content;
+    protected ?string $content;
 
-    /**
-     * @var bool
-     */
-    protected $active;
+    protected bool $active;
 
-    /**
-     * @var bool
-     */
-    protected $detailTeaserImage;
+    protected bool $detailTeaserImage;
 
     /**
      * @var BlogEntriesTranslationCollection|null
@@ -65,30 +41,18 @@ class BlogEntriesEntity extends Entity
      */
     protected $blogCategories;
 
-    /**
-     * @var string
-     */
-    protected $authorId;
+    protected string $authorId;
 
-    /**
-     * @var BlogAuthorEntity|null
-     */
-    protected $blogAuthor;
+    protected ?BlogAuthorEntity $blogAuthor;
 
     /**
      * @var string
      */
     protected $mediaId;
 
-    /**
-     * @var MediaEntity|null
-     */
-    protected $media;
+    protected ?MediaEntity $media;
 
-    /**
-     * @var \DateTimeInterface
-     */
-    protected $publishedAt;
+    protected \DateTimeInterface $publishedAt;
 
     public function getTitle(): ?string
     {

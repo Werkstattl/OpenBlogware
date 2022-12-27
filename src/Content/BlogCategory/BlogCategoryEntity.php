@@ -12,40 +12,19 @@ class BlogCategoryEntity extends Entity
 {
     use EntityIdTrait;
 
-    /**
-     * @var string|null
-     */
-    protected $parentId;
+    protected ?string $parentId;
 
-    /**
-     * @var string|null
-     */
-    protected $afterCategoryId;
+    protected ?string $afterCategoryId;
 
-    /**
-     * @var int|null
-     */
-    protected $level;
+    protected ?int $level;
 
-    /**
-     * @var string|null
-     */
-    protected $path;
+    protected ?string $path;
 
-    /**
-     * @var int|null
-     */
-    protected $childCount;
+    protected ?int $childCount;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var array|null
-     */
-    protected $customFields;
+    protected ?array $customFields;
 
     /**
      * @var self|null
@@ -172,7 +151,7 @@ class BlogCategoryEntity extends Entity
         $this->children = $children;
     }
 
-    public function getTranslations(): BlogCategoryTranslationCollection
+    public function getTranslations(): ?BlogCategoryTranslationCollection
     {
         return $this->translations;
     }

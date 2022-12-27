@@ -5,8 +5,73 @@ on:
             - master
 
 jobs:
+    integrationphp81:
+        name: Integration Tests | Shopware ${{ matrix.shopware }} | PHP 8.1
+        needs: phpstan
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                shopware: [ '6.4.17.2',  '6.4.16.1', '6.4.15.2', '6.4.14.0', '6.4.12.0', '6.4.11.1', ]
+        steps:
+            - name: Clone Code
+              uses: actions/checkout@v3
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.1
+
+            - name: Start Docker
+              run: |
+                  docker run --rm --name shop --env PHP_VERSION=8.1 -d dockware/dev:${{ matrix.shopware }}
+                  sleep 30
+                  docker logs shop
+            - name: Upload into Docker
+              run: |
+                  docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+                  docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
+            - name: Install and Build Plugin
+              run: |
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make clean'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build'
+
+    integrationphp74:
+        name: Integration Tests | Shopware ${{ matrix.shopware }} | PHP 7.4
+        needs: integrationphp81
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                shopware: [ '6.4.11.1', '6.4.10.0', '6.4.9.0', '6.4.8.2', '6.4.6.1', ]
+        steps:
+            - name: Clone Code
+              uses: actions/checkout@v3
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 7.4
+
+            - name: Start Docker
+              run: |
+                  docker run --rm --name shop --env PHP_VERSION=7.4 -d dockware/dev:${{ matrix.shopware }}
+                  sleep 30
+                  docker logs shop
+            - name: Upload into Docker
+              run: |
+                  docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+                  docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
+            - name: Install and Build Plugin
+              run: |
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make clean'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build'
+
     build:
         uses: FriendsOfShopware/actions/.github/workflows/store-shopware-cli.yml@main
+        needs: integrationphp74
         with:
             extensionName: SasBlogModule
         secrets:

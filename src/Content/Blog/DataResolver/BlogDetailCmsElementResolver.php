@@ -9,6 +9,7 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
@@ -20,9 +21,6 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     public function collect(CmsSlotEntity $slot, ResolverContext $resolverContext): ?CriteriaCollection
     {
-        /* get the config from the element */
-        $config = $slot->getFieldConfig();
-
         $criteria = new Criteria();
 
         $criteria->addFilter(
@@ -44,8 +42,11 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        if (!empty($result->get('sas_blog')->first())) {
-            $slot->setData($result->get('sas_blog')->first());
+        /** @var EntitySearchResult $sasBlog */
+        $sasBlog = $result->get('sas_blog') ?? null;
+
+        if ($sasBlog !== null && $sasBlog->first() !== null) {
+            $slot->setData($sasBlog->first());
         }
     }
 }

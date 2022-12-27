@@ -3,6 +3,7 @@
 namespace Sas\BlogModule\Content\BlogCategory;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ForwardCompatibility\Result;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -15,30 +16,15 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class BlogCategoryIndexer extends EntityIndexer
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $repository;
+    private EntityRepositoryInterface $repository;
 
-    /**
-     * @var ChildCountUpdater
-     */
-    private $childCountUpdater;
+    private ChildCountUpdater $childCountUpdater;
 
-    /**
-     * @var TreeUpdater
-     */
-    private $treeUpdater;
+    private TreeUpdater $treeUpdater;
 
-    /**
-     * @var IteratorFactory
-     */
-    private $iteratorFactory;
+    private IteratorFactory $iteratorFactory;
 
     public function __construct(
         Connection $connection,
@@ -149,7 +135,12 @@ class BlogCategoryIndexer extends EntityIndexer
         $query->andWhere('(' . implode(' OR ', $wheres) . ')');
         $query->andWhere('category.version_id = :version');
         $query->setParameter('version', Uuid::fromHexToBytes($versionId));
+        /* @var  Result $result */
+        $result = $query->execute();
+        if (!$result instanceof Result) {
+            return [];
+        }
 
-        return $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        return $result->fetchAllAssociative();
     }
 }

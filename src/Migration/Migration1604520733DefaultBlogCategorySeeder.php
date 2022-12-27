@@ -40,9 +40,13 @@ class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
 
         $this->importTranslation(BlogCategoryTranslationDefinition::ENTITY_NAME, $translations, $connection);
 
-        $blogs = $connection->fetchAllAssociative('SELECT id FROM ' . BlogEntriesDefinition::ENTITY_NAME) ?? [];
+        $blogs = $connection->fetchAllAssociative('SELECT id FROM ' . BlogEntriesDefinition::ENTITY_NAME) ? [] : null;
 
         $queue = new MultiInsertQueryQueue($connection, 50);
+
+        if (empty($blogs)) {
+            return;
+        }
 
         foreach ($blogs as $insert) {
             $insert['sas_blog_category_id'] = $categoryId;

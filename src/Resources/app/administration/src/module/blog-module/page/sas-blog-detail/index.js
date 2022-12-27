@@ -300,9 +300,9 @@ Component.register('sas-blog-detail', {
         },
 
         async getSalesChannels() {
-            if (!this.feature.isActive('FEATURE_SAS_BLOG_V2')) {
-                return;
-            }
+             if (!this.feature.isActive('FEATURE_SAS_BLOG_V2')) {
+                 return;
+             }
 
             let salesChannelsId = this.blog ? this.blog.customFields : null;
             const criteria = new Criteria();

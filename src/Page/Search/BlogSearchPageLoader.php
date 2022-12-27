@@ -9,25 +9,20 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BlogSearchPageLoader
 {
     private GenericPageLoaderInterface $genericLoader;
 
-    private EventDispatcherInterface $eventDispatcher;
-
     private EntityRepositoryInterface $blogRepository;
 
     public function __construct(
         GenericPageLoaderInterface $genericLoader,
-        EntityRepositoryInterface $blogRepository,
-        EventDispatcherInterface $eventDispatcher
+        EntityRepositoryInterface $blogRepository
     ) {
         $this->genericLoader = $genericLoader;
         $this->blogRepository = $blogRepository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -52,7 +47,7 @@ class BlogSearchPageLoader
 
         $criteria = new Criteria();
 
-        $criteria->setTerm($request->query->get('search'));
+        $criteria->setTerm((string) $request->query->get('search'));
 
         $this->handlePagination($request, $criteria);
 
@@ -85,9 +80,8 @@ class BlogSearchPageLoader
 
         if ($request->isMethod(Request::METHOD_POST)) {
             $limit = $request->request->getInt('limit', $limit);
+            $limit = $limit > 0 ? $limit : 24;
         }
-
-        $limit = $limit > 0 ? $limit : 24;
 
         return $limit <= 0 ? 24 : $limit;
     }

@@ -7,25 +7,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
 class BlogAuthorTranslationEntity extends TranslationEntity
 {
-    /**
-     * @var string
-     */
-    protected $sasBlogAuthorId;
+    protected string $sasBlogAuthorId;
 
-    /**
-     * @var BlogAuthorEntity|null
-     */
-    protected $sasBlogAuthor;
+    protected ?BlogAuthorEntity $sasBlogAuthor;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected string $description;
 
-    /**
-     * @var array|null
-     */
-    protected $customFields;
+    protected ?array $customFields;
 
     public function getSasBlogAuthorId(): string
     {

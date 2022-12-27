@@ -3,6 +3,7 @@
 namespace Sas\BlogModule;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Result;
 use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
 use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
 use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
@@ -23,7 +24,9 @@ use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Shopware\Core\Kernel;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SasBlogModule extends Plugin
 {
@@ -58,7 +61,7 @@ class SasBlogModule extends Plugin
         /**
          * And of course we need to drop our tables
          */
-        $connection = $this->container->get(Connection::class);
+        $connection = Kernel::getConnection();
 
         $connection->executeStatement('SET FOREIGN_KEY_CHECKS=0;');
         $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_entries`');
@@ -201,21 +204,21 @@ class SasBlogModule extends Plugin
     private function getThumbnailSizes(Context $context): array
     {
         $mediaThumbnailSizes = [
-            "330x185" => [
-                "width" => 330,
-                "height" => 185,
+            '330x185' => [
+                'width' => 330,
+                'height' => 185,
             ],
-            "650x365" => [
-                "width" => 650,
-                "height" => 365,
+            '650x365' => [
+                'width' => 650,
+                'height' => 365,
             ],
-            "900x506" => [
-                "width" => 900,
-                "height" => 506,
+            '900x506' => [
+                'width' => 900,
+                'height' => 506,
             ],
-            "1280x720" => [
-                "width" => 1280,
-                "height" => 720,
+            '1280x720' => [
+                'width' => 1280,
+                'height' => 720,
             ],
         ];
 
@@ -229,11 +232,11 @@ class SasBlogModule extends Plugin
         $mediaThumbnailSizesAddedIds = [];
         /** @var MediaThumbnailSizeEntity $thumbnailSize */
         foreach ($thumbnailSizes as $thumbnailSize) {
-            $key = $thumbnailSize->getWidth() . 'x' .$thumbnailSize->getHeight();
-            if (array_key_exists($key, $mediaThumbnailSizes)) {
+            $key = $thumbnailSize->getWidth() . 'x' . $thumbnailSize->getHeight();
+            if (\array_key_exists($key, $mediaThumbnailSizes)) {
                 $mediaThumbnailSize = $mediaThumbnailSizes[$key];
                 $mediaThumbnailSizesAddedIds[$key] = array_merge(
-                    ["id" => $thumbnailSize->getId()],
+                    ['id' => $thumbnailSize->getId()],
                     $mediaThumbnailSize,
                 );
                 unset($mediaThumbnailSizes[$key]);
@@ -243,7 +246,7 @@ class SasBlogModule extends Plugin
         $mediaThumbnailSizesCreateData = [];
         foreach ($mediaThumbnailSizes as $key => $mediaThumbnailSize) {
             $data = array_merge(
-                ["id" => Uuid::randomHex()],
+                ['id' => Uuid::randomHex()],
                 $mediaThumbnailSize,
             );
 
@@ -251,7 +254,7 @@ class SasBlogModule extends Plugin
             $mediaThumbnailSizesAddedIds[$key] = $data;
         }
 
-        if (count($mediaThumbnailSizesCreateData) > 0) {
+        if (\count($mediaThumbnailSizesCreateData) > 0) {
             $thumbnailSizeRepository->create(array_values($mediaThumbnailSizesCreateData), $context);
         }
 
@@ -308,11 +311,11 @@ class SasBlogModule extends Plugin
 
             $update[] = [
                 'id' => $seoUrlTemplate->getId(),
-                'template' => $templateReplaced
+                'template' => $templateReplaced,
             ];
         }
 
-        if (count($update) === 0) {
+        if (\count($update) === 0) {
             return;
         }
 
@@ -322,12 +325,14 @@ class SasBlogModule extends Plugin
     private function updateSeoUrls(Context $context): void
     {
         $blogArticlesIds = $this->getBlogArticlesIds();
-        if (count($blogArticlesIds) === 0) {
+        if (\count($blogArticlesIds) === 0) {
             return;
         }
 
-        $eventDispatcher = $this->container->get('event_dispatcher');
-        $eventDispatcher->dispatch(new BlogIndexerEvent($blogArticlesIds, $context));
+        if ($this->container->get('event_dispatcher') instanceof EventDispatcherInterface) {
+            $eventDispatcher = $this->container->get('event_dispatcher');
+            $eventDispatcher->dispatch(new BlogIndexerEvent($blogArticlesIds, $context));
+        }
     }
 
     private function getBlogArticlesIds(): array
@@ -347,7 +352,11 @@ class SasBlogModule extends Plugin
         $query->where('active = true')->andWhere('published_at <= :now');
         $query->setParameter('now', $now);
         $query->from(BlogEntriesDefinition::ENTITY_NAME);
+        if (!$query->execute() instanceof Result) {
+            return [];
+        }
         $results = $query->execute()->fetchAllAssociative();
+
         if (empty($results)) {
             return [];
         }

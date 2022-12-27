@@ -29,9 +29,11 @@ class Migration1649580844AddParentVersionId extends MigrationStep
                 REFERENCES `sas_blog_category` (`id`, `version_id`)
                 ON DELETE CASCADE ON UPDATE CASCADE;
         ');
-        $connection->executeStatement('
+        $connection->executeStatement(
+            '
             UPDATE `sas_blog_category` SET parent_version_id = unhex(:version)
-        ', [ 'version' => $version ]
+        ',
+            ['version' => $version]
         );
     }
 

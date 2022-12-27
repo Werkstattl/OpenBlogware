@@ -15,40 +15,19 @@ class BlogAuthorEntity extends Entity
     use EntityIdTrait;
     use EntityCustomFieldsTrait;
 
-    /**
-     * @var string
-     */
-    protected $firstName;
+    protected string $firstName;
 
-    /**
-     * @var string
-     */
-    protected $lastName;
+    protected string $lastName;
 
-    /**
-     * @var string
-     */
-    protected $email;
+    protected string $email;
 
-    /**
-     * @var string|null
-     */
-    protected $displayName;
+    protected ?string $displayName;
 
-    /**
-     * @var string
-     */
-    protected $salutationId;
+    protected string $salutationId;
 
-    /**
-     * @var SalutationEntity|null
-     */
-    protected $salutation;
+    protected ?SalutationEntity $salutation;
 
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected ?string $description;
 
     /**
      * @var BlogAuthorTranslationCollection|null
@@ -60,10 +39,7 @@ class BlogAuthorEntity extends Entity
      */
     protected $blogEntries;
 
-    /**
-     * @var string
-     */
-    protected $mediaId;
+    protected string $mediaId;
 
     /**
      * @var MediaEntity|null

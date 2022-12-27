@@ -3,8 +3,8 @@
 namespace Sas\BlogModule\Storefront\Framework\Seo\SeoUrlRoute;
 
 use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
-use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
+use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
@@ -25,8 +25,7 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
     public function __construct(
         SeoUrlUpdater $seoUrlUpdater,
         EntityRepositoryInterface $blogRepository
-    )
-    {
+    ) {
         $this->seoUrlUpdater = $seoUrlUpdater;
         $this->blogRepository = $blogRepository;
     }
@@ -41,7 +40,7 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 
     public function updateBlogUrls(BlogIndexerEvent $event): void
     {
-        if (count($event->getIds()) === 0) {
+        if (\count($event->getIds()) === 0) {
             return;
         }
 
@@ -50,14 +49,13 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 
     public function onCreateNewSalesChannel(EntityWrittenEvent $event): void
     {
-        if (count($event->getIds()) === 0) {
+        if (\count($event->getIds()) === 0) {
             return;
         }
 
         $blogArticlesIds = $this->getBlogArticlesIds($event->getContext());
         $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $blogArticlesIds);
     }
-
 
     private function getBlogArticlesIds(Context $context): array
     {
