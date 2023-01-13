@@ -1,8 +1,8 @@
 name: PackPlugin
 on:
     push:
-        branches:
-            - master
+          tags:
+            - '*'
 
 jobs:
     integrationphp81:
