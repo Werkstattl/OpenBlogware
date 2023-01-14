@@ -1,3 +1,7 @@
+# unreleased
+* Fixed BlogSubscriber um nach Autoren & Kategorien um Listing zu suchen
+* Problem behoben, dass den Autor & Kategorie nicht im Blog Beitrag anzeigt.
+
 # 1.5.11
 * Ein Bug innerhalb der SEO Templates wurde gefixed.
 

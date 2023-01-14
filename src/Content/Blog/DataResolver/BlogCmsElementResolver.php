@@ -85,7 +85,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
 
         $this->eventDispatcher->dispatch(
             new BlogMainFilterEvent($request, $criteria, $context),
-            BlogListingFilterBuildEvent::BLOG_MAIIN_FILTER_EVENT
+            BlogListingFilterBuildEvent::BLOG_MAIN_FILTER_EVENT
         );
 
         $criteriaCollection = new CriteriaCollection();

@@ -21,11 +21,11 @@ class BlogSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            BlogListingFilterBuildEvent::BLOG_MAIIN_FILTER_EVENT => 'loaded',
+            BlogListingFilterBuildEvent::BLOG_MAIN_FILTER_EVENT => 'onBlogMainFilter',
         ];
     }
 
-    public function loaded(BlogMainFilterEvent $event): void
+    public function onBlogMainFilter(BlogMainFilterEvent $event): void
     {
         $dateTime = new \DateTime();
 

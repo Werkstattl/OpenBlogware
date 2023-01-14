@@ -1,3 +1,7 @@
+# unreleased
+* Fixed adding BlogSubscriber to services.xml, now we can filter by author and category on the listing page
+* Fix to show the author and category within the blog detail page.
+
 # 1.5.11
 * Fixed the SEO template setting
 
