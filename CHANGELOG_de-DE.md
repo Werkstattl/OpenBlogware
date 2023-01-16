@@ -1,4 +1,5 @@
 # unreleased
+* Bug behoben, dass wenn man das SEO Template ändert - die Änderungen erst greifen, nachdem man einen Blog Artikel erneut gespeichert hat
 * Fixed BlogSubscriber um nach Autoren & Kategorien um Listing zu suchen
 * Problem behoben, dass den Autor & Kategorie nicht im Blog Beitrag anzeigt.
 
