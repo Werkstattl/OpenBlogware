@@ -13,7 +13,8 @@
         {% endif %}
         {% for result in results %}
             <item>
-                <title>{{ result.translated.metaTitle|striptags|trim }}</title>
+                {% set title = result.translated.metaTitle ?? result.translated.title %}
+                <title>{{ title|striptags|trim }}</title>
                 <link>{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</link>
                 <guid isPermaLink="true">{{ app.request.schemeAndHttpHost ~ "/blog/" ~ result.translated.slug }}</guid>
                 <description>{{ result.translated.metaDescription|striptags|trim|u.truncate(maxLength ?? 160, '…') }}</description>

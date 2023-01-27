@@ -3,15 +3,21 @@
 namespace Sas\BlogModule\Subscriber;
 
 use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
+use Sas\BlogModule\Controller\CachedBlogController;
+use Sas\BlogModule\Controller\CachedBlogRssController;
+use Sas\BlogModule\Controller\CachedBlogSearchController;
 use Shopware\Core\Content\Category\SalesChannel\CachedCategoryRoute;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Adapter\Cache\CacheInvalidator;
 use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -26,44 +32,78 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
 
     private CacheInvalidator $cacheInvalidator;
 
+    private SystemConfigService $systemConfigService;
+
     public function __construct(
         SeoUrlUpdater $seoUrlUpdater,
         EntityRepository $categoryRepository,
-        CacheInvalidator $cacheInvalidator
+        CacheInvalidator $cacheInvalidator,
+        SystemConfigService $systemConfigService
     ) {
         $this->seoUrlUpdater = $seoUrlUpdater;
         $this->categoryRepository = $categoryRepository;
         $this->cacheInvalidator = $cacheInvalidator;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
             'sas_blog_entries.written' => [
-                ['updateSeoUrl', 10],
-                ['invalidateCacheCategory', 11],
+                ['onUpdateSeoUrl', 10],
+                ['onUpdateInvalidateCache', 11],
             ],
             'sas_blog_entries.deleted' => [
-                ['updateSeoUrl', 10],
-                ['invalidateCacheCategory', 11],
+                ['onDeleteSeoUrl', 10],
+                ['onDeleteInvalidateCache', 11],
             ],
             SeoEvents::SEO_URL_TEMPLATE_WRITTEN_EVENT => [
                 ['updateSeoUrlForAllArticles', 10],
-                ['invalidateCacheCategory', 11],
-            ],
-            SeoEvents::SEO_URL_TEMPLATE_DELETED_EVENT => [
-                ['updateSeoUrlForAllArticles', 10],
-                ['invalidateCacheCategory', 11],
+                ['onUpdateCacheCategory', 11],
             ],
         ];
     }
 
-    public function updateSeoUrl(EntityWrittenEvent $event): void
+    /**
+     * When a blog article created or updated we will generate the SeoUrl for it
+     */
+    public function onUpdateSeoUrl(EntityWrittenEvent $event): void
     {
         $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $event->getIds());
     }
 
-    public function updateSeoUrlForAllArticles(EntityWrittenEvent $event): void
+    /**
+     * When a blog article deleted we will mark as deleted the SeoUrl
+     */
+    public function onDeleteSeoUrl(EntityDeletedEvent $event): void
+    {
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $event->getIds());
+    }
+
+    /**
+     * Invalidate blog cms cache when create or update
+     */
+    public function onUpdateInvalidateCache(EntityWrittenEvent $event): void
+    {
+        $this->invalidateCache($event->getIds());
+
+        $this->invalidateCacheCategory($event->getContext());
+    }
+
+    /**
+     * Invalidate blog cms cache when delete article
+     */
+    public function onDeleteInvalidateCache(EntityDeletedEvent $event): void
+    {
+        $this->invalidateCache($event->getIds());
+
+        $this->invalidateCacheCategory($event->getContext());
+    }
+
+    /**
+     * When update SEO template in the settings, we will update all SEO URLs for the blog articles
+     */
+    public function updateSeoUrlForAllArticles(): void
     {
         $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, []);
     }
@@ -71,9 +111,9 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     /**
      * Invalidate blog category cache
      */
-    public function invalidateCacheCategory(EntityWrittenEvent $event): void
+    private function invalidateCacheCategory(Context $context): void
     {
-        $catIds = $this->getBlogCategoryIds($event->getContext());
+        $catIds = $this->getBlogCategoryIds($context);
 
         // invalidates the category route cache when a category changed
         $this->cacheInvalidator->invalidate(
@@ -89,5 +129,31 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
         $criteria->addAssociation('cmsPage.sections.blocks');
 
         return $this->categoryRepository->search($criteria, $context)->getIds();
+    }
+
+    /**
+     * Invalidate cache
+     */
+    private function invalidateCache(array $articleIds): void
+    {
+        $this->cacheInvalidator->invalidate(
+            array_map([CachedBlogController::class, 'buildName'], $articleIds)
+        );
+
+        $this->cacheInvalidator->invalidate([
+            'product-suggest-route',
+            'product-search-route',
+            CachedBlogSearchController::SEARCH_TAG,
+            CachedBlogRssController::RSS_TAG,
+        ]);
+
+        $cmsBlogDetailPageId = $this->systemConfigService->get('SasBlogModule.config.cmsBlogDetailPage');
+        if (!\is_string($cmsBlogDetailPageId)) {
+            return;
+        }
+
+        $this->cacheInvalidator->invalidate(
+            array_map([EntityCacheKeyGenerator::class, 'buildCmsTag'], [$cmsBlogDetailPageId])
+        );
     }
 }

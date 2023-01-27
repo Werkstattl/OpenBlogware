@@ -2,6 +2,7 @@
 * Fix If you change your SEO Templates after you created all your blog entries. You get the old URL schema.
 * Fixed adding BlogSubscriber to services.xml, now we can filter by author and category on the listing page
 * Fix to show the author and category within the blog detail page.
+* Added invalidate cache when the blog article was created, updated, or deleted.
 
 # 1.5.11
 * Fixed the SEO template setting

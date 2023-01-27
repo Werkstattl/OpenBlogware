@@ -54,12 +54,63 @@
             <tag name="shopware.snippet.file"/>
         </service>
 
+        <!-- Controller -->
+        <service id="Sas\BlogModule\Controller\CachedBlogController" decorates="Sas\BlogModule\Controller\BlogController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogController.inner"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
         <service id="Sas\BlogModule\Controller\BlogController" public="true">
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
             <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
             <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
             <argument id="sas_blog_entries.repository" type="service"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sas\BlogModule\Controller\CachedBlogSearchController" decorates="Sas\BlogModule\Controller\BlogSearchController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogSearchController.inner"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sas\BlogModule\Controller\BlogSearchController" public="true">
             <argument id="Sas\BlogModule\Page\Search\BlogSearchPageLoader" type="service"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sas\BlogModule\Controller\CachedBlogRssController" decorates="Sas\BlogModule\Controller\BlogRssController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogRssController.inner"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+
+        <service id="Sas\BlogModule\Controller\BlogRssController" public="true">
+            <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
+            <argument id="sas_blog_entries.repository" type="service"/>
+
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -68,6 +119,8 @@
         <service id="Sas\BlogModule\Controller\StoreApi\BlogController" public="true">
             <argument id="sas_blog_entries.repository" type="service"/>
         </service>
+
+        <!-- End controller -->
 
         <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogCmsElementResolver">
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
@@ -149,6 +202,7 @@
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
             <argument type="service" id="category.repository"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheInvalidator"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>
