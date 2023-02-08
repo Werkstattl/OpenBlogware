@@ -7,7 +7,6 @@ on:
 jobs:
     integrationphp81:
         name: Integration Tests | Shopware ${{ matrix.shopware }} | PHP 8.1
-        needs: phpstan
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
