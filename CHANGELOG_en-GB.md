@@ -1,3 +1,7 @@
+# 1.5.13
+* Remove feature flag FEATURE_SAS_BLOG_V2
+* Remove all the code related to FEATURE_SAS_BLOG_V2
+
 # 1.5.12
 * Fix If you change your SEO Templates after you created all your blog entries. You get the old URL schema.
 * Fixed adding BlogSubscriber to services.xml, now we can filter by author and category on the listing page

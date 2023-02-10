@@ -1,3 +1,7 @@
+# 1.5.13
+* Entfernen des Merkmals FEATURE_SAS_BLOG_V2
+* Entfernen des gesamten Codes im Zusammenhang mit FEATURE_SAS_BLOG_V2
+
 # 1.5.12
 * Bug behoben, dass wenn man das SEO Template ändert - die Änderungen erst greifen, nachdem man einen Blog Artikel erneut gespeichert hat
 * Fixed BlogSubscriber um nach Autoren & Kategorien um Listing zu suchen

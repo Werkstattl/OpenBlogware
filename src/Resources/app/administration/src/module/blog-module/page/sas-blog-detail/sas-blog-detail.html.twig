@@ -169,17 +169,6 @@
 
                     {% block sas_blog_detail_card_category %}
                         <sw-card>
-                            {% block sas_blog_detail_field_sales_channels %}
-                                <sw-entity-multi-select
-                                    required
-                                    v-if="salesChannels && feature.isActive('FEATURE_SAS_BLOG_V2')"
-                                    id="salesChannels"
-                                    v-model="salesChannels"
-                                    class="sw-product-detail__select-category"
-                                    :label="$tc('sas-blog.detail.salesChannels.labelSalesChannels')"
-                                    :placeholder="$tc('sas-blog.detail.salesChannels.placeholderSalesChannels')"
-                                />
-                            {% endblock %}
                             {% block sas_blog_detail_field_category %}
                                 <sas-blog-category-tree-field
                                     required
