@@ -1,4 +1,4 @@
-# 1.5.13
+# 1.5.14
 * Entfernen des Merkmals FEATURE_SAS_BLOG_V2
 * Entfernen des gesamten Codes im Zusammenhang mit FEATURE_SAS_BLOG_V2
 
