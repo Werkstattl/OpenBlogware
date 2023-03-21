@@ -59,7 +59,6 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
             ],
             SeoEvents::SEO_URL_TEMPLATE_WRITTEN_EVENT => [
                 ['updateSeoUrlForAllArticles', 10],
-                ['onUpdateCacheCategory', 11],
             ],
         ];
     }
