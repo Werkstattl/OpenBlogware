@@ -60,10 +60,7 @@ class CachedBlogSearchController extends StorefrontController
         $key = $this->generateSearchKey($request, $context);
 
         $value = $this->cache->get($key, function (ItemInterface $item) use ($request, $context) {
-            $name = self::buildName($context->getSalesChannelId());
-            $response = $this->tracer->trace($name, function () use ($request, $context) {
-                return $this->decorated->search($request, $context);
-            });
+            $response = $this->decorated->search($request, $context);
 
             $item->tag($this->generateSearchTags($context));
 

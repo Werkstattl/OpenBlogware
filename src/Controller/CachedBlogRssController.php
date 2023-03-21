@@ -59,10 +59,7 @@ class CachedBlogRssController extends StorefrontController
         $key = $this->generateKey($request, $context);
 
         $value = $this->cache->get($key, function (ItemInterface $item) use ($request, $context) {
-            $name = self::buildName($context->getSalesChannelId());
-            $response = $this->tracer->trace($name, function () use ($request, $context) {
-                return $this->decorated->rss($request, $context);
-            });
+            $response = $this->decorated->rss($request, $context);
 
             $item->tag($this->generateTags($context));
 

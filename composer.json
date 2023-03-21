@@ -47,5 +47,10 @@
         "psr-4": {
             "Sas\\BlogModule\\": "src/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     }
 }

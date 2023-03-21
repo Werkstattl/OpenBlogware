@@ -57,10 +57,7 @@ class CachedBlogController extends StorefrontController
         $key = $this->generateKey($articleId, $context);
 
         $value = $this->cache->get($key, function (ItemInterface $item) use ($articleId, $request, $context) {
-            $name = self::buildName($articleId);
-            $response = $this->tracer->trace($name, function () use ($articleId, $request, $context) {
-                return $this->decorated->detailAction($articleId, $request, $context);
-            });
+            $response = $this->decorated->detailAction($articleId, $request, $context);
 
             $item->tag($this->generateTags($articleId));
 

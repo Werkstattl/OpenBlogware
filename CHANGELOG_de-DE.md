@@ -1,3 +1,6 @@
+# unreleased
+* Korrektur des Fehlers `Serialisierung von 'Closure' ist nicht erlaubt` während der Komprimierung von Cache-Daten in den Klassen `CachedBlogController`, `CachedBlogRssController` und `CachedBlogSearchController`.
+
 # 1.5.14
 * Entfernen des Merkmals FEATURE_SAS_BLOG_V2
 * Entfernen des gesamten Codes im Zusammenhang mit FEATURE_SAS_BLOG_V2
