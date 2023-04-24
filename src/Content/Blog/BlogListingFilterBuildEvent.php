@@ -3,6 +3,7 @@
 namespace Sas\BlogModule\Content\Blog;
 
 use Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent;
+use Shopware\Core\Framework\Event\Annotation\Event;
 
 class BlogListingFilterBuildEvent
 {
