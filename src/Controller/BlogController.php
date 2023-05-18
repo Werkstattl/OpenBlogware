@@ -90,8 +90,8 @@ class BlogController extends StorefrontController
 
         $metaInformation = $page->getMetaInformation();
         if ($metaInformation instanceof MetaInformation) {
-            $metaTitle = $entry->getMetaTitle() ?? $entry->getTitle();
-            $metaDescription = $entry->getMetaDescription() ?? $entry->getTeaser();
+            $metaTitle = $entry->getTranslated()['metaTitle'] ?? $entry->getTitle();
+            $metaDescription = $entry->getTranslated()['metaDescription'] ?? $entry->getTeaser();
             $metaAuthor = $blogAuthor->getTranslated()['name'];
             $metaInformation->setMetaTitle($metaTitle ?? '');
             $metaInformation->setMetaDescription($metaDescription ?? '');

@@ -2,6 +2,7 @@
 
 - Fix error `Serialization of 'Closure' is not allowed` while compressing cache data in `CachedBlogController`, `CachedBlogRssController`, and `CachedBlogSearchController` classes.
 - Remove the non-exists function called `onUpdateCacheCategory` in `BlogCacheInvalidSubscriber` class.
+- Fallback `meta title` and `meta description` to the main language if no translation is found.
 
 # 1.5.14
 
