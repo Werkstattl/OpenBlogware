@@ -1,7 +1,8 @@
-# unreleased
+# 1.5.15
 
 - Fixed `Serialization of 'Closure' is not allowed` während der Komprimierung von Cache-Daten in den Klassen `CachedBlogController`, `CachedBlogRssController` und `CachedBlogSearchController`.
 - Entfernen der nicht existierenden Funktion `onUpdateCacheCategory` in der Klasse `BlogCacheInvalidSubscriber`.
+- Fallback `meta title` und `meta description` auf die Hauptsprache, wenn keine Übersetzung gefunden wird.
 
 # 1.5.14
 
