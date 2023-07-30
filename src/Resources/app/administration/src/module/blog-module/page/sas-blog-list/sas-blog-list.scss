@@ -39,11 +39,11 @@ $sw-property-list-color-success: $color-emerald-500;
 
         .sw-page__sidebar {
             grid-area: c;
-            padding: 40px 20px;
+            padding: 40px 15px;
         }
 
         &.has--smart-bar.has--side-content {
-            grid-template-columns: 100px 440px auto;
+            grid-template-columns: 120px 440px auto;
             grid-template-areas: "c a b";
         }
 

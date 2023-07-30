@@ -7,5 +7,5 @@ Component.extend('sas-blog-author-create', 'sas-blog-author-detail', {
 
             this.blogAuthor = this.blogAuthorRepository.create(Shopware.Context.api);
         },
-    }
+    },
 });

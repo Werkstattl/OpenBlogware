@@ -1,7 +1,7 @@
-const { Component, Mixin } = Shopware;
 import template from './sas-blog-list.twig';
 import './sas-blog-list.scss';
 
+const { Component, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
 Component.register('sas-blog-list', {
@@ -11,7 +11,7 @@ Component.register('sas-blog-list', {
 
     mixins: [
         Mixin.getByName('salutation'),
-        Mixin.getByName('listing')
+        Mixin.getByName('listing'),
     ],
 
     data() {
@@ -20,13 +20,13 @@ Component.register('sas-blog-list', {
             blogEntries: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId
+            currentLanguageId: Shopware.Context.api.languageId,
         };
     },
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -51,7 +51,7 @@ Component.register('sas-blog-list', {
                     label: this.$tc('sas-blog.list.table.title'),
                     routerLink: 'blog.module.detail',
                     primary: true,
-                    inlineEdit: 'string'
+                    inlineEdit: 'string',
                 },
                 {
                     property: 'author',
@@ -61,10 +61,10 @@ Component.register('sas-blog-list', {
                 {
                     property: 'active',
                     label: this.$tc('sas-blog.list.table.active'),
-                    inlineEdit: 'boolean'
-                }
+                    inlineEdit: 'boolean',
+                },
             ];
-        }
+        },
     },
 
     methods: {
@@ -82,11 +82,11 @@ Component.register('sas-blog-list', {
 
         getList() {
             this.isLoading = true;
-            const criteria = new Criteria();
+            const criteria = new Criteria(this.page, this.limit);
             criteria.addAssociation('blogAuthor');
             criteria.addAssociation('blogCategories');
 
-            criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false))
+            criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
 
             if (this.categoryId) {
                 criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
@@ -95,7 +95,7 @@ Component.register('sas-blog-list', {
                 this.total = result.total;
                 this.blogEntries = result;
                 this.isLoading = false;
-            })
-        }
-    }
+            });
+        },
+    },
 });

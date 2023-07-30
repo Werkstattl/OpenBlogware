@@ -9,7 +9,7 @@ Component.register('sw-cms-el-config-blog-detail', {
     inject: ['repositoryFactory'],
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Mixin.getByName('cms-element'),
     ],
 
     created() {
@@ -20,5 +20,5 @@ Component.register('sw-cms-el-config-blog-detail', {
         createdComponent() {
             this.initElementConfig('blog');
         },
-    }
+    },
 });

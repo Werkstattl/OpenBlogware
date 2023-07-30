@@ -14,7 +14,7 @@ Shopware.Service('cmsService').registerCmsElement({
             value: null,
             entity: {
                 name: 'sas_blog_entries',
-            }
-        }
-    }
+            },
+        },
+    },
 });

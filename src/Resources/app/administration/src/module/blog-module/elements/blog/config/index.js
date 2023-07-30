@@ -10,14 +10,14 @@ Component.register('sw-cms-el-config-blog', {
     inject: ['repositoryFactory'],
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Mixin.getByName('cms-element'),
     ],
 
     data() {
         return {
             categories: [],
-            selectedCategories: null
-        }
+            selectedCategories: null,
+        };
     },
     computed: {
         blogCategoryRepository() {
@@ -33,7 +33,7 @@ Component.register('sw-cms-el-config-blog', {
 
         blogCategoriesConfigValue() {
             return this.element.config.blogCategories.value;
-        }
+        },
     },
 
     watch: {
@@ -71,9 +71,9 @@ Component.register('sw-cms-el-config-blog', {
                     this.blogCategoryRepository.route,
                     this.blogCategoryRepository.schema.entity,
                     Shopware.Context.api,
-                    new Criteria()
+                    new Criteria(),
                 );
             }
-        }
-    }
+        },
+    },
 });

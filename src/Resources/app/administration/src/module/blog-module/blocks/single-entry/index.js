@@ -12,16 +12,19 @@ Shopware.Service('cmsService').registerCmsBlock({
         marginTop: '0px',
         marginLeft: '0px',
         marginRight: '0px',
-        sizingMode: 'boxed'
+        sizingMode: 'boxed',
     },
     slots: {
-        'singleEntry': {
+        singleEntry: {
             type: 'blog-single-select',
             default: {
                 config: {
-                    blogEntry: { source: 'static', value: null }
-                }
-            }
-        }
-    }
+                    blogEntry: {
+                        source: 'static',
+                        value: null,
+                    },
+                },
+            },
+        },
+    },
 });

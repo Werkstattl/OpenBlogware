@@ -12,10 +12,13 @@ use Shopware\Core\Content\Cms\DataResolver\FieldConfigCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
@@ -47,10 +50,10 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
     public function collect(CmsSlotEntity $slot, ResolverContext $resolverContext): ?CriteriaCollection
     {
         $config = $slot->getFieldConfig();
-        $criteria = $this->createCriteria($config);
-
         $request = $resolverContext->getRequest();
         $context = $resolverContext->getSalesChannelContext();
+
+        $criteria = $this->createCriteria($config, $context);
         $this->eventDispatcher->dispatch(new NewestListingCriteriaEvent($request, $criteria, $context));
 
         $criteriaCollection = new CriteriaCollection();
@@ -89,13 +92,17 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
      * It checks if the configuration has a limit then it sets the limit
      * It returns the criteria
      */
-    private function createCriteria(FieldConfigCollection $config): Criteria
+    private function createCriteria(FieldConfigCollection $config, SalesChannelContext $salesChannelContext): Criteria
     {
         $criteria = new Criteria();
 
         $criteria->addFilter(new EqualsFilter('active', true));
         $criteria->addFilter(new RangeFilter('publishedAt', [
             RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM),
+        ]));
+        $criteria->addFilter(new OrFilter([
+            new ContainsFilter('customFields.salesChannelIds', $salesChannelContext->getSalesChannelId()),
+            new EqualsFilter('customFields.salesChannelIds', null),
         ]));
 
         $criteria->addSorting(new FieldSorting('publishedAt', FieldSorting::DESCENDING));

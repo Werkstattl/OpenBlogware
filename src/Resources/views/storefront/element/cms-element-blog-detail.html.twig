@@ -75,6 +75,19 @@
                         </div>
                     {% endblock %}
                 </div>
+
+                {% block sas_blog_detail_article_blocks_cms %}
+                    {% if element.data.cmsPage %}
+                        <div class="row sas-blog-detail-cms">
+                            {% set cmsPageClasses = ('cms-page ' ~ element.data.cmsPage.cssClass|striptags)|trim %}
+                            <div class="{{ cmsPageClasses }}">
+                                {% block page_content_blocks %}
+                                    {% sw_include "@Storefront/storefront/page/content/detail.html.twig" with {'cmsPage': element.data.cmsPage} %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
             {% endblock %}
         </article>
     {% else %}

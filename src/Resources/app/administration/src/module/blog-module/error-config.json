@@ -1,0 +1,12 @@
+{
+    "blog.module.detail": {
+        "sas_blog_entries": [
+            "title",
+            "slug",
+            "teaser",
+            "authorId",
+            "publishedAt",
+            "blogCategories"
+        ]
+    }
+}

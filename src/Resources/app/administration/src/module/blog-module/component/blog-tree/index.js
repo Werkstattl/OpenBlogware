@@ -13,5 +13,5 @@ Component.extend('sas-blog-tree', 'sw-tree', {
             this._eventFromEdit = event;
             this.newElementId = null;
         },
-    }
+    },
 });

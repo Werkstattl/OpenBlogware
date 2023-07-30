@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "@shopware-ag/e2e-testsuite-platform": "^3.0.12",
+        "uuid": "3.3.3"
+    },
+    "devDependencies": {
+        "@cucumber/tag-expressions": "^4.1.0",
+        "@cypress/webpack-preprocessor": "^5.11.1",
+        "axios": "^0.27.2",
+        "cypress": "^9.2.1",
+        "webpack": "^4.18.1"
+    }
+}

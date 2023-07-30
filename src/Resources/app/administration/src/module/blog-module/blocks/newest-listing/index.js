@@ -12,7 +12,7 @@ Shopware.Service('cmsService').registerCmsBlock({
         marginTop: '0px',
         marginLeft: '0px',
         marginRight: '0px',
-        sizingMode: 'boxed'
+        sizingMode: 'boxed',
     },
     slots: {
         listing: 'blog-newest-listing',

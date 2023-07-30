@@ -24,5 +24,5 @@ Shopware.Service('cmsService').registerCmsElement({
                 name: 'sas_blog_categories',
             },
         },
-    }
+    },
 });

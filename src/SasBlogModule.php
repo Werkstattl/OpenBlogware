@@ -14,7 +14,7 @@ use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateEntity;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -72,7 +72,7 @@ class SasBlogModule extends Plugin
         $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_author_translation`');
         $connection->executeStatement('DROP TABLE IF EXISTS `sas_blog_author`');
 
-        /** @var EntityRepositoryInterface $cmsBlockRepo */
+        /** @var EntityRepository $cmsBlockRepo */
         $cmsBlockRepo = $this->container->get('cms_block.repository');
 
         $context = Context::createDefaultContext();
@@ -112,7 +112,7 @@ class SasBlogModule extends Plugin
         $this->deleteDefaultMediaFolder($context);
         $thumbnailSizes = $this->getThumbnailSizes($context);
 
-        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        /** @var EntityRepository $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_default_folder.repository');
 
         $data = [
@@ -144,7 +144,7 @@ class SasBlogModule extends Plugin
             ])
         );
 
-        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        /** @var EntityRepository $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_default_folder.repository');
 
         $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context)->getIds();
@@ -164,7 +164,7 @@ class SasBlogModule extends Plugin
             new EqualsFilter('name', 'Blog Images')
         );
 
-        /** @var EntityRepositoryInterface $mediaFolderRepository */
+        /** @var EntityRepository $mediaFolderRepository */
         $mediaFolderRepository = $this->container->get('media_folder.repository');
 
         $mediaFolderRepository->search($criteria, $context);
@@ -186,7 +186,7 @@ class SasBlogModule extends Plugin
             new EqualsFilter('entityName', 'sas_blog_entries')
         );
 
-        /** @var EntityRepositoryInterface $seoUrlTemplateRepository */
+        /** @var EntityRepository $seoUrlTemplateRepository */
         $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
 
         $seoUrlTemplateRepository->search($criteria, $context);
@@ -224,7 +224,7 @@ class SasBlogModule extends Plugin
 
         $criteria = new Criteria();
 
-        /** @var EntityRepositoryInterface $thumbnailSizeRepository */
+        /** @var EntityRepository $thumbnailSizeRepository */
         $thumbnailSizeRepository = $this->container->get('media_thumbnail_size.repository');
 
         $thumbnailSizes = $thumbnailSizeRepository->search($criteria, $context)->getEntities();
@@ -266,7 +266,7 @@ class SasBlogModule extends Plugin
         /** @var SystemConfigService $systemConfig */
         $systemConfig = $this->container->get(SystemConfigService::class);
 
-        /** @var EntityRepositoryInterface $cmsPageRepository */
+        /** @var EntityRepository $cmsPageRepository */
         $cmsPageRepository = $this->container->get('cms_page.repository');
 
         return new Lifecycle(
@@ -285,7 +285,7 @@ class SasBlogModule extends Plugin
             [new EqualsFilter('template', null)]
         ));
 
-        /** @var EntityRepositoryInterface $seoUrlTemplateRepository */
+        /** @var EntityRepository $seoUrlTemplateRepository */
         $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
 
         /** @var SeoUrlTemplateCollection $seoUrlTemplates */

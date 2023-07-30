@@ -4,10 +4,11 @@ namespace Sas\BlogModule\Content\Blog;
 
 use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class BlogEntitiesIndexer extends EntityIndexer
@@ -16,12 +17,12 @@ class BlogEntitiesIndexer extends EntityIndexer
 
     private IteratorFactory $iteratorFactory;
 
-    private EntityRepositoryInterface $repository;
+    private EntityRepository $repository;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository
+        EntityRepository $repository
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->iteratorFactory = $iteratorFactory;
@@ -66,5 +67,15 @@ class BlogEntitiesIndexer extends EntityIndexer
         }
 
         return new BlogEntriesIndexingMessage(array_values($ids), $iterator->getOffset());
+    }
+
+    public function getTotal(): int
+    {
+        return $this->iteratorFactory->createIterator($this->repository->getDefinition())->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        throw new DecorationPatternException(static::class);
     }
 }

@@ -1,13 +1,13 @@
 import template from './sw-cms-el-blog.html.twig';
 import './sw-cms-el-blog.scss';
 
-const { Component, Mixin } = Shopware;
+const { Mixin } = Shopware;
 
 Shopware.Component.register('sw-cms-el-blog', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Mixin.getByName('cms-element'),
     ],
 
     created() {
@@ -18,5 +18,5 @@ Shopware.Component.register('sw-cms-el-blog', {
         createdComponent() {
             this.initElementConfig('blog');
         },
-    }
+    },
 });

@@ -12,11 +12,12 @@ use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
-use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -38,6 +39,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
     {
         /* get the config from the element */
         $config = $slot->getFieldConfig();
+        $context = $resolverContext->getSalesChannelContext();
 
         $dateTime = new \DateTime();
 
@@ -47,6 +49,10 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             new EqualsFilter('active', true),
             new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
         );
+        $criteria->addFilter(new OrFilter([
+            new ContainsFilter('customFields.salesChannelIds', $context->getSalesChannelId()),
+            new EqualsFilter('customFields.salesChannelIds', null),
+        ]));
 
         $criteria->addAssociations([
             'blogAuthor',
@@ -79,9 +85,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             $limit = (int) $paginationCountConfig->getValue();
         }
 
-        $context = $resolverContext->getSalesChannelContext();
-
-        $this->handlePagination($limit, $request, $criteria, $context);
+        $this->handlePagination($limit, $request, $criteria);
 
         $this->eventDispatcher->dispatch(
             new BlogMainFilterEvent($request, $criteria, $context),
@@ -109,7 +113,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         $slot->setData($sasBlog);
     }
 
-    private function handlePagination(int $limit, Request $request, Criteria $criteria, SalesChannelContext $context): void
+    private function handlePagination(int $limit, Request $request, Criteria $criteria): void
     {
         $page = $this->getPage($request);
 

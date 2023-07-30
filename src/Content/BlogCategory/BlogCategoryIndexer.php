@@ -3,22 +3,22 @@
 namespace Sas\BlogModule\Content\BlogCategory;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\ForwardCompatibility\Result;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 class BlogCategoryIndexer extends EntityIndexer
 {
     private Connection $connection;
 
-    private EntityRepositoryInterface $repository;
+    private EntityRepository $repository;
 
     private ChildCountUpdater $childCountUpdater;
 
@@ -29,7 +29,7 @@ class BlogCategoryIndexer extends EntityIndexer
     public function __construct(
         Connection $connection,
         IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
+        EntityRepository $repository,
         ChildCountUpdater $childCountUpdater,
         TreeUpdater $treeUpdater
     ) {
@@ -119,6 +119,16 @@ class BlogCategoryIndexer extends EntityIndexer
         $this->connection->commit();
     }
 
+    public function getTotal(): int
+    {
+        return $this->iteratorFactory->createIterator($this->repository->getDefinition())->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        throw new DecorationPatternException(static::class);
+    }
+
     private function fetchChildren(array $categoryIds, string $versionId): array
     {
         $query = $this->connection->createQueryBuilder();
@@ -135,11 +145,7 @@ class BlogCategoryIndexer extends EntityIndexer
         $query->andWhere('(' . implode(' OR ', $wheres) . ')');
         $query->andWhere('category.version_id = :version');
         $query->setParameter('version', Uuid::fromHexToBytes($versionId));
-        /* @var  Result $result */
-        $result = $query->execute();
-        if (!$result instanceof Result) {
-            return [];
-        }
+        $result = $query->executeQuery();
 
         return $result->fetchAllAssociative();
     }

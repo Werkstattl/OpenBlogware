@@ -1,6 +1,7 @@
 import template from './sas-blog-category-tree.html.twig';
-const Criteria = Shopware.Data.Criteria;
+
 const { Component } = Shopware;
+const Criteria = Shopware.Data.Criteria;
 
 Component.extend('sas-blog-category-tree', 'sw-category-tree', {
     template,
@@ -9,19 +10,19 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
         categoryId: {
             type: String,
             required: false,
-            default: null
+            default: null,
         },
 
         currentLanguageId: {
             type: String,
-            required: true
+            required: true,
         },
     },
 
     data() {
         return {
             blogCategory: null,
-            translationContext: 'sas-blog-category'
+            translationContext: 'sas-blog-category',
         };
     },
 
@@ -64,7 +65,7 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
         },
 
         onFinishEditCategory(editCategory) {
-            const category = editCategory.data
+            const category = editCategory.data;
 
             this.categoryRepository.save(category, Shopware.Context.api).then(() => {
                 const criteria = new Criteria();
@@ -86,6 +87,6 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
                 this.blogCategory = result[0];
                 this.blogCategory.childCount = 9;
             });
-        }
-    }
+        },
+    },
 });

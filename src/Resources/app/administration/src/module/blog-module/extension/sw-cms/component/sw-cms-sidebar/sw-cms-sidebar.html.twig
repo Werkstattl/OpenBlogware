@@ -1,4 +1,24 @@
 {% block sw_cms_sidebar_block_overview_category_options %}
+{% parent %}
+<option v-if="!isBlogDetail" value="sas-blog">Blog</option>
+{% endblock %}
+
+{% block sw_cms_sidebar_page_settings_type_field_options %}
+{% parent %}
+<option
+    value="blog_detail"
+    :disabled="!isBlogDetail"
+>
+    {{ $tc('sw-cms.detail.label.pageTypeBlog') }}
+</option>
+{% endblock %}
+
+{% block sw_cms_sidebar_page_settings_type_field %}
     {% parent %}
-    <option value="sas-blog">Blog</option>
+    <sw-text-field
+        v-model="page.toggle"
+        :label="$tc('sw-cms.detail.label.pageName')"
+        :placeholder="placeholder(page, 'name')"
+        :error="pageNameError"
+    />
 {% endblock %}

@@ -3,6 +3,10 @@
 .AppleDouble
 .LSOverride
 
+coverage
+src/Resources/app/administration/coverage
+src/Resources/app/administration/node_modules
+
 ## other stuff
 /.idea
 /vendor

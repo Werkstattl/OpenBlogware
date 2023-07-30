@@ -7,7 +7,7 @@ Component.register('sas-cms-el-newest-listing', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Mixin.getByName('cms-element'),
     ],
 
     created() {

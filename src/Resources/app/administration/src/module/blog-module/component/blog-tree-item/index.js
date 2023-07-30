@@ -1,4 +1,5 @@
 import template from './blog-tree-item.html.twig';
+
 const { Component } = Shopware;
 
 Component.extend('sas-blog-tree-item', 'sw-tree-item', {
@@ -18,7 +19,7 @@ Component.extend('sas-blog-tree-item', 'sw-tree-item', {
     data() {
         return {
             editingCategory: null,
-        }
+        };
     },
     methods: {
         onEditCategory(category) {
@@ -50,6 +51,6 @@ Component.extend('sas-blog-tree-item', 'sw-tree-item', {
             this.currentEditElement = null;
             this.editingCategory = null;
             this.$super('abortCreateElement', item);
-        }
-    }
+        },
+    },
 });

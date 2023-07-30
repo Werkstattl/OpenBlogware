@@ -10,7 +10,7 @@ use Shopware\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\Url;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
@@ -23,14 +23,14 @@ class BlogUrlProvider extends AbstractUrlProvider
     public const CHANGE_FREQ = 'daily';
     public const PRIORITY = 1.0;
 
-    private EntityRepositoryInterface $blogRepository;
+    private EntityRepository $blogRepository;
 
     private Connection $connection;
 
     private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        EntityRepositoryInterface $blogRepository,
+        EntityRepository $blogRepository,
         Connection $connection,
         EventDispatcherInterface $eventDispatcher
     ) {

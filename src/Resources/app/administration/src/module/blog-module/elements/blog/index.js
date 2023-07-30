@@ -11,26 +11,26 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         paginationCount: {
             source: 'static',
-            value: 5
+            value: 5,
         },
         showType: {
             source: 'static',
-            value: 'all'
+            value: 'all',
         },
         showCategoryFilter: {
             source: 'static',
-            value: true
+            value: true,
         },
         showAuthorFilter: {
             source: 'static',
-            value: true
+            value: true,
         },
         blogCategories: {
             source: 'static',
             value: null,
             entity: {
                 name: 'sas_blog_categories',
-            }
-        }
-    }
+            },
+        },
+    },
 });

@@ -1,0 +1,13 @@
+{
+    "responseTimeout": 80000,
+    "chromeWebSecurity": false,
+    "env": {
+        "localUsage": "true",
+        "shopwareRoot": "../../../../..",
+        "user": "admin",
+        "pass": "shopware",
+        "salesChannelName": "Storefront",
+        "admin": "/admin",
+        "apiPath": "api"
+    }
+}

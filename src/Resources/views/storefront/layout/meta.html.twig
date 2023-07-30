@@ -1,5 +1,7 @@
 {% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
 
+{% set entry = page.blogEntry %}
+
 {% if activeRoute == 'sas.frontend.blog.detail' and entry.media.url %}
     {% set metaImage = entry.media.url|striptags|trim %}
 {% endif %}
@@ -16,36 +18,36 @@
 {% block layout_head_meta_tags_image_meta %}{{ metaImage ?? parent() }}{% endblock %}
 
 {% block layout_head_meta_tags_schema_webpage %}
-    {{ parent() }}
+{{ parent() }}
 
-    {% if activeRoute == 'sas.frontend.blog.detail' %}
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "BlogPosting",
-                "headline": "{{ entry.translated.title }}",
-                "datePublished": "{{ entry.publishedAt|date }}",
-                "dateModified": "{{ entry.updatedAt|date }}",
-                "description": "{{ entry.translated.teaser }}",
-                "author": {
-                    "@type": "Person",
-                    "name": "{{ entry.author.translated.name }}"
-                },
-                {% if entry.media.thumbnails.elements|length %}
-                "image":[{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %}],{% endif %}
-                "mainEntityOfPage": {
-                    "@type": "WebPage",
-                    "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"
-                },
-                 "publisher": {
-                    "@type": "Organization",
-                    "name": "{{ shopware.config.core.basicInformation.shopName }}",
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "{{ shopware.theme['sw-logo-desktop'] |sw_encode_url }}"
-                    }
+{% if activeRoute == 'sas.frontend.blog.detail' %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "{{ entry.translated.title }}",
+            "datePublished": "{{ entry.publishedAt|date }}",
+            "dateModified": "{{ entry.updatedAt|date }}",
+            "description": "{{ entry.translated.teaser }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{ entry.author.translated.name }}"
+            },
+            {% if entry.media.thumbnails.elements|length %}
+            "image":[{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %}],{% endif %}
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"
+            },
+             "publisher": {
+                "@type": "Organization",
+                "name": "{{ shopware.config.core.basicInformation.shopName }}",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ shopware.theme['sw-logo-desktop'] |sw_encode_url }}"
                 }
             }
-        </script>
-    {% endif %}
+        }
+    </script>
+{% endif %}
 {% endblock %}

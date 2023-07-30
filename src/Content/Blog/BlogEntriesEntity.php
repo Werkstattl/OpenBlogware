@@ -5,6 +5,7 @@ namespace Sas\BlogModule\Content\Blog;
 use Sas\BlogModule\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationCollection;
 use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
 use Sas\BlogModule\Content\BlogCategory\BlogCategoryCollection;
+use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -45,14 +46,15 @@ class BlogEntriesEntity extends Entity
 
     protected ?BlogAuthorEntity $blogAuthor;
 
-    /**
-     * @var string
-     */
-    protected $mediaId;
+    protected string $mediaId;
 
     protected ?MediaEntity $media;
 
     protected \DateTimeInterface $publishedAt;
+
+    protected ?string $cmsPageId;
+
+    protected ?CmsPageEntity $cmsPage;
 
     public function getTitle(): ?string
     {
@@ -202,5 +204,25 @@ class BlogEntriesEntity extends Entity
     public function setMedia(?MediaEntity $media): void
     {
         $this->media = $media;
+    }
+
+    public function getCmsPage(): ?CmsPageEntity
+    {
+        return $this->cmsPage;
+    }
+
+    public function setCmsPage(CmsPageEntity $cmsPage): void
+    {
+        $this->cmsPage = $cmsPage;
+    }
+
+    public function getCmsPageId(): ?string
+    {
+        return $this->cmsPageId;
+    }
+
+    public function setCmsPageId(string $cmsPageId): void
+    {
+        $this->cmsPageId = $cmsPageId;
     }
 }

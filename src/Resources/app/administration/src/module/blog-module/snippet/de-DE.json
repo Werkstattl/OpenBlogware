@@ -19,13 +19,19 @@
             }
         },
         "detail": {
+            "sidebar": {
+                "heading": "Blog detail",
+                "basicInformation": "Grundlegende Information",
+                "settings": "Einstellungen"
+            },
             "saveBlogEntry": "Eintrag speichern",
             "buttonCancel": "Abbrechen",
-            "activeLable": "Artikel aktiv",
-            "contentLable": "Markdown Inhalt",
-            "slugLable": "Slug",
+            "activeLabel": "Artikel aktiv",
+            "contentLabel": "Markdown Inhalt",
+            "slugLabel": "Slug",
+            "slugPlaceholder": "Undefiniert",
             "titleLabel": "Titel",
-            "mediaLable": "Teaser Image",
+            "mediaLabel": "Teaser Image",
             "teaserLabel": "Teaser",
             "teaserImageLabel": "Teaser Bild",
             "teaserPlaceholder": "Der Teaser Text, welcher im Blog Listing angezeigt wird ...",
@@ -53,7 +59,8 @@
                     "text": "Dein Blog Artikel wurde gespeichert."
                 },
                 "error": {
-                    "missingCategory": "Bitte wähle mind. eine Kategorie!"
+                    "missingCategory": "Bitte wähle mind. eine Kategorie!",
+                    "pageInvalid": "Einige Fehler sind aufgetreten. Bitte überprüfe die Liste im Editor."
                 }
             },
             "author": {

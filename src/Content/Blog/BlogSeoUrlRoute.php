@@ -32,7 +32,7 @@ class BlogSeoUrlRoute implements SeoUrlRouteInterface
         );
     }
 
-    public function prepareCriteria(Criteria $criteria): void
+    public function prepareCriteria(Criteria $criteria, SalesChannelEntity $salesChannel): void
     {
         $criteria->addAssociations([
             'blogCategories',

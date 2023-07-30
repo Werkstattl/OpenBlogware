@@ -1,0 +1,232 @@
+{% block sw_cms_sidebar_page_settings %}
+    <sw-sidebar-item
+            ref="blogDetailSidebar"
+            icon="regular-info-circle"
+            badge-type="error"
+            :title="$tc('sas-blog.detail.sidebar.heading')"
+            :has-simple-badge="blogModuleDetailError"
+            :disabled="page.locked || disabled"
+    >
+        {% block sas_blog_cms_sidebar_page_basic_information %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block sas_blog_cms_sidebar_page_basic_information_header %}
+                    <span slot="header">{{ $tc('sas-blog.detail.sidebar.basicInformation') }}</span>
+                {% endblock %}
+
+                {% block sas_blog_cms_sidebar_page_basic_information_form %}
+                    <sw-container
+                        slot="content"
+                        columns="100%"
+                        gap="20px"
+                        class="sw-cms-sidebar__settings"
+                    >
+                        {% block sas_blog_cms_sidebar_page_basic_information_title_field %}
+                            <sas-text-field
+                                required
+                                v-model="blog.title"
+                                :label="$tc('sas-blog.detail.titleLabel')"
+                                :placeholder="$tc('sas-blog.detail.titlePlaceholder')"
+                                :error="blogTitleError">
+                            </sas-text-field>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_basic_information_slug_field %}
+                            <sw-text-field
+                                required
+                                disabled
+                                v-model="blog.slug"
+                                :label="$tc('sas-blog.detail.slugLabel')"
+                                :error="blogSlugError"
+                                :placeholder="$tc('sas-blog.detail.slugPlaceholder')">
+                            </sw-text-field>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_basic_information_teaser_field %}
+                            <sas-textarea-field
+                                type="textarea"
+                                v-model="blog.teaser"
+                                :label="$tc('sas-blog.detail.teaserLabel')"
+                                :placeholder="$tc('sas-blog.detail.teaserPlaceholder')"
+                                :error="blogTeaserError">
+                            </sas-textarea-field>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_basic_information_image_field %}
+                            <sw-upload-listener
+                                :uploadTag="blog.id"
+                                @media-upload-finish="onSetMediaItem"
+                                autoUpload>
+                            </sw-upload-listener>
+
+                            <sw-media-compact-upload-v2
+                                variant="regular"
+                                :label="$tc('sas-blog.detail.teaserImageLabel')"
+                                :source="mediaItem"
+                                :uploadTag="blog.id"
+                                :defaultFolder="blog.getEntityName()"
+                                :allowMultiSelect="false"
+                                :fileAccept="fileAccept"
+                                @media-upload-remove-image="onRemoveMediaItem"
+                                @selection-change="setMedia"
+                                @media-drop="onMediaDropped">
+                            </sw-media-compact-upload-v2>
+                        {% endblock %}
+                    </sw-container>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+
+        {% block sas_blog_cms_sidebar_page_settings %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block sas_blog_cms_sidebar_page_settings_header %}
+                    <span slot="header">{{ $tc('sas-blog.detail.sidebar.settings') }}</span>
+                {% endblock %}
+
+                {% block sas_blog_cms_sidebar_page_settings_form %}
+                    <sw-container
+                        slot="content"
+                        columns="100%"
+                        gap="20px"
+                        class="sw-cms-sidebar__settings"
+                    >
+                        <div>
+                            {% block sas_blog_cms_sidebar_page_settings_visibility_field %}
+                                <sw-switch-field
+                                    type="switch"
+                                    class="sas-field--switch"
+                                    :label="$tc('sas-blog.detail.visibility.label')"
+                                    v-model="blog.active">
+                                </sw-switch-field>
+                            {% endblock %}
+
+                            {% block sas_blog_cms_sidebar_page_settings_detail_teaser_field %}
+                                <sw-switch-field
+                                    type="switch"
+                                    class="sas-field--switch"
+                                    :label="$tc('sas-blog.detail.detailTeaser.label')"
+                                    v-model="blog.detailTeaserImage">
+                                </sw-switch-field>
+                            {% endblock %}
+                        </div>
+
+                        {% block sas_blog_cms_sidebar_page_settings_published_at_field %}
+                            <sw-datepicker
+                                required
+                                size="medium"
+                                dateType="date"
+                                v-model="blog.publishedAt"
+                                :label="$tc('sas-blog.detail.publishedAtLabel')"
+                                :error="blogPublishedAtError">
+                            </sw-datepicker>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_settings_author_field %}
+                            <sw-entity-single-select
+                                required
+                                v-model="blog.authorId"
+                                labelProperty="translated.name"
+                                class="sas-field--author"
+                                entity="sas_blog_author"
+                                :label="$tc('sas-blog.detail.author.label')"
+                                :placeholder="$tc('sas-blog.detail.author.placeholder')"
+                                :error="blogAuthorIdError"
+                            >
+                                <template #selection-label-property="{item}">
+                                    <span>{{ item.firstName }} {{ item.lastName }} <i>({{ item.email }})</i></span>
+                                </template>
+                                <template #result-label-property="{item}">
+                                    <span>{{ item.firstName }} {{ item.lastName }} <i>({{ item.email }})</i></span>
+                                </template>
+                            </sw-entity-single-select>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_settings_sales_channels %}
+                            <sw-entity-multi-id-select
+                                v-model="blogSalesChannelIds"
+                                :repository="salesChannelRepository"
+                                class="sas-field--sales-channels"
+                                :label="$tc('sas-blog.detail.salesChannels.labelSalesChannels')"
+                                :placeholder="$tc('sas-blog.detail.salesChannels.placeholderSalesChannels')"
+                            ></sw-entity-multi-id-select>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_settings_category_field %}
+                            <sas-blog-category-tree-field
+                                required
+                                v-model="blog.blogCategories"
+                                class="sas-field--category"
+                                :label="$tc('sas-blog.detail.category.label')"
+                                :placeholder="$tc('sas-blog.detail.category.placeholder')"
+                                :error="blogBlogCategoriesError"
+                                :categoriesCollection="blog.blogCategories">
+                            </sas-blog-category-tree-field>
+                        {% endblock %}
+                    </sw-container>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+
+        {% block sas_blog_cms_sidebar_page_serp %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block sas_blog_cms_sidebar_page_serp_header %}
+                    <span slot="header">{{ $tc('sas-blog.detail.serp.title') }}</span>
+                {% endblock %}
+
+                {% block sas_blog_cms_sidebar_page_serp_form %}
+                    <sw-container
+                        slot="content"
+                        columns="100%"
+                        class="sw-cms-sidebar__settings serp-preview-card"
+                    >
+                        <div class="serp-preview">
+                            <h3>{{ blog.metaTitle }}</h3>
+                            <cite>{{ blog.slug }}</cite>
+                            <p>{{ blog.metaDescription }}</p>
+                        </div>
+
+                        {% block sas_blog_cms_sidebar_page_serp_meta_title_field %}
+                            <sas-text-field
+                                v-model="blog.metaTitle"
+                                :maxLength="maximumMetaTitleCharacter"
+                                :placeholder="$tc('sas-blog.detail.serp.metaTitle')">
+                            </sas-text-field>
+                        {% endblock %}
+
+                        {% block sas_blog_cms_sidebar_page_serp_meta_description_field %}
+                            <sas-textarea-field
+                                type="textarea"
+                                v-model="blog.metaDescription"
+                                :maxLength="maximumMetaDescriptionCharacter"
+                                :placeholder="$tc('sas-blog.detail.serp.metaDescription')">
+                            </sas-textarea-field>
+                        {% endblock %}
+                    </sw-container>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+    </sw-sidebar-item>
+{% endblock %}
+
+{% block sw_cms_sidebar_layout_assignment %}
+    {% block sas_blog_cms_sidebar_extension_component %}
+        <sas-blog-extension-component-sections
+            :position-identifier="positionIdentifierExtension"
+            class="sas-extension-component"
+        >
+            <template #default="{ componentSection }">
+                <sw-sidebar-item
+                    v-if="componentSection"
+                    :icon="componentSection.props.icon"
+                    badge-type="error"
+                    :title="componentSection.props.title"
+                    :disabled="page.locked || disabled"
+                >
+                    <sw-iframe-renderer
+                        :src="componentSection.src"
+                        :location-id="componentSection.props.locationId"
+                    ></sw-iframe-renderer>
+                </sw-sidebar-item>
+            </template>
+        </sas-blog-extension-component-sections>
+    {% endblock %}
+{% endblock %}

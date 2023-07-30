@@ -10,13 +10,13 @@ Component.extend('sas-text-field', 'sw-text-field', {
         maxLength: {
             type: Number,
             required: false,
-            default: 255
+            default: 255,
         },
         textCountBeforeWarning: {
             type: Number,
             required: false,
-            default: 20
-        }
+            default: 20,
+        },
     },
 
     watch: {
@@ -48,5 +48,5 @@ Component.extend('sas-text-field', 'sw-text-field', {
         hasWarning() {
             return this.currentLength > 0 && this.charLeft <= this.textCountBeforeWarning;
         },
-    }
-})
+    },
+});

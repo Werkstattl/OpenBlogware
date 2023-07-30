@@ -6,7 +6,7 @@ use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
 use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -17,14 +17,14 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 {
     private SeoUrlUpdater $seoUrlUpdater;
 
-    private EntityRepositoryInterface $blogRepository;
+    private EntityRepository $blogRepository;
 
     /**
      * @internal
      */
     public function __construct(
         SeoUrlUpdater $seoUrlUpdater,
-        EntityRepositoryInterface $blogRepository
+        EntityRepository $blogRepository
     ) {
         $this->seoUrlUpdater = $seoUrlUpdater;
         $this->blogRepository = $blogRepository;

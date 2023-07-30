@@ -5,7 +5,7 @@ namespace Sas\BlogModule\Content\SalesChannel\Suggest;
 use Shopware\Core\Content\Product\SalesChannel\Suggest\AbstractProductSuggestRoute;
 use Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRouteResponse;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -19,13 +19,13 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
 {
     private AbstractProductSuggestRoute $decorated;
 
-    private EntityRepositoryInterface $blogRepository;
+    private EntityRepository $blogRepository;
 
     private SystemConfigService $systemConfigService;
 
     public function __construct(
         AbstractProductSuggestRoute $decorated,
-        EntityRepositoryInterface $blogRepository,
+        EntityRepository $blogRepository,
         SystemConfigService $systemConfigService
     ) {
         $this->decorated = $decorated;
@@ -38,6 +38,12 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         return $this->decorated;
     }
 
+    /**
+     * Loads the product suggestions for the given search term.
+     * It calls the decorated method to get the suggestions.
+     * It checks for the enableSearchBox config and if it is disabled, it returns above suggestions.
+     * It gets the blog posts and adds them to the suggestions.
+     */
     public function load(
         Request $request,
         SalesChannelContext $context,
@@ -56,6 +62,14 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         return $response;
     }
 
+    /**
+     * Get blogs from the blog repository with the given search term and limit.
+     * It creates a new criteria and adds the search term and limit to it.
+     * It sets filters for the following fields:
+     * - published: true
+     * - publishedAt: before now
+     * It then executes the criteria and returns the result.
+     */
     private function getBlogs(string $term, int $limit, Context $context): EntitySearchResult
     {
         $criteria = new Criteria();

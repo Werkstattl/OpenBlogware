@@ -54,6 +54,14 @@
             <tag name="shopware.snippet.file"/>
         </service>
 
+        <service id="Sas\BlogModule\Page\Blog\BlogPageLoader" public="true">
+            <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
+            <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
+            <argument id="sas_blog_entries.repository" type="service"/>
+        </service>
+
         <!-- Controller -->
         <service id="Sas\BlogModule\Controller\CachedBlogController" decorates="Sas\BlogModule\Controller\BlogController" decoration-priority="-1000" public="true">
             <argument type="service" id="Sas\BlogModule\Controller\CachedBlogController.inner"/>
@@ -64,16 +72,19 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
+            </call>
         </service>
 
         <service id="Sas\BlogModule\Controller\BlogController" public="true">
-            <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
-            <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
-            <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
-            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument id="Sas\BlogModule\Page\Blog\BlogPageLoader" type="service"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
             </call>
         </service>
 
@@ -86,6 +97,9 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
+            </call>
         </service>
 
         <service id="Sas\BlogModule\Controller\BlogSearchController" public="true">
@@ -93,6 +107,9 @@
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
             </call>
         </service>
 
@@ -121,6 +138,11 @@
         </service>
 
         <!-- End controller -->
+
+        <service id="Sas\BlogModule\Content\Cms\DataResolver\SasCmsSlotsDataResolver" decorates="Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver">
+            <argument type="service" id="Sas\BlogModule\Content\Cms\DataResolver\SasCmsSlotsDataResolver.inner"/>
+            <argument type="tagged" tag="shopware.cms.data_resolver"/>
+        </service>
 
         <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogCmsElementResolver">
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
@@ -176,13 +198,6 @@
         <service id="Sas\BlogModule\Page\Search\BlogSearchPageLoader">
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
             <argument id="sas_blog_entries.repository" type="service"/>
-            <argument type="service" id="event_dispatcher"/>
-        </service>
-
-        <service id="Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider" >
-            <argument type="service" id="sas_blog_entries.repository" />
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <tag name="shopware.sitemap_url_provider" />
         </service>
 
         <service id="Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider" >
@@ -196,6 +211,10 @@
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
             <argument type="service" id="sas_blog_entries.repository" />
             <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="Sas\BlogModule\Subscriber\BlogCacheInvalidSubscriber" >

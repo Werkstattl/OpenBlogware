@@ -136,6 +136,11 @@ class BlogAuthorEntity extends Entity
         $this->displayName = $displayName;
     }
 
+    public function getFullName(): ?string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
     public function getTranslated(): array
     {
         $translated = parent::getTranslated();

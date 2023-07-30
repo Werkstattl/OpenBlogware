@@ -7,6 +7,6 @@ Shopware.Component.register('sas-cms-preview-blog-detail', {
     computed: {
         today() {
             return new Date().toLocaleDateString();
-        }
-    }
+        },
+    },
 });

@@ -1,6 +1,7 @@
 import template from './sas-blog-author-list.html.twig';
-const { Component, Mixin } = Shopware;
 import './sas-blog-author-list.scss';
+
+const { Component, Mixin } = Shopware;
 
 const Criteria = Shopware.Data.Criteria;
 
@@ -12,7 +13,7 @@ Component.register('sas-blog-author-list', {
     mixins: [
         Mixin.getByName('notification'),
         Mixin.getByName('salutation'),
-        Mixin.getByName('listing')
+        Mixin.getByName('listing'),
     ],
 
     data() {
@@ -20,13 +21,13 @@ Component.register('sas-blog-author-list', {
             blogAuthors: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId
+            currentLanguageId: Shopware.Context.api.languageId,
         };
     },
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -53,21 +54,21 @@ Component.register('sas-blog-author-list', {
                     label: 'sas-blog-author.list.table.fullName',
                     routerLink: 'sw.blog.author.detail',
                     allowResize: true,
-                    primary: true
+                    primary: true,
                 }, {
                     property: 'displayName',
                     label: 'sas-blog-author.list.table.displayName',
                     allowResize: true,
-                    inlineEdit: 'string'
+                    inlineEdit: 'string',
                 }, {
                     property: 'email',
                     label: 'sas-blog-author.list.table.email',
                     align: 'right',
                     inlineEdit: 'string',
-                    allowResize: true
-                }
+                    allowResize: true,
+                },
             ];
-        }
+        },
     },
 
     methods: {
@@ -78,7 +79,7 @@ Component.register('sas-blog-author-list', {
 
         getList() {
             this.isLoading = true;
-            const criteria = new Criteria();
+            const criteria = new Criteria(this.page, this.limit);
             criteria.addAssociation('media');
             criteria.addAssociation('salutation');
 
@@ -86,7 +87,7 @@ Component.register('sas-blog-author-list', {
                 this.total = result.total;
                 this.blogAuthors = result;
                 this.isLoading = false;
-            })
-        }
-    }
+            });
+        },
+    },
 });

@@ -8,28 +8,28 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
                 'sas_blog_author:read',
                 'sas_blog_author_translation:read',
             ],
-            dependencies: []
+            dependencies: [],
         },
         editor: {
             privileges: [
                 'sas_blog_author:update',
                 'sas_blog_author_translation:update',
             ],
-            dependencies: []
+            dependencies: [],
         },
         creator: {
             privileges: [
                 'sas_blog_author:create',
                 'sas_blog_author_translation:create',
             ],
-            dependencies: []
+            dependencies: [],
         },
         deleter: {
             privileges: [
                 'sas_blog_author:delete',
                 'sas_blog_author_translation:delete',
             ],
-            dependencies: []
-        }
-    }
+            dependencies: [],
+        },
+    },
 });

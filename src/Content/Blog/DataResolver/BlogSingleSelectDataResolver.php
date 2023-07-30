@@ -9,7 +9,9 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 
 class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
 {
@@ -30,9 +32,15 @@ class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
             return null;
         }
 
+        /** @var mixed $blogId */
+        $blogId = $blogEntryConfig->getValue();
         $criteria->addFilter(
-            new EqualsFilter('id', $blogEntryConfig->getValue())
+            new EqualsFilter('id', $blogId)
         );
+        $criteria->addFilter(new OrFilter([
+            new ContainsFilter('customFields.salesChannelIds', $resolverContext->getSalesChannelContext()->getSalesChannelId()),
+            new EqualsFilter('customFields.salesChannelIds', null),
+        ]));
         $criteria->addAssociations(['blogAuthor', 'blogAuthor.media', 'blogAuthor.blogEntries', 'blogCategories']);
 
         $criteriaCollection = new CriteriaCollection();

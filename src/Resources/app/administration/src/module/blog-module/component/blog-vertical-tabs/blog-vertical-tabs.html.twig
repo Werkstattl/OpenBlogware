@@ -1,4 +1,11 @@
-<sw-tabs isVertical :defaultItem="defaultItem" :small="false" class="sw-blog__tabs" @new-item-active="onChangeTab" >
+<sw-tabs
+    isVertical
+    :defaultItem="defaultItem"
+    :small="false"
+    class="sw-blog__tabs"
+    @new-item-active="onChangeTab"
+    position-identifier="blog-vertical-tabs"
+>
     <template #default="{ active }">
         {% block sas_block_list_tab_item %}
         <sw-tabs-item :title="$tc('sas-blog.general.mainMenuItemList')"

@@ -19,7 +19,7 @@ Component.register('sas-blog-author-detail', {
 
     shortcuts: {
         'SYSTEMKEY+S': 'onSave',
-        ESCAPE: 'onCancel'
+        ESCAPE: 'onCancel',
     },
 
     data() {
@@ -30,13 +30,13 @@ Component.register('sas-blog-author-detail', {
             blogAuthorCustomFieldSets: null,
             processSuccess: false,
             availableTags: null,
-            fileAccept: 'image/*'
+            fileAccept: 'image/*',
         };
     },
 
     metaInfo() {
         return {
-            title: this.$createTitle(this.identifier)
+            title: this.$createTitle(this.identifier),
         };
     },
 
@@ -78,14 +78,14 @@ Component.register('sas-blog-author-detail', {
             return criteria;
         },
 
-        ...mapPropertyErrors("blogAuthor", [
-            "firstName",
-            "lastName",
-            "displayName",
-            "email",
-            "salutationId",
-            "description"
-        ])
+        ...mapPropertyErrors('blogAuthor', [
+            'firstName',
+            'lastName',
+            'displayName',
+            'email',
+            'salutationId',
+            'description',
+        ]),
     },
 
     created() {
@@ -99,7 +99,7 @@ Component.register('sas-blog-author-detail', {
             this.blogAuthorRepository.get(
                 this.$route.params.id,
                 Shopware.Context.api,
-                this.defaultCriteria
+                this.defaultCriteria,
             ).then((blogAuthor) => {
                 this.blogAuthor = blogAuthor;
                 this.isLoading = false;
@@ -119,13 +119,13 @@ Component.register('sas-blog-author-detail', {
                 this.isSaveSuccessful = true;
                 this.createNotificationSuccess({
                     message: this.$tc('sas-blog-author.detail.messageSaveSuccess', 0, {
-                        name: `${this.blogAuthor.firstName} ${this.blogAuthor.lastName}`
-                    })
+                        name: `${this.blogAuthor.firstName} ${this.blogAuthor.lastName}`,
+                    }),
                 });
-                this.$router.push({ name: 'blog.module.author.detail', params: {id: this.blogAuthor.id} });
+                this.$router.push({ name: 'blog.module.author.detail', params: { id: this.blogAuthor.id } });
             }).catch((exception) => {
                 this.createNotificationError({
-                    message: this.$tc('global.notification.unspecifiedSaveErrorMessage')
+                    message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
                 });
                 this.isLoading = false;
                 throw exception;
@@ -151,5 +151,5 @@ Component.register('sas-blog-author-detail', {
         onMediaDropped(dropItem) {
             this.onSetMediaItem({ targetId: dropItem.id });
         },
-    }
+    },
 });

@@ -1,8 +1,8 @@
 import template from './sw-cms-el-blog-single-select.html.twig';
 import './sw-cms-el-blog-single-select.scss';
 
-const { Component, Mixin, Context } = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const { Mixin, Context } = Shopware;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('sw-cms-el-blog-single-select', {
     template,
@@ -10,7 +10,7 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
     inject: ['repositoryFactory'],
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Mixin.getByName('cms-element'),
     ],
 
     created() {
@@ -23,8 +23,8 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
             title: 'Placeholder Article Title',
             teaser: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus maximus velit, dictum mollis erat finibus quis. Ut dictum ornare dolor, sed mattis tellus gravida vel.',
             mediaUrl: null,
-            categoryName: 'Placeholder Category'
-        }
+            categoryName: 'Placeholder Category',
+        };
     },
 
     computed: {
@@ -38,7 +38,7 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
 
         selectedBlogEntry() {
             return this.element.config.blogEntry.value;
-        }
+        },
     },
 
     methods: {
@@ -52,20 +52,20 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
         },
 
         getEntityProperties() {
-            
+
             if (this.element.config.blogEntry.value) {
                 const criteria = new Criteria();
                 criteria.addAssociation('blogCategories');
 
                 this.repository
-                .get(this.element.config.blogEntry.value, Context.api, criteria)
-                .then((entity) => {
+                    .get(this.element.config.blogEntry.value, Context.api, criteria)
+                    .then((entity) => {
                         this.article = entity;
                         this.title = this.article.translated.title;
                         this.teaser = this.article.translated.teaser;
                         this.mediaUrl = this.article.media.url;
                         this.categoryName = this.article.blogCategories[0] ? this.article.blogCategories[0].translated.name : null;
-                });
+                    });
             } else {
                 this.article = null;
                 this.title = 'Placeholder Article Title';
@@ -73,13 +73,13 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
                 this.mediaUrl = null;
                 this.categoryName = 'Placeholder Category';
             }
-        }
+        },
 
     },
 
     watch: {
         selectedBlogEntry: function () {
             this.getEntityProperties();
-        }
+        },
     },
 });

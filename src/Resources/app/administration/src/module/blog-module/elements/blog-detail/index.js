@@ -11,11 +11,11 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         showCategory: {
             source: 'static',
-            value: true
+            value: true,
         },
         showAuthor: {
             source: 'static',
-            value: true
-        }
-    }
+            value: true,
+        },
+    },
 });

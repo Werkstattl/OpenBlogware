@@ -9,7 +9,7 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
                 'sas_blog_entries_translation:read',
                 'sas_blog_blog_category:read',
             ],
-            dependencies: []
+            dependencies: [],
         },
         editor: {
             privileges: [
@@ -17,7 +17,7 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
                 'sas_blog_entries_translation:update',
                 'system_config:read',
             ],
-            dependencies: []
+            dependencies: [],
         },
         creator: {
             privileges: [
@@ -26,14 +26,14 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
                 'sas_blog_blog_category:create',
                 'system_config:read',
             ],
-            dependencies: []
+            dependencies: [],
         },
         deleter: {
             privileges: [
                 'sas_blog_entries:delete',
                 'sas_blog_entries_translation:delete',
             ],
-            dependencies: []
-        }
-    }
+            dependencies: [],
+        },
+    },
 });

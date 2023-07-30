@@ -1,0 +1,21 @@
+{% block sw_cms_section_content_block_slot %}
+<sas-cms-slot
+    v-for="el in block.slots"
+    :slot="el.slot"
+    :key="el.id"
+    :element="el"
+    :disabled="disabled"
+    :active="selectedBlock !== null && selectedBlock.id === block.id"
+/>
+{% endblock %}
+
+{% block sw_cms_section_content_block_component_slot %}
+<sas-cms-slot
+    v-for="el in block.slots"
+    :slot="el.slot"
+    :key="el.id"
+    :element="el"
+    :disabled="disabled"
+    :active="selectedBlock !== null && selectedBlock.id === block.id"
+/>
+{% endblock %}

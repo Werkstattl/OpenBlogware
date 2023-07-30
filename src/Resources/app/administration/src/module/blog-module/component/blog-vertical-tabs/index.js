@@ -8,13 +8,13 @@ Component.register('sas-blog-vertical-tabs', {
     props: {
         defaultItem: {
             type: String,
-            default: 'blog'
-        }
+            default: 'blog',
+        },
     },
 
     methods: {
         onChangeTab(name) {
             this.currentTab = name;
-        }
-    }
+        },
+    },
 });

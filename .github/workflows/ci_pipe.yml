@@ -1,0 +1,216 @@
+name: CI Pipeline
+
+on: [push]
+
+jobs:
+    eslint:
+        name: ESLint
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Clone Code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.1
+
+            -   name: Install Dependencies
+                run: make dev -B
+
+            -   name: Run ESLint
+                run: make eslint -B
+
+    # ------------------------------------------------------------------------------------------------------------------------
+
+    php_checks:
+        name: PHP Syntax Checks
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Clone Code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.1
+
+            -   name: PHP Syntax Checks
+                run: make phpcheck -B
+
+    phpunit:
+        name: Unit Tests | PHP ${{ matrix.php }}
+        needs: php_checks
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: [ '8.1' ]
+        steps:
+            - name: Clone Code
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Dependencies
+              run: make dev -B
+
+            - name: Run PHPUnit
+              run: make phpunit -B
+
+    infection:
+        name: Mutation Tests | PHP ${{ matrix.php }}
+        needs: phpunit
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: [ '8.1' ]
+        steps:
+            - name: Clone Code
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Dependencies
+              run: make dev -B
+
+            - name: Run Infection
+              run: make infection -B
+
+    phpcsfixer:
+        name: PHP CS Fixer
+        needs: infection
+        runs-on: ubuntu-latest
+        steps:
+
+            - name: Clone Code
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.1
+
+            - name: Install Dependencies
+              run: make dev -B
+
+            - name: Run PHP CS Fixer
+              run: make csfix -B
+
+    # ------------------------------------------------------------------------------------------------------------------------
+
+    integration:
+        name: Integration Tests | Shopware ${{ matrix.shopware }}
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                shopware: [ '6.5.0.0' ]
+        steps:
+
+            - name: Clone Code
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.1
+
+            - name: Install PROD Dependencies
+              run: make install -B
+
+            - name: Start Docker
+              run: |
+                  docker run --rm --name shop -d dockware/dev:${{ matrix.shopware }}
+                  sleep 30
+                  docker logs shop
+
+            - name: Upload into Docker
+              run: |
+                  docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+                  docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
+
+            - name: Install and Build Plugin
+              run: |
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make clean'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build'
+
+    # ------------------------------------------------------------------------------------------------------------------------
+
+    e2e:
+        name: E2E Tests | Shopware ${{ matrix.shopware }}, PHP ${{ matrix.php }}
+        needs: integration
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - shopware: '6.5.0.0'
+                      php: '8.1'
+        steps:
+
+            - name: Clone Code
+              uses: actions/checkout@v2
+
+            - name: Download Docker
+              run: |
+                  docker pull dockware/dev:${{ matrix.shopware }}
+
+            - name: Start Docker
+              run: |
+                  docker run --rm -p 443:443 --name shop --env PHP_VERSION=${{ matrix.php }} -d dockware/dev:${{ matrix.shopware }}
+                  sleep 30
+                  docker logs shop
+                  # now change the domain of our shop, blog doesn't work with localhost
+                  sudo echo "127.0.0.1 local.blog.shop" | sudo tee -a /etc/hosts
+                  docker exec shop bash -c "mysql -u root -proot shopware -e \"UPDATE sales_channel_domain SET url='https://local.blog.shop' WHERE url NOT LIKE 'default.%';\""
+
+            - name: Upload into Docker
+              run: |
+                  docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+                  docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
+
+            - name: Install and Build Artifacts
+              run: |
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install -B'
+                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build -B'
+
+            - name: Install/Configure Plugin
+              run: |
+                  docker exec shop bash -c 'php bin/console plugin:refresh'
+                  docker exec shop bash -c 'php bin/console plugin:install SasBlogModule --activate'
+                  docker exec shop bash -c 'php bin/console cache:clear'
+
+            - name: Install Cypress
+              run: cd tests/Cypress && make install -B
+
+            - name: Prepare Cypress
+              run: cd tests/Cypress && cp cypress.example.json cypress.json
+
+            - name: Start Cypress
+              run: cd tests/Cypress && make run shopware=${{ matrix.shopware }} url=https://local.blog.shop
+
+            - name: Download Logs
+              if: ${{ always() }}
+              run: |
+                  mkdir -p $(pwd)/tests/Cypress/cypress/logs/shopware
+                  mkdir -p $(pwd)/tests/Cypress/cypress/logs/apache
+                  docker cp shop:/var/www/html/var/log/. $(pwd)/tests/Cypress/cypress/logs/shopware
+                  docker cp shop:/var/log/php/. $(pwd)/tests/Cypress/cypress/logs/apache
+
+            - name: Store Cypress Results
+              if: ${{ always() }}
+              uses: actions/upload-artifact@v2
+              with:
+                  name: cypress_results_sw_v${{ matrix.shopware }}
+                  retention-days: 1
+                  path: |
+                      tests/Cypress/cypress/logs
+                      tests/Cypress/cypress/videos
+                      tests/Cypress/cypress/screenshots

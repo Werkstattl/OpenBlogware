@@ -40,6 +40,6 @@ Component.extend('sas-blog-category-tree-field', 'sw-category-tree-field', {
 
             // search for categories
             return this.globalCategoryRepository.search(categorySearchCriteria, Shopware.Context.api);
-        }
-    }
+        },
+    },
 });
