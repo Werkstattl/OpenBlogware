@@ -1,3 +1,6 @@
+# 2.0.0 
+-  Feature hinzugefügt: Blog Artikel können nun mittels CMS Designer gestaltet werden
+
 # 1.5.15
 
 - Fixed `Serialization of 'Closure' is not allowed` während der Komprimierung von Cache-Daten in den Klassen `CachedBlogController`, `CachedBlogRssController` und `CachedBlogSearchController`.

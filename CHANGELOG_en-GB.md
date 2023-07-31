@@ -1,3 +1,6 @@
+# 2.0.0 
+- Added feature to be able to create blog entries with the CMS designer
+
 # 1.5.15
 
 - Fix error `Serialization of 'Closure' is not allowed` while compressing cache data in `CachedBlogController`, `CachedBlogRssController`, and `CachedBlogSearchController` classes.
