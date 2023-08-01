@@ -1,3 +1,6 @@
+# 2.0.2
+- Fixed composer version
+
 # 2.0.1
 - Fixed `Replace` im CMS-Designer nicht angezeigt wurde
 
