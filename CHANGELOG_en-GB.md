@@ -1,3 +1,6 @@
+# 2.0.1
+- Fixed `Replace` button did not show on CMS designer
+
 # 2.0.0 
 - Added feature to be able to create blog entries with the CMS designer
 

@@ -1,3 +1,6 @@
+# 2.0.1
+- Fixed `Replace` im CMS-Designer nicht angezeigt wurde
+
 # 2.0.0 
 -  Feature hinzugefügt: Blog Artikel können nun mittels CMS Designer gestaltet werden
 

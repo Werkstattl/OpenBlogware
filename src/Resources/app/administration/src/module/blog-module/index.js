@@ -14,7 +14,6 @@ import './extension/sw-cms/page/sw-cms-list';
 import './extension/component/form/sas-text-field';
 import './extension/component/form/sas-textarea-field';
 import './extension/component/cms/sas-cms-section';
-import './extension/component/cms/sas-cms-slot';
 import './extension/component/cms/sas-cms-sidebar';
 
 /**
