@@ -1,3 +1,6 @@
+# 2.0.3
+- Fehler behoben, dass die SEO-URL-Vorlage nach dem Entfernen des Plugins nicht gespeichert werden kann, ohne das Kontrollkästchen `Remove all app data permanently` zu aktivieren
+
 # 2.0.2
 - Fixed composer version
 

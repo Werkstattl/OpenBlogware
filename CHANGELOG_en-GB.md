@@ -1,3 +1,6 @@
+# 2.0.3
+- Fixed the error that the SEO URL template can't be saved after removing the plugin without checking the `Remove all app data permanently` checkbox
+
 # 2.0.2
 - Fixed composer version
 

@@ -45,6 +45,9 @@ class SasBlogModule extends Plugin
     {
         parent::uninstall($context);
 
+        // Always remove the SEO url template to avoid error that can't be changed afterward.
+        $this->deleteSeoUrlTemplate($context->getContext());
+
         if ($context->keepUserData()) {
             return;
         }
@@ -56,7 +59,6 @@ class SasBlogModule extends Plugin
          */
         $this->deleteMediaFolder($context->getContext());
         $this->deleteDefaultMediaFolder($context->getContext());
-        $this->deleteSeoUrlTemplate($context->getContext());
 
         /**
          * And of course we need to drop our tables
