@@ -1,3 +1,6 @@
+# 2.0.4
+- Updated the sidebar snippet to be compatible with the new structure of Shopware 6.5's snippets
+
 # 2.0.3
 - Fehler behoben, dass die SEO-URL-Vorlage nach dem Entfernen des Plugins nicht gespeichert werden kann, ohne das Kontrollkästchen `Remove all app data permanently` zu aktivieren
 

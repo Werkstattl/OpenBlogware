@@ -1,3 +1,6 @@
+# 2.0.4
+- Updated the sidebar snippet to be compatible with the new structure of Shopware 6.5's snippets
+
 # 2.0.3
 - Fixed the error that the SEO URL template can't be saved after removing the plugin without checking the `Remove all app data permanently` checkbox
 
