@@ -68,11 +68,12 @@
                             </div>
                         {% endif %}
                     {% endblock %}
-
                     {% block sas_blog_detail_article_blocks_content %}
-                        <div>
-                            {{ element.data.translated.content|raw }}
-                        </div>
+                        {% if not element.data.cmsPage %}
+                            <div>
+                                {{ element.data.translated.content|raw }}
+                            </div>
+                        {% endif %}
                     {% endblock %}
                 </div>
 

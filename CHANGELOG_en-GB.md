@@ -1,3 +1,6 @@
+# 2.0.5
+- Fixed a bug that cause the blog content to be duplicated at Storefront
+
 # 2.0.4
 - Updated the sidebar snippet to be compatible with the new structure of Shopware 6.5's snippets
 
