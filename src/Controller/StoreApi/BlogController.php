@@ -7,7 +7,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
-use Shopware\Core\Framework\Routing\Annotation\Entity;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,6 @@ class BlogController extends AbstractBlogController
     }
 
     /**
-     * @Entity("sas_blog_entries")
      * @OA\Get(
      *      path="/store-api/blog",
      *      summary="This route can be used to load the sas_blog_entries by specific filters",
@@ -63,7 +61,7 @@ class BlogController extends AbstractBlogController
      *          )
      *     )
      * )
-     * @Route("/store-api/blog", name="store-api.sas.blog.load", methods={"GET","POST"})
+     * @Route("/store-api/blog", name="store-api.sas.blog.load", methods={"GET","POST"}, defaults={"_entity"="sas_blog_entries"})
      */
     public function load(Request $request, Criteria $criteria, SalesChannelContext $context): BlogControllerResponse
     {

@@ -79,7 +79,7 @@ class BlogEntriesDefinition extends EntityDefinition
 
             (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_entries_id', 'sas_blog_category_id'))->addFlags(new CascadeDelete(), new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             (new ManyToOneAssociationField('blogAuthor', 'author_id', BlogAuthorDefinition::class, 'id', false))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
-            (new OneToOneAssociationField('cmsPage', 'cms_page_id', 'id', CmsPageDefinition::class, false)),
+            (new OneToOneAssociationField('cmsPage', 'cms_page_id', 'id', CmsPageDefinition::class, false))->addFlags(new ApiAware()),
         ]);
     }
 }

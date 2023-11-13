@@ -22,7 +22,7 @@ class BlogCategoryEntity extends Entity
 
     protected ?int $childCount;
 
-    protected string $name;
+    protected ?string $name = null;
 
     protected ?array $customFields;
 
@@ -111,12 +111,12 @@ class BlogCategoryEntity extends Entity
         $this->childCount = $childCount;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }

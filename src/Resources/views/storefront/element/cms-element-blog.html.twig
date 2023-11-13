@@ -1,10 +1,10 @@
 {% block sas_element_blog_listing %}
-
+    {% set cmsPage = page.landingPage ? page.landingPage.cmsPage : page.cmsPage %}
     {# @var result \Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult #}
     {% set searchResult = element.data %}
     {% set config = element.fieldConfig.elements %}
 
-    {% set slot = page.cmsPage.firstElementOfType('blog') %}
+    {% set slot = cmsPage.firstElementOfType('blog') %}
 
     {% set filterUrl = null %}
     {% set dataUrl = null %}

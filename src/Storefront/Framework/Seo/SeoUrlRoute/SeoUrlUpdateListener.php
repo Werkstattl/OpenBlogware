@@ -54,6 +54,10 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
         }
 
         $blogArticlesIds = $this->getBlogArticlesIds($event->getContext());
+        if (\count($blogArticlesIds) === 0) {
+            return;
+        }
+
         $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $blogArticlesIds);
     }
 

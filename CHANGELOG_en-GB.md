@@ -1,3 +1,9 @@
+# 2.0.6
+- Fixed for issue [#201](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/201)
+- Fixed for issue [#200](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/200)
+- Fixed for issue [#199](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/199)
+- Fixed for issue [#195](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/195)
+
 # 2.0.5
 - Fixed a bug that cause the blog content to be duplicated at Storefront
 
