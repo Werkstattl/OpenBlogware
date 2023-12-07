@@ -5,5 +5,6 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <import resource="routes/storefront.xml"/>
     <import resource="../../Controller" type="annotation" />
 </routes>

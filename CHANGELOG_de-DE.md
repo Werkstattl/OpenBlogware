@@ -1,3 +1,6 @@
+# 2.0.7
+- Gelöst für das Problem [#201](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/201)
+- 
 # 2.0.6
 - Gelöst für das Problem [#201](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/201)
 - Gelöst für das Problem [#200](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/200)

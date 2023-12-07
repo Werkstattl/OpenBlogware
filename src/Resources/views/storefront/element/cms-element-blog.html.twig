@@ -9,8 +9,9 @@
     {% set filterUrl = null %}
     {% set dataUrl = null %}
 
-    {% if page.header.navigation.active.id %}
-        {% set filterUrl = url('frontend.cms.navigation.filter', { navigationId: page.header.navigation.active.id }) %}
+    {% if page.landingPage %}
+        {% set dataUrl = url('frontend.landing.page', { landingPageId: page.landingPage.id }) %}
+    {% elseif page.header.navigation.active.id %}
         {% set dataUrl = url('frontend.cms.navigation.page', { navigationId: page.header.navigation.active.id }) %}
     {% endif %}
 
