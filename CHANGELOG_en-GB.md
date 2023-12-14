@@ -1,3 +1,6 @@
+# 2.0.8
+- Fixed for issue [#206](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/206)
+- 
 # 2.0.7
 - Fixed for issue [#201](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/201)
 

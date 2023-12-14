@@ -1,7 +1,7 @@
 {
     "name": "sas/blog-module",
     "description": "Blog Module",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
