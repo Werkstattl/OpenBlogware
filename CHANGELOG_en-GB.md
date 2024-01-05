@@ -1,6 +1,10 @@
+# 2.0.9
+- Set the salutation of Blog Author to be nullable to compatible with Shopware 6.5 and prevent the error when upgrading from Shopware 6.4 to 6.5
+- Invalidate cache when editing blog entry
+
 # 2.0.8
 - Fixed for issue [#206](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/206)
-- 
+
 # 2.0.7
 - Fixed for issue [#201](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/201)
 

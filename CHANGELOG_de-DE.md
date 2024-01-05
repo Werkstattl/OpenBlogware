@@ -1,3 +1,7 @@
+# 2.0.9
+- Setzen Sie die Begrüßung des Blog-Autors als nullable, um die Kompatibilität mit Shopware 6.5 zu gewährleisten und Fehler bei einem Upgrade von Shopware 6.4 auf 6.5 zu verhindern.
+- Leeren Sie den Cache, wenn ein Blog-Eintrag bearbeitet wird.
+
 # 2.0.8
 - Gelöst für das Problem [#206](https://github.com/ChristopherDosin/Shopware-6-Blog-Plugin/issues/206)
 

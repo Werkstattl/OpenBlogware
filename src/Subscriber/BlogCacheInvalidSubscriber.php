@@ -7,6 +7,7 @@ use Sas\BlogModule\Controller\CachedBlogController;
 use Sas\BlogModule\Controller\CachedBlogRssController;
 use Sas\BlogModule\Controller\CachedBlogSearchController;
 use Shopware\Core\Content\Category\SalesChannel\CachedCategoryRoute;
+use Shopware\Core\Content\Cms\CmsPageEvents;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Adapter\Cache\CacheInvalidator;
@@ -16,6 +17,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityDeletedEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,6 +32,8 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
 
     private EntityRepository $categoryRepository;
 
+    private EntityRepository $blogRepository;
+
     private CacheInvalidator $cacheInvalidator;
 
     private SystemConfigService $systemConfigService;
@@ -37,11 +41,13 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     public function __construct(
         SeoUrlUpdater $seoUrlUpdater,
         EntityRepository $categoryRepository,
+        EntityRepository $blogRepository,
         CacheInvalidator $cacheInvalidator,
         SystemConfigService $systemConfigService
     ) {
         $this->seoUrlUpdater = $seoUrlUpdater;
         $this->categoryRepository = $categoryRepository;
+        $this->blogRepository = $blogRepository;
         $this->cacheInvalidator = $cacheInvalidator;
         $this->systemConfigService = $systemConfigService;
     }
@@ -49,6 +55,10 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            CmsPageEvents::PAGE_WRITTEN_EVENT => [
+                ['onUpdateSeoUrlCmsPage', 10],
+                ['onUpdateInvalidateCacheCmsPage', 11],
+            ],
             'sas_blog_entries.written' => [
                 ['onUpdateSeoUrl', 10],
                 ['onUpdateInvalidateCache', 11],
@@ -61,6 +71,22 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
                 ['updateSeoUrlForAllArticles', 10],
             ],
         ];
+    }
+
+    public function onUpdateSeoUrlCmsPage(EntityWrittenEvent $event): void
+    {
+        $blogIds = $this->getBlogIds($event);
+
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $blogIds);
+    }
+
+    public function onUpdateInvalidateCacheCmsPage(EntityWrittenEvent $event): void
+    {
+        $blogIds = $this->getBlogIds($event);
+
+        $this->invalidateCache($blogIds);
+
+        $this->invalidateCacheCategory($event->getContext());
     }
 
     /**
@@ -154,5 +180,13 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
         $this->cacheInvalidator->invalidate(
             array_map([EntityCacheKeyGenerator::class, 'buildCmsTag'], [$cmsBlogDetailPageId])
         );
+    }
+
+    private function getBlogIds(EntityWrittenEvent $event): array
+    {
+        return $this->blogRepository->searchIds(
+            (new Criteria())->addFilter(new EqualsAnyFilter('cmsPageId', $event->getIds())),
+            $event->getContext()
+        )->getIds();
     }
 }

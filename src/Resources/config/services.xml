@@ -220,6 +220,7 @@
         <service id="Sas\BlogModule\Subscriber\BlogCacheInvalidSubscriber" >
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
             <argument type="service" id="category.repository"/>
+            <argument type="service" id="sas_blog_entries.repository"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheInvalidator"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
 

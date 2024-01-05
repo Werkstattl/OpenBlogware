@@ -47,7 +47,7 @@ class BlogAuthorDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey(), new ApiAware()),
 
             (new FkField('media_id', 'mediaId', MediaDefinition::class))->addFlags(new ApiAware()),
-            (new FkField('salutation_id', 'salutationId', SalutationDefinition::class))->addFlags(new Required()),
+            (new FkField('salutation_id', 'salutationId', SalutationDefinition::class))->addFlags(new ApiAware()),
 
             (new StringField('first_name', 'firstName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING), new ApiAware()),
             (new StringField('last_name', 'lastName'))->addFlags(new Required(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING), new ApiAware()),
