@@ -76,6 +76,9 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     public function onUpdateSeoUrlCmsPage(EntityWrittenEvent $event): void
     {
         $blogIds = $this->getBlogIds($event);
+        if (empty($blogIds)) {
+            return;
+        }
 
         $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $blogIds);
     }
@@ -83,6 +86,9 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     public function onUpdateInvalidateCacheCmsPage(EntityWrittenEvent $event): void
     {
         $blogIds = $this->getBlogIds($event);
+        if (empty($blogIds)) {
+            return;
+        }
 
         $this->invalidateCache($blogIds);
 

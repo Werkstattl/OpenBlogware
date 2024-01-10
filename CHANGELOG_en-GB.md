@@ -1,3 +1,6 @@
+# 2.10.0
+- Checked list of blog ids before invalidating cache
+
 # 2.0.9
 - Set the salutation of Blog Author to be nullable to compatible with Shopware 6.5 and prevent the error when upgrading from Shopware 6.4 to 6.5
 - Invalidate cache when editing blog entry
