@@ -49,3 +49,7 @@ where you can also select from all available variables.
 ## RSS Feed
 For access **RSS Feed** url you can use this path `/blog/rss`
 Example(`http://Your-domain/blog/rss`)
+
+## Credits
+
+- [ChristopherDosin](https://github.com/ChristopherDosin) - Original Creator
