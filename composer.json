@@ -1,7 +1,7 @@
 {
-    "name": "sas/blog-module",
-    "description": "Blog Module",
-    "version": "2.10.0",
+    "name": "thomaspeissl/blog-module-mit",
+    "description": "Blog Module MIT",
+    "version": "2.10.0-mit",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
@@ -30,20 +30,12 @@
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by SMK Shape & Shift LTD",
         "label": {
-            "de-DE": "Blog Module",
-            "en-GB": "Blog Module"
+            "de-DE": "Blog Module MIT",
+            "en-GB": "Blog Module MIT"
         },
         "description": {
             "de-DE": "Dieses Plugin fügt Ihrem Shopware-Shop eine leistungsstarke Blog-Funktionalität hinzu. Erstellen, verwalten und veröffentlichen Sie ganz einfach Blog-Posts und -Seiten.",
             "en-GB": "This plugin adds a powerful blog functionality to your Shopware store. Easily create, manage, and publish blog posts and pages, and engage customers with content marketing."
-        },
-        "manufacturerLink": {
-            "en-GB": "https://shapeandshift.dev",
-            "de-DE": "https://shapeandshift.dev"
-        },
-        "supportLink": {
-            "de-DE": "https://shapeandshift.dev",
-            "en-GB": "https://shapeandshift.dev"
         }
     },
     "autoload": {
