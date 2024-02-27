@@ -1,7 +1,7 @@
 {
     "name": "thomaspeissl/blog-module-mit",
     "description": "Blog Module MIT",
-    "version": "2.10.0-mit",
+    "version": "2.10.0",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
