@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
+use Shopware\Core\Framework\Util\Json;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * Handle Cache for BlogController
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogController extends StorefrontController
 {
     private BlogController $decorated;
@@ -49,9 +49,7 @@ class CachedBlogController extends StorefrontController
         return 'sas-blog-detail-' . $articleId;
     }
 
-    /**
-     * @Route("/sas_blog/{articleId}", name="sas.frontend.blog.detail", methods={"GET"})
-     */
+    #[Route(path: '/sas_blog/{articleId}', name: 'sas.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $articleId = $request->attributes->get('articleId');
@@ -74,7 +72,7 @@ class CachedBlogController extends StorefrontController
             $this->generator->getSalesChannelContextHash($context),
         ];
 
-        return self::buildName($articleId) . '-' . md5(JsonFieldSerializer::encodeJson($parts));
+        return self::buildName($articleId) . '-' . md5(Json::encode($parts));
     }
 
     /**

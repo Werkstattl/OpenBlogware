@@ -64,7 +64,7 @@ phpcheck: ## Starts the PHP syntax checks
 	@find . -name '*.php' -not -path "./vendor/*" -not -path "./tests/*" | xargs -n 1 -P4 php -l
 
 csfix: ## Starts the PHP CS Fixer, set [mode=fix] to auto fix
-	php ./vendor/bin/ecs check src --config easy-coding-standard.php --fix
+	php ./vendor/bin/ecs check . --config easy-coding-standard.php --fix
 
 review: ## Review
 	@make phpcheck -B

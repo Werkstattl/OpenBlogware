@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Page\Blog;
 
@@ -9,7 +10,6 @@ use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\Exception\ConfigurationNotFoundException;
@@ -54,7 +54,7 @@ class BlogPageLoader
      *
      * @throws PageNotFoundException
      * @throws InconsistentCriteriaIdsException
-     * @throws MissingRequestParameterException
+     * @throws RoutingException
      * @throws ConfigurationNotFoundException
      */
     public function load(Request $request, SalesChannelContext $context): BlogPage

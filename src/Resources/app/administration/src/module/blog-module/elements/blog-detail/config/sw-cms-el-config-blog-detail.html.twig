@@ -11,12 +11,12 @@
 
             <sw-checkbox-field
                 :label="$tc('sas-blog.elements.detail.config.showMeta.showAuthor')"
-                v-model="element.config.showAuthor.value">
+                v-model:value="element.config.showAuthor.value">
             </sw-checkbox-field>
 
             <sw-checkbox-field
                 :label="$tc('sas-blog.elements.detail.config.showMeta.showCategory')"
-                v-model="element.config.showCategory.value">
+                v-model:value="element.config.showCategory.value">
             </sw-checkbox-field>
         </sw-card>
     {% endblock %}

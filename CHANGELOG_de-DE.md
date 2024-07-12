@@ -1,3 +1,6 @@
+# 3.0.0
+- Kompatibilität mit Shopware 6.6
+
 # 2.10.0
 - Überprüfte die Liste der Blog-IDs, bevor der Cache ungültig gemacht wurde.
 

@@ -43,6 +43,10 @@ Component.register('sas-blog-list', {
             return this.repositoryFactory.create('sas_blog_category');
         },
 
+        dateFilter() {
+            return Shopware.Filter.getByName('date');
+        },
+
         columns() {
             return [
                 {
@@ -56,6 +60,11 @@ Component.register('sas-blog-list', {
                 {
                     property: 'author',
                     label: this.$tc('sas-blog.list.table.author'),
+                    inlineEdit: false,
+                },
+                {
+                    property: 'publishedAt',
+                    label: this.$tc('sas-blog.list.table.publishedAt'),
                     inlineEdit: false,
                 },
                 {

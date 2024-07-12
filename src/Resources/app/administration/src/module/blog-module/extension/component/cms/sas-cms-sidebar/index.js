@@ -108,15 +108,15 @@ Component.extend('sas-cms-sidebar', 'sw-cms-sidebar', {
 
         openBlogDetailSideBar() {
             this.$nextTick(() => {
-                if (!this.$refs.blogDetailSidebar) {
+                if (!this.$refs.sidebarItem) {
                     return;
                 }
 
-                if (typeof this.$refs.blogDetailSidebar.openContent !== 'function') {
+                if (typeof this.$refs.sidebarItem.openContent !== 'function') {
                     return;
                 }
 
-                this.$refs.blogDetailSidebar.openContent();
+                this.$refs.sidebarItem.openContent();
             });
         },
     },

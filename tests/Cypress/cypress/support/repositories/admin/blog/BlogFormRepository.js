@@ -69,7 +69,7 @@ class BlogFormRepository {
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
     getFirstCategory() {
-        return cy.get('.sw-tree-item input[type="checkbox"]');
+        return cy.get('.sw-tree-item input[type="checkbox"]').first();
     }
 
     /**

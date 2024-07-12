@@ -1,6 +1,6 @@
 {% block sas_blog_author_detail %}
 <sw-page class="sas-blog-author-detail">
-    <template slot="smart-bar-header">
+    <template #smart-bar-header>
         <h2>
             {% block sas_blog_author_detail_smart_bar_header_title_text %}
                  {{ salutation(blogAuthor) || $tc('sas-blog-author.detail.title') }}
@@ -8,23 +8,23 @@
         </h2>
     </template>
 
-    <template slot="smart-bar-actions">
-        <sw-button :routerLink="{ name: 'blog.module.author.index' }">
+    <template #smart-bar-actions>
+        <sw-button :router-link="{ name: 'blog.module.author.index' }">
             {{ $tc('sas-blog-author.detail.buttonCancel') }}
         </sw-button>
 
         <sw-button-process
-            :isLoading="isLoading"
-            :processSuccess="processSuccess"
+            :is-loading="isLoading"
+            :process-success="processSuccess"
             variant="primary"
-            @process-finish="saveFinish"
+            @update:process-success="saveFinish"
             @click="onSave">
             {{ $tc('sas-blog-author.detail.buttonSave') }}
         </sw-button-process>
 
     </template>
 
-    <template slot="content">
+    <template #content>
         <sw-card-view>
             <sw-card v-if="blogAuthor" :isLoading="isLoading" :title="$tc('sas-blog-author.detail.title')">
 
@@ -37,7 +37,7 @@
                             :error="blogAuthorSalutationIdError"
                             labelProperty="displayName"
                             required
-                            v-model ="blogAuthor.salutationId">
+                            v-model:value="blogAuthor.salutationId">
                         </sw-entity-single-select>
 
                         <sw-text-field
@@ -45,16 +45,14 @@
                             :error="blogAuthorFirstNameError"
                             :placeholder="$tc('sas-blog-author.detail.firstName.placeholder')"
                             :label="$tc('sas-blog-author.detail.firstName.label')"
-                            v-model="blogAuthor.firstName">
-                        </sw-text-field>
+                            v-model:value="blogAuthor.firstName"/>
 
                         <sw-text-field
                             required
                             :error="blogAuthorLastNameError"
                             :placeholder="$tc('sas-blog-author.detail.lastName.placeholder')"
                             :label="$tc('sas-blog-author.detail.lastName.label')"
-                            v-model="blogAuthor.lastName">
-                        </sw-text-field>
+                            v-model:value="blogAuthor.lastName"/>
                     </sw-container>
 
                     <sw-container columns="6fr 4fr" gap="24px">
@@ -62,16 +60,14 @@
                             :error="blogAuthorDisplayNameError"
                             :placeholder="$tc('sas-blog-author.detail.displayName.placeholder')"
                             :label="$tc('sas-blog-author.detail.displayName.label')"
-                            v-model="blogAuthor.displayName">
-                        </sw-text-field>
+                            v-model:value="blogAuthor.displayName"/>
 
                         <sw-text-field
                             required
                             :error="blogAuthorEmailError"
                             :placeholder="$tc('sas-blog-author.detail.email.placeholder')"
                             :label="$tc('sas-blog-author.detail.email.label')"
-                            v-model="blogAuthor.email">
-                        </sw-text-field>
+                            v-model:value="blogAuthor.email"/>
                     </sw-container>
 
                 <sw-container columns="1fr" gap="32px">
@@ -79,7 +75,7 @@
                         :label="$tc('sas-blog-author.detail.description.label')"
                         :placeholder="$tc('sas-blog-author.detail.description.placeholder')"
                         :error="blogAuthorDescriptionError"
-                        v-model="blogAuthor.description">
+                        v-model:value="blogAuthor.description">
                     </sw-text-editor>
                 </sw-container>
 

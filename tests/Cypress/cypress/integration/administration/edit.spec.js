@@ -9,9 +9,10 @@ const expectedBlogSlug = 'blog-entry-title';
 
 describe('Test blog form on sidebar at blog detail page', () => {
     beforeEach(() => {
-        cy.loginViaApi().then(() => {
+        cy.authenticate().then(() => {
             cy.viewport(1920, 1080);
             cy.openInitialPage(`${Cypress.env('admin')}#/blog/module/create`);
+            blogDetailAction.openSidebar();
         });
     });
 

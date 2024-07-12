@@ -15,7 +15,8 @@
             "table": {
                 "title": "Title",
                 "active": "Active",
-                "author": "Author"
+                "author": "Author",
+                "publishedAt": "Published at"
             }
         },
         "detail": {
@@ -210,6 +211,8 @@
             }
         },
         "modal": {
+            "textDeleteConfirm": "Are you sure you really want to delete the blog category \"{name}\"?",
+            "textDeleteChildrenConfirm": "All blog subcategories will be deleted too.",
             "textDeleteMultipleConfirm": "Are you sure you want to delete the {count} selected blogs?"
         }
     },

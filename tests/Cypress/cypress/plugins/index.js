@@ -11,16 +11,12 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-const configFile = require('@shopware-ag/e2e-testsuite-platform/cypress/plugins');
 
+/**
+ * @type {Cypress.PluginConfig}
+ */
+// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
-    on('before:browser:launch', (browser = {}, launchOptions) => {
-        if (browser.name === 'chrome' || browser.name === 'edge') {
-            launchOptions.args.push('--disable-features=SameSiteByDefaultCookies')
-            return launchOptions
-        }
-    })
-
-    // accept a configFile value or use development by default
-    return configFile(on, config);
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
 }

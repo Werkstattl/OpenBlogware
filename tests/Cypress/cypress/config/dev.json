@@ -3,7 +3,7 @@
   "watchForFileChanges": false,
   "trashAssetsBeforeRuns": true,
   "screenshotOnRunFailure": true,
-  "experimentalSessionSupport": true,
+  "experimentalSessionAndOrigin": true,
   "video": false,
   "retries": 1,
   "devices": [

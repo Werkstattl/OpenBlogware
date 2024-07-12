@@ -6,5 +6,5 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <import resource="routes/storefront.xml"/>
-    <import resource="../../Controller" type="annotation" />
+    <import resource="../../Controller" type="attribute" />
 </routes>

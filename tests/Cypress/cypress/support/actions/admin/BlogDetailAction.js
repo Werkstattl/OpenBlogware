@@ -102,6 +102,13 @@ class BlogDetailAction {
     openBlockSidebar() {
         repoCmsPage.getBlockSidebarNavigationItem().click();
     }
+    
+    /**
+     * Open blog detail section in the sidebar
+     */
+    openSidebar() {
+        repoCmsPage.getBlogDetailSidebarNavigationItem().click();
+    }
 
     /**
      * Add full width cms section

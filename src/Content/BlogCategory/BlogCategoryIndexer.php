@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Content\BlogCategory;
 
@@ -87,8 +88,7 @@ class BlogCategoryIndexer extends EntityIndexer
             return null;
         }
 
-        // tree should be updated immediately
-        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $event->getContext());
+        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $event->getContext(), false);
 
         $children = $this->fetchChildren($ids, $event->getContext()->getVersionId());
 
@@ -114,7 +114,7 @@ class BlogCategoryIndexer extends EntityIndexer
         $this->childCountUpdater->update(BlogCategoryDefinition::ENTITY_NAME, $ids, $context);
 
         // listen to parent id changes
-        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $context);
+        $this->treeUpdater->batchUpdate($ids, BlogCategoryDefinition::ENTITY_NAME, $context, false);
 
         $this->connection->commit();
     }

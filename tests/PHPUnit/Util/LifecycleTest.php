@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Util;
 
@@ -18,7 +19,7 @@ class LifecycleTest extends TestCase
 
     private EntityRepository $cmsPageRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->systemConfigService = $this->createMock(SystemConfigService::class);
         $this->cmsPageRepository = $this->createMock(EntityRepository::class);

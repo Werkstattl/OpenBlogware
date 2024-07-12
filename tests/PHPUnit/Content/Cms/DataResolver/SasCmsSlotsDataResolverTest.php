@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Content\Cms\DataResolver;
 
@@ -31,7 +32,7 @@ class SasCmsSlotsDataResolverTest extends TestCase
 
     private SasCmsSlotsDataResolver $sasCmsSlotsDataResolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->decorated = $this->createMock(CmsSlotsDataResolver::class);
 

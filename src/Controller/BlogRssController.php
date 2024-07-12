@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
@@ -16,9 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Rss controller
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogRssController extends StorefrontController
 {
     private GenericPageLoaderInterface $genericPageLoader;
@@ -33,9 +33,7 @@ class BlogRssController extends StorefrontController
         $this->blogRepository = $blogRepository;
     }
 
-    /**
-     * @Route("/blog/rss", name="frontend.sas.blog.rss", methods={"GET"})
-     */
+    #[Route(path: '/blog/rss', name: 'frontend.sas.blog.rss', methods: ['GET'])]
     public function rss(Request $request, SalesChannelContext $context): Response
     {
         $dateTime = new \DateTime();

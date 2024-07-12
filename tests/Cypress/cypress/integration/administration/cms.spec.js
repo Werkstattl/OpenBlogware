@@ -5,7 +5,7 @@ const blogTitle = 'Blog Entry Title';
 
 describe('Blog CMS: content with cms blocks', () => {
     beforeEach(() => {
-        cy.loginViaApi()
+        cy.authenticate()
             .then(() => {
                 cy.viewport(1920, 1080);
                 cy.openInitialPage(`${Cypress.env('admin')}#/blog/module/create`);
@@ -20,6 +20,7 @@ describe('Blog CMS: content with cms blocks', () => {
     });
 
     it.only('@content: can drag block to stage', () => {
+        blogDetailAction.openSidebar();
 
         blogDetailAction.fillBlogForm(blogTitle, true, true, true);
 
