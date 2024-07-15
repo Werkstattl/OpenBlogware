@@ -9,7 +9,6 @@ use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldVisibility;
 use Shopware\Core\System\Salutation\SalutationEntity;
 
 class BlogAuthorEntity extends Entity
@@ -31,26 +30,19 @@ class BlogAuthorEntity extends Entity
 
     protected ?string $description;
 
-    protected ?BlogAuthorTranslationCollection $translations;
+    /**
+     * @var BlogAuthorTranslationCollection|null
+     */
+    protected $translations;
 
-    protected ?BlogEntriesCollection $blogEntries;
+    /**
+     * @var BlogEntriesCollection|null
+     */
+    protected $blogEntries;
 
     protected string $mediaId;
 
     protected ?MediaEntity $media;
-
-    public function __get(mixed $name): mixed
-    {
-        if (FieldVisibility::$isInTwigRenderingContext) {
-            $this->checkIfPropertyAccessIsAllowed($name);
-        }
-
-        if ($name === 'translated') {
-            return $this->getTranslated();
-        }
-
-        return $this->$name;
-    }
 
     public function getTranslations(): ?BlogAuthorTranslationCollection
     {
@@ -165,29 +157,5 @@ class BlogAuthorEntity extends Entity
     public function setMedia(?MediaEntity $media): void
     {
         $this->media = $media;
-    }
-
-    public function getName(): string
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
-
-    public function getTranslated(): array
-    {
-        $this->addTranslated('name', $this->getFirstName() . ' ' . $this->getLastName());
-
-        return parent::getTranslated();
-    }
-
-    /**
-     * @return mixed|null
-     */
-    public function getTranslation(string $field)
-    {
-        if ($field === 'name') {
-            $this->addTranslated('name', $this->getFirstName() . ' ' . $this->getLastName());
-        }
-
-        return $this->translated[$field] ?? null;
     }
 }
