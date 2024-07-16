@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Content\BlogAuthor;
 
@@ -12,8 +13,8 @@ use Shopware\Core\System\Salutation\SalutationEntity;
 
 class BlogAuthorEntity extends Entity
 {
-    use EntityIdTrait;
     use EntityCustomFieldsTrait;
+    use EntityIdTrait;
 
     protected string $firstName;
 
@@ -41,10 +42,7 @@ class BlogAuthorEntity extends Entity
 
     protected string $mediaId;
 
-    /**
-     * @var MediaEntity|null
-     */
-    protected $media;
+    protected ?MediaEntity $media;
 
     public function getTranslations(): ?BlogAuthorTranslationCollection
     {
@@ -139,15 +137,6 @@ class BlogAuthorEntity extends Entity
     public function getFullName(): ?string
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
-    }
-
-    public function getTranslated(): array
-    {
-        $translated = parent::getTranslated();
-
-        $translated['name'] = $this->getFirstName() . ' ' . $this->getLastName();
-
-        return $translated;
     }
 
     public function getMediaId(): string

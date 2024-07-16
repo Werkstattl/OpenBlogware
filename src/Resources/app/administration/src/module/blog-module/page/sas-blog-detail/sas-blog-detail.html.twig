@@ -6,7 +6,7 @@
 
 {% block sw_cms_detail_toolbar_language_switch %}
     <sw-language-switch
-        slot="language-switch"
+        #language-switch
         :disabled="isLoading"
         :save-changes-function="saveOnLanguageChange"
         @on-change="onChangeLanguage"
@@ -33,13 +33,12 @@
         :process-success="isSaveSuccessful"
         :disabled="isLoading || page.locked"
         variant="primary"
-        @process-finish="saveFinish"
-        @click="onSaveBlog"
+        @update:process-success="saveFinish"
+        @click.prevent="onSaveBlog"
     >
         {{ $tc('sw-cms.detail.label.buttonSave') }}
     </sw-button-process>
 {% endblock %}
-
 
 {% block sw_cms_detail_stage_empty_stade_content %}
     <div class="sw-cms-detail__empty-stage-content">
@@ -50,7 +49,7 @@
             {{ $tc('sw-cms.detail.label.claimEmptyState') }}
         </p>
         <sw-cms-stage-add-section
-            ref="cmsStageAddSection"
+            :disabled="page.locked"
             :key="0"
             :force-choose="true"
             @stage-section-add="addAdditionalSection($event, 0)"
@@ -60,21 +59,21 @@
 {% block sw_cms_detail_stage_add_first_section %}
     <sw-cms-stage-add-section
         :key="0"
+        :disabled="page.locked"
         @stage-section-add="addAdditionalSection($event, 0)"
     />
 {% endblock %}
 {% block sw_cms_detail_stage_add_last_section %}
     <sw-cms-stage-add-section
         :key="page.sections.length + 1"
+        :disabled="page.locked"
         @stage-section-add="addAdditionalSection($event, page.sections.length)"
     />
 {% endblock %}
 
-
 {% block sw_cms_detail_stage_content_section %}
-    <sas-cms-section
+    <sw-cms-section
         class="sw-cms-stage-section sas-blog-cms-stage-section"
-        :key="section.id"
         :page="page"
         :section="section"
         :active="selectedSection !== null && selectedSection.id === section.id"
@@ -95,11 +94,11 @@
         @block-duplicate="onBlockDuplicate"
         @section-duplicate="onSectionDuplicate"
         @block-stage-drop="onPageUpdate"
-        @block-navigator-sort="onBlockNavigatorSort"
         @page-type-change="onPageTypeChange"
         @page-update="onPageUpdate"
         @page-save="onPageSave"
         @open-layout-assignment="onOpenLayoutAssignment"
+        @open-layout-set-as-default="onOpenLayoutSetAsDefault"
     />
 {% endblock %}
 

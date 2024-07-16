@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Page\Search;
 
@@ -11,7 +12,8 @@ use Sas\BlogModule\Page\Search\BlogSearchPage;
 use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
+use Shopware\Core\Framework\Routing\RoutingException;
+use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Shopware\Storefront\Page\Page;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +26,11 @@ class BlogSearchPageLoaderTest extends TestCase
 
     private EntityRepository $blogRepository;
 
-    public function setUp(): void
+    private SalesChannelContext $salesChannelContext;
+
+    private BlogSearchPageLoader $blogSearchPageLoader;
+
+    protected function setUp(): void
     {
         $this->genericLoader = $this->createMock(GenericPageLoaderInterface::class);
         $this->blogRepository = new FakeEntityRepository(new BlogEntriesDefinition());
@@ -43,7 +49,7 @@ class BlogSearchPageLoaderTest extends TestCase
      */
     public function testLoadWithoutSearchQuery(): void
     {
-        $this->expectException(MissingRequestParameterException::class);
+        $this->expectException(RoutingException::class);
         $this->blogSearchPageLoader->load(new Request(), $this->salesChannelContext);
     }
 

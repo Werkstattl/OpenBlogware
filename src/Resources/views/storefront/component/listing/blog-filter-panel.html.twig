@@ -22,9 +22,9 @@
             {% if config.showAuthorFilter.value %}
                 {% set authors = listing.aggregations.get('authors') %}
                 {% if not authors.entities is empty %}
-                    {% set authorsSorted = authors.entities|sort((a, b) => a.translated.name|lower > b.translated.name|lower) %}
+                    {% set authorsSorted = authors.entities|sort((a, b) => a.name|lower > b.name|lower) %}
 
-                    {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                    {% sw_include '@Storefront/storefront/component/listing/filter/blog-filter-multi-select.html.twig' with {
                         elements: authorsSorted,
                         sidebar: sidebar,
                         name: 'authors',

@@ -4,7 +4,7 @@
             :placeholder="$tc('sas-blog.elements.single-select.selectFieldLabel')"
             :label="$tc('sas-blog.elements.single-select.selectFieldLabel')"
             entity="sas_blog_entries"
-            v-model="element.config.blogEntry.value">
+            v-model:value="element.config.blogEntry.value">
 
             <template #selection-label-property="{ item }">
                 <slot name="selection-label-property" v-bind="{ item }">

@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
@@ -11,9 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Blog detail page controller
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogController extends StorefrontController
 {
     private BlogPageLoader $blogPageLoader;
@@ -23,9 +23,7 @@ class BlogController extends StorefrontController
         $this->blogPageLoader = $blogPageLoader;
     }
 
-    /**
-     * @Route("/sas_blog/{articleId}", name="sas.frontend.blog.detail", methods={"GET"})
-     */
+    #[Route(path: '/sas_blog/{articleId}', name: 'sas.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->blogPageLoader->load($request, $context);

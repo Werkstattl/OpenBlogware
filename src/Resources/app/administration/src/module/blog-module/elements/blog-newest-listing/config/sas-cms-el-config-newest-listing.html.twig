@@ -7,16 +7,18 @@
             :step="1"
             :min="1"
             :max="null"
-            v-model="element.config.itemCount.value"
+            v-model:value="element.config.itemCount.value"
             :digits="2"
             :allowEmpty="false"
-            :label="$tc('sas-blog.elements.newestListing.config.itemCount')">
-        </sw-number-field>
+            :label="$tc('sas-blog.elements.newestListing.config.itemCount')"
+        ></sw-number-field>
     {% endblock %}
 
     {% block sas_cms_element_blog_listing_config_show_type %}
-        <sw-select-field :label="$tc('sas-blog.elements.newestListing.config.showType.label')"
-                         v-model="element.config.showType.value">
+        <sw-select-field
+            :label="$tc('sas-blog.elements.newestListing.config.showType.label')"
+            v-model:value="element.config.showType.value"
+        >
             {% block sas_cms_element_download_card_config_layout_select_options %}
                 <option value="all">{{ $tc('sas-blog.elements.newestListing.config.showType.options.all') }}</option>
                 <option value="select">{{ $tc('sas-blog.elements.newestListing.config.showType.options.select') }}</option>
@@ -27,12 +29,12 @@
     {% block sas_cms_element_blog_listing_config_select_categories %}
         <sas-blog-category-tree-field
             v-if="element.config.showType.value !== 'all' && selectedCategories"
-            v-model="selectedCategories"
+            v-model:value="selectedCategories"
             :label="$tc('sas-blog.elements.newestListing.config.blogCategories.label')"
             :categoriesCollection="selectedCategories"
             class="sw-product-detail__select-category"
-            :placeholder="$tc('sas-blog.elements.newestListing.config.blogCategories.placeholder')">
-        </sas-blog-category-tree-field>
+            :placeholder="$tc('sas-blog.elements.newestListing.config.blogCategories.placeholder')"
+        ></sas-blog-category-tree-field>
     {% endblock %}
 
 </div>

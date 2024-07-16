@@ -10,10 +10,6 @@ import './component/blog-extension-component-sections';
  */
 import './extension/sw-cms/component/sw-cms-sidebar';
 import './extension/sw-cms/page/sw-cms-list';
-
-import './extension/component/form/sas-text-field';
-import './extension/component/form/sas-textarea-field';
-import './extension/component/cms/sas-cms-section';
 import './extension/component/cms/sas-cms-sidebar';
 
 /**
@@ -55,7 +51,6 @@ import './elements/blog-newest-listing';
 /**
  * Blog Category
  */
-import './component/blog-tree';
 import './component/blog-tree-item';
 import './component/blog-category-tree';
 import './component/blog-category-tree-field';

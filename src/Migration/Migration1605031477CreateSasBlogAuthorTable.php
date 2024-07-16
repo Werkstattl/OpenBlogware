@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Migration;
 
@@ -73,9 +74,9 @@ class Migration1605031477CreateSasBlogAuthorTable extends MigrationStep
             ]);
         }
 
-        $connection->executeStatement("
-            ALTER TABLE sas_blog_entries ADD COLUMN author_id BINARY(16) NOT NULL DEFAULT '" . $defaultAuthorId . "' AFTER active;
-        ");
+        $connection->executeStatement('
+            ALTER TABLE sas_blog_entries ADD COLUMN author_id BINARY(16) NOT NULL DEFAULT \'' . $defaultAuthorId . '\' AFTER active;
+        ');
     }
 
     public function updateDestructive(Connection $connection): void

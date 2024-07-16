@@ -8,12 +8,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: Clone Code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.1
+                    php-version: 8.2
 
             -   name: Install Dependencies
                 run: make dev -B
@@ -28,12 +28,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: Clone Code
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.1
+                    php-version: 8.2
 
             -   name: PHP Syntax Checks
                 run: make phpcheck -B
@@ -44,10 +44,10 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: [ '8.1' ]
+                php: [ '8.2' ]
         steps:
             - name: Clone Code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -66,10 +66,10 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: [ '8.1' ]
+                php: [ '8.2' ]
         steps:
             - name: Clone Code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -89,12 +89,12 @@ jobs:
         steps:
 
             - name: Clone Code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.2
 
             - name: Install Dependencies
               run: make dev -B
@@ -110,16 +110,16 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                shopware: [ '6.5.0.0' ]
+                shopware: [ '6.6.0.0' ]
         steps:
 
             - name: Clone Code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.1
+                  php-version: 8.2
 
             - name: Install PROD Dependencies
               run: make install -B
@@ -151,12 +151,12 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - shopware: '6.5.0.0'
-                      php: '8.1'
+                    - shopware: '6.6.0.0'
+                      php: '8.2'
         steps:
 
             - name: Clone Code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Download Docker
               run: |
@@ -164,12 +164,11 @@ jobs:
 
             - name: Start Docker
               run: |
-                  docker run --rm -p 443:443 --name shop --env PHP_VERSION=${{ matrix.php }} -d dockware/dev:${{ matrix.shopware }}
+                  docker run --rm -p 443:443 --name shop --env PHP_VERSION=${{ matrix.php }} --env SHOP_DOMAIN=www.blog.local -d dockware/dev:${{ matrix.shopware }}
                   sleep 30
                   docker logs shop
                   # now change the domain of our shop, blog doesn't work with localhost
-                  sudo echo "127.0.0.1 local.blog.shop" | sudo tee -a /etc/hosts
-                  docker exec shop bash -c "mysql -u root -proot shopware -e \"UPDATE sales_channel_domain SET url='https://local.blog.shop' WHERE url NOT LIKE 'default.%';\""
+                  sudo echo "127.0.0.1 www.blog.local" | sudo tee -a /etc/hosts
 
             - name: Upload into Docker
               run: |
@@ -191,10 +190,10 @@ jobs:
               run: cd tests/Cypress && make install -B
 
             - name: Prepare Cypress
-              run: cd tests/Cypress && cp cypress.example.json cypress.json
+              run: cd tests/Cypress && cp cypress.config.example.js cypress.config.js
 
             - name: Start Cypress
-              run: cd tests/Cypress && make run shopware=${{ matrix.shopware }} url=https://local.blog.shop
+              run: cd tests/Cypress && make run shopware=${{ matrix.shopware }} url=https://www.blog.local
 
             - name: Download Logs
               if: ${{ always() }}

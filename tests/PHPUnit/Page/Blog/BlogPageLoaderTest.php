@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Page\Blog;
 
@@ -17,7 +18,7 @@ use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
+use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\Exception\ConfigurationNotFoundException;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
@@ -46,7 +47,7 @@ class BlogPageLoaderTest extends TestCase
 
     private SalesChannelContext $salesChannelContext;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->systemConfigService = $this->createMock(SystemConfigService::class);
         $this->genericLoader = $this->createMock(GenericPageLoaderInterface::class);
@@ -136,7 +137,7 @@ class BlogPageLoaderTest extends TestCase
                 false,
                 null,
                 false,
-                MissingRequestParameterException::class,
+                RoutingException::class,
                 0,
                 [],
             ],

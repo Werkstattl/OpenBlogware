@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Content\Extension;
 
@@ -14,10 +15,10 @@ class MediaExtension extends EntityExtension
     public function extendFields(FieldCollection $collection): void
     {
         $collection->add(
-            (new OneToOneAssociationField('blogEntries', 'id', 'media_id', BlogEntriesDefinition::class, false)),
+            new OneToOneAssociationField('blogEntries', 'id', 'media_id', BlogEntriesDefinition::class, false),
         );
         $collection->add(
-            (new OneToOneAssociationField('blogAuthor', 'id', 'media_id', BlogAuthorDefinition::class, false)),
+            new OneToOneAssociationField('blogAuthor', 'id', 'media_id', BlogAuthorDefinition::class, false),
         );
     }
 

@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Util;
 
@@ -22,7 +23,7 @@ class UpdateTest extends TestCase
 
     private Update $update;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->schemaManager = $this
             ->getMockBuilder(AbstractSchemaManager::class)

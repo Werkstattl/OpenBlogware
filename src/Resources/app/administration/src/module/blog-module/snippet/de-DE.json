@@ -15,7 +15,8 @@
             "table": {
                 "title": "Titel",
                 "active": "Aktiv",
-                "author": "Autor"
+                "author": "Autor",
+                "publishedAt": "Veröffentlicht am"
             }
         },
         "detail": {
@@ -38,7 +39,7 @@
             "editorCardTitle": "Dein Artikel",
             "editorLabel": "Blog Inhalt",
             "editorPlaceholder": "Starte deinen Blog Beitrag ...",
-            "publishedAtLabel": "Erstellungsdatum",
+            "publishedAtLabel": "Veröffentlichungsdatum",
             "visibility": {
                 "label": "Artikel aktiv"
             },
@@ -194,7 +195,9 @@
             }
         },
         "modal": {
-            "textDeleteMultipleConfirm": "Möchtest Du diese {count} blogs Kategorien wirklich löschen?"
+            "textDeleteConfirm": "Möchtest Du die Blog Kategorie \"{name}\" wirklich löschen?",
+            "textDeleteChildrenConfirm": "Alle unterliegenden Blog Kategorien werden auch gelöscht.",
+            "textDeleteMultipleConfirm": "Möchtest Du diese {count} Blog Kategorien wirklich löschen?"
         }
     },
     "sas-blog-author": {

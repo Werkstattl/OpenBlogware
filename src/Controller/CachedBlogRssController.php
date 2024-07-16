@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
+use Shopware\Core\Framework\Util\Json;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * Handle Cache for BlogRssController
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogRssController extends StorefrontController
 {
     public const RSS_TAG = 'sas-blog-rss';
@@ -51,9 +51,7 @@ class CachedBlogRssController extends StorefrontController
         return 'sas-blog-rss-' . $salesChannelId;
     }
 
-    /**
-     * @Route("/blog/rss", name="frontend.sas.blog.rss", methods={"GET"})
-     */
+    #[Route(path: '/blog/rss', name: 'frontend.sas.blog.rss', methods: ['GET'])]
     public function rss(Request $request, SalesChannelContext $context): Response
     {
         $key = $this->generateKey($request, $context);
@@ -77,7 +75,7 @@ class CachedBlogRssController extends StorefrontController
             [$this->generator->getSalesChannelContextHash($context)],
         );
 
-        return self::buildName($context->getSalesChannelId()) . '-' . md5(JsonFieldSerializer::encodeJson($parts));
+        return self::buildName($context->getSalesChannelId()) . '-' . md5(Json::encode($parts));
     }
 
     /**

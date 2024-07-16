@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace BlogModule\Tests\Core\Content\Sitemap\Provider;
 
@@ -31,7 +32,7 @@ class BlogUrlProviderTest extends TestCase
 
     private EventDispatcherInterface $eventDispatcher;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blogRepository = new FakeEntityRepository(new BlogEntriesDefinition());
         $this->connection = $this->createMock(Connection::class);

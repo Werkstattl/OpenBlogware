@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter/filter-multi-select-list-item.html.twig' %}
+
+{% block component_filter_multi_select_list_item %}
+    <div class="form-check">
+        {% set id = element.id %}
+        {% set name = element.getFullName() %}
+
+        {% block component_filter_multi_select_list_item_checkbox_input %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block component_filter_multi_select_list_item_label_element %}
+            {{ parent() }}
+        {% endblock %}
+    </div>
+{% endblock %}

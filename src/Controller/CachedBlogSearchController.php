@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializer;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
+use Shopware\Core\Framework\Routing\RoutingException;
+use Shopware\Core\Framework\Util\Json;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,8 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * Handle Cache for BlogSearchController
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogSearchController extends StorefrontController
 {
     public const SEARCH_TAG = 'sas-blog-search';
@@ -52,9 +52,7 @@ class CachedBlogSearchController extends StorefrontController
         return 'sas-blog-search-' . $salesChannelId;
     }
 
-    /**
-     * @Route("/sas_blog_search", name="sas.frontend.blog.search", methods={"GET"})
-     */
+    #[Route(path: '/sas_blog_search', name: 'sas.frontend.blog.search', methods: ['GET'])]
     public function search(Request $request, SalesChannelContext $context): Response
     {
         $key = $this->generateSearchKey($request, $context);
@@ -71,10 +69,9 @@ class CachedBlogSearchController extends StorefrontController
     }
 
     /**
-     * @Route("/widgets/blog-search", name="widgets.blog.search.pagelet", methods={"GET", "POST"}, defaults={"XmlHttpRequest"=true})
-     *
-     * @throws MissingRequestParameterException
+     * @throws RoutingException
      */
+    #[Route(path: '/widgets/blog-search', name: 'widgets.blog.search.pagelet', methods: ['GET', 'POST'], defaults: ['XmlHttpRequest' => true])]
     public function ajax(Request $request, SalesChannelContext $context): Response
     {
         $key = $this->generateSearchKey($request, $context);
@@ -101,7 +98,7 @@ class CachedBlogSearchController extends StorefrontController
             [$this->generator->getSalesChannelContextHash($context)],
         );
 
-        return self::buildName($context->getSalesChannelId()) . '-' . md5(JsonFieldSerializer::encodeJson($parts));
+        return self::buildName($context->getSalesChannelId()) . '-' . md5(Json::encode($parts));
     }
 
     /**

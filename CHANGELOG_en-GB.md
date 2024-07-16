@@ -1,3 +1,6 @@
+# 3.0.0
+- Compatibility with Shopware 6.6
+
 # 2.10.0
 - Checked list of blog ids before invalidating cache
 

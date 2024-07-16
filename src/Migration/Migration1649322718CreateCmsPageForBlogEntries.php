@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Migration;
 
@@ -17,9 +18,9 @@ use Shopware\Core\Framework\Uuid\Uuid;
 class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
 {
     private const TEMPLATE = <<<'SQL'
-UPDATE `sas_blog_entries` SET `cms_page_id` = UNHEX("%s"), `cms_page_version_id` = UNHEX("%s") WHERE `id` = UNHEX("%s");
+        UPDATE `sas_blog_entries` SET `cms_page_id` = UNHEX("%s"), `cms_page_version_id` = UNHEX("%s") WHERE `id` = UNHEX("%s");
 
-SQL;
+        SQL;
 
     private array $cmsPageQueue = [];
 

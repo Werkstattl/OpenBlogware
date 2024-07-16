@@ -3,6 +3,14 @@ class CmsPageRepository {
      * Get button to add full width section
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
+    getBlogDetailSidebarNavigationItem() {
+        return cy.get('button[title="Blog detail"].sw-sidebar-navigation-item');
+    }
+
+    /**
+     * Get button to add full width section
+     * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
+     */
     getBlockSidebarNavigationItem() {
         return cy.get('button[title="Blocks"].sw-sidebar-navigation-item');
     }
@@ -36,7 +44,7 @@ class CmsPageRepository {
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
     getBlockCategoryDropdown() {
-        return cy.get('#sw-field--currentBlockCategory');
+        return cy.get('.sw-cms-sidebar__block-category .sw-block-field__block select');
     }
 
     /**

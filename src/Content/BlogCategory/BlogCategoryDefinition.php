@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Content\BlogCategory;
 
@@ -54,7 +55,7 @@ class BlogCategoryDefinition extends EntityDefinition
             (new VersionField())->addFlags(new ApiAware()),
 
             new ParentFkField(self::class),
-            (new ReferenceVersionField(self::class, 'parent_version_id')),
+            new ReferenceVersionField(self::class, 'parent_version_id'),
 
             new FkField('after_category_id', 'afterCategoryId', self::class),
 
@@ -71,9 +72,9 @@ class BlogCategoryDefinition extends EntityDefinition
             (new TranslationsAssociationField(BlogCategoryTranslationDefinition::class, 'sas_blog_category_id'))->addFlags(new Required()),
 
             (new ManyToManyAssociationField('blogEntries', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new CascadeDelete()),
-            (new OneToManyAssociationField('navigationSalesChannels', SalesChannelDefinition::class, 'navigation_category_id')),
-            (new OneToManyAssociationField('footerSalesChannels', SalesChannelDefinition::class, 'footer_category_id')),
-            (new OneToManyAssociationField('serviceSalesChannels', SalesChannelDefinition::class, 'service_category_id')),
+            new OneToManyAssociationField('navigationSalesChannels', SalesChannelDefinition::class, 'navigation_category_id'),
+            new OneToManyAssociationField('footerSalesChannels', SalesChannelDefinition::class, 'footer_category_id'),
+            new OneToManyAssociationField('serviceSalesChannels', SalesChannelDefinition::class, 'service_category_id'),
         ]);
     }
 }

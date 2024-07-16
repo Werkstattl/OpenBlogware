@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Clone Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
 
       - name: Install Dependencies
         run: make dev -B
@@ -31,12 +31,12 @@ jobs:
     steps:
 
       - name: Clone Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
 
       - name: Install Dependencies
         run: make dev -B
@@ -51,12 +51,12 @@ jobs:
     steps:
 
       - name: Clone Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
 
       - name: Install Dependencies
         run: make dev -B
@@ -71,22 +71,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shopware: [ '6.5.0.0',]
+        shopware: [ '6.6.0.0',]
     steps:
       - name: Clone Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
 
       - name: Install PROD Dependencies
         run: make dev -B
 
       - name: Start Docker
         run: |
-          docker run --rm --name shop --env PHP_VERSION=8.1 -d dockware/dev:${{ matrix.shopware }}
+          docker run --rm --name shop --env PHP_VERSION=8.2 -d dockware/dev:${{ matrix.shopware }}
           sleep 30
           docker logs shop
       - name: Upload into Docker

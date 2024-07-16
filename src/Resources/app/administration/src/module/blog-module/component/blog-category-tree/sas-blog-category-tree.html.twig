@@ -1,23 +1,26 @@
 {% block sw_category_tree %}
     <div class="sw-category-tree">
-        <sas-blog-tree class="sw-category-tree__inner"
-                 v-if="!isLoadingInitialData"
-                 after-id-property="afterCategoryId"
-                 :items="categories"
-                 :sortable="allowEdit"
-                 :searchable="false"
-                 :activeTreeItemId="categoryId"
-                 :translationContext="translationContext"
-                 :onChangeRoute="changeCategory"
-                 :disableContextMenu="disableContextMenu"
-                 :allowDeleteCategories="allowDelete"
-                 @batch-delete="deleteCheckedItems"
-                 @delete-element="onDeleteCategory"
-                 @drag-end="onUpdatePositions"
-                 @get-tree-items="onGetTreeItems"
-                 @finish-edit-item="onFinishEditCategory"
-                 @editing-end="syncSiblings">
-
+        <sw-tree
+            v-if="!isLoadingInitialData"
+            ref="categoryTree"
+            class="sw-category-tree__inner"
+            after-id-property="afterCategoryId"
+            :items="categories"
+            :sortable="sortable"
+            :searchable="false"
+            :active-tree-item-id="categoryId"
+            :translation-context="translationContext"
+            :on-change-route="changeCategory"
+            :disable-context-menu="disableContextMenu"
+            :allow-delete-categories="allowDelete"
+            initially-expanded-root
+            @batch-delete="deleteCheckedItems"
+            @delete-element="onDeleteCategory"
+            @drag-end="onUpdatePositions"
+            @get-tree-items="onGetTreeItems"     
+            @editing-end="syncSiblings"
+            @checked-elements-count="checkedElementsCount"
+        >
             {% block sw_category_tree_items %}
                 <template
                     #items="{
@@ -28,29 +31,44 @@
                         checkItem,
                         translationContext,
                         onChangeRoute,
-                        disableContextMenu
+                        disableContextMenu,
+                        selectedItemsPathIds,
+                        checkedItemIds,
                     }">
                     <sas-blog-tree-item
                         v-for="item in treeItems"
                         :key="item.id"
                         :item="item"
-                        :allowNewCategories="allowCreate"
-                        :allowDeleteCategories="allowDelete"
+                        :allow-duplicate="false"
+                        :allow-new-categories="allowCreate"
+                        :allow-delete-categories="allowDelete"
                         :active="item.active"
-                        :translationContext="translationContext"
-                        :onChangeRoute="onChangeRoute"
+                        :translation-context="translationContext"
+                        :on-change-route="onChangeRoute"
                         :sortable="sortable"
-                        :draggedItem="draggedItem"
-                        :disableContextMenu="disableContextMenu"
-                        :displayCheckbox="allowDelete"
-                        :contextMenuTooltipText="contextMenuTooltipText"
-                        :newElementId="newElementId"
-                        @check-item="checkItem">
-                    </sas-blog-tree-item>
+                        :dragged-item="draggedItem"
+                        :disable-context-menu="disableContextMenu"
+                        :display-checkbox="allowEdit"
+                        :context-menu-tooltip-text="contextMenuTooltipText"
+                        :new-element-id="newElementId"
+                        :get-item-url="getCategoryUrl"
+                        :get-is-highlighted="isHighlighted"
+                        :active-parent-ids="selectedItemsPathIds"
+                        :active-item-ids="checkedItemIds"
+                        @check-item="checkItem"
+                    />
                 </template>
             {% endblock %}
-        </sas-blog-tree>
+        </sw-tree>
 
-        <sw-loader v-else></sw-loader>
+        <div v-else>
+            <sw-skeleton variant="tree-item" />
+            <sw-skeleton variant="tree-item-nested" />
+            <sw-skeleton variant="tree-item-nested" />
+            <sw-skeleton variant="tree-item-nested" />
+            <sw-skeleton variant="tree-item" />
+            <sw-skeleton variant="tree-item-nested" />
+            <sw-skeleton variant="tree-item-nested" />
+        </div>
     </div>
 {% endblock %}

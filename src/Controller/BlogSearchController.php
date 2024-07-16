@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace Sas\BlogModule\Controller;
 
 use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
+use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,9 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Blog search controllers
- *
- * @Route(defaults={"_routeScope"={"storefront"}})
  */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogSearchController extends StorefrontController
 {
     private BlogSearchPageLoader $blogSearchPageLoader;
@@ -25,14 +25,12 @@ class BlogSearchController extends StorefrontController
         $this->blogSearchPageLoader = $blogSearchPageLoader;
     }
 
-    /**
-     * @Route("/sas_blog_search", name="sas.frontend.blog.search", methods={"GET"})
-     */
+    #[Route(path: '/sas_blog_search', name: 'sas.frontend.blog.search', methods: ['GET'])]
     public function search(Request $request, SalesChannelContext $context): Response
     {
         try {
             $page = $this->blogSearchPageLoader->load($request, $context);
-        } catch (MissingRequestParameterException $missingRequestParameterException) {
+        } catch (RoutingException $routingException) {
             return $this->forwardToRoute('frontend.home.page');
         }
 
@@ -40,10 +38,9 @@ class BlogSearchController extends StorefrontController
     }
 
     /**
-     * @Route("/widgets/blog-search", name="widgets.blog.search.pagelet", methods={"GET", "POST"}, defaults={"XmlHttpRequest"=true})
-     *
-     * @throws MissingRequestParameterException
+     * @throws RoutingException
      */
+    #[Route(path: '/widgets/blog-search', name: 'widgets.blog.search.pagelet', methods: ['GET', 'POST'], defaults: ['XmlHttpRequest' => true])]
     public function ajax(Request $request, SalesChannelContext $context): Response
     {
         $request->request->set('no-aggregations', true);

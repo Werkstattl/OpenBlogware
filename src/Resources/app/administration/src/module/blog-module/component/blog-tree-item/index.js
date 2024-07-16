@@ -9,9 +9,10 @@ Component.extend('sas-blog-tree-item', 'sw-tree-item', {
         parentScope() {
             let parentNode = this.$parent;
             // eslint-disable-next-line
-            while (parentNode.$options._componentTag !== 'sas-blog-tree') {
+            while (parentNode.$options.name !== 'sas-blog-tree') {
                 parentNode = parentNode.$parent;
             }
+
             return parentNode;
         },
     },
@@ -26,17 +27,6 @@ Component.extend('sas-blog-tree-item', 'sw-tree-item', {
             this.editingCategory = category;
             this.currentEditElement = category.id;
             this.editElementName();
-        },
-
-        onFinishNameingElement(draft, event) {
-            if (this.editingCategory) {
-                this.parentScope.onFinishEditNameingElement(draft, event, this.editingCategory);
-
-                this.currentEditElement = null;
-                this.editingCategory = null;
-            } else {
-                this.parentScope.onFinishNameingElement(draft, event);
-            }
         },
 
         onBlurTreeItemInput(item) {

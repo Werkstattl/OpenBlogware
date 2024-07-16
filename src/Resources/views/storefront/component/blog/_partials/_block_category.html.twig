@@ -5,7 +5,12 @@
     {% endfor %}
     <figure class="sas-category figure">
         <figcaption class="figure-caption">{% sw_icon 'folder-thumbnail' style { 'size': 'sm' } %}
-            <span data-toggle="tooltip" title="{{ "sas-blog.detail.meta.category"|trans|striptags }}">{{ categoriesName|join(', ') }}</span>
+            <span
+                data-toggle="tooltip"
+                title="{{ "sas-blog.detail.meta.category"|trans|striptags }}"
+            >
+                {{ categoriesName|join(', ') }}
+            </span>
         </figcaption>
     </figure>
 {% endblock %}
