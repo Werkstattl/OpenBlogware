@@ -33,7 +33,7 @@
     "extra": {
         "shopware-plugin-class": "Sas\\BlogModule\\SasBlogModule",
         "plugin-icon": "src/Resources/config/plugin.png",
-        "copyright": "(c) by SMK Shape & Shift LTD",
+        "copyright": "(c) by SMK Shape & Shift LTD and Werkstattl",
         "label": {
             "de-DE": "OpenBlogware",
             "en-GB": "OpenBlogware"
