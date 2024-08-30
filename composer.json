@@ -1,6 +1,6 @@
 {
-    "name": "thomaspeissl/blog-module-mit",
-    "description": "Blog Module MIT, originally created by Shape & Shift.",
+    "name": "werkstattl/openblogware",
+    "description": "OpenBlogware: A Blog Module for Shopware 6.",
     "version": "3.0.2",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
@@ -12,6 +12,11 @@
             "role": "Manufacturer"
         }
     ],
+    "support": {
+        "email": "info@werkstattl.com",
+        "issues": "https://github.com/werkstattl/openblogware/issues",
+        "docs": "https://github.com/Werkstattl/OpenBlogware/blob/main/README.md"
+    },
     "require": {
         "shopware/core": "^6.6.0.0",
         "shopware/administration": "^6.6.0.0",
@@ -36,7 +41,16 @@
         "description": {
             "de-DE": "Dieses Plugin fügt Ihrem Shopware-Shop eine leistungsstarke Blog-Funktionalität hinzu. Erstellen, verwalten und veröffentlichen Sie ganz einfach Blog-Posts und -Seiten.",
             "en-GB": "This plugin adds a powerful blog functionality to your Shopware store. Easily create, manage, and publish blog posts and pages, and engage customers with content marketing."
-        }
+        },
+        "manufacturerLink": {
+            "en-GB": "https://werkstattl.com",
+            "de-DE": "https://werkstattl.com"
+        },
+        "supportLink": {
+            "de-DE": "https://github.com/werkstattl/openblogware/issues",
+            "en-GB": "https://github.com/werkstattl/openblogware/issues"
+        },
+        "attribution": "This project is based on the work of Shape & Shift (ChristopherDosin/Shopware-6-Blog-Plugin)."
     },
     "autoload": {
         "psr-4": {
