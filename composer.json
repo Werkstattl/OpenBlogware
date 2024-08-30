@@ -1,14 +1,14 @@
 {
     "name": "thomaspeissl/blog-module-mit",
-    "description": "Blog Module MIT",
-    "version": "3.0.1",
+    "description": "Blog Module MIT, originally created by Shape & Shift.",
+    "version": "3.0.2",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
     "authors":[
         {
-            "name": "Shape & Shift",
-            "email": "hello@shapeandshift.dev",
+            "name": "Werkstattl",
+            "email": "info@werkstattl.com",
             "role": "Manufacturer"
         }
     ],
@@ -30,8 +30,8 @@
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by SMK Shape & Shift LTD",
         "label": {
-            "de-DE": "Blog Module MIT",
-            "en-GB": "Blog Module MIT"
+            "de-DE": "OpenBlogware",
+            "en-GB": "OpenBlogware"
         },
         "description": {
             "de-DE": "Dieses Plugin fügt Ihrem Shopware-Shop eine leistungsstarke Blog-Funktionalität hinzu. Erstellen, verwalten und veröffentlichen Sie ganz einfach Blog-Posts und -Seiten.",
