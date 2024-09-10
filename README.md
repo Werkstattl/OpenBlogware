@@ -51,16 +51,30 @@ For access **RSS Feed** url you can use this path `/blog/rss`
 Example(`http://Your-domain/blog/rss`)
 
 ## Installation
-### Zip Installation package for the Shopware 6 plugin
-* Download the latest Shopware-6-Blog-Plugin-MIT.zip file from the [releases page](https://github.com/Werkstattl/OpenBlogware/releases)
-* In the Shopware 6 backend, navigate to Extensions > My Extensions
-* Click on "Upload Extension"
-* Confirm the warning, if shown
-* Choose the Shopware-6-Blog-Plugin-MIT.zip file
 
-<!-- ### Composer installation
-* Change to your root installation of Shopware
-* Run command `composer require werkstattl/openblogware` -->
+### Zip Installation Package for the Shopware 6 Plugin
+1. Download the latest `Shopware-6-Blog-Plugin-MIT.zip` file from the [releases page](https://github.com/Werkstattl/OpenBlogware/releases).
+2. In the Shopware 6 backend, navigate to **Extensions > My Extensions**.
+3. Click on **Upload Extension**.
+4. Confirm the warning, if prompted.
+5. Choose the `Shopware-6-Blog-Plugin-MIT.zip` file
+6. Install and activate the plugin.
+
+### Composer Installation
+1. Navigate to the root of your Shopware installation.
+2. Run the command:
+```sh
+composer require werkstattl/openblogware
+```
+3. To install the plugin, run 
+```sh
+bin/console plugin:refresh
+bin/console plugin:install --activate SasBlogModule
+```
+4. To clear the cache, run:
+```sh
+bin/console cache:clear
+```
 
 ## Credits
 
