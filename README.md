@@ -66,7 +66,7 @@ Example(`http://Your-domain/blog/rss`)
 ```sh
 composer require werkstattl/openblogware
 ```
-3. To install the plugin, run 
+3. To install the plugin, run:
 ```sh
 bin/console plugin:refresh
 bin/console plugin:install --activate SasBlogModule
