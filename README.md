@@ -50,6 +50,18 @@ where you can also select from all available variables.
 For access **RSS Feed** url you can use this path `/blog/rss`
 Example(`http://Your-domain/blog/rss`)
 
+## Installation
+### Zip Installation package for the Shopware 6 plugin
+* Download the latest Shopware-6-Blog-Plugin-MIT.zip file from the [releases page](https://github.com/Werkstattl/OpenBlogware/releases)
+* In the Shopware 6 backend, navigate to Extensions > My Extensions
+* Click on "Upload Extension"
+* Confirm the warning, if shown
+* Choose the Shopware-6-Blog-Plugin-MIT.zip file
+
+<!-- ### Composer installation
+* Change to your root installation of Shopware
+* Run command `composer require werkstattl/openblogware` -->
+
 ## Credits
 
 This plugin began as a fork of the latest MIT-licensed version of a Shopware 6 plugin that adds blog functionality. The source code of the original project is no longer publicly available.
