@@ -56,7 +56,7 @@ class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
                 );
 
                 $cmsPageId = $this->createCmsPage($blogTranslations, $versionId, $createdAt);
-                $updateSql .= sprintf(
+                $updateSql .= \sprintf(
                     self::TEMPLATE,
                     Uuid::fromBytesToHex($cmsPageId),
                     Uuid::fromBytesToHex($versionId),
