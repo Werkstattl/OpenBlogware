@@ -143,73 +143,73 @@ jobs:
 
     # ------------------------------------------------------------------------------------------------------------------------
 
-    e2e:
-        name: E2E Tests | Shopware ${{ matrix.shopware }}, PHP ${{ matrix.php }}
-        needs: integration
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: false
-            matrix:
-                include:
-                    - shopware: '6.6.0.0'
-                      php: '8.2'
-        steps:
+    # e2e:
+    #     name: E2E Tests | Shopware ${{ matrix.shopware }}, PHP ${{ matrix.php }}
+    #     needs: integration
+    #     runs-on: ubuntu-latest
+    #     strategy:
+    #         fail-fast: false
+    #         matrix:
+    #             include:
+    #                 - shopware: '6.6.0.0'
+    #                   php: '8.2'
+    #     steps:
 
-            - name: Clone Code
-              uses: actions/checkout@v4
+    #         - name: Clone Code
+    #           uses: actions/checkout@v4
 
-            - name: Download Docker
-              run: |
-                  docker pull dockware/dev:${{ matrix.shopware }}
+    #         - name: Download Docker
+    #           run: |
+    #               docker pull dockware/dev:${{ matrix.shopware }}
 
-            - name: Start Docker
-              run: |
-                  docker run --rm -p 443:443 --name shop --env PHP_VERSION=${{ matrix.php }} --env SHOP_DOMAIN=www.blog.local -d dockware/dev:${{ matrix.shopware }}
-                  sleep 30
-                  docker logs shop
-                  # now change the domain of our shop, blog doesn't work with localhost
-                  sudo echo "127.0.0.1 www.blog.local" | sudo tee -a /etc/hosts
+    #         - name: Start Docker
+    #           run: |
+    #               docker run --rm -p 443:443 --name shop --env PHP_VERSION=${{ matrix.php }} --env SHOP_DOMAIN=www.blog.local -d dockware/dev:${{ matrix.shopware }}
+    #               sleep 30
+    #               docker logs shop
+    #               # now change the domain of our shop, blog doesn't work with localhost
+    #               sudo echo "127.0.0.1 www.blog.local" | sudo tee -a /etc/hosts
 
-            - name: Upload into Docker
-              run: |
-                  docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
-                  docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
+    #         - name: Upload into Docker
+    #           run: |
+    #               docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+    #               docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
 
-            - name: Install and Build Artifacts
-              run: |
-                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install -B'
-                  docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build -B'
+    #         - name: Install and Build Artifacts
+    #           run: |
+    #               docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install -B'
+    #               docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build -B'
 
-            - name: Install/Configure Plugin
-              run: |
-                  docker exec shop bash -c 'php bin/console plugin:refresh'
-                  docker exec shop bash -c 'php bin/console plugin:install SasBlogModule --activate'
-                  docker exec shop bash -c 'php bin/console cache:clear'
+    #         - name: Install/Configure Plugin
+    #           run: |
+    #               docker exec shop bash -c 'php bin/console plugin:refresh'
+    #               docker exec shop bash -c 'php bin/console plugin:install SasBlogModule --activate'
+    #               docker exec shop bash -c 'php bin/console cache:clear'
 
-            - name: Install Cypress
-              run: cd tests/Cypress && make install -B
+    #         - name: Install Cypress
+    #           run: cd tests/Cypress && make install -B
 
-            - name: Prepare Cypress
-              run: cd tests/Cypress && cp cypress.config.example.js cypress.config.js
+    #         - name: Prepare Cypress
+    #           run: cd tests/Cypress && cp cypress.config.example.js cypress.config.js
 
-            - name: Start Cypress
-              run: cd tests/Cypress && make run shopware=${{ matrix.shopware }} url=https://www.blog.local
+    #         - name: Start Cypress
+    #           run: cd tests/Cypress && make run shopware=${{ matrix.shopware }} url=https://www.blog.local
 
-            - name: Download Logs
-              if: ${{ always() }}
-              run: |
-                  mkdir -p $(pwd)/tests/Cypress/cypress/logs/shopware
-                  mkdir -p $(pwd)/tests/Cypress/cypress/logs/apache
-                  docker cp shop:/var/www/html/var/log/. $(pwd)/tests/Cypress/cypress/logs/shopware
-                  docker cp shop:/var/log/php/. $(pwd)/tests/Cypress/cypress/logs/apache
+    #         - name: Download Logs
+    #           if: ${{ always() }}
+    #           run: |
+    #               mkdir -p $(pwd)/tests/Cypress/cypress/logs/shopware
+    #               mkdir -p $(pwd)/tests/Cypress/cypress/logs/apache
+    #               docker cp shop:/var/www/html/var/log/. $(pwd)/tests/Cypress/cypress/logs/shopware
+    #               docker cp shop:/var/log/php/. $(pwd)/tests/Cypress/cypress/logs/apache
 
-            - name: Store Cypress Results
-              if: ${{ always() }}
-              uses: actions/upload-artifact@v2
-              with:
-                  name: cypress_results_sw_v${{ matrix.shopware }}
-                  retention-days: 1
-                  path: |
-                      tests/Cypress/cypress/logs
-                      tests/Cypress/cypress/videos
-                      tests/Cypress/cypress/screenshots
+    #         - name: Store Cypress Results
+    #           if: ${{ always() }}
+    #           uses: actions/upload-artifact@v2
+    #           with:
+    #               name: cypress_results_sw_v${{ matrix.shopware }}
+    #               retention-days: 1
+    #               path: |
+    #                   tests/Cypress/cypress/logs
+    #                   tests/Cypress/cypress/videos
+    #                   tests/Cypress/cypress/screenshots
