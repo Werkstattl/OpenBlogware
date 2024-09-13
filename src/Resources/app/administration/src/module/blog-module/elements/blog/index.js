@@ -13,6 +13,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 5,
         },
+        offsetCount: {
+            source: 'static',
+            value: 0,
+        },
         showType: {
             source: 'static',
             value: 'all',

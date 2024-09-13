@@ -79,6 +79,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
 
         $request = $resolverContext->getRequest();
         $limit = 1;
+        $offset = 0;
 
         $paginationCountConfig = $config->get('paginationCount') ?? null;
 
@@ -86,7 +87,13 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             $limit = (int) $paginationCountConfig->getValue();
         }
 
-        $this->handlePagination($limit, $request, $criteria);
+        $offsetCountConfig = $config->get('offsetCount') ?? null;
+
+        if ($offsetCountConfig !== null && $offsetCountConfig->getValue()) {
+            $offset = (int) $offsetCountConfig->getValue();
+        }
+
+        $this->handlePagination($limit, $offset, $request, $criteria);
 
         $this->eventDispatcher->dispatch(
             new BlogMainFilterEvent($request, $criteria, $context),
@@ -114,11 +121,11 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         $slot->setData($sasBlog);
     }
 
-    private function handlePagination(int $limit, Request $request, Criteria $criteria): void
+    private function handlePagination(int $limit, int $offset, Request $request, Criteria $criteria): void
     {
         $page = $this->getPage($request);
 
-        $criteria->setOffset(($page - 1) * $limit);
+        $criteria->setOffset(($page - 1) * $limit + $offset);
         $criteria->setLimit($limit);
         $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_EXACT);
     }

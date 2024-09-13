@@ -90,6 +90,7 @@
             "listing": {
                 "config": {
                     "paginationCount": "Pagination count",
+                    "offsetCount": "Offset count",
                     "showFilter": {
                         "label": "Listing filter",
                         "options": {
