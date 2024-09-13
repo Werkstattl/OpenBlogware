@@ -1,0 +1,7 @@
+services:
+  shop:
+    image: dockware/play:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html/custom/plugins/OpenBlogware
