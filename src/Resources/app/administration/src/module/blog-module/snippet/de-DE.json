@@ -130,6 +130,7 @@
             "newestListing": {
                 "config": {
                     "itemCount": "Anzahl der Artikel",
+                    "offsetCount": "Überspringe Artikel",
                     "showType": {
                         "label": "Typ anzeigen",
                         "options": {

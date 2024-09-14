@@ -133,7 +133,15 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
             $limit = (int) $itemCountConfig->getValue();
         }
 
+        $offset = 0;
+        $offsetCountConfig = $config->get('offsetCount') ?? null;
+
+        if ($offsetCountConfig !== null && $offsetCountConfig->getValue()) {
+            $offset = (int) $offsetCountConfig->getValue();
+        }
+
         $criteria->setLimit($limit);
+        $criteria->setOffset($offset);
 
         return $criteria;
     }

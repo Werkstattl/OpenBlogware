@@ -14,6 +14,19 @@
         ></sw-number-field>
     {% endblock %}
 
+    {% block sas_cms_element_newest_listing_config_offsetCount_field %}
+        <sw-number-field
+            numberType="int"
+            :step="1"
+            :min="0"
+            :max="null"
+            v-model:value="element.config.offsetCount.value"
+            :digits="2"
+            :allowEmpty="false"
+            :label="$tc('sas-blog.elements.newestListing.config.offsetCount')"
+        ></sw-number-field>
+    {% endblock %}
+
     {% block sas_cms_element_blog_listing_config_show_type %}
         <sw-select-field
             :label="$tc('sas-blog.elements.newestListing.config.showType.label')"

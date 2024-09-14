@@ -139,6 +139,7 @@
             "newestListing": {
                 "config": {
                     "itemCount": "Item count",
+                    "offsetCount": "Offset count",
                     "showType": {
                         "label": "Show type",
                         "options": {

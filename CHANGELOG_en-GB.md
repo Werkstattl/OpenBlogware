@@ -1,5 +1,17 @@
+# 3.0.4
+- Added offset count functionality to the newest blog items element 
+
+# 3.0.3
+- Changed git tag format so that the plugin can be installed via composer
+
+# 3.0.2
+- Renamed to OpenBlogware
+
+# 3.0.1
+- Fixed category creation [#3](https://github.com/Werkstattl/OpenBlogware/pull/3)
+
 # 3.0.0
-- Compatibility with Shopware 6.6
+- Compatibility with Shopware 6.6 [#2](https://github.com/Werkstattl/OpenBlogware/pull/2)
 
 # 2.10.0
 - Checked list of blog ids before invalidating cache

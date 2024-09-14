@@ -1,5 +1,17 @@
+# 3.0.4
+- Überspringe-Artikel-Funktionalität für das neueste Blog-Artikel-Element
+
+# 3.0.3
+- Änderung des Git-Tag-Formats, sodass das Plugin über Composer installiert werden kann
+
+# 3.0.2
+- Umbenennung in OpenBlogware
+
+# 3.0.1
+- Kategoriererstellung behoben [#3](https://github.com/Werkstattl/OpenBlogware/pull/3)
+
 # 3.0.0
-- Kompatibilität mit Shopware 6.6
+- Kompatibilität mit Shopware 6.6 [#2](https://github.com/Werkstattl/OpenBlogware/pull/2)
 
 # 2.10.0
 - Überprüfte die Liste der Blog-IDs, bevor der Cache ungültig gemacht wurde.
