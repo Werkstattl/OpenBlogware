@@ -81,7 +81,6 @@
             "listing": {
                 "config": {
                     "paginationCount": "Pagination count",
-                    "offsetCount": "Offset count",
                     "showFilter": {
                         "label": "Zeige Filter",
                         "options": {
