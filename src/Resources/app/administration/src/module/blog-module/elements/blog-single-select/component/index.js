@@ -33,7 +33,7 @@ Shopware.Component.register('sw-cms-el-blog-single-select', {
         },
 
         repository() {
-            return this.repositoryFactory.create('sas_blog_entries');
+            return this.repositoryFactory.create('werkl_blog_entries');
         },
 
         selectedBlogEntry() {

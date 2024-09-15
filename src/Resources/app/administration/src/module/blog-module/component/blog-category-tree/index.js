@@ -1,14 +1,14 @@
-import template from './sas-blog-category-tree.html.twig';
+import template from './werkl-blog-category-tree.html.twig';
 
 const { Component } = Shopware;
 
-Component.extend('sas-blog-category-tree', 'sw-category-tree', {
+Component.extend('werkl-blog-category-tree', 'sw-category-tree', {
     template,
 
     data() {
         return {
             blogCategory: null,
-            translationContext: 'sas-blog-category',
+            translationContext: 'werkl-blog-category',
         };
     },
 
@@ -24,7 +24,7 @@ Component.extend('sas-blog-category-tree', 'sw-category-tree', {
         },
 
         categoryRepository() {
-            return this.repositoryFactory.create('sas_blog_category');
+            return this.repositoryFactory.create('werkl_blog_category');
         },
 
         disableContextMenu() {

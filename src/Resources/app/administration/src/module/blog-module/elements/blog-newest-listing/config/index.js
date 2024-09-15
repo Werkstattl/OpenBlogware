@@ -1,10 +1,10 @@
-import template from './sas-cms-el-config-newest-listing.html.twig';
-import './sas-cms-el-config-newest-listing.scss';
+import template from './werkl-cms-el-config-newest-listing.html.twig';
+import './werkl-cms-el-config-newest-listing.scss';
 
 const { Component, Mixin } = Shopware;
 const { EntityCollection, Criteria } = Shopware.Data;
 
-Component.register('sas-cms-el-config-newest-listing', {
+Component.register('werkl-cms-el-config-newest-listing', {
     template,
 
     inject: ['repositoryFactory'],
@@ -22,7 +22,7 @@ Component.register('sas-cms-el-config-newest-listing', {
 
     computed: {
         blogCategoryRepository() {
-            return this.repositoryFactory.create('sas_blog_category');
+            return this.repositoryFactory.create('werkl_blog_category');
         },
 
         blogListingSelectContext() {

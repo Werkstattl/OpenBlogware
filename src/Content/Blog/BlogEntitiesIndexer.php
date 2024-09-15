@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
-use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
@@ -32,7 +32,7 @@ class BlogEntitiesIndexer extends EntityIndexer
 
     public function getName(): string
     {
-        return 'sas.blog.entities.indexer';
+        return 'werkl_blog.entities.indexer';
     }
 
     public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage

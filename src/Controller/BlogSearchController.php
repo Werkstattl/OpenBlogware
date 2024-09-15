@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
-use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
+use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
@@ -25,7 +25,7 @@ class BlogSearchController extends StorefrontController
         $this->blogSearchPageLoader = $blogSearchPageLoader;
     }
 
-    #[Route(path: '/sas_blog_search', name: 'sas.frontend.blog.search', methods: ['GET'])]
+    #[Route(path: '/werkl_blog_search', name: 'werkl.frontend.blog.search', methods: ['GET'])]
     public function search(Request $request, SalesChannelContext $context): Response
     {
         try {

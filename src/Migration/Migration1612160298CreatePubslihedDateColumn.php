@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -17,7 +17,7 @@ class Migration1612160298CreatePubslihedDateColumn extends MigrationStep
     {
         $connection->executeStatement('
             ALTER TABLE
-              sas_blog_entries
+              werkl_blog_entries
             ADD
               COLUMN published_at DATETIME(3) NOT NULL
             AFTER
@@ -25,7 +25,7 @@ class Migration1612160298CreatePubslihedDateColumn extends MigrationStep
         ');
 
         $connection->executeStatement('
-            UPDATE sas_blog_entries SET published_at = created_at
+            UPDATE werkl_blog_entries SET published_at = created_at
         ');
     }
 

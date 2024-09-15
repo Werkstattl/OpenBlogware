@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
 use Shopware\Core\Content\Seo\SeoUrlRoute\SeoUrlMapping;
 use Shopware\Core\Content\Seo\SeoUrlRoute\SeoUrlRouteConfig;
@@ -12,7 +12,7 @@ use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 
 class BlogSeoUrlRoute implements SeoUrlRouteInterface
 {
-    public const ROUTE_NAME = 'sas.frontend.blog.detail';
+    public const ROUTE_NAME = 'werkl.frontend.blog.detail';
 
     /**
      * @var BlogEntriesDefinition

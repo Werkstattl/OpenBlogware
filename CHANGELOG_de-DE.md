@@ -1,6 +1,5 @@
 # 4.0.0
-- Breaking: Plugin Klasse von SasBlogModule zu WerklOpenBlogware umbenannt
-- Breaking: Databasen Tabllen prefix von `sas_blog_` auf `open_blogware_` geändert
+- Breaking: Plugin interne Namensänderung von Sas\\BlogModule\\SasBlogModule zu Werkl\\OpenBlogware\\WerklOpenBlogware
 
 # 3.0.4
 - Überspringe-Artikel-Funktionalität für das neueste Blog-Artikel-Element

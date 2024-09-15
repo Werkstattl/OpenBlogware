@@ -45,7 +45,7 @@ class BlogFormRepository {
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
     getAuthorInput() {
-        return cy.get('.sas-field--author .sw-entity-single-select__selection-input');
+        return cy.get('.werkl-field--author .sw-entity-single-select__selection-input');
     }
 
     /**
@@ -61,7 +61,7 @@ class BlogFormRepository {
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
     getCategoriesInput() {
-        return cy.get('.sas-field--category .sw-category-tree__input-field');
+        return cy.get('.werkl-field--category .sw-category-tree__input-field');
     }
 
     /**

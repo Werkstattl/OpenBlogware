@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Page\Search;
+namespace Werkl\OpenBlogware\Page\Search;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Storefront\Page\Page;

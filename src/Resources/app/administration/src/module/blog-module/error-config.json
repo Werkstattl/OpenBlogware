@@ -1,6 +1,6 @@
 {
     "blog.module.detail": {
-        "sas_blog_entries": [
+        "werkl_blog_entries": [
             "title",
             "slug",
             "teaser",

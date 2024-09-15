@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -17,7 +17,7 @@ class Migration1602739765AddTeaserImageColumnToBlogEntries extends MigrationStep
     {
         $connection->executeStatement('
             ALTER TABLE
-              sas_blog_entries
+              werkl_blog_entries
             ADD
               COLUMN media_id BINARY(16) DEFAULT NULL
             AFTER

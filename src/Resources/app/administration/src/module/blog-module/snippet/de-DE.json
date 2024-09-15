@@ -1,5 +1,5 @@
 {
-    "sas-blog": {
+    "werkl-blog": {
         "general": {
             "mainMenuItemGeneral": "Blog",
             "mainMenuItemList": "Blog",
@@ -173,7 +173,7 @@
             }
         }
     },
-    "sas-blog-category": {
+    "werkl-blog-category": {
         "general": {
             "treeHeadline": "Blog Kategorien",
             "mainMenuItemIndex": "Kategorien",
@@ -201,7 +201,7 @@
             "textDeleteMultipleConfirm": "Möchtest Du diese {count} Blog Kategorien wirklich löschen?"
         }
     },
-    "sas-blog-author": {
+    "werkl-blog-author": {
         "general": {
             "mainMenuItemList": "Autor"
         },
@@ -251,20 +251,20 @@
             }
         }
     },
-    "sas-blog-tree-item": {
+    "werkl-blog-tree-item": {
         "actions": {
             "edit": "Editieren"
         }
     },
     "sw-privileges": {
         "permissions": {
-            "sas-blog": {
+            "werkl-blog": {
                 "label": "Blog"
             },
-            "sas-blog-author": {
+            "werkl-blog-author": {
                 "label": "Blog Autor"
             },
-            "sas-blog-category": {
+            "werkl-blog-category": {
                 "label": "Blog Kategorien"
             }
         }

@@ -12,11 +12,11 @@ describe('Blog CMS: content with cms blocks', () => {
             });
     });
 
-    it('@content: should not show sas-blog block category', () => {
+    it('@content: should not show werkl-blog block category', () => {
 
         blogDetailAction.openBlockSidebar();
 
-        repoCmsPage.getBlockCategorySasBlogOption().should('not.exist');
+        repoCmsPage.getBlockCategoryWerklBlogOption().should('not.exist');
     });
 
     it.only('@content: can drag block to stage', () => {

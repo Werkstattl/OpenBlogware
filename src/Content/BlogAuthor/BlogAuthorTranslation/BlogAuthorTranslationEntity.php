@@ -1,39 +1,39 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation;
+namespace Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation;
 
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
 class BlogAuthorTranslationEntity extends TranslationEntity
 {
-    protected string $sasBlogAuthorId;
+    protected string $werklBlogAuthorId;
 
-    protected ?BlogAuthorEntity $sasBlogAuthor;
+    protected ?BlogAuthorEntity $werklBlogAuthor;
 
     protected string $description;
 
     protected ?array $customFields;
 
-    public function getSasBlogAuthorId(): string
+    public function getWerklBlogAuthorId(): string
     {
-        return $this->sasBlogAuthorId;
+        return $this->werklBlogAuthorId;
     }
 
-    public function setSasBlogAuthorId(string $sasBlogAuthorId): void
+    public function setWerklBlogAuthorId(string $werklBlogAuthorId): void
     {
-        $this->sasBlogAuthorId = $sasBlogAuthorId;
+        $this->werklBlogAuthorId = $werklBlogAuthorId;
     }
 
-    public function getSasBlogAuthor(): ?BlogAuthorEntity
+    public function getWerklBlogAuthor(): ?BlogAuthorEntity
     {
-        return $this->sasBlogAuthor;
+        return $this->werklBlogAuthor;
     }
 
-    public function setSasBlogAuthor(BlogAuthorEntity $sasBlogAuthor): void
+    public function setWerklBlogAuthor(BlogAuthorEntity $werklBlogAuthor): void
     {
-        $this->sasBlogAuthor = $sasBlogAuthor;
+        $this->werklBlogAuthor = $werklBlogAuthor;
     }
 
     public function getDescription(): ?string

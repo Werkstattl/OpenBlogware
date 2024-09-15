@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
@@ -19,7 +19,7 @@ class BlogSeoUrlListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'sas_blog_entries.written' => 'onBlogUpdated',
+            'werkl_blog_entries.written' => 'onBlogUpdated',
         ];
     }
 

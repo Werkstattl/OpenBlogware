@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Content\Cms\DataResolver;
+namespace OpenBlogware\Tests\Content\Cms\DataResolver;
 
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
-use Sas\BlogModule\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
-use Sas\BlogModule\Content\Cms\DataResolver\SasCmsSlotsDataResolver;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
+use Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSection\CmsSectionCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
@@ -18,7 +18,7 @@ use Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 
-class SasCmsSlotsDataResolverTest extends TestCase
+class WerklCmsSlotsDataResolverTest extends TestCase
 {
     use ContextTrait;
 
@@ -30,7 +30,7 @@ class SasCmsSlotsDataResolverTest extends TestCase
 
     private array $resolvers;
 
-    private SasCmsSlotsDataResolver $sasCmsSlotsDataResolver;
+    private WerklCmsSlotsDataResolver $werklCmsSlotsDataResolver;
 
     protected function setUp(): void
     {
@@ -47,7 +47,7 @@ class SasCmsSlotsDataResolverTest extends TestCase
         $this->slots = new CmsSlotCollection();
         $this->resolverContext = $this->createMock(ResolverContext::class);
 
-        $this->sasCmsSlotsDataResolver = new SasCmsSlotsDataResolver(
+        $this->werklCmsSlotsDataResolver = new WerklCmsSlotsDataResolver(
             $this->decorated,
             $this->resolvers,
         );
@@ -78,7 +78,7 @@ class SasCmsSlotsDataResolverTest extends TestCase
             ->method('resolve')
             ->willReturn($this->slots);
 
-        $this->sasCmsSlotsDataResolver->resolve($this->slots, $this->resolverContext);
+        $this->werklCmsSlotsDataResolver->resolve($this->slots, $this->resolverContext);
     }
 
     /**

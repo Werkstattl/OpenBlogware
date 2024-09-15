@@ -1,8 +1,8 @@
-import template from './sas-cms-el-preview-newest-listing.html.twig';
-import './sas-cms-el-preview-newest-listing.scss';
+import template from './werkl-cms-el-preview-newest-listing.html.twig';
+import './werkl-cms-el-preview-newest-listing.scss';
 
 const { Component } = Shopware;
 
-Component.register('sas-cms-el-preview-newest-listing', {
+Component.register('werkl-cms-el-preview-newest-listing', {
     template,
 });

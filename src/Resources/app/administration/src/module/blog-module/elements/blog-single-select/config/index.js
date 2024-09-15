@@ -19,7 +19,7 @@ Component.register('sw-cms-el-config-blog-single-select', {
     },
     computed: {
         blogEntryRepository() {
-            return this.repositoryFactory.create('sas_blog_entries');
+            return this.repositoryFactory.create('werkl_blog_entries');
         },
     },
 

@@ -69,7 +69,7 @@ composer require werkstattl/openblogware
 3. To install the plugin, run:
 ```sh
 bin/console plugin:refresh
-bin/console plugin:install --activate SasBlogModule
+bin/console plugin:install --activate WerklOpenBlogware
 ```
 4. To clear the cache, run:
 ```sh

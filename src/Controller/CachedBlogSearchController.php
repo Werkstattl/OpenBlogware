@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
@@ -22,7 +22,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 #[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogSearchController extends StorefrontController
 {
-    public const SEARCH_TAG = 'sas-blog-search';
+    public const SEARCH_TAG = 'werkl-blog-search';
 
     private BlogSearchController $decorated;
 
@@ -49,10 +49,10 @@ class CachedBlogSearchController extends StorefrontController
 
     public static function buildName(string $salesChannelId): string
     {
-        return 'sas-blog-search-' . $salesChannelId;
+        return 'werkl-blog-search-' . $salesChannelId;
     }
 
-    #[Route(path: '/sas_blog_search', name: 'sas.frontend.blog.search', methods: ['GET'])]
+    #[Route(path: '/werkl_blog_search', name: 'werkl.frontend.blog.search', methods: ['GET'])]
     public function search(Request $request, SalesChannelContext $context): Response
     {
         $key = $this->generateSearchKey($request, $context);

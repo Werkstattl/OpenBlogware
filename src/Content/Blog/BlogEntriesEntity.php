@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationCollection;
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationCollection;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryCollection;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;

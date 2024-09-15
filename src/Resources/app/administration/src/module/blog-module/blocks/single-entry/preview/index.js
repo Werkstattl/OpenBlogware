@@ -1,7 +1,7 @@
-import template from './sas-cms-preview-blog-single-entry.html.twig';
-import './sas-cms-preview-blog-single-entry.scss';
+import template from './werkl-cms-preview-blog-single-entry.html.twig';
+import './werkl-cms-preview-blog-single-entry.scss';
 
-Shopware.Component.register('sas-cms-preview-blog-single-entry', {
+Shopware.Component.register('werkl-cms-preview-blog-single-entry', {
     template,
 
     computed: {

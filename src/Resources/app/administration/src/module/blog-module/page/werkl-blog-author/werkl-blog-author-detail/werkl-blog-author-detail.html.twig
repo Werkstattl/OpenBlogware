@@ -1,0 +1,106 @@
+{% block werkl_blog_author_detail %}
+<sw-page class="werkl-blog-author-detail">
+    <template #smart-bar-header>
+        <h2>
+            {% block werkl_blog_author_detail_smart_bar_header_title_text %}
+                 {{ salutation(blogAuthor) || $tc('werkl-blog-author.detail.title') }}
+            {% endblock %}
+        </h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <sw-button :router-link="{ name: 'blog.module.author.index' }">
+            {{ $tc('werkl-blog-author.detail.buttonCancel') }}
+        </sw-button>
+
+        <sw-button-process
+            :is-loading="isLoading"
+            :process-success="processSuccess"
+            variant="primary"
+            @update:process-success="saveFinish"
+            @click="onSave">
+            {{ $tc('werkl-blog-author.detail.buttonSave') }}
+        </sw-button-process>
+
+    </template>
+
+    <template #content>
+        <sw-card-view>
+            <sw-card v-if="blogAuthor" :isLoading="isLoading" :title="$tc('werkl-blog-author.detail.title')">
+
+                    <sw-container columns="2fr 4fr 4fr" gap="16px">
+                        <sw-entity-single-select
+                            class="werkl-blog-author-base-form__salutation-select"
+                            entity="salutation"
+                            :label="$tc('werkl-blog-author.detail.salutation.label')"
+                            :placeholder="$tc('werkl-blog-author.detail.salutation.placeholder')"
+                            :error="blogAuthorSalutationIdError"
+                            labelProperty="displayName"
+                            required
+                            v-model:value="blogAuthor.salutationId">
+                        </sw-entity-single-select>
+
+                        <sw-text-field
+                            required
+                            :error="blogAuthorFirstNameError"
+                            :placeholder="$tc('werkl-blog-author.detail.firstName.placeholder')"
+                            :label="$tc('werkl-blog-author.detail.firstName.label')"
+                            v-model:value="blogAuthor.firstName"/>
+
+                        <sw-text-field
+                            required
+                            :error="blogAuthorLastNameError"
+                            :placeholder="$tc('werkl-blog-author.detail.lastName.placeholder')"
+                            :label="$tc('werkl-blog-author.detail.lastName.label')"
+                            v-model:value="blogAuthor.lastName"/>
+                    </sw-container>
+
+                    <sw-container columns="6fr 4fr" gap="24px">
+                        <sw-text-field
+                            :error="blogAuthorDisplayNameError"
+                            :placeholder="$tc('werkl-blog-author.detail.displayName.placeholder')"
+                            :label="$tc('werkl-blog-author.detail.displayName.label')"
+                            v-model:value="blogAuthor.displayName"/>
+
+                        <sw-text-field
+                            required
+                            :error="blogAuthorEmailError"
+                            :placeholder="$tc('werkl-blog-author.detail.email.placeholder')"
+                            :label="$tc('werkl-blog-author.detail.email.label')"
+                            v-model:value="blogAuthor.email"/>
+                    </sw-container>
+
+                <sw-container columns="1fr" gap="32px">
+                    <sw-text-editor
+                        :label="$tc('werkl-blog-author.detail.description.label')"
+                        :placeholder="$tc('werkl-blog-author.detail.description.placeholder')"
+                        :error="blogAuthorDescriptionError"
+                        v-model:value="blogAuthor.description">
+                    </sw-text-editor>
+                </sw-container>
+
+                <sw-upload-listener
+                        :uploadTag="blogAuthor.id"
+                        @media-upload-finish="onSetMediaItem"
+                        autoUpload>
+                    </sw-upload-listener>
+
+                    <sw-media-upload-v2
+                        variant="regular"
+                        :allowMultiSelect="false"
+                        defaultFolder="werkl_blog_author"
+                        :disabled="isLoading"
+                        :fileAccept="fileAccept"
+                        :label="$tc('werkl-blog-author.detail.media.label')"
+                        :uploadTag="blogAuthor.id"
+                        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                        :source="blogAuthor.mediaId"
+                        @media-upload-remove-image="onRemoveMediaItem"
+                        @media-drop="onMediaDropped">
+                    </sw-media-upload-v2>
+            </sw-card>
+        </sw-card-view>
+    </template>
+
+</sw-page>
+{% endblock %}

@@ -7,25 +7,25 @@
     position-identifier="blog-vertical-tabs"
 >
     <template #default="{ active }">
-        {% block sas_block_list_tab_item %}
-        <sw-tabs-item :title="$tc('sas-blog.general.mainMenuItemList')"
+        {% block werkl_block_list_tab_item %}
+        <sw-tabs-item :title="$tc('werkl-blog.general.mainMenuItemList')"
                       variant="minimal"
                       :route="{ name: 'blog.module.index' }"
                       :activeTab="active"
                       :native="true"
                       name="blog">
-            {{ $tc('sas-blog.general.mainMenuItemList') }}
+            {{ $tc('werkl-blog.general.mainMenuItemList') }}
         </sw-tabs-item>
         {% endblock %}
 
-        {% block sas_block_tags_tab_item %}
-        <sw-tabs-item :title="$tc('sas-blog-author.general.mainMenuItemList')"
+        {% block werkl_block_tags_tab_item %}
+        <sw-tabs-item :title="$tc('werkl-blog-author.general.mainMenuItemList')"
                       :route="{ name: 'blog.module.author' }"
                       variant="minimal"
                       :activeTab="active"
                       :native="true"
                       name="author">
-            {{ $tc('sas-blog-author.general.mainMenuItemList') }}
+            {{ $tc('werkl-blog-author.general.mainMenuItemList') }}
         </sw-tabs-item>
         {% endblock %}
     </template>

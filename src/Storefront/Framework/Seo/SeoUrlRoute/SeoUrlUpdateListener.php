@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Storefront\Framework\Seo\SeoUrlRoute;
+namespace Werkl\OpenBlogware\Storefront\Framework\Seo\SeoUrlRoute;
 
-use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
-use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;

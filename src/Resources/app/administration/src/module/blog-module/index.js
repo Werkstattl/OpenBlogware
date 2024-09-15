@@ -10,21 +10,21 @@ import './component/blog-extension-component-sections';
  */
 import './extension/sw-cms/component/sw-cms-sidebar';
 import './extension/sw-cms/page/sw-cms-list';
-import './extension/component/cms/sas-cms-sidebar';
+import './extension/component/cms/werkl-cms-sidebar';
 
 /**
  * privileges
  */
-import './page/sas-blog-detail/acl';
-import './page/sas-blog-author/acl';
-import './page/sas-blog-list/acl';
+import './page/werkl-blog-detail/acl';
+import './page/werkl-blog-author/acl';
+import './page/werkl-blog-list/acl';
 
 /**
  * Pages
  */
-import './page/sas-blog-list';
-import './page/sas-blog-create';
-import './page/sas-blog-detail';
+import './page/werkl-blog-list';
+import './page/werkl-blog-create';
+import './page/werkl-blog-detail';
 
 /**
  * Language Snippets
@@ -58,17 +58,17 @@ import './component/blog-category-tree-field';
 /**
  * Blog author
  */
-import './page/sas-blog-author/sas-blog-author-list';
-import './page/sas-blog-author/sas-blog-author-detail';
-import './page/sas-blog-author/sas-blog-author-create';
+import './page/werkl-blog-author/werkl-blog-author-list';
+import './page/werkl-blog-author/werkl-blog-author-detail';
+import './page/werkl-blog-author/werkl-blog-author-create';
 
 import './component/blog-vertical-tabs';
 
 Module.register('blog-module', {
     type: 'plugin',
     name: 'Blog',
-    title: 'sas-blog.general.mainMenuItemGeneral',
-    description: 'sas-blog.general.descriptionTextModule',
+    title: 'werkl-blog.general.mainMenuItemGeneral',
+    description: 'werkl-blog.general.descriptionTextModule',
     color: '#F965AF',
     icon: 'regular-content',
 
@@ -80,23 +80,23 @@ Module.register('blog-module', {
     routes: {
         index: {
             components: {
-                default: 'sas-blog-list',
+                default: 'werkl-blog-list',
             },
             path: 'index',
         },
         create: {
             components: {
-                default: 'sas-blog-create',
+                default: 'werkl-blog-create',
             },
             path: 'create',
         },
         detail: {
-            component: 'sas-blog-detail',
+            component: 'werkl-blog-detail',
             path: 'detail/:id',
         },
         author: {
             path: 'author',
-            component: 'sas-blog-author-list',
+            component: 'werkl-blog-author-list',
             meta: {
                 parentPath: 'blog.module.index',
             },
@@ -106,18 +106,18 @@ Module.register('blog-module', {
         },
         'author.index': {
             path: 'author/index',
-            component: 'sas-blog-author-list',
+            component: 'werkl-blog-author-list',
         },
         'author.create': {
             path: 'author/new',
-            component: 'sas-blog-author-create',
+            component: 'werkl-blog-author-create',
             meta: {
                 parentPath: 'blog.module.author.index',
             },
         },
         'author.detail': {
             path: 'author/detail/:id',
-            component: 'sas-blog-author-detail',
+            component: 'werkl-blog-author-detail',
             meta: {
                 parentPath: 'blog.module.author.index',
             },
@@ -126,15 +126,15 @@ Module.register('blog-module', {
 
     navigation: [
         {
-            id: 'sas-blog',
-            label: 'sas-blog.general.mainMenuItemGeneral',
+            id: 'werkl-blog',
+            label: 'werkl-blog.general.mainMenuItemGeneral',
             path: 'blog.module.index',
             parent: 'sw-content',
             meta: {
                 privilege: [
-                    'sas-blog-category:read',
-                    'sas_blog_author:read',
-                    'sas_blog_entries:read',
+                    'werkl-blog-category:read',
+                    'werkl_blog_author:read',
+                    'werkl_blog_entries:read',
                 ],
             },
         },

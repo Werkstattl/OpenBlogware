@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Page\Blog;
+namespace OpenBlogware\Tests\Page\Blog;
 
-use BlogModule\Tests\Fakes\FakeEntityRepository;
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Fakes\FakeEntityRepository;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorEntity;
-use Sas\BlogModule\Page\Blog\BlogPage;
-use Sas\BlogModule\Page\Blog\BlogPageLoader;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
+use Werkl\OpenBlogware\Page\Blog\BlogPage;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Category\Tree\Tree;
 use Shopware\Core\Content\Cms\CmsPageEntity;

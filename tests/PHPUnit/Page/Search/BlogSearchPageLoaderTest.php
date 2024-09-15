@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Page\Search;
+namespace OpenBlogware\Tests\Page\Search;
 
-use BlogModule\Tests\Fakes\FakeEntityRepository;
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Fakes\FakeEntityRepository;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
-use Sas\BlogModule\Page\Search\BlogSearchPage;
-use Sas\BlogModule\Page\Search\BlogSearchPageLoader;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Page\Search\BlogSearchPage;
+use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\Routing\RoutingException;

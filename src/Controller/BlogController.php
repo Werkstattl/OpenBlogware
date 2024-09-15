@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
-use Sas\BlogModule\Page\Blog\BlogPageLoader;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ class BlogController extends StorefrontController
         $this->blogPageLoader = $blogPageLoader;
     }
 
-    #[Route(path: '/sas_blog/{articleId}', name: 'sas.frontend.blog.detail', methods: ['GET'])]
+    #[Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->blogPageLoader->load($request, $context);

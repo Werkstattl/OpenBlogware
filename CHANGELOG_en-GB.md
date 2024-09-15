@@ -1,6 +1,5 @@
 # 4.0.0
-- Breaking: Renamed plugin class from SasBlogModule to WerklOpenBlogware
-- Breaking: Changed database table prefix from `sas_blog_` to `open_blogware_`
+- Breaking: Renamed plugin internals from Sas\\BlogModule\\SasBlogModule to Werkl\\OpenBlogware\\WerklOpenBlogware
 
 # 3.0.4
 - Added offset count functionality to the newest blog items element 

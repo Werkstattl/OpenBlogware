@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Core\Content\Sitemap\Provider;
+namespace OpenBlogware\Tests\Core\Content\Sitemap\Provider;
 
-use BlogModule\Tests\Fakes\FakeEntityRepository;
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Fakes\FakeEntityRepository;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use Doctrine\DBAL\Connection;
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
-use Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Core\Content\Sitemap\Provider\BlogUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;

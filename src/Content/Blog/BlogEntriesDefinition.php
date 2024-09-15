@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
-use Sas\BlogModule\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorDefinition;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryDefinition;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Content\Cms\CmsPageDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -30,7 +30,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class BlogEntriesDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'sas_blog_entries';
+    public const ENTITY_NAME = 'werkl_blog_entries';
 
     public function getEntityName(): string
     {
@@ -76,9 +76,9 @@ class BlogEntriesDefinition extends EntityDefinition
 
             (new DateField('published_at', 'publishedAt'))->addFlags(new Required(), new ApiAware()),
 
-            (new TranslationsAssociationField(BlogEntriesTranslationDefinition::class, 'sas_blog_entries_id'))->addFlags(new Required()),
+            (new TranslationsAssociationField(BlogEntriesTranslationDefinition::class, 'werkl_blog_entries_id'))->addFlags(new Required()),
 
-            (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_entries_id', 'sas_blog_category_id'))->addFlags(new CascadeDelete(), new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
+            (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogCategoryMappingDefinition::class, 'werkl_blog_entries_id', 'werkl_blog_category_id'))->addFlags(new CascadeDelete(), new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             (new ManyToOneAssociationField('blogAuthor', 'author_id', BlogAuthorDefinition::class, 'id', false))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             (new OneToOneAssociationField('cmsPage', 'cms_page_id', 'id', CmsPageDefinition::class, false))->addFlags(new ApiAware()),
         ]);

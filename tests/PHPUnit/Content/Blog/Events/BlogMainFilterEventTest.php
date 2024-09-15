@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Content\Blog\Events;
+namespace OpenBlogware\Tests\Content\Blog\Events;
 
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;

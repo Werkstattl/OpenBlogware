@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
-use Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Framework\Event\Annotation\Event;
 
 class BlogListingFilterBuildEvent
@@ -11,12 +11,12 @@ class BlogListingFilterBuildEvent
     /**
      * @deprecated tag:v1.7.0 - we will use BLOG_MAIN_FILTER_EVENT instead
      *
-     * @Event("Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent")
+     * @Event("Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent")
      */
     public const BLOG_MAIIN_FILTER_EVENT = BlogMainFilterEvent::class;
 
     /**
-     * @Event("Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent")
+     * @Event("Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent")
      */
     public const BLOG_MAIN_FILTER_EVENT = BlogMainFilterEvent::class;
 }

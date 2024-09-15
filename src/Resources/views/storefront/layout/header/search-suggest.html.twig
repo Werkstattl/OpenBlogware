@@ -14,13 +14,13 @@
                             <div class="nav flex-md-column flex-row nav-pills justify-content-around" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                 {% block layout_search_suggest_results_tab_pane_product %}
                                     <a class="nav-link flex-fill text-md-left text-center {% if productTotal >= blogTotal %}show active{% endif %}" id="v-pills-product-tab" data-toggle="pill" href="#v-pills-product" role="tab" aria-controls="v-pills-product" aria-selected="true">
-                                        {{ 'sas-blog.search.tabs.product'|trans|sw_sanitize }} <span class="badge badge-light">{{ productTotal }}</span>
+                                        {{ 'werkl-blog.search.tabs.product'|trans|sw_sanitize }} <span class="badge badge-light">{{ productTotal }}</span>
                                     </a>
                                 {% endblock %}
 
                                 {% block layout_search_suggest_results_tab_pane_blog %}
                                     <a class="nav-link flex-fill text-md-left text-center {% if blogTotal > productTotal %}active{% endif %}" id="v-pills-blog-tab" data-toggle="pill" href="#v-pills-blog" role="tab" aria-controls="v-pills-blog" aria-selected="false">
-                                        {{ 'sas-blog.search.tabs.blog'|trans|sw_sanitize }} <span class="badge badge-light">{{ blogTotal }}</span>
+                                        {{ 'werkl-blog.search.tabs.blog'|trans|sw_sanitize }} <span class="badge badge-light">{{ blogTotal }}</span>
                                     </a>
                                 {% endblock %}
 

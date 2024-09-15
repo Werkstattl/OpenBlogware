@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
-use Sas\BlogModule\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryDefinition;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -30,11 +30,11 @@ class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
 
         $translations = new Translations(
             [
-                'sas_blog_category_id' => $categoryId,
+                'werkl_blog_category_id' => $categoryId,
                 'name' => 'Allgemeines',
             ],
             [
-                'sas_blog_category_id' => $categoryId,
+                'werkl_blog_category_id' => $categoryId,
                 'name' => 'General',
             ]
         );
@@ -50,8 +50,8 @@ class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
         }
 
         foreach ($blogs as $insert) {
-            $insert['sas_blog_category_id'] = $categoryId;
-            $insert['sas_blog_entries_id'] = $insert['id'];
+            $insert['werkl_blog_category_id'] = $categoryId;
+            $insert['werkl_blog_entries_id'] = $insert['id'];
             unset($insert['id']);
 
             $queue->addInsert(BlogCategoryMappingDefinition::ENTITY_NAME, $insert);

@@ -1,11 +1,11 @@
 {% sw_extends '@Storefront/storefront/layout/header/search.html.twig' %}
 
 {% block layout_header_search %}
-    {% if app.request.attributes.get('_route') == 'sas.frontend.blog.search' %}
+    {% if app.request.attributes.get('_route') == 'werkl.frontend.blog.search' %}
         <div class="collapse"
              id="searchCollapse">
             <div class="header-search">
-                <form action="{{ path('sas.frontend.blog.search') }}"
+                <form action="{{ path('werkl.frontend.blog.search') }}"
                       method="get"
                       data-search-form="true"
                       data-url="{{ path('frontend.search.suggest') }}?search="

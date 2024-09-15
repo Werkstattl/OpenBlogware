@@ -1,6 +1,6 @@
-import template from './sas-blog-element-preview.html.twig';
-import './sas-blog-element-preview.scss';
+import template from './werkl-blog-element-preview.html.twig';
+import './werkl-blog-element-preview.scss';
 
-Shopware.Component.register('sas-blog-el-blog-detail-preview', {
+Shopware.Component.register('werkl-blog-el-blog-detail-preview', {
     template,
 });

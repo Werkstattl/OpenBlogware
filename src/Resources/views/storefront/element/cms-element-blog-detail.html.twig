@@ -1,24 +1,24 @@
-{% block sas_blog_detail %}
+{% block werkl_blog_detail %}
     {% if element.data %}
-        <article class="sas-blog-detail row"
+        <article class="werkl-blog-detail row"
              itemprop="article"
              itemscope
              itemtype="https://schema.org/BlogPosting">
 
-            {% block sas_blog_detail_article_item_meta_published %}
+            {% block werkl_blog_detail_article_item_meta_published %}
                 <meta itemprop="datePublished" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
             {% endblock %}
 
             {% block page_product_detail_review_item_info_date %}
-                <div class="col-12 sas-blog-detail-item-date">
+                <div class="col-12 werkl-blog-detail-item-date">
                     <p><small>{{ element.data.publishedAt|format_date('short', locale=app.request.locale) }}</small></p>
                 </div>
             {% endblock %}
 
-            {% block sas_blog_detail_article_blocks %}
-                <div class="col-12 sas-blog-detail-article">
+            {% block werkl_blog_detail_article_blocks %}
+                <div class="col-12 werkl-blog-detail-article">
 
-                    {% block sas_blog_detail_article_teaser_image %}
+                    {% block werkl_blog_detail_article_teaser_image %}
                         {% if element.data.detailTeaserImage %}
                             {% set attributes = {
                                 'class': 'blog-image-teaser card-img-top mb-3',
@@ -39,18 +39,18 @@
                         {% endif %}
                     {% endblock %}
 
-                    {% block sas_blog_detail_article_title %}
-                        <h1 class="sas-blog-detail-title" itemprop="headline">
+                    {% block werkl_blog_detail_article_title %}
+                        <h1 class="werkl-blog-detail-title" itemprop="headline">
                             {{ element.data.translated.title }}
                         </h1>
                     {% endblock %}
 
-                    {% block sas_blog_detail_article_meta %}
+                    {% block werkl_blog_detail_article_meta %}
                         {% set showAuthor = element.fieldconfig.elements.showAuthor.value ?? element.config.showAuthor.value %}
                         {% set showCategory = element.fieldconfig.elements.showCategory.value ?? element.config.showCategory.value %}
                         {% if showAuthor or showCategory %}
-                            <div class="sas-blog-detail-article-meta">
-                                {% block sas_blog_detail_article_meta_author %}
+                            <div class="werkl-blog-detail-article-meta">
+                                {% block werkl_blog_detail_article_meta_author %}
                                     {% if showAuthor and element.data.blogAuthor %}
                                         {% sw_include '@Storefront/storefront/component/blog/_partials/_block_author.html.twig' with {
                                             author: element.data.blogAuthor
@@ -58,7 +58,7 @@
                                     {% endif %}
                                 {% endblock %}
 
-                                {% block sas_blog_detail_article_meta_categories %}
+                                {% block werkl_blog_detail_article_meta_categories %}
                                     {% if showCategory and element.data.blogCategories %}
                                         {% sw_include '@Storefront/storefront/component/blog/_partials/_block_category.html.twig' with {
                                             categories: element.data.blogCategories
@@ -68,7 +68,7 @@
                             </div>
                         {% endif %}
                     {% endblock %}
-                    {% block sas_blog_detail_article_blocks_content %}
+                    {% block werkl_blog_detail_article_blocks_content %}
                         {% if not element.data.cmsPage %}
                             <div>
                                 {{ element.data.translated.content|raw }}
@@ -77,9 +77,9 @@
                     {% endblock %}
                 </div>
 
-                {% block sas_blog_detail_article_blocks_cms %}
+                {% block werkl_blog_detail_article_blocks_cms %}
                     {% if element.data.cmsPage %}
-                        <div class="row sas-blog-detail-cms">
+                        <div class="row werkl-blog-detail-cms">
                             {% set cmsPageClasses = ('cms-page ' ~ element.data.cmsPage.cssClass|striptags)|trim %}
                             <div class="{{ cmsPageClasses }}">
                                 {% block page_content_blocks %}
@@ -94,8 +94,8 @@
     {% else %}
         {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
             type: "warning",
-            content: 'sas-blog.element.detail.warning.content'|trans,
-            heading: 'sas-blog.element.detail.warning.heading'|trans
+            content: 'werkl-blog.element.detail.warning.content'|trans,
+            heading: 'werkl-blog.element.detail.warning.heading'|trans
         } %}
     {% endif %}
 {% endblock %}

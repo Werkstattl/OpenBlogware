@@ -1,5 +1,5 @@
 import template from './sw-cms-sidebar.html.twig';
-import BLOG from '../../../../constant/blog-module.constant';
+import BLOG from '../../../../constant/open-blogware.constant';
 
 Shopware.Component.override('sw-cms-sidebar', {
     template,

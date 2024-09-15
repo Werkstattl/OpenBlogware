@@ -3,10 +3,10 @@ import './preview';
 
 Shopware.Service('cmsService').registerCmsBlock({
     name: 'blog-listing',
-    label: 'sas-blog.blocks.blog.listing.label',
-    category: 'sas-blog',
-    component: 'sas-cms-block-blog',
-    previewComponent: 'sas-cms-preview-blog-listing',
+    label: 'werkl-blog.blocks.blog.listing.label',
+    category: 'werkl-blog',
+    component: 'werkl-cms-block-blog',
+    previewComponent: 'werkl-cms-preview-blog-listing',
     defaultConfig: {
         marginBottom: '0px',
         marginTop: '0px',

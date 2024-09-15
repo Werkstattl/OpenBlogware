@@ -29,7 +29,7 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: null,
             entity: {
-                name: 'sas_blog_categories',
+                name: 'werkl_blog_categories',
             },
         },
     },

@@ -1,0 +1,243 @@
+{% block sw_cms_sidebar_page_settings %}
+    <sw-sidebar-item
+        ref="sidebarItem"
+        icon="regular-info-circle"
+        badge-type="error"
+        :title="$tc('werkl-blog.detail.sidebar.heading')"
+        :has-simple-badge="OpenBlogwareDetailError"
+        :disabled="page.locked || disabled"
+    >
+        {% block werkl_blog_cms_sidebar_page_basic_information %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block werkl_blog_cms_sidebar_page_basic_information_header %}
+                    <template #header>
+                        <span>{{ $tc('werkl-blog.detail.sidebar.basicInformation') }}</span>
+                    </template>
+                {% endblock %}
+
+                {% block werkl_blog_cms_sidebar_page_basic_information_form %}
+                    <template #content>
+                        <div class="sw-cms-sidebar__settings">
+                            {% block werkl_blog_cms_sidebar_page_basic_information_title_field %}
+                                <sw-text-field
+                                    required
+                                    name="sw-field--blog-title"
+                                    v-model:value="blog.title"
+                                    :label="$tc('werkl-blog.detail.titleLabel')"
+                                    :placeholder="$tc('werkl-blog.detail.titlePlaceholder')"
+                                    :error="blogTitleError"
+                                ></sw-text-field>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_basic_information_slug_field %}
+                                <sw-text-field
+                                    required
+                                    disabled
+                                    name="sw-field--blog-slug"
+                                    v-model:value="blog.slug"
+                                    :label="$tc('werkl-blog.detail.slugLabel')"
+                                    :error="blogSlugError"
+                                    :placeholder="$tc('werkl-blog.detail.slugPlaceholder')"
+                                ></sw-text-field>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_basic_information_teaser_field %}
+                                <sw-textarea-field
+                                    type="textarea"
+                                    name="sw-field--blog-teaser"
+                                    v-model:value="blog.teaser"
+                                    :label="$tc('werkl-blog.detail.teaserLabel')"
+                                    :placeholder="$tc('werkl-blog.detail.teaserPlaceholder')"
+                                    :error="blogTeaserError"
+                                ></sw-textarea-field>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_basic_information_image_field %}
+                                <sw-upload-listener
+                                    :uploadTag="blog.id"
+                                    @media-upload-finish="onSetMediaItem"
+                                    autoUpload>
+                                </sw-upload-listener>
+
+                                <sw-media-compact-upload-v2
+                                    variant="regular"
+                                    :label="$tc('werkl-blog.detail.teaserImageLabel')"
+                                    :source="mediaItem"
+                                    :uploadTag="blog.id"
+                                    :defaultFolder="blog.getEntityName()"
+                                    :allowMultiSelect="false"
+                                    :fileAccept="fileAccept"
+                                    @media-upload-remove-image="onRemoveMediaItem"
+                                    @selection-change="setMedia"
+                                    @media-drop="onMediaDropped"
+                                ></sw-media-compact-upload-v2>
+                            {% endblock %}
+                        </div>
+                    </template>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+
+        {% block werkl_blog_cms_sidebar_page_settings %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block werkl_blog_cms_sidebar_page_settings_header %}
+                    <template #header>
+                        <span>{{ $tc('werkl-blog.detail.sidebar.settings') }}</span>
+                    </template>
+                {% endblock %}
+
+                {% block werkl_blog_cms_sidebar_page_settings_form %}
+                    <template #content>
+                        <div
+                            class="sw-cms-sidebar__settings"
+                        >
+                            <div>
+                                {% block werkl_blog_cms_sidebar_page_settings_visibility_field %}
+                                    <sw-switch-field
+                                        type="switch"
+                                        class="werkl-field--switch"
+                                        name="sw-field--blog-active"
+                                        :label="$tc('werkl-blog.detail.visibility.label')"
+                                        v-model:value="blog.active">
+                                    </sw-switch-field>
+                                {% endblock %}
+
+                                {% block werkl_blog_cms_sidebar_page_settings_detail_teaser_field %}
+                                    <sw-switch-field
+                                        type="switch"
+                                        class="werkl-field--switch"
+                                        name="sw-field--blog-detailTeaser"
+                                        :label="$tc('werkl-blog.detail.detailTeaser.label')"
+                                        v-model:value="blog.detailTeaserImage">
+                                    </sw-switch-field>
+                                {% endblock %}
+                            </div>
+
+                            {% block werkl_blog_cms_sidebar_page_settings_published_at_field %}
+                                <sw-datepicker
+                                    required
+                                    dateType="date"
+                                    v-model:value="blog.publishedAt"
+                                    name="sw-field--blog-publishedAt"
+                                    :label="$tc('werkl-blog.detail.publishedAtLabel')"
+                                    :error="blogPublishedAtError"
+                                ></sw-datepicker>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_settings_author_field %}
+                                <sw-entity-single-select
+                                    required
+                                    v-model:value="blog.authorId"
+                                    name="sw-field--blog-author"
+                                    labelProperty="translated.name"
+                                    class="werkl-field--author"
+                                    entity="werkl_blog_author"
+                                    :label="$tc('werkl-blog.detail.author.label')"
+                                    :placeholder="$tc('werkl-blog.detail.author.placeholder')"
+                                    :error="blogAuthorIdError"
+                                >
+                                    <template #selection-label-property="{item}">
+                                        <span>{{ item.firstName }} {{ item.lastName }} <i>({{ item.email }})</i></span>
+                                    </template>
+                                    <template #result-label-property="{item}">
+                                        <span>{{ item.firstName }} {{ item.lastName }} <i>({{ item.email }})</i></span>
+                                    </template>
+                                </sw-entity-single-select>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_settings_sales_channels %}
+                                <sw-entity-multi-id-select
+                                    v-model:value="blogSalesChannelIds"
+                                    :repository="salesChannelRepository"
+                                    class="werkl-field--sales-channels"
+                                    :label="$tc('werkl-blog.detail.salesChannels.labelSalesChannels')"
+                                    :placeholder="$tc('werkl-blog.detail.salesChannels.placeholderSalesChannels')"
+                                ></sw-entity-multi-id-select>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_settings_category_field %}
+                                <werkl-blog-category-tree-field
+                                    required
+                                    v-model:value="blog.blogCategories"
+                                    class="werkl-field--category"
+                                    name="sw-field--blog-categories"
+                                    :label="$tc('werkl-blog.detail.category.label')"
+                                    :placeholder="$tc('werkl-blog.detail.category.placeholder')"
+                                    :error="blogBlogCategoriesError"
+                                    :categoriesCollection="blog.blogCategories"
+                                ></werkl-blog-category-tree-field>
+                            {% endblock %}
+                        </div>
+                    </template>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+
+        {% block werkl_blog_cms_sidebar_page_serp %}
+            <sw-sidebar-collapse :expand-on-loading="true">
+                {% block werkl_blog_cms_sidebar_page_serp_header %}
+                    <template #header>
+                        <span>{{ $tc('werkl-blog.detail.serp.title') }}</span>
+                    </template>
+                {% endblock %}
+
+                {% block werkl_blog_cms_sidebar_page_serp_form %}
+                    <template #content>
+                        <div
+                            class="sw-cms-sidebar__settings serp-preview-card"
+                        >
+                            <div class="serp-preview">
+                                <h3>{{ blog.metaTitle }}</h3>
+                                <cite>{{ blog.slug }}</cite>
+                                <p>{{ blog.metaDescription }}</p>
+                            </div>
+
+                            {% block werkl_blog_cms_sidebar_page_serp_meta_title_field %}
+                                <sw-text-field
+                                    v-model:value="blog.metaTitle"
+                                    :maxlength="maximumMetaTitleCharacter"
+                                    name="sw-field--blog-metaTitle"
+                                    :placeholder="$tc('werkl-blog.detail.serp.metaTitle')"
+                                ></sw-text-field>
+                            {% endblock %}
+
+                            {% block werkl_blog_cms_sidebar_page_serp_meta_description_field %}
+                                <sw-textarea-field
+                                    type="textarea"
+                                    v-model:value="blog.metaDescription"
+                                    :maxlength="maximumMetaDescriptionCharacter"
+                                    name="sw-field--blog-metaDescription"
+                                    :placeholder="$tc('werkl-blog.detail.serp.metaDescription')"
+                                ></sw-textarea-field>
+                            {% endblock %}
+                        </div>
+                    </template>
+                {% endblock %}
+            </sw-sidebar-collapse>
+        {% endblock %}
+    </sw-sidebar-item>
+{% endblock %}
+
+{% block sw_cms_sidebar_layout_assignment %}
+    {% block werkl_blog_cms_sidebar_extension_component %}
+        <werkl-blog-extension-component-sections
+            :position-identifier="positionIdentifierExtension"
+            class="werkl-extension-component"
+        >
+            <template #default="{ componentSection }">
+                <sw-sidebar-item
+                    v-if="componentSection"
+                    :icon="componentSection.props.icon"
+                    badge-type="error"
+                    :title="componentSection.props.title"
+                    :disabled="page.locked || disabled"
+                >
+                    <sw-iframe-renderer
+                        :src="componentSection.src"
+                        :location-id="componentSection.props.locationId"
+                    ></sw-iframe-renderer>
+                </sw-sidebar-item>
+            </template>
+        </werkl-blog-extension-component-sections>
+    {% endblock %}
+{% endblock %}

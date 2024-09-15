@@ -2,7 +2,7 @@ import template from './blog-tree-item.html.twig';
 
 const { Component } = Shopware;
 
-Component.extend('sas-blog-tree-item', 'sw-tree-item', {
+Component.extend('werkl-blog-tree-item', 'sw-tree-item', {
     template,
 
     computed: {

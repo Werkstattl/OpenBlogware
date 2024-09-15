@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation;
+namespace Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation;
 
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
@@ -11,7 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class BlogAuthorTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'sas_blog_author_translation';
+    public const ENTITY_NAME = 'werkl_blog_author_translation';
 
     public function getEntityName(): string
     {

@@ -2,7 +2,7 @@ import template from './blog-vertical-tabs.html.twig';
 
 const { Component } = Shopware;
 
-Component.register('sas-blog-vertical-tabs', {
+Component.register('werkl-blog-vertical-tabs', {
     template,
 
     props: {

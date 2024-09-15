@@ -6,65 +6,65 @@
 
     <services>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogEntriesDefinition">
-            <tag name="shopware.entity.definition" entity="sas_blog_entries" />
+        <service id="Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition">
+            <tag name="shopware.entity.definition" entity="werkl_blog_entries" />
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition">
+        <service id="Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\BlogCategory\BlogCategoryDefinition">
+        <service id="Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition">
+        <service id="Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\Aggregate\BlogCategoryMappingDefinition">
+        <service id="Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\BlogAuthor\BlogAuthorDefinition">
+        <service id="Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition">
+        <service id="Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Extension\MediaExtension">
+        <service id="Werkl\OpenBlogware\Content\Extension\MediaExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Extension\LanguageExtension">
+        <service id="Werkl\OpenBlogware\Content\Extension\LanguageExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Extension\SalutationExtension">
+        <service id="Werkl\OpenBlogware\Content\Extension\SalutationExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 
-        <service id="Sas\BlogModule\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
+        <service id="Werkl\OpenBlogware\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
             <tag name="shopware.snippet.file"/>
         </service>
 
-        <service id="Sas\BlogModule\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
+        <service id="Werkl\OpenBlogware\Resources\snippet\de_DE\SnippetFile_de_DE" public="true">
             <tag name="shopware.snippet.file"/>
         </service>
 
-        <service id="Sas\BlogModule\Page\Blog\BlogPageLoader" public="true">
+        <service id="Werkl\OpenBlogware\Page\Blog\BlogPageLoader" public="true">
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
             <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
             <argument type="service" id="event_dispatcher"/>
             <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
-            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument id="werkl_blog_entries.repository" type="service"/>
         </service>
 
         <!-- Controller -->
-        <service id="Sas\BlogModule\Controller\CachedBlogController" decorates="Sas\BlogModule\Controller\BlogController" decoration-priority="-1000" public="true">
-            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogController.inner"/>
+        <service id="Werkl\OpenBlogware\Controller\CachedBlogController" decorates="Werkl\OpenBlogware\Controller\BlogController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
@@ -77,8 +77,8 @@
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\BlogController" public="true">
-            <argument id="Sas\BlogModule\Page\Blog\BlogPageLoader" type="service"/>
+        <service id="Werkl\OpenBlogware\Controller\BlogController" public="true">
+            <argument id="Werkl\OpenBlogware\Page\Blog\BlogPageLoader" type="service"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
@@ -88,8 +88,8 @@
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\CachedBlogSearchController" decorates="Sas\BlogModule\Controller\BlogSearchController" decoration-priority="-1000" public="true">
-            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogSearchController.inner"/>
+        <service id="Werkl\OpenBlogware\Controller\CachedBlogSearchController" decorates="Werkl\OpenBlogware\Controller\BlogSearchController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogSearchController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
@@ -102,8 +102,8 @@
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\BlogSearchController" public="true">
-            <argument id="Sas\BlogModule\Page\Search\BlogSearchPageLoader" type="service"/>
+        <service id="Werkl\OpenBlogware\Controller\BlogSearchController" public="true">
+            <argument id="Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader" type="service"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
@@ -113,8 +113,8 @@
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\CachedBlogRssController" decorates="Sas\BlogModule\Controller\BlogRssController" decoration-priority="-1000" public="true">
-            <argument type="service" id="Sas\BlogModule\Controller\CachedBlogRssController.inner"/>
+        <service id="Werkl\OpenBlogware\Controller\CachedBlogRssController" decorates="Werkl\OpenBlogware\Controller\BlogRssController" decoration-priority="-1000" public="true">
+            <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogRssController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
@@ -124,110 +124,110 @@
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\BlogRssController" public="true">
+        <service id="Werkl\OpenBlogware\Controller\BlogRssController" public="true">
             <argument id="Shopware\Storefront\Page\GenericPageLoader" type="service"/>
-            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument id="werkl_blog_entries.repository" type="service"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
         </service>
 
-        <service id="Sas\BlogModule\Controller\StoreApi\BlogController" public="true">
-            <argument id="sas_blog_entries.repository" type="service"/>
+        <service id="Werkl\OpenBlogware\Controller\StoreApi\BlogController" public="true">
+            <argument id="werkl_blog_entries.repository" type="service"/>
         </service>
 
         <!-- End controller -->
 
-        <service id="Sas\BlogModule\Content\Cms\DataResolver\SasCmsSlotsDataResolver" decorates="Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver">
-            <argument type="service" id="Sas\BlogModule\Content\Cms\DataResolver\SasCmsSlotsDataResolver.inner"/>
+        <service id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver" decorates="Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver">
+            <argument type="service" id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver.inner"/>
             <argument type="tagged" tag="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogCmsElementResolver">
+        <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogCmsElementResolver">
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
             <tag name="shopware.cms.data_resolver" />
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogNewestListingCmsElementResolver">
+        <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogNewestListingCmsElementResolver">
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
             <tag name="shopware.cms.data_resolver" />
         </service>
 
-        <service class="Sas\BlogModule\Content\Blog\DataResolver\BlogDetailCmsElementResolver" id="sas.blog_module.data_resolver.blog_detail_cms_element_resolver">
+        <service class="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver" id="werkl_blog_module.data_resolver.blog_detail_cms_element_resolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogSeoUrlRoute">
-            <argument type="service" id="Sas\BlogModule\Content\Blog\BlogEntriesDefinition"/>
+        <service id="Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute">
+            <argument type="service" id="Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition"/>
             <tag name="shopware.seo_url.route"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogSeoUrlListener">
+        <service id="Werkl\OpenBlogware\Content\Blog\BlogSeoUrlListener">
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\BlogCategory\BlogCategoryIndexer">
+        <service id="Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryIndexer">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
-            <argument type="service" id="sas_blog_category.repository"/>
+            <argument type="service" id="werkl_blog_category.repository"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater"/>
             <tag name="shopware.entity_indexer"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\BlogEntitiesIndexer">
+        <service id="Werkl\OpenBlogware\Content\Blog\BlogEntitiesIndexer">
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
-            <argument type="service" id="sas_blog_entries.repository"/>
+            <argument type="service" id="werkl_blog_entries.repository"/>
 
             <tag name="shopware.entity_indexer"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\DataResolver\BlogSingleSelectDataResolver">
+        <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogSingleSelectDataResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated" decorates="Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRoute" public="true">
-            <argument type="service" id="Sas\BlogModule\Content\SalesChannel\Suggest\ProductSuggestDecorated.inner"/>
-            <argument type="service" id="sas_blog_entries.repository"/>
+        <service id="Werkl\OpenBlogware\Content\SalesChannel\Suggest\ProductSuggestDecorated" decorates="Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRoute" public="true">
+            <argument type="service" id="Werkl\OpenBlogware\Content\SalesChannel\Suggest\ProductSuggestDecorated.inner"/>
+            <argument type="service" id="werkl_blog_entries.repository"/>
             <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
         </service>
 
-        <service id="Sas\BlogModule\Page\Search\BlogSearchPageLoader">
+        <service id="Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader">
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
-            <argument id="sas_blog_entries.repository" type="service"/>
+            <argument id="werkl_blog_entries.repository" type="service"/>
         </service>
 
-        <service id="Sas\BlogModule\Core\Content\Sitemap\Provider\BlogUrlProvider" >
-            <argument type="service" id="sas_blog_entries.repository" />
+        <service id="Werkl\OpenBlogware\Core\Content\Sitemap\Provider\BlogUrlProvider" >
+            <argument type="service" id="werkl_blog_entries.repository" />
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
             <tag name="shopware.sitemap_url_provider" />
         </service>
 
-        <service id="Sas\BlogModule\Storefront\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener" >
+        <service id="Werkl\OpenBlogware\Storefront\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener" >
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
-            <argument type="service" id="sas_blog_entries.repository" />
+            <argument type="service" id="werkl_blog_entries.repository" />
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
+        <service id="Werkl\OpenBlogware\Content\Blog\Subscriber\BlogSubscriber" >
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="Sas\BlogModule\Subscriber\BlogCacheInvalidSubscriber" >
+        <service id="Werkl\OpenBlogware\Subscriber\BlogCacheInvalidSubscriber" >
             <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlUpdater"/>
             <argument type="service" id="category.repository"/>
-            <argument type="service" id="sas_blog_entries.repository"/>
+            <argument type="service" id="werkl_blog_entries.repository"/>
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheInvalidator"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="Sas\BlogModule\Content\Blog\Subscriber\BlogSubscriber" >
+        <service id="Werkl\OpenBlogware\Content\Blog\Subscriber\BlogSubscriber" >
             <tag name="kernel.event_subscriber" />
         </service>
     </services>

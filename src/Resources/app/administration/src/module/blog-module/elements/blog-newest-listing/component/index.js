@@ -1,9 +1,9 @@
-import template from './sas-cms-el-newest-listing.html.twig';
-import './sas-cms-el-newest-listing.scss';
+import template from './werkl-cms-el-newest-listing.html.twig';
+import './werkl-cms-el-newest-listing.scss';
 
 const { Component, Mixin } = Shopware;
 
-Component.register('sas-cms-el-newest-listing', {
+Component.register('werkl-cms-el-newest-listing', {
     template,
 
     mixins: [

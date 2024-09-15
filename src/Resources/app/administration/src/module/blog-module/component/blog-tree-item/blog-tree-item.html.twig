@@ -1,5 +1,5 @@
 {% block sw_tree_item_children_items %}
-    <sas-blog-tree-item
+    <werkl-blog-tree-item
         v-for="child in item.children"
         :key="child.id"
         :item="child"
@@ -20,11 +20,11 @@
         {% block sw_tree_item_children_items_slots %}
             {% parent %}
         {% endblock %}
-    </sas-blog-tree-item>
+    </werkl-blog-tree-item>
 {% endblock %}
 
 {% block sw_tree_items_actions_edit %}
 <sw-context-menu-item @click="onEditCategory(item)">
-    {{ $tc('sas-blog-tree-item.actions.edit') }}
+    {{ $tc('werkl-blog-tree-item.actions.edit') }}
 </sw-context-menu-item>
 {% endblock %}

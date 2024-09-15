@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\SalesChannel\Suggest;
+namespace Werkl\OpenBlogware\Content\SalesChannel\Suggest;
 
 use Shopware\Core\Content\Product\SalesChannel\Suggest\AbstractProductSuggestRoute;
 use Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRouteResponse;
@@ -52,7 +52,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
     ): ProductSuggestRouteResponse {
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
-        if (!$this->systemConfigService->get('SasBlogModule.config.enableSearchBox')) {
+        if (!$this->systemConfigService->get('WerklOpenBlogware.config.enableSearchBox')) {
             return $response;
         }
 

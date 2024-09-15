@@ -1,4 +1,4 @@
-{% block sas_element_blog_listing %}
+{% block werkl_element_blog_listing %}
     {% set cmsPage = page.landingPage ? page.landingPage.cmsPage : page.cmsPage %}
     {# @var result \Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult #}
     {% set searchResult = element.data %}
@@ -17,8 +17,8 @@
 
     {% set params = { slots: slot.id, 'no-aggregations': 1 } %}
 
-    {% block sas_element_blog_listing_wrapper %}
-        {% block sas_block_filter_panel %}
+    {% block werkl_element_blog_listing_wrapper %}
+        {% block werkl_block_filter_panel %}
             {% if config.showCategoryFilter.value or config.showAuthorFilter.value %}
                 <div id="filter-panel-wrapper"
                      class="filter-panel-wrapper"

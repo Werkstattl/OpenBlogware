@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Core\Content\Sitemap\Provider;
+namespace Werkl\OpenBlogware\Core\Content\Sitemap\Provider;
 
 use Doctrine\DBAL\Connection;
-use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
-use Sas\BlogModule\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\Url;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
@@ -47,7 +47,7 @@ class BlogUrlProvider extends AbstractUrlProvider
 
     public function getName(): string
     {
-        return 'sasBlog';
+        return 'werklBlog';
     }
 
     public function getUrls(SalesChannelContext $context, int $limit, ?int $offset = null): UrlResult
@@ -71,7 +71,7 @@ class BlogUrlProvider extends AbstractUrlProvider
             return new UrlResult([], null);
         }
         $this->eventDispatcher->dispatch(new BlogIndexerEvent($blogEntities->getIds(), $context->getContext()));
-        $seoUrls = $this->getSeoUrls($blogEntities->getIds(), 'sas.frontend.blog.detail', $context, $this->connection);
+        $seoUrls = $this->getSeoUrls($blogEntities->getIds(), 'werkl.frontend.blog.detail', $context, $this->connection);
 
         $seoUrls = FetchModeHelper::groupUnique($seoUrls);
         $urls = [];

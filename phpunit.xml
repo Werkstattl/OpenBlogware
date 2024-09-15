@@ -9,7 +9,7 @@
 >
 
     <testsuites>
-        <testsuite name="BlogModule Tests">
+        <testsuite name="OpenBlogware Tests">
             <directory>./tests/PHPUnit/</directory>
         </testsuite>
     </testsuites>

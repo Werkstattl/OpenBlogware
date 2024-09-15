@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller\StoreApi;
+namespace Werkl\OpenBlogware\Controller\StoreApi;
 
 use OpenApi\Attributes as OAT;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -31,10 +31,10 @@ class BlogController extends AbstractBlogController
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/store-api/blog', name: 'store-api.sas.blog.load', methods: ['GET', 'POST'], defaults: ['_entity' => 'sas_blog_entries'])]
+    #[Route(path: '/store-api/blog', name: 'store-api.werkl_blog.load', methods: ['GET', 'POST'], defaults: ['_entity' => 'werkl_blog_entries'])]
     #[OAT\Get(
         path: '/store-api/blog',
-        summary: 'This route can be used to load the sas_blog_entries by specific filters',
+        summary: 'This route can be used to load the werkl_blog_entries by specific filters',
         operationId: 'listBlog',
         tags: ['Store API', 'Blog'],
         parameters: [

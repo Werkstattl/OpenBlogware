@@ -1,5 +1,5 @@
 {
-    "sas-blog": {
+    "werkl-blog": {
         "general": {
             "mainMenuItemGeneral": "Blog",
             "mainMenuItemList": "Blog",
@@ -185,11 +185,11 @@
 
     "sw-seo-url-template-card": {
         "routeNames": {
-            "sas-frontend-blog-detail": "Blog Detail Page"
+            "werkl-frontend-blog-detail": "Blog Detail Page"
         }
     },
 
-    "sas-blog-category": {
+    "werkl-blog-category": {
         "general": {
             "treeHeadline": "Blog categories",
             "mainMenuItemIndex": "Categories",
@@ -217,7 +217,7 @@
             "textDeleteMultipleConfirm": "Are you sure you want to delete the {count} selected blogs?"
         }
     },
-    "sas-blog-author": {
+    "werkl-blog-author": {
         "general": {
             "mainMenuItemList": "Author"
         },
@@ -267,20 +267,20 @@
             }
         }
     },
-    "sas-blog-tree-item": {
+    "werkl-blog-tree-item": {
         "actions": {
             "edit": "Edit"
         }
     },
     "sw-privileges": {
         "permissions": {
-            "sas-blog": {
+            "werkl-blog": {
                "label": "Blog"
             },
-            "sas-blog-author": {
+            "werkl-blog-author": {
                 "label": "Author Blog"
             },
-            "sas-blog-category": {
+            "werkl-blog-category": {
                 "label": "Category Blog"
             }
         }

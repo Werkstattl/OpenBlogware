@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Util;
+namespace OpenBlogware\Tests\Util;
 
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Util\Lifecycle;
+use Werkl\OpenBlogware\Util\Lifecycle;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\Event\NestedEventCollection;

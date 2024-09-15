@@ -1,10 +1,10 @@
 const { Component } = Shopware;
 const { Criteria } = Shopware.Data;
 
-Component.extend('sas-blog-category-tree-field', 'sw-category-tree-field', {
+Component.extend('werkl-blog-category-tree-field', 'sw-category-tree-field', {
     computed: {
         globalCategoryRepository() {
-            return this.repositoryFactory.create('sas_blog_category');
+            return this.repositoryFactory.create('werkl_blog_category');
         },
     },
     methods: {

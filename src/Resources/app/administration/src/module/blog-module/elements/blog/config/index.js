@@ -21,7 +21,7 @@ Component.register('sw-cms-el-config-blog', {
     },
     computed: {
         blogCategoryRepository() {
-            return this.repositoryFactory.create('sas_blog_category');
+            return this.repositoryFactory.create('werkl_blog_category');
         },
 
         blogListingSelectContext() {

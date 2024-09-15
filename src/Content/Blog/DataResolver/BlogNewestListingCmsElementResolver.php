@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\DataResolver;
+namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\Events\NewestListingCriteriaEvent;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\Events\NewestListingCriteriaEvent;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -73,13 +73,13 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
      */
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        $sasBlog = $result->get(BlogEntriesDefinition::ENTITY_NAME);
+        $werklBlog = $result->get(BlogEntriesDefinition::ENTITY_NAME);
 
-        if (!$sasBlog instanceof EntitySearchResult) {
+        if (!$werklBlog instanceof EntitySearchResult) {
             return;
         }
 
-        $slot->setData($sasBlog);
+        $slot->setData($werklBlog);
     }
 
     /**

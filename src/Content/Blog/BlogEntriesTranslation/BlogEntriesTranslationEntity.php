@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\BlogEntriesTranslation;
+namespace Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
@@ -11,9 +11,9 @@ class BlogEntriesTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;
 
-    protected string $sasBlogEntriesId;
+    protected string $werklBlogEntriesId;
 
-    protected BlogEntriesEntity $sasBlogEntries;
+    protected BlogEntriesEntity $werklBlogEntries;
 
     protected string $title;
 
@@ -27,24 +27,24 @@ class BlogEntriesTranslationEntity extends TranslationEntity
 
     protected ?string $metaDescription;
 
-    public function getSasBlogEntriesId(): string
+    public function getWerklBlogEntriesId(): string
     {
-        return $this->sasBlogEntriesId;
+        return $this->werklBlogEntriesId;
     }
 
-    public function setSasBlogEntriesId(string $sasBlogEntriesId): void
+    public function setWerklBlogEntriesId(string $werklBlogEntriesId): void
     {
-        $this->sasBlogEntriesId = $sasBlogEntriesId;
+        $this->werklBlogEntriesId = $werklBlogEntriesId;
     }
 
-    public function getSasBlogEntries(): BlogEntriesEntity
+    public function getWerklBlogEntries(): BlogEntriesEntity
     {
-        return $this->sasBlogEntries;
+        return $this->werklBlogEntries;
     }
 
-    public function setSasBlogEntries(BlogEntriesEntity $sasBlogEntries): void
+    public function setWerklBlogEntries(BlogEntriesEntity $werklBlogEntries): void
     {
-        $this->sasBlogEntries = $sasBlogEntries;
+        $this->werklBlogEntries = $werklBlogEntries;
     }
 
     public function getTitle(): ?string

@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\DataResolver;
+namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogListingFilterBuildEvent;
-use Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -96,7 +96,7 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
         $criteriaCollection = new CriteriaCollection();
 
         $criteriaCollection->add(
-            'sas_blog',
+            'werkl_blog',
             BlogEntriesDefinition::class,
             $criteria
         );
@@ -106,12 +106,12 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        $sasBlog = $result->get('sas_blog');
-        if (!$sasBlog instanceof EntitySearchResult) {
+        $werklBlog = $result->get('werkl_blog');
+        if (!$werklBlog instanceof EntitySearchResult) {
             return;
         }
 
-        $slot->setData($sasBlog);
+        $slot->setData($werklBlog);
     }
 
     private function handlePagination(int $limit, Request $request, Criteria $criteria): void

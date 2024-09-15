@@ -31,7 +31,7 @@
         "infection/infection": "^0.29.6"
     },
     "extra": {
-        "shopware-plugin-class": "Sas\\BlogModule\\SasBlogModule",
+        "shopware-plugin-class": "Werkl\\OpenBlogware\\WerklOpenBlogware",
         "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by SMK Shape & Shift LTD and Werkstattl",
         "label": {
@@ -54,12 +54,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sas\\BlogModule\\": "src/"
+            "Werkl\\OpenBlogware\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BlogModule\\Tests\\": "tests/PHPUnit/"
+            "OpenBlogware\\Tests\\": "tests/PHPUnit/"
         }
     },
     "config": {

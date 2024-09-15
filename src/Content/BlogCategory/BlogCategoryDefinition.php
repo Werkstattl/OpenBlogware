@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogCategory;
+namespace Werkl\OpenBlogware\Content\BlogCategory;
 
-use Sas\BlogModule\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
@@ -31,7 +31,7 @@ use Shopware\Core\System\SalesChannel\SalesChannelDefinition;
 
 class BlogCategoryDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'sas_blog_category';
+    public const ENTITY_NAME = 'werkl_blog_category';
 
     public function getEntityName(): string
     {
@@ -69,9 +69,9 @@ class BlogCategoryDefinition extends EntityDefinition
             new ParentAssociationField(self::class, 'id'),
             new ChildrenAssociationField(self::class),
 
-            (new TranslationsAssociationField(BlogCategoryTranslationDefinition::class, 'sas_blog_category_id'))->addFlags(new Required()),
+            (new TranslationsAssociationField(BlogCategoryTranslationDefinition::class, 'werkl_blog_category_id'))->addFlags(new Required()),
 
-            (new ManyToManyAssociationField('blogEntries', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'sas_blog_category_id', 'sas_blog_entries_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new CascadeDelete()),
+            (new ManyToManyAssociationField('blogEntries', BlogEntriesDefinition::class, BlogCategoryMappingDefinition::class, 'werkl_blog_category_id', 'werkl_blog_entries_id'))->addFlags(new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING), new CascadeDelete()),
             new OneToManyAssociationField('navigationSalesChannels', SalesChannelDefinition::class, 'navigation_category_id'),
             new OneToManyAssociationField('footerSalesChannels', SalesChannelDefinition::class, 'footer_category_id'),
             new OneToManyAssociationField('serviceSalesChannels', SalesChannelDefinition::class, 'service_category_id'),

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog;
+namespace Werkl\OpenBlogware\Content\Blog;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 

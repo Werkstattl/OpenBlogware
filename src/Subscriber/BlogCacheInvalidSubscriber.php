@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Subscriber;
+namespace Werkl\OpenBlogware\Subscriber;
 
-use Sas\BlogModule\Content\Blog\BlogSeoUrlRoute;
-use Sas\BlogModule\Controller\CachedBlogController;
-use Sas\BlogModule\Controller\CachedBlogRssController;
-use Sas\BlogModule\Controller\CachedBlogSearchController;
+use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
+use Werkl\OpenBlogware\Controller\CachedBlogController;
+use Werkl\OpenBlogware\Controller\CachedBlogRssController;
+use Werkl\OpenBlogware\Controller\CachedBlogSearchController;
 use Shopware\Core\Content\Category\SalesChannel\CachedCategoryRoute;
 use Shopware\Core\Content\Cms\CmsPageEvents;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
@@ -60,11 +60,11 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
                 ['onUpdateSeoUrlCmsPage', 10],
                 ['onUpdateInvalidateCacheCmsPage', 11],
             ],
-            'sas_blog_entries.written' => [
+            'werkl_blog_entries.written' => [
                 ['onUpdateSeoUrl', 10],
                 ['onUpdateInvalidateCache', 11],
             ],
-            'sas_blog_entries.deleted' => [
+            'werkl_blog_entries.deleted' => [
                 ['onDeleteSeoUrl', 10],
                 ['onDeleteInvalidateCache', 11],
             ],
@@ -179,7 +179,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
             CachedBlogRssController::RSS_TAG,
         ]);
 
-        $cmsBlogDetailPageId = $this->systemConfigService->get('SasBlogModule.config.cmsBlogDetailPage');
+        $cmsBlogDetailPageId = $this->systemConfigService->get('WerklOpenBlogware.config.cmsBlogDetailPage');
         if (!\is_string($cmsBlogDetailPageId)) {
             return;
         }

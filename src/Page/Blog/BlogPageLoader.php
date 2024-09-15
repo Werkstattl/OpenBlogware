@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Page\Blog;
+namespace Werkl\OpenBlogware\Page\Blog;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
@@ -136,9 +136,9 @@ class BlogPageLoader
      */
     private function loadBlogDetailCmsPage(Request $request, SalesChannelContext $context): CmsPageEntity
     {
-        $detailCmsPageId = $this->systemConfigService->getString('SasBlogModule.config.cmsBlogDetailPage');
+        $detailCmsPageId = $this->systemConfigService->getString('WerklOpenBlogware.config.cmsBlogDetailPage');
         if (!$detailCmsPageId) {
-            throw new ConfigurationNotFoundException('SasBlogModule');
+            throw new ConfigurationNotFoundException('WerklOpenBlogware');
         }
 
         $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->first();

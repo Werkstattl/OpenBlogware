@@ -1,7 +1,7 @@
-{% block sas_blog_card %}
+{% block werkl_blog_card %}
     <article class="card blog-card">
-        {% block sas_blog_card_teaser_image %}
-            <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': article.id}) }}"
+        {% block werkl_blog_card_teaser_image %}
+            <a href="{{ seoUrl('werkl.frontend.blog.detail', {'articleId': article.id}) }}"
                    title="{{ article.translated.title }}"
                    class="blog-image-link">
                     {% if article.media.url %}
@@ -30,18 +30,18 @@
                     {% endif %}
                 </a>
         {% endblock %}
-        {% block sas_blog_card_body %}
+        {% block werkl_blog_card_body %}
             <div class="card-body">
                 <div class="d-flex flex-column">
-                    {% block sas_blog_card_title_date %}
+                    {% block werkl_blog_card_title_date %}
                         <p class="mt-2 mb-1 d-flex align-items-center blog-date">
                             <small>{{ article.publishedAt|format_date('short', locale=app.request.locale) }}</small>
                         </p>
                     {% endblock %}
-                    {% block sas_blog_card_title %}
+                    {% block werkl_blog_card_title %}
                         <h2 class="card-title mt-0 blog-title">
-                            {% block sas_blog_card_title_link %}
-                                <a href="{{ seoUrl('sas.frontend.blog.detail', { articleId: article.id }) }}"
+                            {% block werkl_blog_card_title_link %}
+                                <a href="{{ seoUrl('werkl.frontend.blog.detail', { articleId: article.id }) }}"
                                    title="{{ article.translated.title }}"
                                    class="text-decoration-none">
                                     {{ article.translated.title }}
@@ -50,16 +50,16 @@
                         </h2>
                     {% endblock %}
                 </div>
-                {% block sas_blog_card_teaser %}
+                {% block werkl_blog_card_teaser %}
                     <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
                 {% endblock %}
             </div>
         {% endblock %}
 
-        {% block sas_blog_card_footer %}
+        {% block werkl_blog_card_footer %}
         <div class="card-footer text-muted">
-            {% block sas_blog_card_footer_author %}
-                {% if config('SasBlogModule').config.showAuthor %}
+            {% block werkl_blog_card_footer_author %}
+                {% if config('WerklOpenBlogware').config.showAuthor %}
                     {% if article.blogAuthor.media.url %}
                         {% set attributes = {
                             'class': 'blog-author-avatar',
@@ -81,7 +81,7 @@
                         </div>
                     {% endif %}
                     <p class="blog-author-display-name">{{ article.blogAuthor.displayName }}<br>
-                        <small class="text-muted">{{ article.blogAuthor.blogEntries|length }} {{ 'sas-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
+                        <small class="text-muted">{{ article.blogAuthor.blogEntries|length }} {{ 'werkl-blog.box.author.countEntries'|trans|sw_sanitize }}</small>
                     </p>
                 {% endif %}
             {% endblock %}

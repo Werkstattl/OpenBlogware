@@ -5,7 +5,7 @@ const {
     State,
 } = Shopware;
 
-Component.register('sas-blog-extension-component-sections', {
+Component.register('werkl-blog-extension-component-sections', {
     template,
 
     props: {

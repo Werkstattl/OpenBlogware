@@ -91,10 +91,10 @@ jobs:
           docker logs shop
       - name: Upload into Docker
         run: |
-          docker cp $(pwd)/. shop:/var/www/html/custom/plugins/SasBlogModule
+          docker cp $(pwd)/. shop:/var/www/html/custom/plugins/WerklOpenBlogware
           docker exec shop bash -c 'sudo chown www-data:www-data /var/www/html/custom/plugins -R'
       - name: Install and Build Plugin
         run: |
-          docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make clean'
-          docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make install'
-          docker exec shop bash -c 'cd /var/www/html/custom/plugins/SasBlogModule && make build'
+          docker exec shop bash -c 'cd /var/www/html/custom/plugins/WerklOpenBlogware && make clean'
+          docker exec shop bash -c 'cd /var/www/html/custom/plugins/WerklOpenBlogware && make install'
+          docker exec shop bash -c 'cd /var/www/html/custom/plugins/WerklOpenBlogware && make build'

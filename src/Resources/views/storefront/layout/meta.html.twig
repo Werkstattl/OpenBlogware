@@ -2,13 +2,13 @@
 
 {% set entry = page.blogEntry %}
 
-{% if activeRoute == 'sas.frontend.blog.detail' and entry.media.url %}
+{% if activeRoute == 'werkl.frontend.blog.detail' and entry.media.url %}
     {% set metaImage = entry.media.url|striptags|trim %}
 {% endif %}
 
 {% block layout_head_meta_tags %}
-    {% if activeRoute == 'sas.frontend.blog.detail' %}
-        <link rel="canonical" href="{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"/>
+    {% if activeRoute == 'werkl.frontend.blog.detail' %}
+        <link rel="canonical" href="{{ seoUrl('werkl.frontend.blog.detail', { articleId: entry.id }) }}"/>
     {% endif %}
     {{ parent() }}
 {% endblock %}
@@ -20,7 +20,7 @@
 {% block layout_head_meta_tags_schema_webpage %}
 {{ parent() }}
 
-{% if activeRoute == 'sas.frontend.blog.detail' %}
+{% if activeRoute == 'werkl.frontend.blog.detail' %}
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -37,7 +37,7 @@
             "image":[{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %}],{% endif %}
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": "{{ seoUrl('sas.frontend.blog.detail', { articleId: entry.id }) }}"
+                "@id": "{{ seoUrl('werkl.frontend.blog.detail', { articleId: entry.id }) }}"
             },
              "publisher": {
                 "@type": "Organization",

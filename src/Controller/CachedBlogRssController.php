@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
@@ -21,7 +21,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 #[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogRssController extends StorefrontController
 {
-    public const RSS_TAG = 'sas-blog-rss';
+    public const RSS_TAG = 'werkl-blog-rss';
 
     private BlogRssController $decorated;
 
@@ -48,10 +48,10 @@ class CachedBlogRssController extends StorefrontController
 
     public static function buildName(string $salesChannelId): string
     {
-        return 'sas-blog-rss-' . $salesChannelId;
+        return 'werkl-blog-rss-' . $salesChannelId;
     }
 
-    #[Route(path: '/blog/rss', name: 'frontend.sas.blog.rss', methods: ['GET'])]
+    #[Route(path: '/blog/rss', name: 'frontend.werkl_blog.rss', methods: ['GET'])]
     public function rss(Request $request, SalesChannelContext $context): Response
     {
         $key = $this->generateKey($request, $context);

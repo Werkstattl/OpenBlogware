@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\Subscriber;
+namespace Werkl\OpenBlogware\Content\Blog\Subscriber;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogListingFilterBuildEvent;
-use Sas\BlogModule\Content\Blog\Events\BlogMainFilterEvent;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\Filter;
 use Shopware\Core\Content\Product\SalesChannel\Listing\FilterCollection;
@@ -38,7 +38,7 @@ class BlogSubscriber implements EventSubscriberInterface
 
         $criteriaCollection = new CriteriaCollection();
         $criteriaCollection->add(
-            'sas_blog',
+            'werkl_blog',
             BlogEntriesDefinition::class,
             $criteria
         );
@@ -119,7 +119,7 @@ class BlogSubscriber implements EventSubscriberInterface
             'categories',
             !empty($ids),
             [
-                new EntityAggregation('blogCategories', 'blogCategories.id', 'sas_blog_category'),
+                new EntityAggregation('blogCategories', 'blogCategories.id', 'werkl_blog_category'),
             ],
             new EqualsAnyFilter('blogCategories.id', $ids),
             $ids
@@ -134,7 +134,7 @@ class BlogSubscriber implements EventSubscriberInterface
             'authors',
             !empty($ids),
             [
-                new EntityAggregation('authors', 'authorId', 'sas_blog_author'),
+                new EntityAggregation('authors', 'authorId', 'werkl_blog_author'),
             ],
             new EqualsAnyFilter('authorId', $ids),
             $ids

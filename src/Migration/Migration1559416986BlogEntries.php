@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
@@ -19,7 +19,7 @@ class Migration1559416986BlogEntries extends MigrationStep
     {
         $connection->executeStatement(
             '
-            CREATE TABLE IF NOT EXISTS `sas_blog_entries` (
+            CREATE TABLE IF NOT EXISTS `werkl_blog_entries` (
             `id` BINARY(16) NOT NULL,
             `active` TINYINT DEFAULT 0,
             `detail_teaser_image` TINYINT DEFAULT 1,
@@ -32,8 +32,8 @@ class Migration1559416986BlogEntries extends MigrationStep
 
         $connection->executeStatement(
             '
-            CREATE TABLE IF NOT EXISTS `sas_blog_entries_translation` (
-            `sas_blog_entries_id` BINARY(16) NOT NULL,
+            CREATE TABLE IF NOT EXISTS `werkl_blog_entries_translation` (
+            `werkl_blog_entries_id` BINARY(16) NOT NULL,
             `language_id` BINARY(16) NOT NULL,
             `title` VARCHAR(255) NOT NULL,
             `slug` VARCHAR(255) NOT NULL,
@@ -43,11 +43,11 @@ class Migration1559416986BlogEntries extends MigrationStep
             `content` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NULL,
             `created_at` DATETIME(3) NOT NULL,
             `updated_at` DATETIME(3) NULL,
-            PRIMARY KEY (`sas_blog_entries_id`, `language_id`),
-            CONSTRAINT `fk.sas_blog_entries_translation.language_id` FOREIGN KEY (`language_id`)
+            PRIMARY KEY (`werkl_blog_entries_id`, `language_id`),
+            CONSTRAINT `fk.werkl_blog_entries_translation.language_id` FOREIGN KEY (`language_id`)
                 REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-            CONSTRAINT `fk.sas_blog_entries_translation.sas_blog_entries_id` FOREIGN KEY (`sas_blog_entries_id`)
-                REFERENCES `sas_blog_entries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+            CONSTRAINT `fk.werkl_blog_entries_translation.werkl_blog_entries_id` FOREIGN KEY (`werkl_blog_entries_id`)
+                REFERENCES `werkl_blog_entries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         '
         );
@@ -57,8 +57,8 @@ class Migration1559416986BlogEntries extends MigrationStep
             VALUES (:id, NULL, :routeName, :entityName, :template, 1, NULL, :createdAt, NULL);
         ', [
             'id' => Uuid::randomBytes(),
-            'routeName' => 'sas.frontend.blog.detail',
-            'entityName' => 'sas_blog_entries',
+            'routeName' => 'werkl.frontend.blog.detail',
+            'entityName' => 'werkl_blog_entries',
             'template' => 'blog/{{ entry.translated.title|lower }}',
             'createdAt' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);

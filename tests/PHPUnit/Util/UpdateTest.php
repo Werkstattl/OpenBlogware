@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Util;
+namespace OpenBlogware\Tests\Util;
 
-use BlogModule\Tests\Traits\ContextTrait;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Sas\BlogModule\Util\Update;
+use Werkl\OpenBlogware\Util\Update;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
 class UpdateTest extends TestCase

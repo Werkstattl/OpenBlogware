@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockDefinition;
@@ -18,7 +18,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
 {
     private const TEMPLATE = <<<'SQL'
-        UPDATE `sas_blog_entries` SET `cms_page_id` = UNHEX("%s"), `cms_page_version_id` = UNHEX("%s") WHERE `id` = UNHEX("%s");
+        UPDATE `werkl_blog_entries` SET `cms_page_id` = UNHEX("%s"), `cms_page_version_id` = UNHEX("%s") WHERE `id` = UNHEX("%s");
 
         SQL;
 
@@ -48,10 +48,10 @@ class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
             $createdAt = (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT);
             $updateSql = '';
 
-            $blogEntries = $connection->fetchAllAssociative('SELECT id FROM sas_blog_entries WHERE cms_page_id IS NULL');
+            $blogEntries = $connection->fetchAllAssociative('SELECT id FROM werkl_blog_entries WHERE cms_page_id IS NULL');
             foreach ($blogEntries as $blogEntry) {
                 $blogTranslations = $connection->fetchAllAssociative(
-                    'SELECT language_id, title, content FROM sas_blog_entries_translation WHERE sas_blog_entries_id = :blogEntryId',
+                    'SELECT language_id, title, content FROM werkl_blog_entries_translation WHERE werkl_blog_entries_id = :blogEntryId',
                     ['blogEntryId' => $blogEntry['id']]
                 );
 

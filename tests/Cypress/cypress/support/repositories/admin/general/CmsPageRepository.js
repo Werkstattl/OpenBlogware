@@ -51,8 +51,8 @@ class CmsPageRepository {
      * Get block category dropdown element
      * @returns {Cypress.Chainable<JQuery<HTMLElement>>}
      */
-    getBlockCategorySasBlogOption() {
-        return this.getBlockCategoryDropdown().children('option[value="sas-blog"]');
+    getBlockCategoryWerklBlogOption() {
+        return this.getBlockCategoryDropdown().children('option[value="werkl-blog"]');
     }
 
     /**

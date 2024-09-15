@@ -36,7 +36,7 @@ admin: ## Installs all admin dependencies
 
 build: ## Installs the plugin, and builds
 	cd /var/www/html && php bin/console plugin:refresh
-	cd /var/www/html && php bin/console plugin:install SasBlogModule --activate | true
+	cd /var/www/html && php bin/console plugin:install WerklOpenBlogware --activate | true
 	cd /var/www/html && php bin/console plugin:refresh
 	cd /var/www/html && php bin/console theme:dump
 	cd /var/www/html && PUPPETEER_SKIP_DOWNLOAD=1 ./bin/build-js.sh
@@ -45,7 +45,7 @@ build: ## Installs the plugin, and builds
 	cd /var/www/html && php bin/console theme:refresh
 
 phpunit: ## Starts all PHPUnit Tests
-	@XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration=phpunit.xml --coverage-html ../../../public/.reports/blogmodule/coverage
+	@XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration=phpunit.xml --coverage-html ../../../public/.reports/OpenBlogware/coverage
 
 
 infection: ## Starts all Infection/Mutation tests

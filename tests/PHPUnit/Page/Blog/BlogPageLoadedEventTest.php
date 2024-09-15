@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Page\Blog;
+namespace OpenBlogware\Tests\Page\Blog;
 
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Page\Blog\BlogPage;
-use Sas\BlogModule\Page\Blog\BlogPageLoadedEvent;
+use Werkl\OpenBlogware\Page\Blog\BlogPage;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoadedEvent;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 

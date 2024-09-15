@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Page\Blog;
+namespace Werkl\OpenBlogware\Page\Blog;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Shopware\Storefront\Page\Navigation\NavigationPage;
 
 class BlogPage extends NavigationPage

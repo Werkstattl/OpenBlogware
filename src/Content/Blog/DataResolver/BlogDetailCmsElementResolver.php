@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Blog\DataResolver;
+namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -52,7 +52,7 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
         $criteriaCollection = new CriteriaCollection();
 
         $criteriaCollection->add(
-            'sas_blog',
+            'werkl_blog',
             BlogEntriesDefinition::class,
             $criteria
         );
@@ -62,11 +62,11 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        /** @var EntitySearchResult $sasBlog */
-        $sasBlog = $result->get('sas_blog') ?? null;
+        /** @var EntitySearchResult $werklBlog */
+        $werklBlog = $result->get('werkl_blog') ?? null;
 
-        if ($sasBlog !== null && $sasBlog->first() !== null) {
-            $slot->setData($sasBlog->first());
+        if ($werklBlog !== null && $werklBlog->first() !== null) {
+            $slot->setData($werklBlog->first());
         }
     }
 }

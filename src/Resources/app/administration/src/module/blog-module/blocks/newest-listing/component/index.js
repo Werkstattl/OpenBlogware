@@ -1,4 +1,4 @@
-import template from './sas-cms-block-newest-listing.html.twig';
+import template from './werkl-cms-block-newest-listing.html.twig';
 
 const { Component } = Shopware;
 

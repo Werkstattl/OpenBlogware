@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogCategory;
+namespace Werkl\OpenBlogware\Content\BlogCategory;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Context;
@@ -43,7 +43,7 @@ class BlogCategoryIndexer extends EntityIndexer
 
     public function getName(): string
     {
-        return 'sas.blog.category.indexer';
+        return 'werkl_blog.category.indexer';
     }
 
     public function iterate($offset): ?EntityIndexingMessage

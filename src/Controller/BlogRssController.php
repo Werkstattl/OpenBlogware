@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -33,7 +33,7 @@ class BlogRssController extends StorefrontController
         $this->blogRepository = $blogRepository;
     }
 
-    #[Route(path: '/blog/rss', name: 'frontend.sas.blog.rss', methods: ['GET'])]
+    #[Route(path: '/blog/rss', name: 'frontend.werkl_blog.rss', methods: ['GET'])]
     public function rss(Request $request, SalesChannelContext $context): Response
     {
         $dateTime = new \DateTime();
@@ -50,7 +50,7 @@ class BlogRssController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page = NavigationPage::createFrom($page);
 
-        $response = $this->renderStorefront('@SasBlogModule/storefront/page/rss.html.twig', [
+        $response = $this->renderStorefront('@WerklOpenBlogware/storefront/page/rss.html.twig', [
             'results' => $results,
             'page' => $page,
         ]);

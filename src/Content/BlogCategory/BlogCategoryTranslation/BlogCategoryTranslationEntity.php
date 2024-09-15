@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation;
+namespace Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation;
 
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryEntity;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
 class BlogCategoryTranslationEntity extends TranslationEntity
@@ -12,9 +12,9 @@ class BlogCategoryTranslationEntity extends TranslationEntity
 
     protected ?array $customFields;
 
-    protected string $sasBlogCategoryId;
+    protected string $werklBlogCategoryId;
 
-    protected ?BlogCategoryEntity $sasBlogCategory;
+    protected ?BlogCategoryEntity $werklBlogCategory;
 
     public function getName(): ?string
     {
@@ -36,23 +36,23 @@ class BlogCategoryTranslationEntity extends TranslationEntity
         $this->customFields = $customFields;
     }
 
-    public function getSasBlogCategoryId(): string
+    public function getWerklBlogCategoryId(): string
     {
-        return $this->sasBlogCategoryId;
+        return $this->werklBlogCategoryId;
     }
 
-    public function setSasBlogCategoryId(string $sasBlogCategoryId): void
+    public function setWerklBlogCategoryId(string $werklBlogCategoryId): void
     {
-        $this->sasBlogCategoryId = $sasBlogCategoryId;
+        $this->werklBlogCategoryId = $werklBlogCategoryId;
     }
 
-    public function getSasBlogCategory(): ?BlogCategoryEntity
+    public function getWerklBlogCategory(): ?BlogCategoryEntity
     {
-        return $this->sasBlogCategory;
+        return $this->werklBlogCategory;
     }
 
-    public function setSasBlogCategory(BlogCategoryEntity $sasBlogCategory): void
+    public function setWerklBlogCategory(BlogCategoryEntity $werklBlogCategory): void
     {
-        $this->sasBlogCategory = $sasBlogCategory;
+        $this->werklBlogCategory = $werklBlogCategory;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Util;
+namespace Werkl\OpenBlogware\Util;
 
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -35,7 +35,7 @@ class Lifecycle
         $cmsPage = $this->createCmsPagesData($blogListingCmsPageId, $blogDetailCmsPageId);
 
         $this->cmsPageRepository->create($cmsPage, $context);
-        $this->systemConfig->set('SasBlogModule.config.cmsBlogDetailPage', $blogDetailCmsPageId);
+        $this->systemConfig->set('WerklOpenBlogware.config.cmsBlogDetailPage', $blogDetailCmsPageId);
     }
 
     private function createCmsPagesData(string $blogListingCmsPageId, string $blogDetailCmsPageId): array

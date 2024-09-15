@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation;
+namespace Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
@@ -18,7 +18,7 @@ class BlogAuthorTranslationCollection extends EntityCollection
 {
     public function getApiAlias(): string
     {
-        return 'sas_blog_author_translation_collection';
+        return 'werkl_blog_author_translation_collection';
     }
 
     protected function getExpectedClass(): string

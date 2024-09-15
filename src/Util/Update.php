@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Util;
+namespace Werkl\OpenBlogware\Util;
 
 use Doctrine\DBAL\Connection;
 use Psr\Container\ContainerInterface;
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Migration\Migration1602739765AddTeaserImageColumnToBlogEntries;
-use Sas\BlogModule\Migration\Migration1612160298CreatePubslihedDateColumn;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Migration\Migration1602739765AddTeaserImageColumnToBlogEntries;
+use Werkl\OpenBlogware\Migration\Migration1612160298CreatePubslihedDateColumn;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
 class Update

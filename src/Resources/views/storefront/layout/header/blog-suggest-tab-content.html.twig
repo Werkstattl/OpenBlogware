@@ -3,7 +3,7 @@
         {% block layout_search_suggest_result_blog %}
             <li class="search-suggest-product js-result">
                 {% block layout_search_suggest_result_link %}
-                    <a href="{{ seoUrl('sas.frontend.blog.detail', {'articleId': blog.id}) }}"
+                    <a href="{{ seoUrl('werkl.frontend.blog.detail', {'articleId': blog.id}) }}"
                        title="{{ blog.translated.title }}"
                        class="search-suggest-product-link">
                         <div class="row align-items-center no-gutters">
@@ -41,7 +41,7 @@
                                     {% if blog.blogCategories.count > 0 %}
                                         {% set category = blog.blogCategories.last %}
 
-                                        <small>{{ "sas-blog.search.in"|trans|sw_sanitize }}</small>
+                                        <small>{{ "werkl-blog.search.in"|trans|sw_sanitize }}</small>
 
                                         <span>{{ category.translated.name }}</span>
                                     {% endif %}
@@ -57,7 +57,7 @@
     {% if blogResult.count == 0 %}
         {% block layout_search_suggest_blog_no_result %}
             <li class="search-suggest-no-result">
-                {{ "sas-blog.search.emptyResult"|trans|sw_sanitize }}
+                {{ "werkl-blog.search.emptyResult"|trans|sw_sanitize }}
             </li>
         {% endblock %}
 
@@ -67,18 +67,18 @@
                 <div class="row align-items-center no-gutters">
                     {% block layout_search_suggest_result_total_blog_link %}
                         <div class="col">
-                            <a href="{{ path('sas.frontend.blog.search') }}?search={{ searchTerm }}"
-                               title="{{ "sas-blog.search.searchAllResults"|trans|striptags }}"
+                            <a href="{{ path('werkl.frontend.blog.search') }}?search={{ searchTerm }}"
+                               title="{{ "werkl-blog.search.searchAllResults"|trans|striptags }}"
                                class="search-suggest-total-link">
                                 {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
-                                {{ "sas-blog.search.searchAllResults"|trans|sw_sanitize }}
+                                {{ "werkl-blog.search.searchAllResults"|trans|sw_sanitize }}
                             </a>
                         </div>
                     {% endblock %}
 
                     {% block layout_search_suggest_result_total_blog_count %}
                         <div class="col-auto search-suggest-total-count">
-                            {{ "sas-blog.search.searchResults"|trans({
+                            {{ "werkl-blog.search.searchResults"|trans({
                                 '%count%': blogResult.count,
                             })|sw_sanitize }}
                         </div>

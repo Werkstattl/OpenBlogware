@@ -4,10 +4,10 @@ import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
     name: 'blog-newest-listing',
-    label: 'sas-blog.elements.newestListing.preview.label',
-    component: 'sas-cms-el-newest-listing',
-    configComponent: 'sas-cms-el-config-newest-listing',
-    previewComponent: 'sas-cms-el-preview-newest-listing',
+    label: 'werkl-blog.elements.newestListing.preview.label',
+    component: 'werkl-cms-el-newest-listing',
+    configComponent: 'werkl-cms-el-config-newest-listing',
+    previewComponent: 'werkl-cms-el-preview-newest-listing',
     defaultConfig: {
         itemCount: {
             source: 'static',
@@ -25,7 +25,7 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: null,
             entity: {
-                name: 'sas_blog_categories',
+                name: 'werkl_blog_categories',
             },
         },
     },

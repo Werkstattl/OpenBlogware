@@ -4,4 +4,4 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/html/custom/plugins/OpenBlogware
+      - .:/var/www/html/custom/plugins/WerklOpenBlogware

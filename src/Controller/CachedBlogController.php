@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Controller;
+namespace Werkl\OpenBlogware\Controller;
 
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
@@ -46,10 +46,10 @@ class CachedBlogController extends StorefrontController
 
     public static function buildName(string $articleId): string
     {
-        return 'sas-blog-detail-' . $articleId;
+        return 'werkl-blog-detail-' . $articleId;
     }
 
-    #[Route(path: '/sas_blog/{articleId}', name: 'sas.frontend.blog.detail', methods: ['GET'])]
+    #[Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $articleId = $request->attributes->get('articleId');

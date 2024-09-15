@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogAuthor;
+namespace Werkl\OpenBlogware\Content\BlogAuthor;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation;
+namespace Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation;
 
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
@@ -12,7 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'sas_blog_category_translation';
+    public const ENTITY_NAME = 'werkl_blog_category_translation';
 
     public function getEntityName(): string
     {

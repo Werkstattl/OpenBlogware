@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\Extension;
+namespace Werkl\OpenBlogware\Content\Extension;
 
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityExtension;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;

@@ -1,5 +1,5 @@
-import template from './sas-cms-block-blog.html.twig';
-import './sas-cms-block-blog.scss';
+import template from './werkl-cms-block-blog.html.twig';
+import './werkl-cms-block-blog.scss';
 
 Shopware.Component.register('sw-cms-block-blog-listing', {
     template,

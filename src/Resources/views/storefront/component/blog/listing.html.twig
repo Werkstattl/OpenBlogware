@@ -6,11 +6,11 @@
     dataUrl: dataUrl,
     filterUrl: filterUrl,
     snippets: {
-        resetAllButtonText: 'sas-blog.listing.filterPanelResetAll'|trans|sw_sanitize
+        resetAllButtonText: 'werkl-blog.listing.filterPanelResetAll'|trans|sw_sanitize
     }
 } %}
 
-{% block sas_blog_listing %}
+{% block werkl_blog_listing %}
     <div class="cms-element-product-listing-wrapper"
          data-listing-pagination="true"
          data-listing-pagination-options='{{ paginationConfig }}'
@@ -19,8 +19,8 @@
 
         <div class="cms-element-product-listing">
             {% if searchResult.total > 0 %}
-                <div class="cms-element-sas-blog-listing-actions row justify-content-between">
-                    {% block sas_block_pagination %}
+                <div class="cms-element-werkl-blog-listing-actions row justify-content-between">
+                    {% block werkl_block_pagination %}
                         <div class="col-md-auto">
                             {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
                                 entities: searchResult,
@@ -31,13 +31,13 @@
                 </div>
             {% endif %}
 
-            {% block sas_element_blog_listing_row %}
+            {% block werkl_element_blog_listing_row %}
                 <div class="cms-news-full-listing-row js-listing-wrapper">
                     {% if searchResult.total > 0 %}
-                        {% block sas_element_blog_listing_col %}
+                        {% block werkl_element_blog_listing_col %}
                             <div class="row">
                                 {% for article in searchResult %}
-                                    {% block sas_element_blog_listing_box %}
+                                    {% block werkl_element_blog_listing_box %}
                                         <div class="col-12 col-md-4 col-lg-3 my-4">
                                             {% sw_include '@Storefront/storefront/component/blog/card/box.html.twig' %}
                                         </div>
@@ -46,12 +46,12 @@
                             </div>
                         {% endblock %}
                     {% else %}
-                        {% block sas_element_blog_listing_col_empty %}
+                        {% block werkl_element_blog_listing_col_empty %}
                             <div class="cms-listing-col col-12">
-                                {% block sas_element_blog_listing_col_empty_alert %}
+                                {% block werkl_element_blog_listing_col_empty_alert %}
                                     {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
                                         type: 'info',
-                                        content: 'sas-blog.search.emptyResult'|trans|sw_sanitize
+                                        content: 'werkl-blog.search.emptyResult'|trans|sw_sanitize
                                     } %}
                                 {% endblock %}
                             </div>

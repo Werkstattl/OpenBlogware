@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Migration;
+namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -16,7 +16,7 @@ class Migration1626760242AddCustomFieldToBlogTranslation extends MigrationStep
     public function update(Connection $connection): void
     {
         $connection->executeStatement('
-            ALTER TABLE `sas_blog_entries_translation`
+            ALTER TABLE `werkl_blog_entries_translation`
                 ADD COLUMN `custom_fields` json DEFAULT NULL AFTER `content`;
         ');
     }

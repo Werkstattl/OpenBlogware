@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogAuthor;
+namespace Werkl\OpenBlogware\Content\BlogAuthor;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesDefinition;
-use Sas\BlogModule\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -25,7 +25,7 @@ use Shopware\Core\System\Salutation\SalutationDefinition;
 
 class BlogAuthorDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'sas_blog_author';
+    public const ENTITY_NAME = 'werkl_blog_author';
 
     public function getEntityName(): string
     {
@@ -58,7 +58,7 @@ class BlogAuthorDefinition extends EntityDefinition
             (new TranslatedField('description'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::MIDDLE_SEARCH_RANKING)),
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
 
-            new TranslationsAssociationField(BlogAuthorTranslationDefinition::class, 'sas_blog_author_id'),
+            new TranslationsAssociationField(BlogAuthorTranslationDefinition::class, 'werkl_blog_author_id'),
 
             (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
             (new OneToManyAssociationField('blogEntries', BlogEntriesDefinition::class, 'author_id', 'id'))->addFlags(new CascadeDelete(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),

@@ -1,7 +1,7 @@
-{% block sas_cms_element_blog_listing_config %}
+{% block werkl_cms_element_blog_listing_config %}
 <div class="sw-cms-el-config-blog">
 
-    {% block sas_cms_element_blog_listing_config_paginationCount_field %}
+    {% block werkl_cms_element_blog_listing_config_paginationCount_field %}
         <sw-number-field
             numberType="int"
             :step="1"
@@ -10,49 +10,49 @@
             v-model:value="element.config.paginationCount.value"
             :digits="2"
             :allowEmpty="false"
-            :label="$tc('sas-blog.elements.listing.config.paginationCount')">
+            :label="$tc('werkl-blog.elements.listing.config.paginationCount')">
         </sw-number-field>
     {% endblock %}
 
-    {% block sas_cms_element_blog_listing_config_show_type %}
+    {% block werkl_cms_element_blog_listing_config_show_type %}
         <sw-select-field
-            :label="$tc('sas-blog.elements.listing.config.showType.label')"
+            :label="$tc('werkl-blog.elements.listing.config.showType.label')"
             v-model:value="element.config.showType.value"
         >
-            {% block sas_cms_element_download_card_config_layout_select_options %}
-                <option value="all">{{ $tc('sas-blog.elements.listing.config.showType.options.all') }}</option>
-                <option value="select">{{ $tc('sas-blog.elements.listing.config.showType.options.select') }}</option>
+            {% block werkl_cms_element_download_card_config_layout_select_options %}
+                <option value="all">{{ $tc('werkl-blog.elements.listing.config.showType.options.all') }}</option>
+                <option value="select">{{ $tc('werkl-blog.elements.listing.config.showType.options.select') }}</option>
             {% endblock %}
         </sw-select-field>
     {% endblock %}
 
 
-    {% block sas_cms_element_blog_listing_config_select_categories %}
-        <sas-blog-category-tree-field
+    {% block werkl_cms_element_blog_listing_config_select_categories %}
+        <werkl-blog-category-tree-field
             v-if="element.config.showType.value !== 'all' && selectedCategories"
             v-model:value="selectedCategories"
-            :label="$tc('sas-blog.elements.listing.config.blogCategories.label')"
+            :label="$tc('werkl-blog.elements.listing.config.blogCategories.label')"
             :categoriesCollection="selectedCategories"
             class="sw-product-detail__select-category"
-            :placeholder="$tc('sas-blog.elements.listing.config.blogCategories.placeholder')">
-        </sas-blog-category-tree-field>
+            :placeholder="$tc('werkl-blog.elements.listing.config.blogCategories.placeholder')">
+        </werkl-blog-category-tree-field>
     {% endblock %}
 
-    {% block sas_cms_element_blog_listing_config_show_filter_select %}
+    {% block werkl_cms_element_blog_listing_config_show_filter_select %}
         <sw-card
-            :title="$tc('sas-blog.elements.listing.config.showFilter.label')"
+            :title="$tc('werkl-blog.elements.listing.config.showFilter.label')"
             :hero="false"
             :isLoading="false"
             :large="false"
             class="sw-blog-config-filter">
 
             <sw-checkbox-field
-                :label="$tc('sas-blog.elements.listing.config.showFilter.options.filter.category')"
+                :label="$tc('werkl-blog.elements.listing.config.showFilter.options.filter.category')"
                 v-model:value="element.config.showCategoryFilter.value">
             </sw-checkbox-field>
 
             <sw-checkbox-field
-                :label="$tc('sas-blog.elements.listing.config.showFilter.options.filter.author')"
+                :label="$tc('werkl-blog.elements.listing.config.showFilter.options.filter.author')"
                 v-model:value="element.config.showAuthorFilter.value">
             </sw-checkbox-field>
         </sw-card>

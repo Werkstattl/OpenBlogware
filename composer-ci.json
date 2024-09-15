@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "Sas\\BlogModule\\": "src/"
+            "Werkl\\OpenBlogware\\": "src/"
         }
     }
 }

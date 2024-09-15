@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Sas\BlogModule\Content\BlogCategory;
+namespace Werkl\OpenBlogware\Content\BlogCategory;
 
-use Sas\BlogModule\Content\Blog\BlogEntriesCollection;
-use Sas\BlogModule\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use Shopware\Core\System\SalesChannel\SalesChannelCollection;

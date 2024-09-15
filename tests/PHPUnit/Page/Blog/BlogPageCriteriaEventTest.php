@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace BlogModule\Tests\Page\Blog;
+namespace OpenBlogware\Tests\Page\Blog;
 
 use PHPUnit\Framework\TestCase;
-use Sas\BlogModule\Page\Blog\BlogPageCriteriaEvent;
+use Werkl\OpenBlogware\Page\Blog\BlogPageCriteriaEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
