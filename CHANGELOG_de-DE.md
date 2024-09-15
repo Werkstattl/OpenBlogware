@@ -1,5 +1,5 @@
 # 4.0.0
-- Breaking: Plugin Klasse von SasBlogModule zu WerkOpenBlogware umbenannt
+- Breaking: Plugin Klasse von SasBlogModule zu WerklOpenBlogware umbenannt
 - Breaking: Databasen Tabllen prefix von `sas_blog_` auf `open_blogware_` geändert
 
 # 3.0.4
