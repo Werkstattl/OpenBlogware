@@ -53,11 +53,11 @@ Example(`http://Your-domain/blog/rss`)
 ## Installation
 
 ### Zip Installation Package for the Shopware 6 Plugin
-1. Download the latest `Shopware-6-Blog-Plugin-MIT.zip` file from the [releases page](https://github.com/Werkstattl/OpenBlogware/releases).
+1. Download the latest `WerklOpenBlogware.zip` file from the [releases page](https://github.com/Werkstattl/OpenBlogware/releases).
 2. In the Shopware 6 backend, navigate to **Extensions > My Extensions**.
 3. Click on **Upload Extension**.
 4. Confirm the warning, if prompted.
-5. Choose the `Shopware-6-Blog-Plugin-MIT.zip` file
+5. Choose the `WerklOpenBlogware.zip` file
 6. Install and activate the plugin.
 
 ### Composer Installation
@@ -69,7 +69,7 @@ composer require werkstattl/openblogware
 3. To install the plugin, run:
 ```sh
 bin/console plugin:refresh
-bin/console plugin:install --activate WerklOpenBlogware
+bin/console plugin:install WerklOpenBlogware
 ```
 4. To clear the cache, run:
 ```sh
