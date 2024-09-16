@@ -1,0 +1,8 @@
+{% block block_werkl_blog_categories %}
+    {% set element = block.slots.getSlot('categories') %}
+
+    <div class="col-12" data-cms-element-id="{{ element.id }}">
+        {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+    </div>
+
+{% endblock %}

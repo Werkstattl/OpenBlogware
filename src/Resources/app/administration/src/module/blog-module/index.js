@@ -39,6 +39,7 @@ import './blocks/listing';
 import './blocks/detail';
 import './blocks/single-entry';
 import './blocks/newest-listing';
+import './blocks/categories';
 
 /**
  * CMS Elements
@@ -47,6 +48,7 @@ import './elements/blog-detail';
 import './elements/blog';
 import './elements/blog-single-select';
 import './elements/blog-newest-listing';
+import './elements/blog-categories';
 
 /**
  * Blog Category

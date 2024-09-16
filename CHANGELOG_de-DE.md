@@ -1,3 +1,6 @@
+# 4.0.1
+- Kategorien-CMS-Element hinzugefügt
+
 # 4.0.0
 - Breaking: Plugin interne Namensänderung von Sas\\BlogModule\\SasBlogModule zu Werkl\\OpenBlogware\\WerklOpenBlogware
 

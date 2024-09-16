@@ -150,6 +150,12 @@
                 "preview": {
                     "label": "Blog Neueste Auflistung"
                 }
+            },
+            "categories": {
+                "component": {
+                    "elementHeadline": "Blog Kategorien Element",
+                    "infoText": "Die Blog Kategorien werden automatisch in der Storefront ausgespielt. Derzeit gibt es keine Element Konfiguration."
+                }
             }
         },
         "blocks": {
@@ -169,6 +175,10 @@
                 "newestListing": {
                     "previewTitle": "Blog Neueste Auflistung",
                     "label": "Blog Neueste Auflistung"
+                },
+                "categories": {
+                    "previewTitle": "Blog Categories",
+                    "label": "Blog Categories"
                 }
             }
         }

@@ -159,6 +159,12 @@
                 "preview": {
                     "label": "Blog Newest Listing"
                 }
+            },
+            "categories": {
+                "component": {
+                    "elementHeadline": "Blog categories element",
+                    "infoText": "The blog categories content will be automatically fetched by the element."
+                }
             }
         },
         "blocks": {
@@ -178,6 +184,10 @@
                 "newestListing": {
                     "previewTitle": "Blog Newest Listing",
                     "label": "Blog Newest Listing"
+                },
+                "categories": {
+                    "previewTitle": "Blog Categories",
+                    "label": "Blog Categories"
                 }
             }
         }

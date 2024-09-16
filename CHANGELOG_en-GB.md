@@ -1,3 +1,6 @@
+# 4.0.1
+- Added category listing cms element
+
 # 4.0.0
 - Breaking: Renamed plugin internals from Sas\\BlogModule\\SasBlogModule to Werkl\\OpenBlogware\\WerklOpenBlogware
 

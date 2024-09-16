@@ -1,0 +1,12 @@
+{% block werkl_element_blog_categories %}
+   {% set searchResult = element.data %}
+   <div class="werkl-cms-element-blog-categories">
+       <ul>
+           {% for category in searchResult.entities.elements %}
+               <li>
+                     {{ category.translated.name ? category.name }}
+               </li>
+           {% endfor %}
+      </ul>
+   </div>
+{% endblock %}

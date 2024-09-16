@@ -154,6 +154,11 @@
             <tag name="shopware.cms.data_resolver" />
         </service>
 
+        <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogCategoriesCmsElementResolver">
+            <argument type="service" id="Symfony\Contracts\EventDispatcher\EventDispatcherInterface"/>
+            <tag name="shopware.cms.data_resolver" />
+        </service>
+
         <service class="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver" id="werkl_blog_module.data_resolver.blog_detail_cms_element_resolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
