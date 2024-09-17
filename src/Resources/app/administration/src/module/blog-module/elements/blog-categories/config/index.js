@@ -2,7 +2,7 @@ import template from './sw-cms-el-config-categories.html.twig';
 import './sw-cms-el-config-categories.scss';
 
 const { Component, Mixin } = Shopware;
-const { EntityCollection, Criteria } = Shopware.Data;
+// const { EntityCollection, Criteria } = Shopware.Data;
 
 Component.register('sw-cms-el-config-categories', {
     template,
