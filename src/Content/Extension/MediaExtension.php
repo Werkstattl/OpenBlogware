@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Extension;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityExtension;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 
 class MediaExtension extends EntityExtension
 {

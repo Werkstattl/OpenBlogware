@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
-use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\Migration\Traits\ImportTranslationsTrait;
 use Shopware\Core\Migration\Traits\Translations;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 
 class Migration1604520733DefaultBlogCategorySeeder extends MigrationStep
 {

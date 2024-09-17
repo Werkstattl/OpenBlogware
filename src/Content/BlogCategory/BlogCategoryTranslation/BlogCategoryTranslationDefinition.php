@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation;
 
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 
 class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
 {

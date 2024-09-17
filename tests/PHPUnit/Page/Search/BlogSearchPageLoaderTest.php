@@ -6,10 +6,6 @@ namespace OpenBlogware\Tests\Page\Search;
 use OpenBlogware\Tests\Fakes\FakeEntityRepository;
 use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Werkl\OpenBlogware\Page\Search\BlogSearchPage;
-use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\Routing\RoutingException;
@@ -17,6 +13,10 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Shopware\Storefront\Page\Page;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Page\Search\BlogSearchPage;
+use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 
 class BlogSearchPageLoaderTest extends TestCase
 {

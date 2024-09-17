@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace OpenBlogware\Tests\Util;
 
-use OpenBlogware\Tests\Traits\ContextTrait;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Werkl\OpenBlogware\Util\Update;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
+use Werkl\OpenBlogware\Util\Update;
 
 class UpdateTest extends TestCase
 {

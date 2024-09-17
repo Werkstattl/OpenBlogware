@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogCategory;
 
-use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
@@ -28,6 +25,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\TreePathField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelDefinition;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 
 class BlogCategoryDefinition extends EntityDefinition
 {

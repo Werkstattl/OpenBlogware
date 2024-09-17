@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogAuthor;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use Shopware\Core\System\Salutation\SalutationEntity;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationCollection;
 
 class BlogAuthorEntity extends Entity
 {

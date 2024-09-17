@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Controller\StoreApi;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\System\SalesChannel\StoreApiResponse;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
 
 class BlogControllerResponse extends StoreApiResponse
 {

@@ -6,9 +6,6 @@ namespace OpenBlogware\Tests\Content\Cms\DataResolver;
 use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
-use Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSection\CmsSectionCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
@@ -17,8 +14,11 @@ use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
+use Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver;
 
-class WerklCmsSlotsDataResolverTest extends TestCase
+class SasCmsSlotsDataResolverTest extends TestCase
 {
     use ContextTrait;
 

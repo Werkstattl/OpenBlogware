@@ -5,11 +5,6 @@ namespace Werkl\OpenBlogware;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
-use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
-use Werkl\OpenBlogware\Util\Lifecycle;
-use Werkl\OpenBlogware\Util\Update;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateEntity;
@@ -28,6 +23,11 @@ use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\Kernel;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Util\Lifecycle;
+use Werkl\OpenBlogware\Util\Update;
 
 class WerklOpenBlogware extends Plugin
 {
@@ -81,7 +81,7 @@ class WerklOpenBlogware extends Plugin
         $context = Context::createDefaultContext();
 
         $criteria = new Criteria();
-        $criteria.addFilter(new EqualsAnyFilter('type', ['blog-detail', 'blog-listing']));
+        $criteria . addFilter(new EqualsAnyFilter('type', ['blog-detail', 'blog-listing']));
 
         $cmsBlocks = $cmsBlockRepo->searchIds($criteria, $context);
 

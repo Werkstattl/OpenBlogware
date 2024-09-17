@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace OpenBlogware\Tests\Page\Blog;
 
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Page\Blog\BlogPage;
-use Werkl\OpenBlogware\Page\Blog\BlogPageLoadedEvent;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Page\Blog\BlogPage;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoadedEvent;
 
 class BlogPageLoadedEventTest extends TestCase
 {

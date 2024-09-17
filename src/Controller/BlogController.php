@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Controller;
 
-use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 
 /**
  * Blog detail page controller

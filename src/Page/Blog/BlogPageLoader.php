@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Page\Blog;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
@@ -18,6 +17,7 @@ use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Shopware\Storefront\Page\MetaInformation;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 
 class BlogPageLoader
 {

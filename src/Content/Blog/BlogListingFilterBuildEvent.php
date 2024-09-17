@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog;
 
-use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Framework\Event\Annotation\Event;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 
 class BlogListingFilterBuildEvent
 {

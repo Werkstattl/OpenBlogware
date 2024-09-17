@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace OpenBlogware\Tests\Core\Content\Sitemap\Provider;
 
+use Doctrine\DBAL\Connection;
 use OpenBlogware\Tests\Fakes\FakeEntityRepository;
 use OpenBlogware\Tests\Traits\ContextTrait;
-use Doctrine\DBAL\Connection;
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Werkl\OpenBlogware\Core\Content\Sitemap\Provider\BlogUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Core\Content\Sitemap\Provider\BlogUrlProvider;
 
 class BlogUrlProviderTest extends TestCase
 {

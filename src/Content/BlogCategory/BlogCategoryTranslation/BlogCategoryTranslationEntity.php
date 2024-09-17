@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation;
 
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryEntity;
 
 class BlogCategoryTranslationEntity extends TranslationEntity
 {

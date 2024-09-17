@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -13,6 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
 
 class BlogSingleSelectDataResolver extends AbstractCmsElementResolver
 {

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Storefront\Framework\Seo\SeoUrlRoute;
 
-use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
-use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -13,6 +11,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 
 class SeoUrlUpdateListener implements EventSubscriberInterface
 {

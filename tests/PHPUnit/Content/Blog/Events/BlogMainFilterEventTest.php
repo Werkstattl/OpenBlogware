@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace OpenBlogware\Tests\Content\Blog\Events;
 
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 
 class BlogMainFilterEventTest extends TestCase
 {

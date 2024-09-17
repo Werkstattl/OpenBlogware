@@ -6,11 +6,6 @@ namespace OpenBlogware\Tests\Page\Blog;
 use OpenBlogware\Tests\Fakes\FakeEntityRepository;
 use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
-use Werkl\OpenBlogware\Page\Blog\BlogPage;
-use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Category\Tree\Tree;
 use Shopware\Core\Content\Cms\CmsPageEntity;
@@ -28,6 +23,11 @@ use Shopware\Storefront\Page\Page;
 use Shopware\Storefront\Pagelet\Header\HeaderPagelet;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
+use Werkl\OpenBlogware\Page\Blog\BlogPage;
+use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 
 class BlogPageLoaderTest extends TestCase
 {

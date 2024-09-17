@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
-use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -21,6 +18,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 
 class BlogCmsElementResolver extends AbstractCmsElementResolver
 {

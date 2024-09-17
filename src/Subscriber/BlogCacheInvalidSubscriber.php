@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Subscriber;
 
-use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
-use Werkl\OpenBlogware\Controller\CachedBlogController;
-use Werkl\OpenBlogware\Controller\CachedBlogRssController;
-use Werkl\OpenBlogware\Controller\CachedBlogSearchController;
 use Shopware\Core\Content\Category\SalesChannel\CachedCategoryRoute;
 use Shopware\Core\Content\Cms\CmsPageEvents;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
@@ -22,6 +18,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
+use Werkl\OpenBlogware\Controller\CachedBlogController;
+use Werkl\OpenBlogware\Controller\CachedBlogRssController;
+use Werkl\OpenBlogware\Controller\CachedBlogSearchController;
 
 /**
  * After you change the SEO Template within the SEO settings, we need to re-generate all existing URLs.

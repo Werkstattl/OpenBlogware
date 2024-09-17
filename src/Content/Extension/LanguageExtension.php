@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Extension;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityExtension;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 use Shopware\Core\System\Language\LanguageDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation\BlogAuthorTranslationDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationDefinition;
 
 class LanguageExtension extends EntityExtension
 {

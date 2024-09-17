@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogCategory;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use Shopware\Core\System\SalesChannel\SalesChannelCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesCollection;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryTranslation\BlogCategoryTranslationCollection;
 
 class BlogCategoryEntity extends Entity
 {

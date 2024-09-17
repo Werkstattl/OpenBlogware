@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Page\Blog;
 
+use Shopware\Storefront\Page\Navigation\NavigationPage;
 use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Shopware\Storefront\Page\Navigation\NavigationPage;
 
 class BlogPage extends NavigationPage
 {

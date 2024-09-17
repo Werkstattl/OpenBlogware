@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Cms\DataResolver;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
-use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
 use Shopware\Core\Content\Cms\Aggregate\CmsSection\CmsSectionCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
+use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
 
 class WerklCmsSlotsDataResolver extends CmsSlotsDataResolver
 {

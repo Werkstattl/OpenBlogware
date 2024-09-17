@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog\DataResolver;
 
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
-use Werkl\OpenBlogware\Content\Blog\Events\CategoriesCriteriaEvent;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -13,14 +11,10 @@ use Shopware\Core\Content\Cms\DataResolver\FieldConfigCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Content\Blog\Events\CategoriesCriteriaEvent;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 
 class BlogCategoriesCmsElementResolver extends AbstractCmsElementResolver
 {
@@ -89,6 +83,7 @@ class BlogCategoriesCmsElementResolver extends AbstractCmsElementResolver
     private function createCriteria(FieldConfigCollection $config, SalesChannelContext $salesChannelContext): Criteria
     {
         $criteria = new Criteria();
+
         return $criteria;
     }
 }

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog;
 
-use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
@@ -11,6 +10,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 
 class BlogEntitiesIndexer extends EntityIndexer
 {

@@ -3,10 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog;
 
-use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Content\Cms\CmsPageDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -27,6 +23,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationDefinition;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
 
 class BlogEntriesDefinition extends EntityDefinition
 {

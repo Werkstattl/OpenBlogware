@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
-use Werkl\OpenBlogware\WerklOpenBlogware;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Werkl\OpenBlogware\WerklOpenBlogware;
 
 class Migration1605031477CreateWerklBlogAuthorTable extends MigrationStep
 {

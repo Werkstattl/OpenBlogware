@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationCollection;
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
-use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryCollection;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation\BlogEntriesTranslationCollection;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
+use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryCollection;
 
 class BlogEntriesEntity extends Entity
 {

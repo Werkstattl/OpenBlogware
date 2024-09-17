@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace OpenBlogware\Tests\Page\Blog;
 
 use PHPUnit\Framework\TestCase;
-use Werkl\OpenBlogware\Page\Blog\BlogPageCriteriaEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Werkl\OpenBlogware\Page\Blog\BlogPageCriteriaEvent;
 
 class BlogPageCriteriaEventTest extends TestCase
 {

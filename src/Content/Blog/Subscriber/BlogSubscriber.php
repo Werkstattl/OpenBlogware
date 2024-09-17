@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog\Subscriber;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
-use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
-use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Product\SalesChannel\Listing\Filter;
 use Shopware\Core\Content\Product\SalesChannel\Listing\FilterCollection;
@@ -16,6 +13,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesDefinition;
+use Werkl\OpenBlogware\Content\Blog\BlogListingFilterBuildEvent;
+use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 
 class BlogSubscriber implements EventSubscriberInterface
 {

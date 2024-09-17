@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorTranslation;
 
-use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 
 class BlogAuthorTranslationDefinition extends EntityTranslationDefinition
 {

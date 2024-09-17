@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\Blog\BlogEntriesTranslation;
 
-use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
+use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 
 class BlogEntriesTranslationEntity extends TranslationEntity
 {
