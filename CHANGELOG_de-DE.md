@@ -1,5 +1,6 @@
 # 4.0.1
 - Kategorien-CMS-Element hinzugefügt
+- Rss Feed Fehler behoben. [#7](https://github.com/Werkstattl/OpenBlogware/issues/7)
 
 # 4.0.0
 - Breaking: Plugin interne Namensänderung von Sas\\BlogModule\\SasBlogModule zu Werkl\\OpenBlogware\\WerklOpenBlogware

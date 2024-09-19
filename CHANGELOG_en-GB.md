@@ -1,5 +1,6 @@
 # 4.0.1
 - Added category listing cms element
+- Fixed rss feed error [#7](https://github.com/Werkstattl/OpenBlogware/issues/7)
 
 # 4.0.0
 - Breaking: Renamed plugin internals from Sas\\BlogModule\\SasBlogModule to Werkl\\OpenBlogware\\WerklOpenBlogware
