@@ -1,9 +1,13 @@
+# 4.0.2
+- Fixed uninstall error
+
 # 4.0.1
 - Added category listing cms element
 - Fixed rss feed error [#7](https://github.com/Werkstattl/OpenBlogware/issues/7)
 
 # 4.0.0
 - Breaking: Renamed plugin internals from Sas\\BlogModule\\SasBlogModule to Werkl\\OpenBlogware\\WerklOpenBlogware
+- All content must be fully recreated. Refer to [#8](https://github.com/Werkstattl/OpenBlogware/issues/8) for the SQL commands required for a one-time migration.
 
 # 3.0.4
 - Added offset count functionality to the newest blog items element 

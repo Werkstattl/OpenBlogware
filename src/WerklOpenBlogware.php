@@ -81,7 +81,7 @@ class WerklOpenBlogware extends Plugin
         $context = Context::createDefaultContext();
 
         $criteria = new Criteria();
-        $criteria . addFilter(new EqualsAnyFilter('type', ['blog-detail', 'blog-listing']));
+        $criteria->addFilter(new EqualsAnyFilter('type', ['blog-detail', 'blog-listing']));
 
         $cmsBlocks = $cmsBlockRepo->searchIds($criteria, $context);
 

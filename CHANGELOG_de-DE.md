@@ -1,9 +1,13 @@
+# 4.0.2
+- Fehler beim deinstallieren des Plugins behoben.
+
 # 4.0.1
-- Kategorien-CMS-Element hinzugefügt
+- Kategorien-CMS-Element hinzugefügt.
 - Rss Feed Fehler behoben. [#7](https://github.com/Werkstattl/OpenBlogware/issues/7)
 
 # 4.0.0
 - Breaking: Plugin interne Namensänderung von Sas\\BlogModule\\SasBlogModule zu Werkl\\OpenBlogware\\WerklOpenBlogware
+- Alle Inhalte müssen vollständig neu erstellt werden. Beziehen Sie sich auf [#8](https://github.com/Werkstattl/OpenBlogware/issues/8) für die SQL-Befehle, die für eine einmalige Migration erforderlich sind.
 
 # 3.0.4
 - Überspringe-Artikel-Funktionalität für das neueste Blog-Artikel-Element
