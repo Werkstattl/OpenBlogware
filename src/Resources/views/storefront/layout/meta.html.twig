@@ -18,20 +18,20 @@
 {% block layout_head_meta_tags_image_meta %}{{ metaImage ?? parent() }}{% endblock %}
 
 {% block layout_head_meta_tags_schema_webpage %}
-{{ parent() }}
+    {{ parent() }}
 
-{% if activeRoute == 'werkl.frontend.blog.detail' %}
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": "{{ entry.translated.title }}",
+    {% if activeRoute == 'werkl.frontend.blog.detail' %}
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "headline": "{{ entry.translated.title }}",
             "datePublished": "{{ entry.publishedAt|date }}",
             "dateModified": "{{ entry.updatedAt|date }}",
             "description": "{{ entry.translated.teaser }}",
             "author": {
                 "@type": "Person",
-                "name": "{{ entry.blogAuthor.firstName }} {{ entry.blogAuthor.lastName }}"
+                "name": "{{ entry.author.translated.name }}"
             },
             {% if entry.media.thumbnails.elements|length %}
             "image":[{% for item in entry.media.thumbnails.elements %}"{{ item.url }}"{{ loop.last ? '' : ',' }}{% endfor %}],{% endif %}
@@ -48,6 +48,6 @@
                 }
             }
         }
-    </script>
-{% endif %}
+        </script>
+    {% endif %}
 {% endblock %}

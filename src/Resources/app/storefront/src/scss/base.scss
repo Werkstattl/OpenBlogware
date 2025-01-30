@@ -1,4 +1,7 @@
+@import "abstracts/variables";
 @import 'layout/header/_search-suggest';
+@import "components/blog-box";
+@import "pages/blog-detail";
 
 .blog-image,
 .blog-image-placeholder {
@@ -38,7 +41,7 @@
 }
 
 .has-element-loader .cms-element-product-listing {
-    .blog-image-link span.icon{
+    .blog-image-link span.icon {
         opacity: 0;
     }
 

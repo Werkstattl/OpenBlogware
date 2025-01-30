@@ -1,48 +1,53 @@
 {
-    "werkl-blog": {
-        "detail": {
-            "meta": {
-                "author": "Autor",
-                "category": "Kategorien"
-            }
-        },
-        "element": {
-            "detail": {
-                "warning": {
-                    "heading": "Fehler beim laden der Blog Detail Ansicht",
-                    "content": "Vielleicht hast du das Blog Detail CMS Element auf derselben Seite wie das CMS Listing Element?"
-                }
-            },
-            "singleSelect": {
-                "emptyResult": "Es ist kein Blog Eintrag ausgewählt."
-            }
-        },
-        "box": {
-            "author": {
-                "countEntries": "Beiträge"
-            }
-        },
-        "listing": {
-            "readMoreLabel": "mehr lesen",
-            "emptyResultMessage": "Wir konnten leider keine Suchergebnisse finden ...",
-            "filterPanelResetAll": "Zurück setzen",
-            "filterBlogCategoriesDisplayName": "Kategorien",
-            "filterBlogAuthorDisplayName": "Autor"
-        },
-        "search": {
-            "tabs": {
-                "product": "Produkt",
-                "blog": "Blog Eintrag"
-            },
-            "in": "In",
-            "searchAllResults": "Suchergebnis für Blogs anzeigen",
-            "searchResults": "{1} 1 Eintrag|]1,Inf[ %count% Eingaben",
-            "headline": "{0} Zu \"%searchTerm%\" wurde kein Blog gefunden | {1} Zu \"%searchTerm%\" wurde 1 Blog gefunden | ]1,Inf[ Zu \"%searchTerm%\" wurden %count% Blogs gefunden",
-            "emptyResult": "Wir konnten leider keine Suchergebnisse finden ..."
-        }
+  "blog": {
+    "detail": {
+      "meta": {
+        "author": "Autor",
+        "category": "Kategorien"
+      }
     },
-    "header": {
-        "searchAllResults": "Alle Produkte anzeigen Suchergebnis",
-        "searchPlaceholder": "Suche nach Produkten, Blogeinträgen, Autoren..."
+    "element": {
+      "detail": {
+        "warning": {
+          "heading": "Fehler beim laden der Blog Detail Ansicht",
+          "content": "Vielleicht hast du das Blog Detail CMS Element auf derselben Seite wie das CMS Listing Element?"
+        }
+      },
+      "singleSelect": {
+        "emptyResult": "Es ist kein Blog Eintrag ausgewählt."
+      }
+    },
+    "box": {
+      "author": {
+        "countEntries": "Beiträge"
+      },
+      "readMore": "mehr lessen"
+    },
+    "listing": {
+      "readMoreLabel": "mehr lesen",
+      "emptyResultMessage": "Wir konnten leider keine Suchergebnisse finden ...",
+      "filterPanelResetAll": "Zurück setzen",
+      "filterBlogCategoriesDisplayName": "Kategorien",
+      "filterBlogAuthorDisplayName": "Autor"
+    },
+    "search": {
+      "tabs": {
+        "product": "Produkt",
+        "blog": "Blog Eintrag"
+      },
+      "in": "In",
+      "searchAllResults": "Suchergebnis für Blogs anzeigen",
+      "searchResults": "{1} 1 Eintrag|]1,Inf[ %count% Eingaben",
+      "headline": "{0} Zu \"%searchTerm%\" wurde kein Blog gefunden | {1} Zu \"%searchTerm%\" wurde 1 Blog gefunden | ]1,Inf[ Zu \"%searchTerm%\" wurden %count% Blogs gefunden",
+      "emptyResult": "Wir konnten leider keine Suchergebnisse finden ..."
+    },
+    "blogDetail": {
+      "author": "Autorin",
+      "date": "Datum"
     }
+  },
+  "header": {
+    "searchAllResults": "Alle Produkte anzeigen Suchergebnis",
+    "searchPlaceholder": "Suche nach Produkten, Blogeinträgen, Autoren..."
+  }
 }

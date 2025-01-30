@@ -1,21 +1,92 @@
-{% block werkl_element_blog_newest_listing_row %}
+{% block element_blog_newest_listing_row %}
+    {% set baseSliderOptions = {
+        slider: {
+            items: 3,
+            gutter: 30,
+            slideBy : '1',
+            nav: true,
+            navPosition:bottom,
+            controls: true,
+            autoplay: false,
+            loop:false,
+            autoHeight: true,
+            responsive: {
+                xs: {
+                    items: 1,
+                },
+                sm: {
+                    items: 2,
+                },
+                md: {
+                    items: 2,
+                },
+            }
+        }
+    } %}
+
     <div class="cms-news-full-listing-row js-listing-wrapper">
         {% if searchResult.total > 0 %}
-            {% block werkl_element_blog_newest_listing_col %}
+            {% block element_blog_newest_listing_col %}
                 <div class="row">
-                    {% for article in searchResult %}
-                        {% block werkl_element_blog_newest_listing_box %}
-                            <div class="col-12 col-md-4 col-lg-3 my-4">
-                                {% sw_include '@Storefront/storefront/component/blog/card/box.html.twig' %}
+                    <div class="base-slider ap-slider" data-base-slider="true"
+                         data-base-slider-options='{{ baseSliderOptions|json_encode }}'
+                         data-ap-header-slider-scroll-control="true">
+                        <div class="cms-element-ap"
+                             data-base-slider-container="true">
+                            {% for article in searchResult %}
+
+                                {% block element_blog_newest_listing_box %}
+                                    <div class="col-12 col-md-4 col-lg-3 my-4">
+                                        {% sw_include '@Storefront/storefront/component/blog/card/box.html.twig' %}
+                                    </div>
+                                {% endblock %}
+                            {% endfor %}
+                        </div>
+                        {% block element_image_gallery_inner_zoom_modal_slider_controls %}
+                            <div class="gallery-slider-controls"
+                                 data-base-slider-controls="true">
+                                {% block element_image_gallery_inner_zoom_modal_slider_control_prev %}
+                                    <button class="base-slider-controls-prev gallery-slider-controls-prev"
+                                            aria-label="{{ 'general.previous'|trans|striptags }}">
+                                        {% block element_image_gallery_inner_zoom_modal_slider_control_prev_icon %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                                                 viewBox="0 0 80 80" fill="none">
+                                                <path d="M16.6667 40H63.3333" stroke="black" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                                <path d="M16.6667 40L30 53.3333" stroke="black" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                                <path d="M16.6667 39.9998L30 26.6665" stroke="black"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        {% endblock %}
+                                    </button>
+                                {% endblock %}
+
+                                {% block element_image_gallery_inner_zoom_modal_slider_control_next %}
+                                    <button class="base-slider-controls-next gallery-slider-controls-next"
+                                            aria-label="{{ 'general.next'|trans|striptags }}">
+                                        {% block element_image_gallery_inner_zoom_modal_slider_control_next_icon %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                                                 viewBox="0 0 80 80" fill="none">
+                                                <path d="M63.3334 40H16.6667" stroke="black" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                                <path d="M63.3334 40L50 53.3333" stroke="black" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                                <path d="M63.3334 39.9998L50 26.6665" stroke="black"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        {% endblock %}
+                                    </button>
+                                {% endblock %}
                             </div>
                         {% endblock %}
-                    {% endfor %}
+                    </div>
                 </div>
             {% endblock %}
         {% else %}
-            {% block werkl_element_blog_newest_listing_col_empty %}
+            {% block element_blog_newest_listing_col_empty %}
                 <div class="cms-listing-col col-12">
-                    {% block werkl_element_blog_newest_listing_col_empty_alert %}
+                    {% block element_blog_newest_listing_col_empty_alert %}
                         {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
                             type: 'info',
                             content: 'werkl-blog.search.emptyResult'|trans|sw_sanitize

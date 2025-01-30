@@ -1,9 +1,9 @@
-{% block werkl_block_partials_author %}
-    <figure class="werkl-author figure mr-2">
+{% block werkl_partials_author %}
+    <figure class="author figure mr-2">
         <figcaption class="figure-caption">{% sw_icon 'avatar' style { 'size': 'sm' } %}
             <span
-                data-toggle="tooltip"
-                title="{{ "werkl-blog.detail.meta.author"|trans|striptags }}"
+                    data-toggle="tooltip"
+                    title="{{ "blog.detail.meta.author"|trans|striptags }}"
             >
                 {{ author.displayName ?: author.firstName ~ ' ' ~ author.lastName }}
             </span>

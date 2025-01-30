@@ -1,4 +1,4 @@
-{% block werkl_element_blog_single_select %}
+{% block element_blog_single_select %}
     {% set article = element.data %}
 
     {% if article|length %}
@@ -6,9 +6,9 @@
     {% else %}
         {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
             type: "primary",
-            content: "werkl-blog.element.singleSelect.emptyResult"|trans|sw_sanitize,
+            content: "blog.element.singleSelect.emptyResult"|trans|sw_sanitize,
             icon: false
-            } %}
+        } %}
     {% endif %}
 
 {% endblock %}

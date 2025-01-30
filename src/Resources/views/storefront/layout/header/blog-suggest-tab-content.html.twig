@@ -41,7 +41,7 @@
                                     {% if blog.blogCategories.count > 0 %}
                                         {% set category = blog.blogCategories.last %}
 
-                                        <small>{{ "werkl-blog.search.in"|trans|sw_sanitize }}</small>
+                                        <small>{{ "blog.search.in"|trans|sw_sanitize }}</small>
 
                                         <span>{{ category.translated.name }}</span>
                                     {% endif %}
@@ -57,7 +57,7 @@
     {% if blogResult.count == 0 %}
         {% block layout_search_suggest_blog_no_result %}
             <li class="search-suggest-no-result">
-                {{ "werkl-blog.search.emptyResult"|trans|sw_sanitize }}
+                {{ "blog.search.emptyResult"|trans|sw_sanitize }}
             </li>
         {% endblock %}
 
@@ -68,17 +68,17 @@
                     {% block layout_search_suggest_result_total_blog_link %}
                         <div class="col">
                             <a href="{{ path('werkl.frontend.blog.search') }}?search={{ searchTerm }}"
-                               title="{{ "werkl-blog.search.searchAllResults"|trans|striptags }}"
+                               title="{{ "blog.search.searchAllResults"|trans|striptags }}"
                                class="search-suggest-total-link">
                                 {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
-                                {{ "werkl-blog.search.searchAllResults"|trans|sw_sanitize }}
+                                {{ "blog.search.searchAllResults"|trans|sw_sanitize }}
                             </a>
                         </div>
                     {% endblock %}
 
                     {% block layout_search_suggest_result_total_blog_count %}
                         <div class="col-auto search-suggest-total-count">
-                            {{ "werkl-blog.search.searchResults"|trans({
+                            {{ "blog.search.searchResults"|trans({
                                 '%count%': blogResult.count,
                             })|sw_sanitize }}
                         </div>
