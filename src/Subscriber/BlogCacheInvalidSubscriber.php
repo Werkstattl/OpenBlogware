@@ -6,6 +6,7 @@ namespace Werkl\OpenBlogware\Subscriber;
 use Shopware\Core\Content\Category\SalesChannel\CategoryRoute;
 use Shopware\Core\Content\Cms\CmsPageEvents;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
+use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\Adapter\Cache\CacheInvalidator;
 use Shopware\Core\Framework\Context;
@@ -19,6 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
+use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
 use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryCollection;
 use Werkl\OpenBlogware\Controller\BlogController;
@@ -34,11 +36,13 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     /**
      * @param EntityRepository<BlogCategoryCollection> $categoryRepository
      * @param EntityRepository<BlogEntryCollection> $blogRepository
+     * @param EntityRepository<SeoUrlTemplateCollection> $seoUrlTemplateRepository
      */
     public function __construct(
         private readonly SeoUrlUpdater $seoUrlUpdater,
         private readonly EntityRepository $categoryRepository,
         private readonly EntityRepository $blogRepository,
+        private readonly EntityRepository $seoUrlTemplateRepository,
         private readonly CacheInvalidator $cacheInvalidator,
         private readonly SystemConfigService $systemConfigService
     ) {
@@ -126,9 +130,21 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     /**
      * When update SEO template in the settings, we will update all SEO URLs for the blog articles
      */
-    public function updateSeoUrlForAllArticles(): void
+    public function updateSeoUrlForAllArticles(EntityWrittenEvent $event): void
     {
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, []);
+        $context = $event->getContext();
+
+        $criteria = (new Criteria($event->getIds()))
+            ->addFilter(new EqualsFilter('entityName', BlogEntryDefinition::ENTITY_NAME));
+
+        if ($this->seoUrlTemplateRepository->searchIds($criteria, $context)->getTotal() < 1) {
+            return;
+        }
+
+        /** @var list<string> $ids */
+        $ids = $this->blogRepository->searchIds(new Criteria(), $context)->getIds();
+
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $ids);
     }
 
     /**
