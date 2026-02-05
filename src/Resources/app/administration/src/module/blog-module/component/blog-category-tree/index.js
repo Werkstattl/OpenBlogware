@@ -9,6 +9,7 @@ export default {
         return {
             blogCategory: null,
             translationContext: 'werkl-blog-category',
+            categories: [],
         };
     },
 
@@ -28,5 +29,22 @@ export default {
         },
 
         syncProducts() {},
+
+        async onGetTreeItems({ parentId }) {
+            const criteria = new Shopware.Data.Criteria(1, 500);
+
+            // Filter by parent ID if provided (for nested categories)
+            // If no parentId, get root categories
+            if (parentId) {
+                criteria.addFilter(Shopware.Data.Criteria.equals('parentId', parentId));
+            }
+
+            try {
+                return await this.categoryRepository.search(criteria, Shopware.Context.api);
+            } catch (error) {
+                console.error('Failed to load blog categories:', error);
+                return null;
+            }
+        },
     },
 };
