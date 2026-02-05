@@ -1,7 +1,7 @@
 {% block block_werkl_blog_detail %}
     {% set element = block.slots.getSlot('blogDetail') %}
 
-    <div class="{% if element.config.fullWidth %}col-12{% elseif section and section.sizingMode === 'boxed' %}col-md-8 offset-md-2{% endif %}" data-cms-element-id="{{ element.id }}">
+    <div class="{% if element.config.fullWidth.value %}col-12{% elseif section and section.sizingMode === 'boxed' %}col-md-8 offset-md-2{% endif %}" data-cms-element-id="{{ element.id }}">
         {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
     </div>
 {% endblock %}
