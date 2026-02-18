@@ -1,4 +1,12 @@
 {
+    "open-blogware": {
+        "search": {
+            "label": "Blog Entry",
+            "placeholder": "Search blog entries...",
+            "categoryLabel": "Blog Category",
+            "categoryPlaceholder": "Search blog categories..."
+        }
+    },
     "werkl-blog": {
         "general": {
             "mainMenuItemGeneral": "Blog",

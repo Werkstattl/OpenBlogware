@@ -89,6 +89,24 @@
         <service id="Werkl\OpenBlogware\Controller\StoreApi\BlogController" public="true">
             <argument type="service" id="werkl_blog_entry.repository"/>
         </service>
+
+        <!-- Admin Search Handler -->
+        <service id="Werkl\OpenBlogware\Framework\Search\Admin\BlogEntryAdminSearchHandler">
+            <argument type="service" id="Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition"/>
+            <argument type="service" id="Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Search\Term\SearchTermInterpreter"/>
+        </service>
+
+        <!-- Admin Search Controller -->
+        <service id="Werkl\OpenBlogware\Controller\Admin\BlogAdminSearchController" public="true">
+            <argument type="service" id="Werkl\OpenBlogware\Framework\Search\Admin\BlogEntryAdminSearchHandler"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\Framework\Api\Serializer\JsonEntityEncoder"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
         <!-- End controller -->
 
         <service id="Werkl\OpenBlogware\Content\Cms\DataResolver\CmsSlotsDataResolverExtension">
