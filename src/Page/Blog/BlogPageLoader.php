@@ -9,6 +9,7 @@ use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigException;
@@ -94,7 +95,8 @@ class BlogPageLoader
             ->addAssociation('author.salutation')
             ->addAssociation('blogCategories')
             ->addAssociation('tags')
-            ->addAssociation('blogAuthor');
+            ->addAssociation('blogAuthor')
+            ->addFilter(new EqualsFilter('active', true));
         $this->eventDispatcher->dispatch(new BlogPageCriteriaEvent($articleId, $criteria, $context));
 
         $blogEntry = $this->blogRepository
