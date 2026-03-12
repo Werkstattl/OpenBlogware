@@ -1,3 +1,8 @@
+# 5.1.3
+- Behoben: Inaktive Blog-Posts gaben HTTP 200 statt 404 zurück [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)
+- Behoben: SEO-URL-Template enthielt kein /blog/ Pr00e4fix [#61](https://github.com/Werkstattl/OpenBlogware/pull/61)
+- Behoben: Benutzerdefinierte Landingpages gaben HTTP 500 zur00fcck
+
 # 5.1.2
 - SEO URL Template mit /blog/ Prefix behoben um bestehende URLs zu erhalten [#61](https://github.com/Werkstattl/OpenBlogware/pull/61)
 - Benutzerdefinierte Landingpages wieder funktionsfähig gemacht (ungültiges _httpCache Default entfernt)

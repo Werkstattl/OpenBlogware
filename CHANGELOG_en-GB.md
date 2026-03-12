@@ -1,3 +1,7 @@
+# 5.1.3
+- Fixed inactive blog posts returning HTTP 200 instead of 404 [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)
+- Fixed custom landing pages returning HTTP 500 error (removed invalid _httpCache default)
+
 # 5.1.2
 - Fixed SEO URL template to include /blog/ prefix to preserve existing URLs [#61](https://github.com/Werkstattl/OpenBlogware/pull/61)
 - Fixed custom landing pages returning HTTP 500 error (removed invalid _httpCache default)
