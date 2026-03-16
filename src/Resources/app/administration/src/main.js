@@ -2,6 +2,12 @@ import './init/cms-page-type.init';
 import './module/blog-module';
 
 /**
+ * Initialize blog search decoration for sw-search-bar
+ * This adds blog entries to the global admin search (without Elasticsearch)
+ */
+import './init/blog-search.init';
+
+/**
  * Register blog search service and types
  * This adds blog entries to the global admin search (without Elasticsearch)
  */

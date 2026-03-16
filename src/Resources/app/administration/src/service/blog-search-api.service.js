@@ -28,7 +28,7 @@ class BlogSearchApiService extends ApiService {
 
         return this.httpClient
             .post(
-                `${this.getApiBasePath()}/blog-search`,
+                `_admin/blog-search`,
                 { term, limit },
                 { headers }
             )
