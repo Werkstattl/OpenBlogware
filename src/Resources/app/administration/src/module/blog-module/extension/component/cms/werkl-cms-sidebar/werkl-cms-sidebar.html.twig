@@ -219,6 +219,24 @@
 </sw-sidebar-item>
 {% endblock %}
 
+{% block sw_cms_sidebar_block_overview %}
+    <template v-if="!blog.isNew()">
+        {% parent() %}
+    </template>
+{% endblock %}
+
+{% block sw_cms_sidebar_block_and_section_settings %}
+    <template v-if="!blog.isNew()">
+        {% parent() %}
+    </template>
+{% endblock %}
+
+{% block sw_cms_sidebar_navigator %}
+    <template v-if="!blog.isNew()">
+        {% parent() %}
+    </template>
+{% endblock %}
+
 {% block sw_cms_sidebar_layout_assignment %}
     {% block werkl_blog_cms_sidebar_extension_component %}
     <werkl-blog-extension-component-sections

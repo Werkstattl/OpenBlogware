@@ -31,6 +31,7 @@
                 "basicInformation": "Basic information",
                 "settings": "Settings"
             },
+            "enterBasicInformation": "Please enter the basic information in the sidebar and save the blog to start creating the content layout.",
             "saveBlogEntry": "Save entry",
             "buttonCancel": "Cancel",
             "activeLabel": "Entry active",

@@ -31,6 +31,7 @@
                 "basicInformation": "Grundlegende Information",
                 "settings": "Einstellungen"
             },
+            "enterBasicInformation": "Bitte gib die Basis-Informationen in der Sidebar ein und speichere den Blog, um mit der Erstellung des Inhaltslayouts zu beginnen.",
             "saveBlogEntry": "Eintrag speichern",
             "buttonCancel": "Abbrechen",
             "activeLabel": "Artikel aktiv",

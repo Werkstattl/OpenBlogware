@@ -27,5 +27,14 @@ export default {
             this.blog.cmsPageId = pageId;
             this.blogId = this.blog.id;
         },
+
+        onSaveBlog() {
+            this.$super('onSaveBlog').then(() => {
+                this.$router.push({
+                    name: 'blog.module.detail',
+                    params: { id: this.blog.id },
+                });
+            });
+        },
     },
 };

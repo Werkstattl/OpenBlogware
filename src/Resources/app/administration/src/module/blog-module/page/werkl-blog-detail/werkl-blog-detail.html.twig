@@ -41,20 +41,27 @@
 {% endblock %}
 
 {% block sw_cms_detail_stage_empty_stade_content %}
-<div class="sw-cms-detail__empty-stage-content">
-    <h2 class="sw-cms-detail__empty-stage-headline">
-        {{ $tc('sw-cms.detail.label.headlineEmptyState') }}
-    </h2>
-    <p class="sw-cms-detail__empty-stage-claim">
-        {{ $tc('sw-cms.detail.label.claimEmptyState') }}
-    </p>
-    <sw-cms-stage-add-section
-        :disabled="page.locked"
-        :key="0"
-        :force-choose="true"
-        @stage-section-add="addAdditionalSection($event, 0)"
-    />
-</div>
+<template v-if="blog.isNew()">
+    <mt-banner>
+        {{ $tc('werkl-blog.detail.enterBasicInformation') }}
+    </mt-banner>
+</template>
+<template v-else>
+    <div class="sw-cms-detail__empty-stage-content">
+        <h2 class="sw-cms-detail__empty-stage-headline">
+            {{ $tc('sw-cms.detail.label.headlineEmptyState') }}
+        </h2>
+        <p class="sw-cms-detail__empty-stage-claim">
+            {{ $tc('sw-cms.detail.label.claimEmptyState') }}
+        </p>
+        <sw-cms-stage-add-section
+            :disabled="page.locked"
+            :key="0"
+            :force-choose="true"
+            @stage-section-add="addAdditionalSection($event, 0)"
+        />
+    </div>
+</template>
 {% endblock %}
 
 {% block sw_cms_detail_stage_add_first_section %}
