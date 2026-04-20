@@ -36,7 +36,9 @@ export default {
     },
 
     mounted() {
-        this.openBlogDetailSideBar();
+        this.$nextTick(() => {
+            this.openBlogDetailSideBar();
+        });
     },
 
     computed: {
@@ -119,18 +121,20 @@ export default {
             this.onSetMediaItem({ targetId: dropItem.id });
         },
 
-        openBlogDetailSideBar() {
-            this.$nextTick(() => {
-                if (!this.$refs.sidebarItem) {
-                    return;
+        openBlogDetailSideBar(tries = 5) {
+            const sidebar = this.$refs.blogConfigSidebar;
+
+            if (!sidebar) {
+                if (tries > 0) {
+                    window.setTimeout(() => this.openBlogDetailSideBar(tries - 1), 50);
                 }
 
-                if (typeof this.$refs.sidebarItem.openContent !== 'function') {
-                    return;
-                }
+                return;
+            }
 
-                this.$refs.sidebarItem.openContent();
-            });
+            if (typeof sidebar.openContent === 'function') {
+                sidebar.openContent();
+            }
         },
     },
 };
