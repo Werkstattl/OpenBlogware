@@ -195,6 +195,7 @@ class BlogPageLoaderTest extends TestCase
                 'getId' => $articleId,
                 'getTitle' => 'blog title',
                 'getTeaser' => 'blog teaser',
+                'getPublishedAt' => new \DateTimeImmutable('-1 day'),
                 'getMetaTitle' => $metaInformation['metaTitle'] ?? null,
                 'getMetaDescription' => $metaInformation['metaDescription'] ?? null,
                 'getBlogAuthor' => $this->createConfiguredMock(BlogAuthorEntity::class, [
