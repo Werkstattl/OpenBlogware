@@ -14,8 +14,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\Filte
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\EntityAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
@@ -73,14 +71,7 @@ class BlogSubscriber implements EventSubscriberInterface
 
     public function onBlogMainFilter(BlogMainFilterEvent $event): void
     {
-        $dateTime = new \DateTime();
-
         $criteria = $event->getCriteria();
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
-        );
-
         $criteriaCollection = new CriteriaCollection();
         $criteriaCollection->add(
             'werkl_blog',

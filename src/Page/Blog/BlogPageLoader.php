@@ -9,7 +9,6 @@ use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigException;
@@ -20,6 +19,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogPageLoader
 {
@@ -72,7 +72,10 @@ class BlogPageLoader
             $metaInformation->setMetaTitle($metaTitle ?? '');
             $metaInformation->setMetaDescription($metaDescription ?? '');
             $metaInformation->setAuthor($metaAuthor ?? '');
-            $page->setMetaInformation($metaInformation);
+
+            if ($blogEntry->getPublishedAt() > new \DateTime()) {
+                $metaInformation->setRobots('noindex');
+            }
         }
 
         $this->eventDispatcher->dispatch(new BlogPageLoadedEvent($page, $context, $request));
@@ -96,7 +99,7 @@ class BlogPageLoader
             ->addAssociation('blogCategories')
             ->addAssociation('tags')
             ->addAssociation('blogAuthor')
-            ->addFilter(new EqualsFilter('active', true));
+            ->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId(), false));
         $this->eventDispatcher->dispatch(new BlogPageCriteriaEvent($articleId, $criteria, $context));
 
         $blogEntry = $this->blogRepository

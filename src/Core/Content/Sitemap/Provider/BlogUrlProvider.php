@@ -10,14 +10,13 @@ use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogUrlProvider extends AbstractUrlProvider
 {
@@ -48,15 +47,10 @@ class BlogUrlProvider extends AbstractUrlProvider
     {
         $criteria = new Criteria();
 
-        $dateTime = new \DateTime();
-
         $criteria->setLimit($limit);
         $criteria->setOffset($offset);
 
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
-        );
+        $criteria->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId()));
 
         /** @var BlogEntryCollection $blogEntries */
         $blogEntries = $this->blogRepository->search($criteria, $context->getContext())->getEntities();

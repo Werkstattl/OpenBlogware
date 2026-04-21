@@ -9,12 +9,10 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 {
@@ -55,16 +53,13 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     private function createCriteria(ResolverContext $resolverContext): Criteria
     {
-        $criteria = new Criteria();
+        $criteria = new Criteria([$resolverContext->getRequest()->get('articleId')]);
 
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new EqualsFilter('id', $resolverContext->getRequest()->get('articleId'))
-        );
-        $criteria->addFilter(new OrFilter([
-            new ContainsFilter('customFields.salesChannelIds', $resolverContext->getSalesChannelContext()->getSalesChannelId()),
-            new EqualsFilter('customFields.salesChannelIds', null),
-        ]));
+        $criteria->addFilter(new BlogEntryActiveFilter(
+            $resolverContext->getSalesChannelContext()->getSalesChannelId(),
+            false
+        ));
+
         $criteria
             ->addAssociations(['blogAuthor', 'blogCategories', 'tags'])
             ->addAssociation('cmsPage.sections.backgroundMedia')

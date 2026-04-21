@@ -11,16 +11,13 @@ use Shopware\Core\Content\Cms\DataResolver\FieldConfigCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\Events\NewestListingCriteriaEvent;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
 {
@@ -67,14 +64,7 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
     {
         $criteria = new Criteria();
 
-        $criteria->addFilter(new EqualsFilter('active', true));
-        $criteria->addFilter(new RangeFilter('publishedAt', [
-            RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM),
-        ]));
-        $criteria->addFilter(new OrFilter([
-            new ContainsFilter('customFields.salesChannelIds', $salesChannelContext->getSalesChannelId()),
-            new EqualsFilter('customFields.salesChannelIds', null),
-        ]));
+        $criteria->addFilter(new BlogEntryActiveFilter($salesChannelContext->getSalesChannelId()));
 
         $criteria->addSorting(new FieldSorting('publishedAt', FieldSorting::DESCENDING));
 

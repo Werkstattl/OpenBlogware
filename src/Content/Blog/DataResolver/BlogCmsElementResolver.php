@@ -10,17 +10,14 @@ use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\Events\BlogListingFilterBuildEvent;
 use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogCmsElementResolver extends AbstractCmsElementResolver
 {
@@ -37,19 +34,9 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
     {
         $config = $slot->getFieldConfig();
         $context = $resolverContext->getSalesChannelContext();
-
-        $dateTime = new \DateTime();
-
         $criteria = new Criteria();
 
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
-        );
-        $criteria->addFilter(new OrFilter([
-            new ContainsFilter('customFields.salesChannelIds', $context->getSalesChannelId()),
-            new EqualsFilter('customFields.salesChannelIds', null),
-        ]));
+        $criteria->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId()));
 
         $criteria->addAssociations([
             'blogAuthor',

@@ -5,17 +5,15 @@ namespace Werkl\OpenBlogware\Content\SalesChannel\Suggest;
 
 use Shopware\Core\Content\Product\SalesChannel\Suggest\AbstractProductSuggestRoute;
 use Shopware\Core\Content\Product\SalesChannel\Suggest\ProductSuggestRouteResponse;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class ProductSuggestDecorated extends AbstractProductSuggestRoute
 {
@@ -52,7 +50,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         }
 
         $limit = $response->getListingResult()->getCriteria()->getLimit() ?? 1;
-        $blogResult = $this->getBlogs($request->get('search'), (int) $limit, $context->getContext());
+        $blogResult = $this->getBlogs($request->get('search'), (int) $limit, $context);
         $response->getListingResult()->addExtension('blogResult', $blogResult);
 
         return $response;
@@ -68,7 +66,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
      *
      * @return EntitySearchResult<BlogEntryCollection>
      */
-    private function getBlogs(string $term, int $limit, Context $context): EntitySearchResult
+    private function getBlogs(string $term, int $limit, SalesChannelContext $context): EntitySearchResult
     {
         $criteria = new Criteria();
         $criteria->setTerm($term);
@@ -78,11 +76,8 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         $criteria->addAssociation('blogCategories');
         $criteria->getAssociation('blogCategories')->addSorting(new FieldSorting('level', FieldSorting::ASCENDING));
 
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => (new \DateTime())->format(\DATE_ATOM)])
-        );
+        $criteria->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId()));
 
-        return $this->blogRepository->search($criteria, $context);
+        return $this->blogRepository->search($criteria, $context->getContext());
     }
 }

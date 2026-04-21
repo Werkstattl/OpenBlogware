@@ -6,8 +6,6 @@ namespace Werkl\OpenBlogware\Controller;
 use Shopware\Core\Framework\Adapter\Cache\Event\AddCacheTagEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
@@ -17,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 #[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogRssController extends StorefrontController
@@ -50,10 +49,7 @@ class BlogRssController extends StorefrontController
 
         $criteria = new Criteria();
         $criteria->addAssociations(['blogAuthor.salutation', 'tags']);
-        $criteria->addFilter(
-            new EqualsFilter('active', true),
-            new RangeFilter('publishedAt', [RangeFilter::LTE => $dateTime->format(\DATE_ATOM)])
-        );
+        $criteria->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId()));
 
         $results = $this->blogRepository->search($criteria, $context->getContext())->getEntities();
 
