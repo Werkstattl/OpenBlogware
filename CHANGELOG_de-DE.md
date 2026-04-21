@@ -1,4 +1,7 @@
 # 5.2.0
+- Blog-Konfig-Sidebar optimiert [#71](https://github.com/Werkstattl/OpenBlogware/pull/71)
+- CMS-Listing-Integration für bessere Performance optimiert [#72](https://github.com/Werkstattl/OpenBlogware/pull/72)
+- BlogEntryActiveFilter für verbesserte Query-Performance refaktoriert [#73](https://github.com/Werkstattl/OpenBlogware/pull/73)
 
 # 5.1.3
 - Behoben: Inaktive Blog-Posts gaben HTTP 200 statt 404 zurück [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)
