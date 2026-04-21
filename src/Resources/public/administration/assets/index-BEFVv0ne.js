@@ -1,2 +1,0 @@
-import{B as l}from"./werkl-open-blogware-FX4CkpFD.js";const r=`{% block sw_cms_sidebar_page_settings_type_field %} {% parent %} <mt-text-field v-model="page.toggle" :label="$tc('sw-cms.detail.label.pageName')" :placeholder="placeholder(page, 'name')" :error="pageNameError" /> {% endblock %}`,o={template:r,computed:{isBlogDetail(){return this.page.type===l.PAGE_TYPES.BLOG_DETAIL},cmsBlockCategories(){const e=this.$super("cmsBlockCategories");return this.isBlogDetail?e.filter(t=>t.value!=="werkl-blog"):e}}};export{o as default};
-//# sourceMappingURL=index-BEFVv0ne.js.map
