@@ -1,0 +1,55 @@
+{% block sw_cms_list_listing_list_item_option_duplicate %}
+<template v-if="!isBlogPage(cmsPage)">
+    {% parent() %}
+</template>
+{% endblock %}
+
+{% block sw_cms_list_listing_list_data_grid_column_name %}
+<template #column-name="{ item }">
+    <template v-if="blogEntry = getLinkedBlogEntry(item)">
+        <router-link :to="{ name: 'blog.module.detail', params: { id: blogEntry.id } }">
+            {{ item.translated.name }}
+        </router-link>
+    </template>
+    <template v-else-if="isBlogPage(item)">
+        {{ item.translated.name }}
+    </template>
+    <template v-else>
+        <mt-icon
+            v-if="item.locked"
+            name="regular-lock"
+            class="sw-cms-list__icon-lock"
+            size="14"
+        />
+        <router-link :to="{ name: 'sw.cms.detail', params: { id: item.id } }">
+            {{ item.translated.name }}
+        </router-link>
+    </template>
+</template>
+{% endblock %}
+
+{% block sw_cms_list_listing_list_data_grid_actions_edit %}
+<sw-context-menu-item
+    v-if="blogEntry = getLinkedBlogEntry(item)"
+    :router-link="{ name: 'blog.module.detail', params: { id: blogEntry.id } }"
+    class="sw-cms-list__context-menu-item-edit"
+    :disabled="!acl.can('cms.editor') || undefined"
+>
+    {{ $tc('sw-cms.components.cmsListItem.edit') }}
+</sw-context-menu-item>
+<template v-else-if="!isBlogPage(item)">
+    {% parent() %}
+</template>
+{% endblock %}
+
+{% block sw_cms_list_listing_list_data_grid_actions_edit_duplicate %}
+<template v-if="!isBlogPage(item)">
+    {% parent() %}
+</template>
+{% endblock %}
+
+{% block sw_cms_list_listing_list_item_option_rename %}
+<template v-if="!isBlogPage(item)">
+    {% parent() %}
+</template>
+{% endblock %}

@@ -1,7 +1,7 @@
 {
     "sw-cms": {
-        "sorting": {
-            "labelSortByBlogPages": "Blog pages"
+        "general": {
+            "deleteDisabledBlogToolTip": "The layout you want to delete is still assigned to a blog page."
         },
         "detail": {
             "label": {

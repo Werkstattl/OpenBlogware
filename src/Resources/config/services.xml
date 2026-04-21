@@ -37,11 +37,15 @@
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="Werkl\OpenBlogware\Content\Extension\MediaExtension">
+        <service id="Werkl\OpenBlogware\Content\Extension\CmsPageExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 
         <service id="Werkl\OpenBlogware\Content\Extension\LanguageExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="Werkl\OpenBlogware\Content\Extension\MediaExtension">
             <tag name="shopware.entity.extension"/>
         </service>
 

@@ -1,7 +1,7 @@
 {
     "sw-cms": {
-        "sorting": {
-            "labelSortByBlogPages": "Blogseiten"
+        "general": {
+            "deleteDisabledBlogToolTip": "Das Layout ist noch einer Blogseite zugewiesen."
         },
         "detail": {
             "label": {
