@@ -1,4 +1,8 @@
-# 5.1.3
+# 5.2.0
+- CMS-Listing-Integration für bessere Performance optimiert [#72](https://github.com/Werkstattl/OpenBlogware/issues/72)
+- BlogEntryActiveFilter refaktoriert für verbesserte Query-Performance [#73](https://github.com/Werkstattl/OpenBlogware/issues/73)
+- Blog-Konfig-Sidebar optimiert [#71](https://github.com/Werkstattl/OpenBlogware/issues/71)
+- CI behoben: Node.js 20 Deprecation und PHP-Versions-Konsistenz [#67](https://github.com/Werkstattl/OpenBlogware/issues/67)
 - Behoben: Inaktive Blog-Posts gaben HTTP 200 statt 404 zurück [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)
 
 # 5.1.2
