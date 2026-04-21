@@ -34,4 +34,9 @@ class BlogEntryActiveFilter extends MultiFilter
     {
         return $this->salesChannelId;
     }
+
+    public function isPublishedAtFilterEnabled(): bool
+    {
+        return $this->publishedAtFilter;
+    }
 }
