@@ -1,14 +1,19 @@
+import BLOG from '../../../../constant/open-blogware.constant';
+
+const { Data: { Criteria } } = Shopware;
+
 export default {
     computed: {
-        sortPageTypes() {
-            const sortPageTypes = this.$super('sortPageTypes');
+        listCriteria() {
+            const criteria = this.$super('listCriteria');
 
-            sortPageTypes.push({
-                value: 'blog_detail',
-                name: this.$tc('sw-cms.sorting.labelSortByBlogPages'),
-            });
+            if (this.currentPageType === null) {
+                criteria.addFilter(Criteria.not('AND', [
+                    Criteria.equals('type', BLOG.PAGE_TYPES.BLOG_DETAIL),
+                ]));
+            }
 
-            return sortPageTypes;
+            return criteria;
         },
     },
 };
