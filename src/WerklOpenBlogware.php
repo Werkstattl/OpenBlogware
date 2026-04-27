@@ -6,8 +6,8 @@ namespace Werkl\OpenBlogware;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
+use Shopware\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
-use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateEntity;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -22,6 +22,7 @@ use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\Kernel;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
@@ -39,9 +40,6 @@ class WerklOpenBlogware extends Plugin
 
         $this->createBlogMediaFolder($installContext->getContext());
 
-        //  SEO Template sicherstellen (wichtig!)
-        $this->ensureSeoUrlTemplate($installContext->getContext());
-
         $this->getLifeCycle()->install($installContext->getContext());
     }
 
@@ -55,6 +53,8 @@ class WerklOpenBlogware extends Plugin
         if ($context->keepUserData()) {
             return;
         }
+
+        $this->deleteSeoUrls($context->getContext());
 
         /*
          * We need to uninstall our default media folder,
@@ -78,6 +78,7 @@ class WerklOpenBlogware extends Plugin
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_author_translation`');
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_author`');
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_tag`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_blog_category`');
 
         /** @var EntityRepository $cmsBlockRepo */
         $cmsBlockRepo = $this->container->get('cms_block.repository');
@@ -195,11 +196,7 @@ class WerklOpenBlogware extends Plugin
             new EqualsFilter('entityName', 'werkl_blog_entry')
         );
 
-        /** @var EntityRepository $seoUrlTemplateRepository */
-        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
-
-        $seoUrlTemplateRepository->search($criteria, $context);
-
+        $seoUrlTemplateRepository = $this->getSeoUrlTemplateRepository();
         $seoUrlTemplateIds = $seoUrlTemplateRepository->searchIds($criteria, $context)->getIds();
 
         if (!empty($seoUrlTemplateIds)) {
@@ -294,27 +291,23 @@ class WerklOpenBlogware extends Plugin
             [new EqualsFilter('template', null)]
         ));
 
-        /** @var EntityRepository $seoUrlTemplateRepository */
-        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
-
-        /** @var SeoUrlTemplateCollection $seoUrlTemplates */
+        $seoUrlTemplateRepository = $this->getSeoUrlTemplateRepository();
         $seoUrlTemplates = $seoUrlTemplateRepository->search($criteria, $context)->getEntities();
 
         $update = [];
-        /** @var SeoUrlTemplateEntity $seoUrlTemplate */
+
         foreach ($seoUrlTemplates as $seoUrlTemplate) {
-            if (str_contains($tpl, 'entry.translated')) {
+            $template = $seoUrlTemplate->getTemplate();
+
+            if (str_contains($template, 'entry.translated')) {
                 continue;
             }
 
-            if (!str_contains($tpl, 'entry.title')) {
+            if (!str_contains($template, 'entry.title')) {
                 continue;
             }
 
-            $templateReplaced = str_replace('entry.title', 'entry.translated.title', $seoUrlTemplate->getTemplate());
-            if (!\is_string($templateReplaced)) {
-                continue;
-            }
+            $templateReplaced = str_replace('entry.title', 'entry.translated.title', $template);
 
             $update[] = [
                 'id' => $seoUrlTemplate->getId(),
@@ -373,22 +366,51 @@ class WerklOpenBlogware extends Plugin
 
     private function ensureSeoUrlTemplate(Context $context): void
     {
-        /** @var EntityRepository $repo */
-        $repo = $this->container->get('seo_url_template.repository');
+        $seoUrlTemplateRepository = $this->getSeoUrlTemplateRepository();
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('routeName', BlogSeoUrlRoute::ROUTE_NAME));
         $criteria->addFilter(new EqualsFilter('entityName', BlogEntryDefinition::ENTITY_NAME));
         $criteria->addFilter(new EqualsFilter('salesChannelId', null)); // Default Template
 
-        /** @var SeoUrlTemplateEntity|null $existing */
-        $existing = $repo->search($criteria, $context)->first();
+        $seoUrlTemplates = $seoUrlTemplateRepository->search($criteria, $context)->getEntities();
 
-        // Minimal funktionierendes Template (kein leerer String!)
-        $template = 'blog/{{ entry.translated.title }}';
+        $existing = $seoUrlTemplates->first();
+
+        $template = 'blog/{{ entry.translated.slug|lower }}';
+
+        // clean up multiple templates if exists, keep the last updated or inserted (from migration) one
+        if ($seoUrlTemplates->count() > 1) {
+            $latestTemplate = null;
+
+            foreach ($seoUrlTemplates as $seoUrlTemplate) {
+                if ($latestTemplate === null) {
+                    $latestTemplate = $seoUrlTemplate;
+
+                    continue;
+                }
+
+                if (($latestTemplate->getUpdatedAt() ?? $latestTemplate->getCreatedAt()) > ($seoUrlTemplate->getUpdatedAt() ?? $seoUrlTemplate->getCreatedAt())) {
+                    $latestTemplate = $seoUrlTemplate;
+                }
+            }
+
+            $deleteIds = array_values(array_filter($seoUrlTemplates->getIds(), static function ($id) use ($latestTemplate) {
+                return $id !== $latestTemplate->getId();
+            }));
+
+            $seoUrlTemplateRepository->delete(
+                array_map(static function ($id) {
+                    return ['id' => $id];
+                }, $deleteIds),
+                $context
+            );
+
+            $existing = $latestTemplate;
+        }
 
         if ($existing === null) {
-            $repo->create([[
+            $seoUrlTemplateRepository->create([[
                 'id' => Uuid::randomHex(),
                 'routeName' => BlogSeoUrlRoute::ROUTE_NAME,
                 'entityName' => BlogEntryDefinition::ENTITY_NAME,
@@ -399,13 +421,58 @@ class WerklOpenBlogware extends Plugin
             return;
         }
 
-        // Falls Template existiert, aber leer/kaputt
-        if (!$existing->getTemplate()) {
-            $repo->update([[
+        if ($existing->getTemplate() === '') {
+            $seoUrlTemplateRepository->update([[
                 'id' => $existing->getId(),
                 'template' => $template,
                 'isValid' => true,
             ]], $context);
         }
+    }
+
+    private function deleteSeoUrls(Context $context): void
+    {
+        $seoUrlRepository = $this->getSeoUrlRepository();
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('routeName', BlogSeoUrlRoute::ROUTE_NAME));
+
+        $seoUrlIds = array_values($seoUrlRepository->searchIds($criteria, $context)->getIds());
+
+        if ($seoUrlIds === []) {
+            return;
+        }
+
+        $seoUrlRepository->delete(array_map(static function ($id) {
+            return ['id' => $id];
+        }, $seoUrlIds), $context);
+    }
+
+    /**
+     * @return EntityRepository<SeoUrlTemplateCollection>
+     */
+    private function getSeoUrlTemplateRepository(): EntityRepository
+    {
+        \assert($this->container instanceof ContainerInterface);
+
+        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
+
+        \assert($seoUrlTemplateRepository instanceof EntityRepository);
+
+        return $seoUrlTemplateRepository;
+    }
+
+    /**
+     * @return EntityRepository<SeoUrlCollection>
+     */
+    private function getSeoUrlRepository(): EntityRepository
+    {
+        \assert($this->container instanceof ContainerInterface);
+
+        $seoUrlRepository = $this->container->get('seo_url.repository');
+
+        \assert($seoUrlRepository instanceof EntityRepository);
+
+        return $seoUrlRepository;
     }
 }
