@@ -4,7 +4,6 @@ $sw-property-list-color-error: $color-crimson-500;
 $sw-property-list-color-success: $color-emerald-500;
 
 .werkl-blog-list {
-
     .is--inactive {
         color: $sw-property-list-color-error;
     }
@@ -35,6 +34,13 @@ $sw-property-list-color-success: $color-emerald-500;
 
         .sw-page__main-content {
             grid-area: b;
+
+            &-inner:has(.mt-empty-state) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
         }
 
         .sw-page__sidebar {

@@ -14,6 +14,7 @@ export default {
         Mixin.getByName('notification'),
         Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
+        Mixin.getByName('version-compare'),
     ],
 
     data() {
@@ -88,6 +89,10 @@ export default {
                 this.blogAuthors = result;
                 this.isLoading = false;
             });
+        },
+
+        updateTotal({ total }) {
+            this.total = total;
         },
     },
 };

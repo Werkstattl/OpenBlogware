@@ -1,6 +1,6 @@
 {
   "main.js": {
-    "file": "assets/werkl-open-blogware-D3e32kvm.js",
+    "file": "assets/werkl-open-blogware-CnhF-mOV.js",
     "name": "werkl-open-blogware",
     "src": "main.js",
     "isEntry": true,
@@ -297,7 +297,7 @@
     ]
   },
   "module/blog-module/extension/sw-cms/component/sw-cms-sidebar/index.js": {
-    "file": "assets/index-D7zrV2xc.js",
+    "file": "assets/index-guyumqvP.js",
     "name": "index",
     "src": "module/blog-module/extension/sw-cms/component/sw-cms-sidebar/index.js",
     "isDynamicEntry": true,
@@ -306,7 +306,7 @@
     ]
   },
   "module/blog-module/extension/sw-cms/page/sw-cms-list/index.js": {
-    "file": "assets/index-nvdeox7E.js",
+    "file": "assets/index-27HpkaVl.js",
     "name": "index",
     "src": "module/blog-module/extension/sw-cms/page/sw-cms-list/index.js",
     "isDynamicEntry": true,
@@ -330,12 +330,12 @@
     ]
   },
   "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js": {
-    "file": "assets/index-Dck_g9tK.js",
+    "file": "assets/index-B837dAab.js",
     "name": "index",
     "src": "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js",
     "isDynamicEntry": true,
     "css": [
-      "assets/index-D1bZ4gtz.css"
+      "assets/index-DAqgNfxg.css"
     ]
   },
   "module/blog-module/page/werkl-blog-create/index.js": {
@@ -345,7 +345,7 @@
     "isDynamicEntry": true
   },
   "module/blog-module/page/werkl-blog-detail/index.js": {
-    "file": "assets/index-B0LAnPuS.js",
+    "file": "assets/index-Dm9a54Y4.js",
     "name": "index",
     "src": "module/blog-module/page/werkl-blog-detail/index.js",
     "isDynamicEntry": true,
@@ -354,12 +354,12 @@
     ]
   },
   "module/blog-module/page/werkl-blog-list/index.js": {
-    "file": "assets/index-Cwi1yU83.js",
+    "file": "assets/index-k987Rns_.js",
     "name": "index",
     "src": "module/blog-module/page/werkl-blog-list/index.js",
     "isDynamicEntry": true,
     "css": [
-      "assets/index-CMqoYa7U.css"
+      "assets/index-Cf66Q-If.css"
     ]
   }
 }

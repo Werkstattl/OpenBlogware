@@ -37,14 +37,36 @@
     </template>
 
     <template #content>
+        {% block werkl_blog_author_list_empty_state %}
+        <template v-if="!isLoading && !total">
+            <mt-empty-state
+                v-if="compareVersion('6.7.4.0')"
+                :centered="true"
+                :icon="$route.meta.$module.icon"
+                :headline="$tc('werkl-blog-author.list.messageEmpty')"
+                :description="$tc('werkl-blog-author.general.descriptionTextModule')"
+            />
+            <sw-empty-state
+                v-else
+                :title="$tc('werkl-blog-author.list.messageEmpty')"
+            >
+                {{ $tc('werkl-blog-author.general.descriptionTextModule') }}
+            </sw-empty-state>
+        </template>
+        {% endblock %}
+
         {% block werkl_blog_author_list_content %}
         <sw-entity-listing
-            v-if="blogAuthors"
-            :items="blogAuthors"
-            :repository="blogAuthorRepository"
-            :show-selection="false"
+            v-else-if="blogAuthors"
+            :data-source="blogAuthors"
             :columns="columns"
-            detail-route="blog.module.author.detail">
+            :repository="blogAuthorRepository"
+            detail-route="blog.module.author.detail"
+            :show-selection="false"
+            :is-loading="isLoading"
+            identifier="werkl-blog-author-list"
+            @update-records="updateTotal"
+        >
 
             {% block werkl_blog_author_list_columns_image_preview %}
             <template #preview-fullName="{ item, compact }">
@@ -91,15 +113,6 @@
             </template>
             {% endblock %}
         </sw-entity-listing>
-        {% endblock %}
-
-        {% block werkl_blog_author_list_empty_state %}
-        <sw-empty-state
-            v-if="!isLoading && !total"
-            :title="$tc('werkl-blog-author.list.messageEmpty')"
-        >
-            {{ $tc('werkl-blog-author.list.messageEmpty') }}
-        </sw-empty-state>
         {% endblock %}
     </template>
 
