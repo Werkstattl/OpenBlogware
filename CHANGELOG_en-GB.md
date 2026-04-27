@@ -1,5 +1,6 @@
 # 5.2.0
 - Added feature to be able to duplicate blog entries [#21](https://github.com/Werkstattl/OpenBlogware/issues/21)
+- Added search functionality to the blog listing in the Administration [#43](https://github.com/Werkstattl/OpenBlogware/issues/43)
 - Optimised blog configuration sidebar [#71](https://github.com/Werkstattl/OpenBlogware/pull/71)
 - Fixed adding blogs creating many shopping experiences [#38](https://github.com/Werkstattl/OpenBlogware/issues/38)
 - Fixed incorrect blog URLs in sales-channel-specific sitemaps [#68](https://github.com/Werkstattl/OpenBlogware/issues/68)

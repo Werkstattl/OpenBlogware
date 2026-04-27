@@ -1,5 +1,6 @@
 # 5.2.0
 - Feature hinzugefügt: Blogbeiträge können jetzt kopiert werden [#21](https://github.com/Werkstattl/OpenBlogware/issues/21)
+- Feature hinzugefügt: Blogbeiträge können jetzt im Blog-Listing der Administration gesucht werden [#43](https://github.com/Werkstattl/OpenBlogware/issues/43)
 - Blog Konfigurations-Sidebar optimiert [#71](https://github.com/Werkstattl/OpenBlogware/pull/71)
 - Behoben: Hinzufügen von Blogs erzeugt viele Erlebniswelten [#38](https://github.com/Werkstattl/OpenBlogware/issues/38)
 - Behoben: Falsche Blog-URLs in Verkaufskanal-spezifischen Sitemaps [#68](https://github.com/Werkstattl/OpenBlogware/issues/68)
