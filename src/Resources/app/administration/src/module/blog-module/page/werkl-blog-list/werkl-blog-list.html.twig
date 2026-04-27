@@ -107,6 +107,17 @@
             </template>
             {% endblock %}
 
+            {% block werkl_blog_list_grid_actions %}
+            <template #more-actions="{ item }">
+                {% block werkl_blog_list_grid_actions_duplicate %}
+                <sw-context-menu-item
+                    @click="onDuplicate(item)"
+                >
+                    {{ $tc('sw-cms.components.cmsListItem.duplicate') }}
+                </sw-context-menu-item>
+                {% endblock %}
+            </template>
+            {% endblock %}
         </sw-entity-listing>
         {% endblock %}
 
