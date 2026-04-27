@@ -10,6 +10,13 @@
         .sw-page__main-content {
             grid-area: b;
             border-left: 1px solid $color-gray-300;
+
+            &-inner:has(.mt-empty-state) {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
         }
 
         .sw-page__sidebar {

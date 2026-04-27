@@ -236,7 +236,8 @@
     },
     "werkl-blog-author": {
         "general": {
-            "mainMenuItemList": "Autor"
+            "mainMenuItemList": "Autor",
+            "descriptionTextModule": "Verwaltung von Blog Autoren."
         },
         "list": {
             "textBlogOverview": "Autoren",
@@ -309,6 +310,21 @@
                     "blockCategory": {
                         "werkl-blog": "Blog"
                     }
+                }
+            }
+        }
+    },
+    "global": {
+        "entities": {
+            "werkl_blog_entry": "Blog Eintrag | Blog Einträge"
+        }
+    },
+    "sw-profile": {
+        "tabSearchPreferences": {
+            "modules": {
+                "werkl_blog_entry": {
+                    "title": "Titel",
+                    "slug": "Slug"
                 }
             }
         }

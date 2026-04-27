@@ -3,7 +3,7 @@ export default {
         createdComponent() {
             Shopware.Store.get('context').resetLanguageToDefault();
 
-            this.blogAuthor = this.blogAuthorRepository.create(Shopware.Context.api);
+            this.blogAuthor = this.blogAuthorRepository.create();
         },
     },
 };

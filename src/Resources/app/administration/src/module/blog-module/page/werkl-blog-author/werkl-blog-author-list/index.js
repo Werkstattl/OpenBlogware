@@ -1,7 +1,7 @@
 import template from './werkl-blog-author-list.html.twig';
 import './werkl-blog-author-list.scss';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 
 const Criteria = Shopware.Data.Criteria;
 
@@ -14,6 +14,7 @@ export default {
         Mixin.getByName('notification'),
         Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
+        Mixin.getByName('version-compare'),
     ],
 
     data() {
@@ -21,7 +22,7 @@ export default {
             blogAuthors: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId,
+            currentLanguageId: Context.api.languageId,
         };
     },
 
@@ -83,11 +84,15 @@ export default {
             criteria.addAssociation('media');
             criteria.addAssociation('salutation');
 
-            return this.blogAuthorRepository.search(criteria, Shopware.Context.api).then((result) => {
+            return this.blogAuthorRepository.search(criteria).then((result) => {
                 this.total = result.total;
                 this.blogAuthors = result;
                 this.isLoading = false;
             });
+        },
+
+        updateTotal({ total }) {
+            this.total = total;
         },
     },
 };

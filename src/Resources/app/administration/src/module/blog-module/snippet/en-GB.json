@@ -4,7 +4,7 @@
             "mainMenuItemGeneral": "Blog",
             "mainMenuItemList": "Blog",
             "mainMenuItemAdd": "New blog entry",
-            "descriptionTextModule": "Verwaltung von Blog Einträge.",
+            "descriptionTextModule": "Manage blog entries here.",
             "placeholderSearchBar": "Search all blog entries",
             "tooltipLanguageSwitch": "Create an entry first in the system language"
         },
@@ -236,7 +236,8 @@
     },
     "werkl-blog-author": {
         "general": {
-            "mainMenuItemList": "Author"
+            "mainMenuItemList": "Author",
+            "descriptionTextModule": "Manage blog authors here."
         },
         "list": {
             "textBlogOverview": "Blog authors",
@@ -309,6 +310,21 @@
                     "blockCategory": {
                         "werkl-blog": "Blog"
                     }
+                }
+            }
+        }
+    },
+    "global": {
+        "entities": {
+            "werkl_blog_entry": "Blog entry | Blog entries"
+        }
+    },
+    "sw-profile": {
+        "tabSearchPreferences": {
+            "modules": {
+                "werkl_blog_entry": {
+                    "title": "Title",
+                    "slug": "Slug"
                 }
             }
         }

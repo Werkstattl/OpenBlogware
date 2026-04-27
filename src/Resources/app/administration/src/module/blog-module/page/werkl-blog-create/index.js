@@ -1,3 +1,5 @@
+const { Context } = Shopware;
+
 export default {
     methods: {
         async createdComponent() {
@@ -9,8 +11,8 @@ export default {
                 Shopware.Store.get('context').resetLanguageToDefault();
             }
 
-            if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
-                Shopware.Store.get('context').setApiLanguageId(Shopware.Context.api.languageId);
+            if (Context.api.languageId !== Context.api.systemLanguageId) {
+                Shopware.Store.get('context').setApiLanguageId(Context.api.languageId);
             }
 
             this.resetCmsPageState();

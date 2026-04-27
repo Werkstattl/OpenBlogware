@@ -1,10 +1,11 @@
-const { Module } = Shopware;
-
 import './blocks';
 import './component';
 import './elements';
 import './extension';
 import './page';
+import defaultSearchConfiguration from './default-search-configuration';
+
+const { Module } = Shopware;
 
 Module.register('blog-module', {
     type: 'plugin',
@@ -13,6 +14,8 @@ Module.register('blog-module', {
     description: 'werkl-blog.general.descriptionTextModule',
     color: '#F965AF',
     icon: 'regular-content',
+    favicon: 'icon-module-content.png',
+    entity: 'werkl_blog_entry',
 
     routes: {
         index: {
@@ -76,4 +79,6 @@ Module.register('blog-module', {
             },
         },
     ],
+
+    defaultSearchConfiguration,
 });

@@ -1,5 +1,15 @@
 {% block werkl_blog_list %}
 <sw-page class="werkl-blog-list">
+    {% block werkl_blog_list_search_bar %}
+    <template #search-bar>
+        <sw-search-bar
+            initial-search-type="werkl_blog_entry"
+            :initial-search="term"
+            @search="onSearch"
+        />
+    </template>
+    {% endblock %}
+
     <template #smart-bar-header>
         <h2>
             {% block werkl_blog_list_smart_bar_header_title_text %}
@@ -55,14 +65,37 @@
     </template>
 
     <template #content>
+        {% block werkl_blog_list_empty_state %}
+        <template v-if="!isLoading && !total">
+            <mt-empty-state
+                v-if="compareVersion('6.7.4.0')"
+                :centered="true"
+                :icon="$route.meta.$module.icon"
+                :headline="isValidTerm(term) ? $tc('sw-empty-state.messageNoResultTitle') : $tc('werkl-blog.list.messageEmpty')"
+                :description="isValidTerm(term) ? $tc('sw-empty-state.messageNoResultSubline') : $tc($route.meta.$module.description)"
+                :link-text="isValidTerm(term) ? $tc('sw-empty-state.messageNoResultLink') : ''"
+                :link-href="isValidTerm(term) ? $router.resolve({ name: 'sw.profile.index.searchPreferences' }).href : ''"
+            />
+            <sw-empty-state
+                v-else
+                :title="isValidTerm(term) ? $tc('sw-empty-state.messageNoResultTitle') : $tc('werkl-blog.list.messageEmpty')"
+            >
+                {{ isValidTerm(term) ? $tc('sw-empty-state.messageNoResultSubline') : $tc($route.meta.$module.description) }}
+            </sw-empty-state>
+        </template>
+        {% endblock %}
+
         {% block werkl_blog_list_content %}
         <sw-entity-listing
-            v-if="blogEntries"
-            :items="blogEntries"
-            :repository="blogEntryRepository"
-            :show-selection="false"
+            v-else-if="entitySearchable"
+            :data-source="blogEntries"
             :columns="columns"
+            :repository="blogEntryRepository"
             detail-route="blog.module.detail"
+            :show-selection="false"
+            :is-loading="isLoading"
+            identifier="werkl-blog-list"
+            @update-records="updateTotal"
         >
             {% block werkl_blog_list_grid_columns_name %}
             <template #column-active="{ item, isInlineEdit }">
@@ -119,15 +152,6 @@
             </template>
             {% endblock %}
         </sw-entity-listing>
-        {% endblock %}
-
-        {% block werkl_blog_list_empty_state %}
-        <sw-empty-state
-            v-if="!isLoading && !total"
-            :title="$tc('werkl-blog.list.messageEmpty')"
-        >
-            {{ $tc('werkl-blog-author.list.messageEmpty') }}
-        </sw-empty-state>
         {% endblock %}
     </template>
 </sw-page>

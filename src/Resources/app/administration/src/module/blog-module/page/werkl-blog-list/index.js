@@ -1,7 +1,7 @@
 import template from './werkl-blog-list.html.twig';
 import './werkl-blog-list.scss';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
 export default {
@@ -12,6 +12,7 @@ export default {
     mixins: [
         Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
+        Mixin.getByName('version-compare'),
     ],
 
     data() {
@@ -20,7 +21,9 @@ export default {
             blogEntries: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId,
+            currentLanguageId: Context.api.languageId,
+            term: '',
+            searchConfigEntity: 'werkl_blog_entry',
         };
     },
 
@@ -78,6 +81,29 @@ export default {
                 },
             ];
         },
+
+        listCriteria() {
+            const criteria = new Criteria(this.page, this.limit);
+            criteria.addAssociation('blogAuthor');
+            criteria.addAssociation('blogCategories');
+            criteria.addAssociation('tags');
+
+            criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
+
+            if (this.categoryId) {
+                criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
+            }
+
+            return criteria;
+        },
+
+        adminEsEnable() {
+            if (!Shopware.Feature.isActive('ENABLE_OPENSEARCH_FOR_ADMIN_API')) {
+                return false;
+            }
+
+            return Context.app.adminEsEnable ?? false;
+        },
     },
 
     methods: {
@@ -93,19 +119,24 @@ export default {
             }
         },
 
-        getList() {
+        async getList() {
             this.isLoading = true;
-            const criteria = new Criteria(this.page, this.limit);
-            criteria.addAssociation('blogAuthor');
-            criteria.addAssociation('blogCategories');
-            criteria.addAssociation('tags');
 
-            criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
-
-            if (this.categoryId) {
-                criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
+            let criteria;
+            if (this.adminEsEnable) {
+                criteria = this.listCriteria;
+                criteria.setTerm(this.term);
+            } else {
+                criteria = await this.addQueryScores(this.term, this.listCriteria);
             }
-            return this.blogEntryRepository.search(criteria, Shopware.Context.api).then((result) => {
+            if (!this.entitySearchable) {
+                this.isLoading = false;
+                this.total = 0;
+
+                return false;
+            }
+
+            return this.blogEntryRepository.search(criteria).then((result) => {
                 this.total = result.total;
                 this.blogEntries = result;
                 this.isLoading = false;
@@ -169,6 +200,20 @@ export default {
                         message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
                     });
                 });
+        },
+
+        onSearch(value = null) {
+            if (!value.length || value.length <= 0) {
+                this.term = null;
+            } else {
+                this.term = value;
+            }
+
+            this.resetList();
+        },
+
+        updateTotal({ total }) {
+            this.total = total;
         },
 
         openSponsorPage() {
