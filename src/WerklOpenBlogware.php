@@ -39,9 +39,6 @@ class WerklOpenBlogware extends Plugin
 
         $this->createBlogMediaFolder($installContext->getContext());
 
-        //  SEO Template sicherstellen (wichtig!)
-        $this->ensureSeoUrlTemplate($installContext->getContext());
-
         $this->getLifeCycle()->install($installContext->getContext());
     }
 
@@ -78,6 +75,7 @@ class WerklOpenBlogware extends Plugin
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_author_translation`');
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_author`');
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_tag`');
+        $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_blog_category`');
 
         /** @var EntityRepository $cmsBlockRepo */
         $cmsBlockRepo = $this->container->get('cms_block.repository');
@@ -385,7 +383,7 @@ class WerklOpenBlogware extends Plugin
         $existing = $repo->search($criteria, $context)->first();
 
         // Minimal funktionierendes Template (kein leerer String!)
-        $template = 'blog/{{ entry.translated.title }}';
+        $template = 'blog/{{ entry.translated.slug|lower }}';
 
         if ($existing === null) {
             $repo->create([[
