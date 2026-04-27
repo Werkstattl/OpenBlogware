@@ -3,6 +3,7 @@
 - Blog Konfigurations-Sidebar optimiert [#71](https://github.com/Werkstattl/OpenBlogware/pull/71)
 - Behoben: Hinzufügen von Blogs erzeugt viele Erlebniswelten [#38](https://github.com/Werkstattl/OpenBlogware/issues/38)
 - Behoben: Falsche Blog-URLs in Verkaufskanal-spezifischen Sitemaps [#68](https://github.com/Werkstattl/OpenBlogware/issues/68)
+- Behoben: Doppelte SEO URL Template Erstellung bei Installation und fehlende Entfernung einer Tabelle bei Deinstallation des Plugins [#78](https://github.com/Werkstattl/OpenBlogware/pull/78)
 
 # 5.1.3
 - Behoben: Inaktive Blog-Posts gaben HTTP 200 statt 404 zurück [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)

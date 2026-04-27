@@ -3,6 +3,7 @@
 - Optimised blog configuration sidebar [#71](https://github.com/Werkstattl/OpenBlogware/pull/71)
 - Fixed adding blogs creating many shopping experiences [#38](https://github.com/Werkstattl/OpenBlogware/issues/38)
 - Fixed incorrect blog URLs in sales-channel-specific sitemaps [#68](https://github.com/Werkstattl/OpenBlogware/issues/68)
+- Fixed duplicate SEO URL template creation on installation and missing removal of a table on plugin uninstallation [#78](https://github.com/Werkstattl/OpenBlogware/pull/78)
 
 # 5.1.3
 - Fixed inactive blog posts returning HTTP 200 instead of 404 [#62](https://github.com/Werkstattl/OpenBlogware/issues/62)
