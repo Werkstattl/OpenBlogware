@@ -6,6 +6,7 @@ namespace Werkl\OpenBlogware;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
+use Shopware\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
@@ -52,6 +53,8 @@ class WerklOpenBlogware extends Plugin
         if ($context->keepUserData()) {
             return;
         }
+
+        $this->deleteSeoUrls($context->getContext());
 
         /*
          * We need to uninstall our default media folder,
@@ -427,6 +430,24 @@ class WerklOpenBlogware extends Plugin
         }
     }
 
+    private function deleteSeoUrls(Context $context): void
+    {
+        $seoUrlRepository = $this->getSeoUrlRepository();
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('routeName', BlogSeoUrlRoute::ROUTE_NAME));
+
+        $seoUrlIds = array_values($seoUrlRepository->searchIds($criteria, $context)->getIds());
+
+        if ($seoUrlIds === []) {
+            return;
+        }
+
+        $seoUrlRepository->delete(array_map(static function ($id) {
+            return ['id' => $id];
+        }, $seoUrlIds), $context);
+    }
+
     /**
      * @return EntityRepository<SeoUrlTemplateCollection>
      */
@@ -439,5 +460,19 @@ class WerklOpenBlogware extends Plugin
         \assert($seoUrlTemplateRepository instanceof EntityRepository);
 
         return $seoUrlTemplateRepository;
+    }
+
+    /**
+     * @return EntityRepository<SeoUrlCollection>
+     */
+    private function getSeoUrlRepository(): EntityRepository
+    {
+        \assert($this->container instanceof ContainerInterface);
+
+        $seoUrlRepository = $this->container->get('seo_url.repository');
+
+        \assert($seoUrlRepository instanceof EntityRepository);
+
+        return $seoUrlRepository;
     }
 }
