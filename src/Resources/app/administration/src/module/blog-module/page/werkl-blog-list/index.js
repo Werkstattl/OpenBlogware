@@ -1,7 +1,7 @@
 import template from './werkl-blog-list.html.twig';
 import './werkl-blog-list.scss';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
 export default {
@@ -21,7 +21,7 @@ export default {
             blogEntries: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId,
+            currentLanguageId: Context.api.languageId,
             term: '',
             searchConfigEntity: 'werkl_blog_entry',
         };
@@ -136,7 +136,7 @@ export default {
                 return false;
             }
 
-            return this.blogEntryRepository.search(criteria, Shopware.Context.api).then((result) => {
+            return this.blogEntryRepository.search(criteria).then((result) => {
                 this.total = result.total;
                 this.blogEntries = result;
                 this.isLoading = false;

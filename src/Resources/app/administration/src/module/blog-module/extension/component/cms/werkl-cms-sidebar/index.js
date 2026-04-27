@@ -101,7 +101,7 @@ export default {
         },
 
         onSetMediaItem({ targetId }) {
-            return this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
+            return this.mediaRepository.get(targetId).then((updatedMedia) => {
                 this.blog.mediaId = targetId;
                 this.blog.media = updatedMedia;
             });

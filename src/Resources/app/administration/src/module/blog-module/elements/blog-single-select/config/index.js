@@ -1,6 +1,6 @@
 import template from './werkl-cms-el-config-blog-single-select.html.twig';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 const { Criteria } = Shopware.Data;
 
 export default {
@@ -41,7 +41,7 @@ export default {
                 const criteria = new Criteria();
                 criteria.addAssociation('blogCategories');
 
-                this.blogEntryRepository.get(blogEntryId, Shopware.Context.api, criteria).then((blogEntry) => {
+                this.blogEntryRepository.get(blogEntryId, Context.api, criteria).then((blogEntry) => {
                     this.element.config.blogEntry.value = blogEntryId;
 
                     if (!blogEntry.translated.mediaId) {

@@ -1,7 +1,7 @@
 import './werkl-blog-author-detail.scss';
 import template from './werkl-blog-author-detail.html.twig';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 const { Criteria } = Shopware.Data;
 const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
@@ -98,7 +98,7 @@ export default {
 
             this.blogAuthorRepository.get(
                 this.$route.params.id,
-                Shopware.Context.api,
+                Context.api,
                 this.defaultCriteria,
             ).then((blogAuthor) => {
                 this.blogAuthor = blogAuthor;
@@ -114,7 +114,7 @@ export default {
             this.isLoading = true;
             this.isSaveSuccessful = false;
 
-            return this.blogAuthorRepository.save(this.blogAuthor, Shopware.Context.api).then(() => {
+            return this.blogAuthorRepository.save(this.blogAuthor).then(() => {
                 this.isLoading = false;
                 this.isSaveSuccessful = true;
                 this.createNotificationSuccess({
@@ -137,7 +137,7 @@ export default {
         },
 
         onSetMediaItem({ targetId }) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
+            this.mediaRepository.get(targetId).then((updatedMedia) => {
                 this.blogAuthor.mediaId = targetId;
                 this.blogAuthor.media = updatedMedia;
             });

@@ -1,6 +1,6 @@
 import template from './werkl-cms-el-config-blog-newest-listing.html.twig';
 
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 const { EntityCollection, Criteria } = Shopware.Data;
 
 export default {
@@ -55,7 +55,7 @@ export default {
             this.blogCategoryCollection = new EntityCollection(
                 this.blogCategoryRepository.route,
                 this.blogCategoryRepository.schema.entity,
-                Shopware.Context.api
+                Context.api
             );
 
             if (this.element.config.blogCategories.value.length <= 0) {
@@ -65,7 +65,7 @@ export default {
             const criteria = new Criteria();
             criteria.setIds(this.element.config.blogCategories.value);
 
-            this.blogCategoryCollection = await this.blogCategoryRepository.search(criteria, Shopware.Context.api);
+            this.blogCategoryCollection = await this.blogCategoryRepository.search(criteria);
         },
 
         onBlogCategoriesChange() {

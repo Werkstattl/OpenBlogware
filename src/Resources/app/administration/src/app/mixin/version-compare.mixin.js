@@ -1,11 +1,11 @@
-const { Mixin } = Shopware;
+const { Context, Mixin } = Shopware;
 
 Mixin.register('version-compare', {
     methods: {
         compareVersion(
             targetVersion,
             comparison = 'up',
-            currentVersion = Shopware.Context.app.config.version,
+            currentVersion = Context.app.config.version,
             versionLength = 4
         ) {
             const normalizeVersion = function (version) {
