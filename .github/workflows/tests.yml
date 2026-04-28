@@ -12,7 +12,7 @@ on:
 
 jobs:
   phpunit:
-    uses: shopware/github-actions/.github/workflows/phpunit.yml@main
+    uses: lacknere/shopware-github-actions/.github/workflows/phpunit.yml@allow-insecure-versions
     with:
       extensionName: WerklOpenBlogware
-      shopwareVersion: 6.7.x
+      shopwareVersion: 6.7.0.0
