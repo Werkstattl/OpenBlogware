@@ -6,7 +6,7 @@ export default {
     computed: {
         parentScope() {
             let parentNode = this.$parent;
-            // eslint-disable-next-line
+
             while (parentNode.$options.name !== 'sw-tree') {
                 parentNode = parentNode.$parent;
             }
