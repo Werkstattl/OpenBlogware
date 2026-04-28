@@ -1,2 +1,0 @@
-const i='{% block werkl_cms_preview_blog_newest_listing %} <div class="werkl-cms-preview-blog-newest-listing"> <div class="werkl-cms-preview-blog-newest-listing-item"> <h2>Newest blog entries</h2> <div> <div></div> <div></div> </div> <div> <div></div> <div></div> </div> </div> </div> {% endblock %}',e={template:i};export{e as default};
-//# sourceMappingURL=index-COWTY8bX.js.map
