@@ -293,7 +293,7 @@
     "sw-privileges": {
         "permissions": {
             "werkl-blog": {
-               "label": "Blog"
+                "label": "Blog"
             },
             "werkl-blog-author": {
                 "label": "Author Blog"

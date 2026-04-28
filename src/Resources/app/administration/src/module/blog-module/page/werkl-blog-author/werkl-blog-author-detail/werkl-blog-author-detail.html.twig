@@ -16,7 +16,6 @@
         >
             {{ $tc('werkl-blog-author.detail.buttonCancel') }}
         </mt-button>
-
         <sw-button-process
             :is-loading="isLoading"
             :process-success="processSuccess"
@@ -26,13 +25,19 @@
         >
             {{ $tc('werkl-blog-author.detail.buttonSave') }}
         </sw-button-process>
-
     </template>
 
     <template #content>
         <sw-card-view>
-            <sw-card v-if="blogAuthor" :isLoading="isLoading" :title="$tc('werkl-blog-author.detail.title')">
-                <sw-container columns="2fr 4fr 4fr" gap="16px">
+            <sw-card
+                v-if="blogAuthor"
+                :isLoading="isLoading"
+                :title="$tc('werkl-blog-author.detail.title')"
+            >
+                <sw-container
+                    columns="2fr 4fr 4fr"
+                    gap="16px"
+                >
                     <sw-entity-single-select
                         v-model:value="blogAuthor.salutationId"
                         class="werkl-blog-author-base-form__salutation-select"
@@ -43,7 +48,6 @@
                         :placeholder="$tc('werkl-blog-author.detail.salutation.placeholder')"
                         :error="blogAuthorSalutationIdError"
                     />
-
                     <mt-text-field
                         v-model="blogAuthor.firstName"
                         required
@@ -51,7 +55,6 @@
                         :placeholder="$tc('werkl-blog-author.detail.firstName.placeholder')"
                         :error="blogAuthorFirstNameError"
                     />
-
                     <mt-text-field
                         v-model="blogAuthor.lastName"
                         required
@@ -60,15 +63,16 @@
                         :error="blogAuthorLastNameError"
                     />
                 </sw-container>
-
-                <sw-container columns="6fr 4fr" gap="24px">
+                <sw-container
+                    columns="6fr 4fr"
+                    gap="24px"
+                >
                     <mt-text-field
                         v-model="blogAuthor.displayName"
                         :label="$tc('werkl-blog-author.detail.displayName.label')"
                         :placeholder="$tc('werkl-blog-author.detail.displayName.placeholder')"
                         :error="blogAuthorDisplayNameError"
                     />
-
                     <mt-text-field
                         v-model="blogAuthor.email"
                         required
@@ -77,8 +81,10 @@
                         :error="blogAuthorEmailError"
                     />
                 </sw-container>
-
-                <sw-container columns="1fr" gap="32px">
+                <sw-container
+                    columns="1fr"
+                    gap="32px"
+                >
                     <sw-text-editor
                         v-model:value="blogAuthor.description"
                         :label="$tc('werkl-blog-author.detail.description.label')"
@@ -86,13 +92,11 @@
                         :error="blogAuthorDescriptionError"
                     />
                 </sw-container>
-
                 <sw-upload-listener
                     :uploadTag="blogAuthor.id"
                     auto-upload
                     @media-upload-finish="onSetMediaItem"
                 />
-
                 <sw-media-upload-v2
                     variant="regular"
                     :allow-multi-select="false"

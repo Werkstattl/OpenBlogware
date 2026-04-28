@@ -1,8 +1,16 @@
 {% block werkl_cms_element_blog_single_select %}
 <div class="werkl-cms-el-blog-single-select">
-    <h6 v-if="blogEntry.blogCategories.length > 0">{{ blogEntry.blogCategories[0].translated.name }}</h6>
-    <h3>{{ blogEntry.translated.title }}</h3>
-    <img :src="blogEntry.media?.url ?? assetFilter('/administration/administration/static/img/cms/preview_mountain_small.jpg')" />
-    <p>{{ blogEntry.translated.teaser }}</p>
+    <h6 v-if="blogEntry.blogCategories.length > 0">
+        {{ blogEntry.blogCategories[0].translated.name }}
+    </h6>
+    <h3>
+        {{ blogEntry.translated.title }}
+    </h3>
+    <img
+        :src="blogEntry.media?.url ?? assetFilter('/administration/administration/static/img/cms/preview_mountain_small.jpg')"
+    />
+    <p>
+        {{ blogEntry.translated.teaser }}
+    </p>
 </div>
 {% endblock %}

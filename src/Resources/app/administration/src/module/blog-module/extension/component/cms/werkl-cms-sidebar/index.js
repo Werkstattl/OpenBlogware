@@ -3,18 +3,12 @@ import template from './werkl-cms-sidebar.html.twig';
 import './werkl-cms-sidebar.scss';
 
 const { Component } = Shopware;
-const {
-    mapPageErrors,
-    mapPropertyErrors,
-} = Component.getComponentHelper();
+const { mapPageErrors, mapPropertyErrors } = Component.getComponentHelper();
 
 export default {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'systemConfigApiService',
-    ],
+    inject: ['repositoryFactory', 'systemConfigApiService'],
 
     props: {
         blog: {
@@ -44,7 +38,7 @@ export default {
     computed: {
         blogSalesChannelIds: {
             get() {
-                return this.blog.customFields?.salesChannelIds || []
+                return this.blog.customFields?.salesChannelIds || [];
             },
 
             set(value) {
@@ -56,7 +50,7 @@ export default {
                 this.blog.customFields = {
                     ...this.blog.customFields,
                     salesChannelIds,
-                }
+                };
             },
         },
 
@@ -94,10 +88,18 @@ export default {
 
     methods: {
         createdComponent() {
-            this.systemConfigApiService.getValues('WerklOpenBlogware.config').then(config => {
-                this.maximumMetaTitleCharacter = config['WerklOpenBlogware.config.maximumMetaTitleCharacter'];
-                this.maximumMetaDescriptionCharacter = config['WerklOpenBlogware.config.maximumMetaDescriptionCharacter'];
-            });
+            this.systemConfigApiService
+                .getValues('WerklOpenBlogware.config')
+                .then((config) => {
+                    this.maximumMetaTitleCharacter =
+                        config[
+                            'WerklOpenBlogware.config.maximumMetaTitleCharacter'
+                        ];
+                    this.maximumMetaDescriptionCharacter =
+                        config[
+                            'WerklOpenBlogware.config.maximumMetaDescriptionCharacter'
+                        ];
+                });
         },
 
         onSetMediaItem({ targetId }) {
@@ -126,7 +128,10 @@ export default {
 
             if (!sidebar) {
                 if (tries > 0) {
-                    window.setTimeout(() => this.openBlogDetailSideBar(tries - 1), 50);
+                    window.setTimeout(
+                        () => this.openBlogDetailSideBar(tries - 1),
+                        50
+                    );
                 }
 
                 return;

@@ -8,9 +8,7 @@ export default {
 
     inject: ['repositoryFactory'],
 
-    mixins: [
-        Mixin.getByName('cms-element'),
-    ],
+    mixins: [Mixin.getByName('cms-element')],
 
     computed: {
         assetFilter() {
@@ -24,13 +22,17 @@ export default {
                         title: 'Article title',
                         teaser: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque faucibus maximus velit, dictum mollis erat finibus quis. Ut dictum ornare dolor, sed mattis tellus gravida vel.',
                     },
-                    blogCategories: [{
-                        translated: {
-                            name: 'Blog category',
+                    blogCategories: [
+                        {
+                            translated: {
+                                name: 'Blog category',
+                            },
                         },
-                    }],
+                    ],
                     media: {
-                        url: this.assetFilter('/administration/administration/static/img/cms/preview_mountain_small.jpg'),
+                        url: this.assetFilter(
+                            '/administration/administration/static/img/cms/preview_mountain_small.jpg'
+                        ),
                     },
                 };
             }
@@ -58,13 +60,19 @@ export default {
         loadBlogEntryMedia() {
             const blogEntry = this.element?.data?.blogEntry;
 
-            if (!blogEntry || blogEntry.media || !blogEntry.translated.mediaId) {
+            if (
+                !blogEntry ||
+                blogEntry.media ||
+                !blogEntry.translated.mediaId
+            ) {
                 return;
             }
 
-            this.mediaRepository.get(blogEntry.translated.mediaId).then((media) => {
-                this.element.data.blogEntry.media = media;
-            });
+            this.mediaRepository
+                .get(blogEntry.translated.mediaId)
+                .then((media) => {
+                    this.element.data.blogEntry.media = media;
+                });
         },
     },
 };

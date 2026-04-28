@@ -7,7 +7,10 @@
             {% endblock %}
 
             {% block werkl_blog_author_list_smart_bar_header_amount %}
-            <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+            <span
+                v-if="!isLoading"
+                class="sw-page__smart-bar-amount"
+            >
             ({{ total }})
             </span>
             {% endblock %}
@@ -15,7 +18,7 @@
     </template>
 
     <template #language-switch>
-        <sw-language-switch @on-change="changeLanguage" />
+        <sw-language-switch @on-change="changeLanguage"/>
     </template>
 
     {% block werkl_blog_author_list_smart_bar_actions %}
@@ -33,7 +36,7 @@
     {% endblock %}
 
     <template #sidebar>
-        <werkl-blog-vertical-tabs :defaultItem="'author'" />
+        <werkl-blog-vertical-tabs :defaultItem="'author'"/>
     </template>
 
     <template #content>
@@ -58,7 +61,21 @@
         {% block werkl_blog_author_list_content %}
         <sw-entity-listing
             v-else-if="blogAuthors"
-            {# @deprecated tag:v6.8.0 - Property items will be removed. data-source will be used instead. #}
+            {#
+            @deprecated
+            tag:v6.8.0
+            -
+            Property
+            items
+            will
+            be
+            removed.
+            data-source
+            will
+            be
+            used
+            instead.
+            #}
             :items="blogAuthors"
             :data-source="blogAuthors"
             :columns="columns"
@@ -69,7 +86,6 @@
             identifier="werkl-blog-author-list"
             @update-records="updateTotal"
         >
-
             {% block werkl_blog_author_list_columns_image_preview %}
             <template #preview-fullName="{ item, compact }">
                 <sw-avatar
@@ -77,7 +93,8 @@
                     :image-url="item.media ? item.media.url : null"
                     :source-context="item"
                     :first-name="item.firstName"
-                    :last-name="item.lastName">
+                    :last-name="item.lastName"
+                >
                 </sw-avatar>
             </template>
             {% endblock %}
@@ -117,6 +134,5 @@
         </sw-entity-listing>
         {% endblock %}
     </template>
-
 </sw-page>
 {% endblock %}

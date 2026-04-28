@@ -8,14 +8,9 @@ const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 export default {
     template,
 
-    inject: [
-        'repositoryFactory',
-    ],
+    inject: ['repositoryFactory'],
 
-    mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('salutation'),
-    ],
+    mixins: [Mixin.getByName('notification'), Mixin.getByName('salutation')],
 
     shortcuts: {
         'SYSTEMKEY+S': 'onSave',
@@ -42,7 +37,9 @@ export default {
 
     computed: {
         identifier() {
-            return this.blogAuthor !== null ? this.salutation(this.blogAuthor) : '';
+            return this.blogAuthor !== null
+                ? this.salutation(this.blogAuthor)
+                : '';
         },
 
         blogAuthorRepository() {
@@ -55,9 +52,7 @@ export default {
 
         defaultCriteria() {
             const criteria = new Criteria();
-            criteria
-                .addAssociation('media')
-                .addAssociation('salutation');
+            criteria.addAssociation('media').addAssociation('salutation');
 
             return criteria;
         },
@@ -69,10 +64,12 @@ export default {
         customFieldSetCriteria() {
             const criteria = new Criteria();
 
-            criteria
-                .addFilter(Criteria.equals('relations.entityName', 'werkl_blog_author'));
+            criteria.addFilter(
+                Criteria.equals('relations.entityName', 'werkl_blog_author')
+            );
 
-            criteria.getAssociation('customFields')
+            criteria
+                .getAssociation('customFields')
                 .addSorting(Criteria.sort('config.customFieldPosition'));
 
             return criteria;
@@ -96,14 +93,12 @@ export default {
         createdComponent() {
             this.isLoading = true;
 
-            this.blogAuthorRepository.get(
-                this.$route.params.id,
-                Context.api,
-                this.defaultCriteria,
-            ).then((blogAuthor) => {
-                this.blogAuthor = blogAuthor;
-                this.isLoading = false;
-            });
+            this.blogAuthorRepository
+                .get(this.$route.params.id, Context.api, this.defaultCriteria)
+                .then((blogAuthor) => {
+                    this.blogAuthor = blogAuthor;
+                    this.isLoading = false;
+                });
         },
 
         saveFinish() {
@@ -114,22 +109,33 @@ export default {
             this.isLoading = true;
             this.isSaveSuccessful = false;
 
-            return this.blogAuthorRepository.save(this.blogAuthor).then(() => {
-                this.isLoading = false;
-                this.isSaveSuccessful = true;
-                this.createNotificationSuccess({
-                    message: this.$tc('werkl-blog-author.detail.messageSaveSuccess', {
-                        name: `${this.blogAuthor.firstName} ${this.blogAuthor.lastName}`,
-                    }),
+            return this.blogAuthorRepository
+                .save(this.blogAuthor)
+                .then(() => {
+                    this.isLoading = false;
+                    this.isSaveSuccessful = true;
+                    this.createNotificationSuccess({
+                        message: this.$tc(
+                            'werkl-blog-author.detail.messageSaveSuccess',
+                            {
+                                name: `${this.blogAuthor.firstName} ${this.blogAuthor.lastName}`,
+                            }
+                        ),
+                    });
+                    this.$router.push({
+                        name: 'blog.module.author.detail',
+                        params: { id: this.blogAuthor.id },
+                    });
+                })
+                .catch((exception) => {
+                    this.createNotificationError({
+                        message: this.$tc(
+                            'global.notification.unspecifiedSaveErrorMessage'
+                        ),
+                    });
+                    this.isLoading = false;
+                    throw exception;
                 });
-                this.$router.push({ name: 'blog.module.author.detail', params: { id: this.blogAuthor.id } });
-            }).catch((exception) => {
-                this.createNotificationError({
-                    message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
-                });
-                this.isLoading = false;
-                throw exception;
-            });
         },
 
         onCancel() {

@@ -41,7 +41,7 @@
 }
 
 .has-element-loader .cms-element-product-listing {
-    .blog-image-link span.icon{
+    .blog-image-link span.icon {
         opacity: 0;
     }
 
@@ -50,8 +50,14 @@
     .blog-image-link {
         border-radius: $border-radius;
         color: transparent;
-        animation: skeletonShimmer 1.5s linear 0s infinite normal forwards running;
-        background: linear-gradient(to right, $gray-300 8%, $gray-100 18%, $gray-300 28%);
+        animation: skeletonShimmer 1.5s linear 0s infinite normal forwards
+            running;
+        background: linear-gradient(
+            to right,
+            $gray-300 8%,
+            $gray-100 18%,
+            $gray-300 28%
+        );
         background-size: 800px 100px;
     }
 }

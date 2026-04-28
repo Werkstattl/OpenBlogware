@@ -23,19 +23,19 @@ use Werkl\OpenBlogware\Content\Blog\Events\BlogMainFilterEvent;
 
 class BlogSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @param EntityRepository<MediaCollection> $mediaRepository
+     */
+    public function __construct(private readonly EntityRepository $mediaRepository)
+    {
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
             BlogEntryDefinition::ENTITY_NAME . '.loaded' => 'onBlogEntryLoaded',
             BlogListingFilterBuildEvent::BLOG_MAIN_FILTER_EVENT => 'onBlogMainFilter',
         ];
-    }
-
-    /**
-     * @param EntityRepository<MediaCollection> $mediaRepository
-     */
-    public function __construct(private readonly EntityRepository $mediaRepository)
-    {
     }
 
     /**

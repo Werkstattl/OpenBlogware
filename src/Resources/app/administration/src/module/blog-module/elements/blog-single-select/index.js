@@ -1,8 +1,17 @@
 const { Component } = Shopware;
 
-Component.register('werkl-cms-el-blog-single-select', () => import('./component'));
-Component.register('werkl-cms-el-config-blog-single-select', () => import('./config'));
-Component.register('werkl-cms-el-preview-blog-single-select', () => import('./preview'));
+Component.register(
+    'werkl-cms-el-blog-single-select',
+    () => import('./component')
+);
+Component.register(
+    'werkl-cms-el-config-blog-single-select',
+    () => import('./config')
+);
+Component.register(
+    'werkl-cms-el-preview-blog-single-select',
+    () => import('./preview')
+);
 
 Shopware.Service('cmsService').registerCmsElement({
     name: 'blog-single-select',
@@ -17,7 +26,9 @@ Shopware.Service('cmsService').registerCmsElement({
             required: true,
             entity: {
                 name: 'werkl_blog_entry',
-                criteria: new Shopware.Data.Criteria(1, 25).addAssociation('blogCategories'),
+                criteria: new Shopware.Data.Criteria(1, 25).addAssociation(
+                    'blogCategories'
+                ),
             },
         },
     },

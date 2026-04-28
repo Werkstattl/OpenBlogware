@@ -5,14 +5,19 @@ export default {
         async createdComponent() {
             Shopware.Store.get('adminMenu').collapseSidebar();
 
-            const isSystemDefaultLanguage = Shopware.Store.get('context').isSystemDefaultLanguage;
-            this.cmsPageState.setIsSystemDefaultLanguage(isSystemDefaultLanguage);
+            const isSystemDefaultLanguage =
+                Shopware.Store.get('context').isSystemDefaultLanguage;
+            this.cmsPageState.setIsSystemDefaultLanguage(
+                isSystemDefaultLanguage
+            );
             if (!isSystemDefaultLanguage) {
                 Shopware.Store.get('context').resetLanguageToDefault();
             }
 
             if (Context.api.languageId !== Context.api.systemLanguageId) {
-                Shopware.Store.get('context').setApiLanguageId(Context.api.languageId);
+                Shopware.Store.get('context').setApiLanguageId(
+                    Context.api.languageId
+                );
             }
 
             this.resetCmsPageState();

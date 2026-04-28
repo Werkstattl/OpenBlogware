@@ -11,9 +11,7 @@ export default {
 
     emits: ['element-update'],
 
-    mixins: [
-        Mixin.getByName('cms-element'),
-    ],
+    mixins: [Mixin.getByName('cms-element')],
 
     data() {
         return {
@@ -35,12 +33,16 @@ export default {
                 {
                     id: 1,
                     value: 'all',
-                    label: this.$tc('werkl-blog.elements.blog.config.showType.options.all'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blog.config.showType.options.all'
+                    ),
                 },
                 {
                     id: 2,
                     value: 'select',
-                    label: this.$tc('werkl-blog.elements.blog.config.showType.options.select'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blog.config.showType.options.select'
+                    ),
                 },
             ];
         },
@@ -50,12 +52,16 @@ export default {
                 {
                     id: 1,
                     value: 'all',
-                    label: this.$tc('werkl-blog.elements.blog.config.showTags.options.all'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blog.config.showTags.options.all'
+                    ),
                 },
                 {
                     id: 2,
                     value: 'select',
-                    label: this.$tc('werkl-blog.elements.blog.config.showTags.options.select'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blog.config.showTags.options.select'
+                    ),
                 },
             ];
         },
@@ -88,7 +94,8 @@ export default {
             const criteria = new Criteria();
             criteria.setIds(this.element.config.blogCategories.value);
 
-            this.blogCategoryCollection = await this.blogCategoryRepository.search(criteria);
+            this.blogCategoryCollection =
+                await this.blogCategoryRepository.search(criteria);
         },
 
         async loadTags() {
@@ -109,10 +116,12 @@ export default {
         },
 
         onBlogCategoriesChange() {
-            this.element.config.blogCategories.value = this.blogCategoryCollection.getIds();
+            this.element.config.blogCategories.value =
+                this.blogCategoryCollection.getIds();
 
             if (this.element.translated?.config?.blogCategories) {
-                this.element.translated.config.blogCategories = this.blogCategoryCollection.getIds();
+                this.element.translated.config.blogCategories =
+                    this.blogCategoryCollection.getIds();
             }
 
             if (!this.element?.data) {
@@ -126,7 +135,8 @@ export default {
             this.element.config.blogTags.value = this.tagCollection.getIds();
 
             if (this.element.translated?.config?.blogTags) {
-                this.element.translated.config.blogTags = this.tagCollection.getIds();
+                this.element.translated.config.blogTags =
+                    this.tagCollection.getIds();
             }
 
             if (!this.element?.data) {

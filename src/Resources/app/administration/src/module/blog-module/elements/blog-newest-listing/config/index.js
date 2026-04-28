@@ -8,9 +8,7 @@ export default {
 
     inject: ['repositoryFactory'],
 
-    mixins: [
-        Mixin.getByName('cms-element'),
-    ],
+    mixins: [Mixin.getByName('cms-element')],
 
     data() {
         return {
@@ -28,12 +26,16 @@ export default {
                 {
                     id: 1,
                     value: 'all',
-                    label: this.$tc('werkl-blog.elements.blogNewestListing.config.showType.options.all'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blogNewestListing.config.showType.options.all'
+                    ),
                 },
                 {
                     id: 2,
                     value: 'select',
-                    label: this.$tc('werkl-blog.elements.blogNewestListing.config.showType.options.select'),
+                    label: this.$tc(
+                        'werkl-blog.elements.blogNewestListing.config.showType.options.select'
+                    ),
                 },
             ];
         },
@@ -65,14 +67,17 @@ export default {
             const criteria = new Criteria();
             criteria.setIds(this.element.config.blogCategories.value);
 
-            this.blogCategoryCollection = await this.blogCategoryRepository.search(criteria);
+            this.blogCategoryCollection =
+                await this.blogCategoryRepository.search(criteria);
         },
 
         onBlogCategoriesChange() {
-            this.element.config.blogCategories.value = this.blogCategoryCollection.getIds();
+            this.element.config.blogCategories.value =
+                this.blogCategoryCollection.getIds();
 
             if (this.element.translated?.config?.blogCategories) {
-                this.element.translated.config.blogCategories = this.blogCategoryCollection.getIds();
+                this.element.translated.config.blogCategories =
+                    this.blogCategoryCollection.getIds();
             }
 
             if (!this.element?.data) {

@@ -14,7 +14,11 @@ export default {
 
     computed: {
         componentSections() {
-            return Store.get('extensionComponentSections').identifier[this.positionIdentifier] ?? [];
+            return (
+                Store.get('extensionComponentSections').identifier[
+                    this.positionIdentifier
+                ] ?? []
+            );
         },
     },
 };

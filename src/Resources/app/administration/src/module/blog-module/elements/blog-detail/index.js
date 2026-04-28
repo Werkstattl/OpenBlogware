@@ -2,7 +2,10 @@ const { Component } = Shopware;
 
 Component.register('werkl-blog-el-blog-detail', () => import('./component'));
 Component.register('sw-cms-el-config-blog-detail', () => import('./config'));
-Component.register('werkl-blog-el-blog-detail-preview', () => import('./preview'));
+Component.register(
+    'werkl-blog-el-blog-detail-preview',
+    () => import('./preview')
+);
 
 Shopware.Service('cmsService').registerCmsElement({
     name: 'blog-detail',

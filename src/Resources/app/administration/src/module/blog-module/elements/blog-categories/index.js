@@ -1,8 +1,14 @@
 const { Component } = Shopware;
 
 Component.register('werkl-cms-el-blog-categories', () => import('./component'));
-Component.register('werkl-cms-el-config-blog-categories', () => import('./config'));
-Component.register('werkl-cms-el-preview-blog-categories', () => import('./preview'));
+Component.register(
+    'werkl-cms-el-config-blog-categories',
+    () => import('./config')
+);
+Component.register(
+    'werkl-cms-el-preview-blog-categories',
+    () => import('./preview')
+);
 
 Shopware.Service('cmsService').registerCmsElement({
     name: 'blog-categories',

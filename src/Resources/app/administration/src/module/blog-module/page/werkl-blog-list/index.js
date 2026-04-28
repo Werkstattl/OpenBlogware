@@ -49,7 +49,9 @@ export default {
         },
 
         blogEntryTranslationRepository() {
-            return this.repositoryFactory.create('werkl_blog_entry_translation');
+            return this.repositoryFactory.create(
+                'werkl_blog_entry_translation'
+            );
         },
 
         blogCategoryRepository() {
@@ -97,7 +99,9 @@ export default {
             criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
 
             if (this.categoryId) {
-                criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
+                criteria.addFilter(
+                    Criteria.equals('blogCategories.id', this.categoryId)
+                );
             }
 
             return criteria;
@@ -133,7 +137,10 @@ export default {
                 criteria = this.listCriteria;
                 criteria.setTerm(this.term);
             } else {
-                criteria = await this.addQueryScores(this.term, this.listCriteria);
+                criteria = await this.addQueryScores(
+                    this.term,
+                    this.listCriteria
+                );
             }
             if (!this.entitySearchable) {
                 this.isLoading = false;
@@ -172,15 +179,20 @@ export default {
             }
 
             const criteria = new Criteria();
-            criteria.addFilter(Criteria.equals('werklBlogEntryId', blogEntry.id));
+            criteria.addFilter(
+                Criteria.equals('werklBlogEntryId', blogEntry.id)
+            );
             criteria.addAssociation('language.locale');
 
-            const blogEntryTranslations = await this.blogEntryTranslationRepository.search(criteria);
+            const blogEntryTranslations =
+                await this.blogEntryTranslationRepository.search(criteria);
 
             behavior.overwrites.translations = {};
 
             for (const translation of blogEntryTranslations) {
-                const copySnippet = this.$tc('global.default.copy', 1, { locale: translation.language.locale.code });
+                const copySnippet = this.$tc('global.default.copy', 1, {
+                    locale: translation.language.locale.code,
+                });
 
                 behavior.overwrites.translations[translation.languageId] = {
                     title: `${translation.title} - ${copySnippet}`,
@@ -190,7 +202,9 @@ export default {
 
             this.isLoading = true;
             this.cmsPageRepository
-                .clone(blogEntry.cmsPageId, { overwrites: { name: behavior.overwrites.title } })
+                .clone(blogEntry.cmsPageId, {
+                    overwrites: { name: behavior.overwrites.title },
+                })
                 .then((response) => {
                     const cmsPageId = response.id;
                     behavior.overwrites.cmsPageId = cmsPageId;
@@ -206,7 +220,9 @@ export default {
                             this.isLoading = false;
 
                             this.createNotificationError({
-                                message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
+                                message: this.$tc(
+                                    'global.notification.unspecifiedSaveErrorMessage'
+                                ),
                             });
                         });
                 })
@@ -214,7 +230,9 @@ export default {
                     this.isLoading = false;
 
                     this.createNotificationError({
-                        message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
+                        message: this.$tc(
+                            'global.notification.unspecifiedSaveErrorMessage'
+                        ),
                     });
                 });
         },
