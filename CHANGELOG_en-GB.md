@@ -1,3 +1,6 @@
+# 5.2.1
+- Fixed listing actions not working with older Shopware versions [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)
+
 # 5.2.0
 - Added feature to be able to duplicate blog entries [#21](https://github.com/Werkstattl/OpenBlogware/issues/21)
 - Added search functionality to the blog listing in the Administration [#43](https://github.com/Werkstattl/OpenBlogware/issues/43)
