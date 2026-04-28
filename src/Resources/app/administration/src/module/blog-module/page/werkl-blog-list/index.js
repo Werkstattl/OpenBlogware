@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import template from './werkl-blog-list.html.twig';
 import './werkl-blog-list.scss';
 
@@ -10,6 +11,7 @@ export default {
     inject: ['repositoryFactory'],
 
     mixins: [
+        Mixin.getByName('notification'),
         Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
         Mixin.getByName('version-compare'),
@@ -44,6 +46,10 @@ export default {
 
         blogEntryRepository() {
             return this.repositoryFactory.create('werkl_blog_entry');
+        },
+
+        blogEntryTranslationRepository() {
+            return this.repositoryFactory.create('werkl_blog_entry_translation');
         },
 
         blogCategoryRepository() {
@@ -156,21 +162,30 @@ export default {
             this.getList();
         },
 
-        onDuplicate(blogEntry, behavior = { overwrites: {} }) {
+        async onDuplicate(blogEntry, behavior = { overwrites: {} }) {
             if (!behavior.overwrites) {
                 behavior.overwrites = {};
-            }
-
-            if (!behavior.overwrites.title) {
-                behavior.overwrites.title = `${blogEntry.title} - ${this.$tc('global.default.copy')}`;
             }
 
             if (!behavior.overwrites.active) {
                 behavior.overwrites.active = false;
             }
 
-            if (!behavior.overwrites.slug) {
-                behavior.overwrites.slug = `${blogEntry.slug}-copy`;
+            const criteria = new Criteria();
+            criteria.addFilter(Criteria.equals('werklBlogEntryId', blogEntry.id));
+            criteria.addAssociation('language.locale');
+
+            const blogEntryTranslations = await this.blogEntryTranslationRepository.search(criteria);
+
+            behavior.overwrites.translations = {};
+
+            for (const translation of blogEntryTranslations) {
+                const copySnippet = this.$tc('global.default.copy', 1, { locale: translation.language.locale.code });
+
+                behavior.overwrites.translations[translation.languageId] = {
+                    title: `${translation.title} - ${copySnippet}`,
+                    slug: `${translation.slug}-${slugify(copySnippet, { locale: translation.language.locale.code.substring(0, 2), lower: true })}`,
+                };
             }
 
             this.isLoading = true;
@@ -189,6 +204,7 @@ export default {
                         .catch(() => {
                             this.cmsPageRepository.delete(cmsPageId);
                             this.isLoading = false;
+
                             this.createNotificationError({
                                 message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
                             });
@@ -196,6 +212,7 @@ export default {
                 })
                 .catch(() => {
                     this.isLoading = false;
+
                     this.createNotificationError({
                         message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
                     });

@@ -2,7 +2,7 @@ import slugify from 'slugify';
 import template from './werkl-blog-detail.html.twig';
 import BLOG from '../../constant/open-blogware.constant';
 
-const { ExtensionAPI, Context } = Shopware;
+const { Context, ExtensionAPI } = Shopware;
 const { Criteria } = Shopware.Data;
 const { debounce } = Shopware.Utils;
 const { cloneDeep } = Shopware.Utils.object;
@@ -297,7 +297,7 @@ export default {
                     this.isLoading = false;
 
                     this.createNotificationError({
-                        message: exception.message,
+                        message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
                     });
 
                     return Promise.reject(exception);
@@ -309,10 +309,6 @@ export default {
 
             return this.blogRepository.save(this.blog)
                 .catch(exception => {
-                    this.createNotificationError({
-                        message: exception.message,
-                    });
-
                     return Promise.reject(exception);
                 }).finally(() => {
                     this.isLoading = false;
@@ -329,13 +325,9 @@ export default {
 
                 return Promise.resolve();
             }).catch((exception) => {
-                this.isLoading = false;
-
-                this.createNotificationError({
-                    message: exception.message,
-                });
-
                 return Promise.reject(exception);
+            }).finally(() => {
+                this.isLoading = false;
             });
         },
 
