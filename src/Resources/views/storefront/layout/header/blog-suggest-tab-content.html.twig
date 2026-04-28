@@ -70,13 +70,13 @@
 
         {% if blogResult.count == 0 %}
             {% block layout_search_suggest_blog_no_result %}
-                <li class="search-suggest-no-result" role="option">
+                <li class="search-suggest-no-result" id="search-suggest-result-info" role="option">
                     {{ 'werkl-blog.search.emptyResult'|trans|sw_sanitize }}
                 </li>
             {% endblock %}
         {% else %}
             {% block layout_search_suggest_result_total_blog %}
-                <li class="js-result search-suggest-total" id="search-suggest-result-info" role="option">
+                <li class="js-result search-suggest-total" role="option">
                     <div class="row align-items-center g-0">
                         {% block layout_search_suggest_result_total_blog_link %}
                             <div class="col">
@@ -90,6 +90,9 @@
                         {% endblock %}
 
                         {% block layout_search_suggest_result_total_blog_count %}
+                            {# duplicate id is fine in this case, because
+                                the other use is in different if branch #}
+                            {# ludtwig-ignore html-duplicate-id #}
                             <div class="col-auto search-suggest-total-count" id="search-suggest-result-info">
                                 {{ 'werkl-blog.search.searchResults'|trans({
                                     '%count%': blogResult.count,

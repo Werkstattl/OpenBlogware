@@ -4,9 +4,8 @@
                  itemprop="article"
                  itemscope
                  itemtype="https://schema.org/BlogPosting">
-
             {% block werkl_blog_detail_article_item_meta_published %}
-                <meta itemprop="datePublished" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
+                <meta itemprop="datePublished" content="{{ product.releaseDate|format_date(pattern='Y-MM-dd', locale=app.request.locale) }}"/>
             {% endblock %}
 
             {% block page_product_detail_review_item_info_date %}
@@ -17,7 +16,6 @@
 
             {% block werkl_blog_detail_article_blocks %}
                 <div class="col-12 werkl-blog-detail-article">
-
                     {% block werkl_blog_detail_article_teaser_image %}
                         {% if element.data.detailTeaserImage and element.data.media %}
                             {% set attributes = {
@@ -68,6 +66,7 @@
                             </div>
                         {% endif %}
                     {% endblock %}
+
                     {% block werkl_blog_detail_article_blocks_content %}
                         {% if not element.data.cmsPage %}
                             <div>

@@ -56,7 +56,7 @@ class BlogRssController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page = NavigationPage::createFrom($page);
 
-        $response = $this->renderStorefront('@WerklOpenBlogware/storefront/page/rss.html.twig', [
+        $response = $this->renderStorefront('@WerklOpenBlogware/storefront/page/rss.xml.twig', [
             'results' => $results,
             'page' => $page,
         ]);
