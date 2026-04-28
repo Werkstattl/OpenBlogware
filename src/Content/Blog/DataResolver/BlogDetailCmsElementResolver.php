@@ -53,7 +53,11 @@ class BlogDetailCmsElementResolver extends AbstractCmsElementResolver
 
     private function createCriteria(ResolverContext $resolverContext): Criteria
     {
-        $criteria = new Criteria([$resolverContext->getRequest()->get('articleId')]);
+        $articleId = $resolverContext->getRequest()->get('articleId');
+
+        \assert(is_string($articleId));
+
+        $criteria = new Criteria([$articleId]);
 
         $criteria->addFilter(new BlogEntryActiveFilter(
             $resolverContext->getSalesChannelContext()->getSalesChannelId(),

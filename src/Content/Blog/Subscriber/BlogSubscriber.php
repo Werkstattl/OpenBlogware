@@ -47,7 +47,7 @@ class BlogSubscriber implements EventSubscriberInterface
         $blogEntries = $event->getEntities();
 
         $mediaIds = array_unique(array_filter(array_map(
-            fn (BlogEntryEntity $blogEntry) => $blogEntry->getTranslation('mediaId'),
+            fn (BlogEntryEntity $blogEntry): ?string => is_string($blogEntry->getTranslation('mediaId')) ? $blogEntry->getTranslation('mediaId') : null,
             $blogEntries
         )));
 
@@ -61,7 +61,7 @@ class BlogSubscriber implements EventSubscriberInterface
         foreach ($blogEntries as $blogEntry) {
             $mediaId = $blogEntry->getTranslation('mediaId');
 
-            if ($mediaId === null) {
+            if ($mediaId === null || !is_string($mediaId) || !$media->has($mediaId)) {
                 continue;
             }
 
@@ -157,7 +157,7 @@ class BlogSubscriber implements EventSubscriberInterface
 
         return new Filter(
             'categories',
-            !empty($ids),
+            $ids !== [],
             [
                 new EntityAggregation('blogCategories', 'blogCategories.id', 'werkl_blog_category'),
             ],
@@ -172,7 +172,7 @@ class BlogSubscriber implements EventSubscriberInterface
 
         return new Filter(
             'authors',
-            !empty($ids),
+            $ids !== [],
             [
                 new EntityAggregation('authors', 'authorId', 'werkl_blog_author'),
             ],
@@ -187,7 +187,7 @@ class BlogSubscriber implements EventSubscriberInterface
 
         return new Filter(
             'tags',
-            !empty($ids),
+            $ids !== [],
             [
                 new EntityAggregation('tags', 'tags.id', 'tag'),
             ],
@@ -197,7 +197,7 @@ class BlogSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return array<string>
+     * @return list<string>
      */
     private function getFilterByCustomIds(string $input, Request $request): array
     {
@@ -213,6 +213,6 @@ class BlogSubscriber implements EventSubscriberInterface
 
         $ids = explode('|', $ids);
 
-        return array_filter($ids);
+        return array_values(array_filter($ids));
     }
 }

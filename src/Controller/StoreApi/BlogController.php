@@ -76,8 +76,10 @@ class BlogController extends AbstractBlogController
 
     protected function buildCriteria(Request $request, Criteria $criteria): Criteria
     {
+        /** @var string|null $search */
         $search = $request->get('search');
-        if ($search) {
+
+        if ($search !== null) {
             if (Uuid::isValid($search)) {
                 $criteria->setIds([$search]);
             } else {

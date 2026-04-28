@@ -31,6 +31,8 @@ class CmsSlotsDataResolverExtension implements EventSubscriberInterface
         $resolverContext = $extension->resolverContext;
 
         foreach ($slots as $slotId => $slot) {
+            \assert(is_string($slotId));
+
             if ($slot->getType() !== BlogDetailCmsElementResolver::TYPE) {
                 continue;
             }

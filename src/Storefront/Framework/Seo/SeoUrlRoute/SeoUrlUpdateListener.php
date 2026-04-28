@@ -54,10 +54,6 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 
             $salesChannelId = $writeResult->getPrimaryKey();
 
-            if (!\is_string($salesChannelId)) {
-                continue;
-            }
-
             $criteria = new Criteria();
             $criteria->addFilter(new BlogEntryActiveFilter($salesChannelId));
 

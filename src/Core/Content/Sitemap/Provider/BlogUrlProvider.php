@@ -58,8 +58,11 @@ class BlogUrlProvider extends AbstractUrlProvider
         if ($blogEntries->count() === 0) {
             return new UrlResult([], null);
         }
-        $this->eventDispatcher->dispatch(new BlogIndexerEvent($blogEntries->getIds(), $context->getContext()));
-        $seoUrls = $this->getSeoUrls($blogEntries->getIds(), 'werkl.frontend.blog.detail', $context, $this->connection);
+
+        $blogEntryIds = array_values($blogEntries->getIds());
+
+        $this->eventDispatcher->dispatch(new BlogIndexerEvent($blogEntryIds, $context->getContext()));
+        $seoUrls = $this->getSeoUrls($blogEntryIds, 'werkl.frontend.blog.detail', $context, $this->connection);
 
         $seoUrls = FetchModeHelper::groupUnique($seoUrls);
         $urls = [];

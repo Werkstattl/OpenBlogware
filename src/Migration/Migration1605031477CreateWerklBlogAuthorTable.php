@@ -58,9 +58,10 @@ class Migration1605031477CreateWerklBlogAuthorTable extends MigrationStep
 
         $notSpecified = $connection->fetchOne('SELECT id from salutation LIMIT 1');
 
+        /** @var string|false $defaultAuthorId */
         $defaultAuthorId = $connection->fetchOne('SELECT id from werkl_blog_author LIMIT 1');
 
-        if (empty($defaultAuthorId)) {
+        if ($defaultAuthorId === false) {
             $defaultAuthorId = Uuid::fromHexToBytes(WerklOpenBlogware::ANONYMOUS_AUTHOR_ID);
 
             $connection->insert('werkl_blog_author', [

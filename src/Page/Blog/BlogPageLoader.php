@@ -49,8 +49,9 @@ class BlogPageLoader
      */
     public function load(Request $request, SalesChannelContext $context): BlogPage
     {
-        $articleId = $request->attributes->get('articleId');
-        if (!$articleId) {
+        $articleId = $request->attributes->getAlnum('articleId');
+
+        if ($articleId === '') {
             throw RoutingException::missingRequestParameter('articleId', '/articleId');
         }
 
@@ -69,6 +70,10 @@ class BlogPageLoader
             $metaTitle = $blogEntry->getTranslation('metaTitle') ?? $blogEntry->getTitle();
             $metaDescription = $blogEntry->getTranslation('metaDescription') ?? $blogEntry->getTeaser();
             $metaAuthor = $blogEntry->getBlogAuthor() ? $blogEntry->getBlogAuthor()->getFullName() : '';
+
+            \assert($metaTitle === null || \is_string($metaTitle));
+            \assert($metaDescription === null || \is_string($metaDescription));
+
             $metaInformation->setMetaTitle($metaTitle ?? '');
             $metaInformation->setMetaDescription($metaDescription ?? '');
             $metaInformation->setAuthor($metaAuthor ?? '');

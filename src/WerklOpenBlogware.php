@@ -5,7 +5,11 @@ namespace Werkl\OpenBlogware;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result;
-use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
+use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockCollection;
+use Shopware\Core\Content\Cms\CmsPageCollection;
+use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderCollection;
+use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
+use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use Shopware\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 use Shopware\Core\Content\Seo\SeoUrlTemplate\SeoUrlTemplateCollection;
 use Shopware\Core\Defaults;
@@ -80,10 +84,8 @@ class WerklOpenBlogware extends Plugin
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_tag`');
         $connection->executeStatement('DROP TABLE IF EXISTS `werkl_blog_entry_blog_category`');
 
-        /** @var EntityRepository $cmsBlockRepo */
-        $cmsBlockRepo = $this->container->get('cms_block.repository');
-
-        $context = Context::createDefaultContext();
+        $cmsBlockRepo = $this->getCmsBlockRepository();
+        $context = Context::createCLIContext();
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsAnyFilter('type', ['blog-detail', 'blog-listing']));
@@ -101,7 +103,7 @@ class WerklOpenBlogware extends Plugin
 
         $this->ensureSeoUrlTemplate($updateContext->getContext());
 
-        (new Update())->update($this->container, $updateContext);
+        (new Update())->update($this->getContainer(), $updateContext);
 
         if (version_compare($updateContext->getCurrentPluginVersion(), '1.1.0', '<')) {
             $this->createBlogMediaFolder($updateContext->getContext());
@@ -122,8 +124,7 @@ class WerklOpenBlogware extends Plugin
         $this->deleteDefaultMediaFolder($context);
         $thumbnailSizes = $this->getThumbnailSizes($context);
 
-        /** @var EntityRepository $mediaFolderRepository */
-        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
+        $mediaFolderRepository = $this->getMediaDefaultFolderRepository();
 
         $data = [
             [
@@ -154,8 +155,7 @@ class WerklOpenBlogware extends Plugin
             ])
         );
 
-        /** @var EntityRepository $mediaFolderRepository */
-        $mediaFolderRepository = $this->container->get('media_default_folder.repository');
+        $mediaFolderRepository = $this->getMediaDefaultFolderRepository();
 
         $mediaFolderIds = $mediaFolderRepository->searchIds($criteria, $context)->getIds();
 
@@ -174,8 +174,7 @@ class WerklOpenBlogware extends Plugin
             new EqualsFilter('name', 'Blog Images')
         );
 
-        /** @var EntityRepository $mediaFolderRepository */
-        $mediaFolderRepository = $this->container->get('media_folder.repository');
+        $mediaFolderRepository = $this->getMediaFolderRepository();
 
         $mediaFolderRepository->search($criteria, $context);
 
@@ -207,6 +206,9 @@ class WerklOpenBlogware extends Plugin
         }
     }
 
+    /**
+     * @return array<int, array{id: string, width: int, height: int}>
+     */
     private function getThumbnailSizes(Context $context): array
     {
         $mediaThumbnailSizes = [
@@ -230,13 +232,12 @@ class WerklOpenBlogware extends Plugin
 
         $criteria = new Criteria();
 
-        /** @var EntityRepository $thumbnailSizeRepository */
-        $thumbnailSizeRepository = $this->container->get('media_thumbnail_size.repository');
+        $thumbnailSizeRepository = $this->getMediaThumbnailSizeRepository();
 
         $thumbnailSizes = $thumbnailSizeRepository->search($criteria, $context)->getEntities();
 
         $mediaThumbnailSizesAddedIds = [];
-        /** @var MediaThumbnailSizeEntity $thumbnailSize */
+
         foreach ($thumbnailSizes as $thumbnailSize) {
             $key = $thumbnailSize->getWidth() . 'x' . $thumbnailSize->getHeight();
             if (\array_key_exists($key, $mediaThumbnailSizes)) {
@@ -269,15 +270,9 @@ class WerklOpenBlogware extends Plugin
 
     private function getLifeCycle(): Lifecycle
     {
-        /** @var SystemConfigService $systemConfig */
-        $systemConfig = $this->container->get(SystemConfigService::class);
-
-        /** @var EntityRepository $cmsPageRepository */
-        $cmsPageRepository = $this->container->get('cms_page.repository');
-
         return new Lifecycle(
-            $systemConfig,
-            $cmsPageRepository
+            $this->getSystemConfigService(),
+            $this->getCmsPageRepository()
         );
     }
 
@@ -325,20 +320,23 @@ class WerklOpenBlogware extends Plugin
     private function updateSeoUrls(Context $context): void
     {
         $blogArticlesIds = $this->getBlogArticlesIds();
-        if (\count($blogArticlesIds) === 0) {
+
+        if ($blogArticlesIds === []) {
             return;
         }
 
-        if ($this->container->get('event_dispatcher') instanceof EventDispatcherInterface) {
-            $eventDispatcher = $this->container->get('event_dispatcher');
+        if (($eventDispatcher = $this->getContainer()->get('event_dispatcher')) instanceof EventDispatcherInterface) {
             $eventDispatcher->dispatch(new BlogIndexerEvent($blogArticlesIds, $context));
         }
     }
 
+    /**
+     * @return list<string>
+     */
     private function getBlogArticlesIds(): array
     {
-        /** @var Connection $connection */
-        $connection = $this->container->get(Connection::class);
+        $connection = $this->getConnection();
+
         if (!$connection->createSchemaManager()->tablesExist([BlogEntryDefinition::ENTITY_NAME])) {
             return [];
         }
@@ -355,6 +353,8 @@ class WerklOpenBlogware extends Plugin
         if (!$query->executeQuery() instanceof Result) {
             return [];
         }
+
+        /** @var list<array{ id: string }> */
         $results = $query->executeQuery()->fetchAllAssociative();
 
         if (empty($results)) {
@@ -394,6 +394,8 @@ class WerklOpenBlogware extends Plugin
                     $latestTemplate = $seoUrlTemplate;
                 }
             }
+
+            \assert($latestTemplate !== null);
 
             $deleteIds = array_values(array_filter($seoUrlTemplates->getIds(), static function ($id) use ($latestTemplate) {
                 return $id !== $latestTemplate->getId();
@@ -437,7 +439,7 @@ class WerklOpenBlogware extends Plugin
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('routeName', BlogSeoUrlRoute::ROUTE_NAME));
 
-        $seoUrlIds = array_values($seoUrlRepository->searchIds($criteria, $context)->getIds());
+        $seoUrlIds = $seoUrlRepository->searchIds($criteria, $context)->getIds();
 
         if ($seoUrlIds === []) {
             return;
@@ -448,14 +450,37 @@ class WerklOpenBlogware extends Plugin
         }, $seoUrlIds), $context);
     }
 
+    private function getContainer(): ContainerInterface
+    {
+        \assert($this->container instanceof ContainerInterface);
+
+        return $this->container;
+    }
+
+    private function getConnection(): Connection
+    {
+        $connection = $this->getContainer()->get(Connection::class);
+
+        \assert($connection instanceof Connection);
+
+        return $connection;
+    }
+
+    private function getSystemConfigService(): SystemConfigService
+    {
+        $systemConfigService = $this->getContainer()->get(SystemConfigService::class);
+
+        \assert($systemConfigService instanceof SystemConfigService);
+
+        return $systemConfigService;
+    }
+
     /**
      * @return EntityRepository<SeoUrlTemplateCollection>
      */
     private function getSeoUrlTemplateRepository(): EntityRepository
     {
-        \assert($this->container instanceof ContainerInterface);
-
-        $seoUrlTemplateRepository = $this->container->get('seo_url_template.repository');
+        $seoUrlTemplateRepository = $this->getContainer()->get('seo_url_template.repository');
 
         \assert($seoUrlTemplateRepository instanceof EntityRepository);
 
@@ -467,12 +492,70 @@ class WerklOpenBlogware extends Plugin
      */
     private function getSeoUrlRepository(): EntityRepository
     {
-        \assert($this->container instanceof ContainerInterface);
-
-        $seoUrlRepository = $this->container->get('seo_url.repository');
+        $seoUrlRepository = $this->getContainer()->get('seo_url.repository');
 
         \assert($seoUrlRepository instanceof EntityRepository);
 
         return $seoUrlRepository;
+    }
+
+    /**
+     * @return EntityRepository<CmsPageCollection>
+     */
+    private function getCmsPageRepository(): EntityRepository
+    {
+        $cmsPageRepository = $this->getContainer()->get('cms_page.repository');
+
+        \assert($cmsPageRepository instanceof EntityRepository);
+
+        return $cmsPageRepository;
+    }
+
+    /**
+     * @return EntityRepository<CmsBlockCollection>
+     */
+    private function getCmsBlockRepository(): EntityRepository
+    {
+        $cmsBlockRepository = $this->getContainer()->get('cms_block.repository');
+
+        \assert($cmsBlockRepository instanceof EntityRepository);
+
+        return $cmsBlockRepository;
+    }
+
+    /**
+     * @return EntityRepository<MediaDefaultFolderCollection>
+     */
+    private function getMediaDefaultFolderRepository(): EntityRepository
+    {
+        $mediaDefaultFolderRepository = $this->getContainer()->get('media_default_folder.repository');
+
+        \assert($mediaDefaultFolderRepository instanceof EntityRepository);
+
+        return $mediaDefaultFolderRepository;
+    }
+
+    /**
+     * @return EntityRepository<MediaFolderCollection>
+     */
+    private function getMediaFolderRepository(): EntityRepository
+    {
+        $mediaFolderRepository = $this->getContainer()->get('media_folder.repository');
+
+        \assert($mediaFolderRepository instanceof EntityRepository);
+
+        return $mediaFolderRepository;
+    }
+
+    /**
+     * @return EntityRepository<MediaThumbnailSizeCollection>
+     */
+    private function getMediaThumbnailSizeRepository(): EntityRepository
+    {
+        $mediaThumbnailSizeRepository = $this->getContainer()->get('media_thumbnail_size.repository');
+
+        \assert($mediaThumbnailSizeRepository instanceof EntityRepository);
+
+        return $mediaThumbnailSizeRepository;
     }
 }
