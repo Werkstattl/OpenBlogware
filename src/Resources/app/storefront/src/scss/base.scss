@@ -1,4 +1,4 @@
-@import 'layout/header/_search-suggest';
+@import 'layout/header/search-suggest';
 
 .blog-card {
     .blog-image,
@@ -41,13 +41,8 @@
 }
 
 .has-element-loader .cms-element-product-listing {
-    .blog-image-link span.icon {
-        opacity: 0;
-    }
-
     .blog-date,
-    .blog-title a,
-    .blog-image-link {
+    .blog-title-link {
         border-radius: $border-radius;
         color: transparent;
         animation: skeletonShimmer 1.5s linear 0s infinite normal forwards
