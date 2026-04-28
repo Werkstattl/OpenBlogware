@@ -1,5 +1,6 @@
 # 5.2.1
 - Fixed listing actions not working with older Shopware versions [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)
+- Fixed blog entry translations not being duplicated correctly when copying an entry [#81](https://github.com/Werkstattl/OpenBlogware/pull/81)
 
 # 5.2.0
 - Added feature to be able to duplicate blog entries [#21](https://github.com/Werkstattl/OpenBlogware/issues/21)

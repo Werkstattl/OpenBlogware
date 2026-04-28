@@ -13,7 +13,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
 
     protected string $werklBlogEntryId;
 
-    protected BlogEntryEntity $werklBlogEntry;
+    protected ?BlogEntryEntity $werklBlogEntry = null;
 
     protected ?string $mediaId = null;
 
@@ -39,7 +39,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
         $this->werklBlogEntryId = $werklBlogEntryId;
     }
 
-    public function getWerklBlogEntry(): BlogEntryEntity
+    public function getWerklBlogEntry(): ?BlogEntryEntity
     {
         return $this->werklBlogEntry;
     }

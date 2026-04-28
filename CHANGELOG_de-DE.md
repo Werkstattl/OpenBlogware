@@ -1,5 +1,6 @@
 # 5.2.1
 - Behoben: Listing Aktionen funktionieren nicht mit älteren Shopware Versionen [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)
+- Behoben: Übersetzungen von Blogbeiträgen werden jetzt korrekt dupliziert, wenn ein Beitrag kopiert wird [#81](https://github.com/Werkstattl/OpenBlogware/pull/81)
 
 # 5.2.0
 - Feature hinzugefügt: Blogbeiträge können jetzt kopiert werden [#21](https://github.com/Werkstattl/OpenBlogware/issues/21)
