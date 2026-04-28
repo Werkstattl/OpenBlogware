@@ -88,6 +88,8 @@
         {% block werkl_blog_list_content %}
         <sw-entity-listing
             v-else-if="entitySearchable"
+            {# @deprecated tag:v6.8.0 - Property items will be removed. data-source will be used instead. #}
+            :items="blogEntries"
             :data-source="blogEntries"
             :columns="columns"
             :repository="blogEntryRepository"

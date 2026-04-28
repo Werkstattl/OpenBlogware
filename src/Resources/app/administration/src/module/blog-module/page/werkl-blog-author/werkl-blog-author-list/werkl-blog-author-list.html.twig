@@ -58,6 +58,8 @@
         {% block werkl_blog_author_list_content %}
         <sw-entity-listing
             v-else-if="blogAuthors"
+            {# @deprecated tag:v6.8.0 - Property items will be removed. data-source will be used instead. #}
+            :items="blogAuthors"
             :data-source="blogAuthors"
             :columns="columns"
             :repository="blogAuthorRepository"
