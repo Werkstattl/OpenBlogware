@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Fakes;
+namespace Werkl\OpenBlogware\Tests\Unit\Fakes;
 
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;

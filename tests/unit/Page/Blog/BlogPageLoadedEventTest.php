@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Page\Blog;
+namespace Werkl\OpenBlogware\Tests\Unit\Page\Blog;
 
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;

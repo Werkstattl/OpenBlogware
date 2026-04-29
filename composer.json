@@ -54,7 +54,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenBlogware\\Tests\\": "tests/unit/"
+            "Werkl\\OpenBlogware\\Tests\\Unit\\": "tests/unit/"
         }
     },
     "config": {

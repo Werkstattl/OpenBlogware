@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Util;
+namespace Werkl\OpenBlogware\Tests\Unit\Util;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 use Werkl\OpenBlogware\Util\Update;
 
 class UpdateTest extends TestCase

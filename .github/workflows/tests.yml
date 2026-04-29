@@ -12,7 +12,21 @@ on:
 
 jobs:
   phpunit:
-    uses: lacknere/shopware-github-actions/.github/workflows/phpunit.yml@allow-insecure-versions
-    with:
-      extensionName: WerklOpenBlogware
-      shopwareVersion: 6.7.0.0
+    name: PHPUnit tests
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up PHP & Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+      - name: Run PHPUnit tests
+        run: composer run tests:phpunit

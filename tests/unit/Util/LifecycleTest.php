@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Util;
+namespace Werkl\OpenBlogware\Tests\Unit\Util;
 
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\Event\NestedEventCollection;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 use Werkl\OpenBlogware\Util\Lifecycle;
 
 class LifecycleTest extends TestCase

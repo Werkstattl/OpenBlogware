@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Page\Search;
+namespace Werkl\OpenBlogware\Tests\Unit\Page\Search;
 
-use OpenBlogware\Tests\Fakes\FakeEntityRepository;
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
@@ -17,6 +15,8 @@ use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Page\Search\BlogSearchPage;
 use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
+use Werkl\OpenBlogware\Tests\Unit\Fakes\FakeEntityRepository;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 
 class BlogSearchPageLoaderTest extends TestCase
 {

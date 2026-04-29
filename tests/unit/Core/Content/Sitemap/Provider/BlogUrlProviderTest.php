@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Core\Content\Sitemap\Provider;
+namespace Werkl\OpenBlogware\Tests\Unit\Core\Content\Sitemap\Provider;
 
 use Doctrine\DBAL\Connection;
-use OpenBlogware\Tests\Fakes\FakeEntityRepository;
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -17,6 +15,8 @@ use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Core\Content\Sitemap\Provider\BlogUrlProvider;
+use Werkl\OpenBlogware\Tests\Unit\Fakes\FakeEntityRepository;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 
 class BlogUrlProviderTest extends TestCase
 {

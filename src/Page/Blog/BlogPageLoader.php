@@ -49,9 +49,9 @@ class BlogPageLoader
      */
     public function load(Request $request, SalesChannelContext $context): BlogPage
     {
-        $articleId = $request->attributes->getAlnum('articleId');
+        $articleId = $request->attributes->get('articleId');
 
-        if ($articleId === '') {
+        if ($articleId === null || !\is_string($articleId) || $articleId === '') {
             throw RoutingException::missingRequestParameter('articleId', '/articleId');
         }
 

@@ -1,9 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Content\Cms\DataResolver;
+namespace Werkl\OpenBlogware\Tests\Unit\Content\Cms\DataResolver;
 
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -18,6 +17,7 @@ use Shopware\Core\Content\Cms\Extension\CmsSlotsDataResolveExtension;
 use Shopware\Core\Framework\Extensions\ExtensionDispatcher;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Content\Cms\DataResolver\CmsSlotsDataResolverExtension;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 
 class CmsSlotsDataResolverExtensionTest extends TestCase
 {

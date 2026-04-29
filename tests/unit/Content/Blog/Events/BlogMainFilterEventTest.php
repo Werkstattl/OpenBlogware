@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Content\Blog\Events;
+namespace Werkl\OpenBlogware\Tests\Unit\Content\Blog\Events;
 
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;

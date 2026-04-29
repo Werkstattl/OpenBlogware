@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Page\Blog;
+namespace Werkl\OpenBlogware\Tests\Unit\Page\Blog;
 
-use OpenBlogware\Tests\Fakes\FakeEntityRepository;
-use OpenBlogware\Tests\Traits\ContextTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Cms\CmsPageEntity;
@@ -26,6 +24,8 @@ use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
 use Werkl\OpenBlogware\Page\Blog\BlogPage;
 use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
+use Werkl\OpenBlogware\Tests\Unit\Fakes\FakeEntityRepository;
+use Werkl\OpenBlogware\Tests\Unit\Traits\ContextTrait;
 
 class BlogPageLoaderTest extends TestCase
 {

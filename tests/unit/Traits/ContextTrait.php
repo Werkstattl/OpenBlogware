@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace OpenBlogware\Tests\Traits;
+namespace Werkl\OpenBlogware\Tests\Unit\Traits;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
