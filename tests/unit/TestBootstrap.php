@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace OpenBlogWare\Tests;
+namespace OpenBlogware\Tests;
 
 use Shopware\Core\TestBootstrapper;
 
