@@ -24,7 +24,9 @@
     },
     "require-dev":{
         "phpstan/phpstan": "2.1.43",
-        "phpunit/phpunit": "^11.5.19"
+        "phpunit/phpunit": "^11.5.19",
+        "shopwarelabs/phpstan-shopware": "^0.1.14",
+        "phpstan/extension-installer": "^1.4"
     },
     "extra": {
         "shopware-plugin-class": "Werkl\\OpenBlogware\\WerklOpenBlogware",
@@ -59,7 +61,8 @@
     },
     "config": {
         "allow-plugins": {
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
