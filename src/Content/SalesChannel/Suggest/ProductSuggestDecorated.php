@@ -71,7 +71,6 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
         $criteria = new Criteria();
         $criteria->setTerm($term);
         $criteria->setLimit($limit);
-        $criteria->addAssociation('media');
         $criteria->addAssociation('tags');
         $criteria->addAssociation('blogCategories');
         $criteria->getAssociation('blogCategories')->addSorting(new FieldSorting('level', FieldSorting::ASCENDING));
