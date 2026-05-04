@@ -95,10 +95,9 @@ class BlogPageLoader
     private function loadBlogEntry(string $articleId, SalesChannelContext $context): BlogEntryEntity
     {
         $criteria = (new Criteria([$articleId]))
-            ->addAssociation('author.salutation')
+            ->addAssociation('blogAuthor.salutation')
             ->addAssociation('blogCategories')
             ->addAssociation('tags')
-            ->addAssociation('blogAuthor')
             ->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId(), false));
         $this->eventDispatcher->dispatch(new BlogPageCriteriaEvent($articleId, $criteria, $context));
 
