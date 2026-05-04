@@ -45,7 +45,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
     ): ProductSuggestRouteResponse {
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
-        if (!$this->systemConfigService->get('WerklOpenBlogware.config.enableSearchBox')) {
+        if (!$this->systemConfigService->get('WerklOpenBlogware.config.enableSearchBox', $context->getSalesChannelId())) {
             return $response;
         }
 

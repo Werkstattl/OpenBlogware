@@ -128,12 +128,14 @@ class BlogPageLoader
      */
     private function loadBlogDetailCmsPage(Request $request, SalesChannelContext $context): CmsPageEntity
     {
-        $detailCmsPageId = $this->systemConfigService->getString('WerklOpenBlogware.config.cmsBlogDetailPage');
+        $detailCmsPageId = $this->systemConfigService->getString('WerklOpenBlogware.config.cmsBlogDetailPage', $context->getSalesChannelId());
+
         if (!$detailCmsPageId) {
             throw SystemConfigException::configurationNotFound('WerklOpenBlogware');
         }
 
         $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->first();
+
         if (!$detailCmsPage instanceof CmsPageEntity) {
             throw new PageNotFoundException($detailCmsPageId);
         }
