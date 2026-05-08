@@ -1,3 +1,7 @@
+# 5.3.0
+- Behoben: Kriterien-Association-Warnungen reduziert, um Log-Noise bei Blog-Detail und Suggest zu vermeiden [#84](https://github.com/Werkstattl/OpenBlogware/pull/84)
+- Refactoring: GitHub-Workflows und Release-Build-Pipeline für schnellere Checks und automatisiertes Release-Paket [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
+
 # 5.2.1
 - Behoben: Listing Aktionen funktionieren nicht mit älteren Shopware Versionen [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)
 - Behoben: Übersetzungen von Blogbeiträgen werden jetzt korrekt dupliziert, wenn ein Beitrag kopiert wird [#81](https://github.com/Werkstattl/OpenBlogware/pull/81)
