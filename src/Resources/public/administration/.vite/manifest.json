@@ -1,0 +1,373 @@
+{
+  "_slugify-CLfdhm_z.js": {
+    "file": "assets/slugify-CLfdhm_z.js",
+    "name": "slugify"
+  },
+  "main.js": {
+    "file": "assets/werkl-open-blogware-D1bSqzEl.js",
+    "name": "werkl-open-blogware",
+    "src": "main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "module/blog-module/blocks/blog-categories/component/index.js",
+      "module/blog-module/blocks/blog-categories/preview/index.js",
+      "module/blog-module/blocks/blog-detail/component/index.js",
+      "module/blog-module/blocks/blog-detail/preview/index.js",
+      "module/blog-module/blocks/blog-listing/component/index.js",
+      "module/blog-module/blocks/blog-listing/preview/index.js",
+      "module/blog-module/blocks/blog-newest-listing/component/index.js",
+      "module/blog-module/blocks/blog-newest-listing/preview/index.js",
+      "module/blog-module/blocks/blog-single-entry/component/index.js",
+      "module/blog-module/blocks/blog-single-entry/preview/index.js",
+      "module/blog-module/component/blog-category-tree/index.js",
+      "module/blog-module/component/blog-category-tree-field/index.js",
+      "module/blog-module/component/blog-extension-component-sections/index.js",
+      "module/blog-module/component/blog-tree-item/index.js",
+      "module/blog-module/component/blog-vertical-tabs/index.js",
+      "module/blog-module/elements/blog/component/index.js",
+      "module/blog-module/elements/blog/config/index.js",
+      "module/blog-module/elements/blog/preview/index.js",
+      "module/blog-module/elements/blog-categories/component/index.js",
+      "module/blog-module/elements/blog-categories/config/index.js",
+      "module/blog-module/elements/blog-categories/preview/index.js",
+      "module/blog-module/elements/blog-detail/component/index.js",
+      "module/blog-module/elements/blog-detail/config/index.js",
+      "module/blog-module/elements/blog-detail/preview/index.js",
+      "module/blog-module/elements/blog-newest-listing/component/index.js",
+      "module/blog-module/elements/blog-newest-listing/config/index.js",
+      "module/blog-module/elements/blog-newest-listing/preview/index.js",
+      "module/blog-module/elements/blog-single-select/component/index.js",
+      "module/blog-module/elements/blog-single-select/config/index.js",
+      "module/blog-module/elements/blog-single-select/preview/index.js",
+      "module/blog-module/extension/component/cms/werkl-cms-sidebar/index.js",
+      "module/blog-module/extension/component/cms/werkl-cms-slot/index.js",
+      "module/blog-module/extension/sw-cms/component/sw-cms-sidebar/index.js",
+      "module/blog-module/extension/sw-cms/page/sw-cms-list/index.js",
+      "module/blog-module/page/werkl-blog-author/werkl-blog-author-create/index.js",
+      "module/blog-module/page/werkl-blog-author/werkl-blog-author-detail/index.js",
+      "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js",
+      "module/blog-module/page/werkl-blog-create/index.js",
+      "module/blog-module/page/werkl-blog-detail/index.js",
+      "module/blog-module/page/werkl-blog-list/index.js"
+    ]
+  },
+  "module/blog-module/blocks/blog-categories/component/index.js": {
+    "file": "assets/index-DKY_k-Yo.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-categories/component/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/blocks/blog-categories/preview/index.js": {
+    "file": "assets/index-BYJPO9u1.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-categories/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DJ2IzNOh.css"
+    ]
+  },
+  "module/blog-module/blocks/blog-detail/component/index.js": {
+    "file": "assets/index-DtQDvWrZ.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-detail/component/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/blocks/blog-detail/preview/index.js": {
+    "file": "assets/index-CBacKxT4.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-detail/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-BTKPPzwI.css"
+    ]
+  },
+  "module/blog-module/blocks/blog-listing/component/index.js": {
+    "file": "assets/index-BtyE0l3H.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-listing/component/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/blocks/blog-listing/preview/index.js": {
+    "file": "assets/index-CDGr_5Ao.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-listing/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DMGU355w.css"
+    ]
+  },
+  "module/blog-module/blocks/blog-newest-listing/component/index.js": {
+    "file": "assets/index-DqUpIFkT.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-newest-listing/component/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/blocks/blog-newest-listing/preview/index.js": {
+    "file": "assets/index-Bek1xfeK.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-newest-listing/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DvRW-ps0.css"
+    ]
+  },
+  "module/blog-module/blocks/blog-single-entry/component/index.js": {
+    "file": "assets/index-DWSRdTlC.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-single-entry/component/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/blocks/blog-single-entry/preview/index.js": {
+    "file": "assets/index-BeUHZwXb.js",
+    "name": "index",
+    "src": "module/blog-module/blocks/blog-single-entry/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DjADA1l_.css"
+    ]
+  },
+  "module/blog-module/component/blog-category-tree-field/index.js": {
+    "file": "assets/index-BW_z9cil.js",
+    "name": "index",
+    "src": "module/blog-module/component/blog-category-tree-field/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/component/blog-category-tree/index.js": {
+    "file": "assets/index-dKJq6jE-.js",
+    "name": "index",
+    "src": "module/blog-module/component/blog-category-tree/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/component/blog-extension-component-sections/index.js": {
+    "file": "assets/index-DdoRo4Ou.js",
+    "name": "index",
+    "src": "module/blog-module/component/blog-extension-component-sections/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/component/blog-tree-item/index.js": {
+    "file": "assets/index-CXRHgHyf.js",
+    "name": "index",
+    "src": "module/blog-module/component/blog-tree-item/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/component/blog-vertical-tabs/index.js": {
+    "file": "assets/index-DkRXdN_W.js",
+    "name": "index",
+    "src": "module/blog-module/component/blog-vertical-tabs/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/elements/blog-categories/component/index.js": {
+    "file": "assets/index-DY-C0EkH.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-categories/component/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DRCegkaM.css"
+    ]
+  },
+  "module/blog-module/elements/blog-categories/config/index.js": {
+    "file": "assets/index-DnhQa9HV.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-categories/config/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/elements/blog-categories/preview/index.js": {
+    "file": "assets/index-DCQyK93e.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-categories/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-D6YBlyf8.css"
+    ]
+  },
+  "module/blog-module/elements/blog-detail/component/index.js": {
+    "file": "assets/index-xeGWX2Ua.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-detail/component/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-qTbMUJfc.css"
+    ]
+  },
+  "module/blog-module/elements/blog-detail/config/index.js": {
+    "file": "assets/index-CobbSS07.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-detail/config/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-BYTTa_id.css"
+    ]
+  },
+  "module/blog-module/elements/blog-detail/preview/index.js": {
+    "file": "assets/index-D5qeetYG.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-detail/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-Dkwna52-.css"
+    ]
+  },
+  "module/blog-module/elements/blog-newest-listing/component/index.js": {
+    "file": "assets/index-TqSp5TQ_.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-newest-listing/component/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-BJOu8Ng6.css"
+    ]
+  },
+  "module/blog-module/elements/blog-newest-listing/config/index.js": {
+    "file": "assets/index-zAIobz0u.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-newest-listing/config/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/elements/blog-newest-listing/preview/index.js": {
+    "file": "assets/index-HidWBeqY.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-newest-listing/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-CeIl5G9r.css"
+    ]
+  },
+  "module/blog-module/elements/blog-single-select/component/index.js": {
+    "file": "assets/index-CFjEF2qj.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-single-select/component/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-C7Rcdz4f.css"
+    ]
+  },
+  "module/blog-module/elements/blog-single-select/config/index.js": {
+    "file": "assets/index-rxVWeauB.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-single-select/config/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/elements/blog-single-select/preview/index.js": {
+    "file": "assets/index-DVBEmSK5.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog-single-select/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-D0w4wt_E.css"
+    ]
+  },
+  "module/blog-module/elements/blog/component/index.js": {
+    "file": "assets/index-kPQFIu3H.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog/component/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-CRNP9HF-.css"
+    ]
+  },
+  "module/blog-module/elements/blog/config/index.js": {
+    "file": "assets/index-DSx-L0Mr.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog/config/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-_UPS6_Gc.css"
+    ]
+  },
+  "module/blog-module/elements/blog/preview/index.js": {
+    "file": "assets/index-Eha8tcgW.js",
+    "name": "index",
+    "src": "module/blog-module/elements/blog/preview/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-BbB0ClHD.css"
+    ]
+  },
+  "module/blog-module/extension/component/cms/werkl-cms-sidebar/index.js": {
+    "file": "assets/index-BWUygk3u.js",
+    "name": "index",
+    "src": "module/blog-module/extension/component/cms/werkl-cms-sidebar/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-BSKToQEo.css"
+    ]
+  },
+  "module/blog-module/extension/component/cms/werkl-cms-slot/index.js": {
+    "file": "assets/index-B1VMVOxB.js",
+    "name": "index",
+    "src": "module/blog-module/extension/component/cms/werkl-cms-slot/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-w4dd0mKR.css"
+    ]
+  },
+  "module/blog-module/extension/sw-cms/component/sw-cms-sidebar/index.js": {
+    "file": "assets/index-DmeWiJy3.js",
+    "name": "index",
+    "src": "module/blog-module/extension/sw-cms/component/sw-cms-sidebar/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "main.js"
+    ]
+  },
+  "module/blog-module/extension/sw-cms/page/sw-cms-list/index.js": {
+    "file": "assets/index-CYzl_PQk.js",
+    "name": "index",
+    "src": "module/blog-module/extension/sw-cms/page/sw-cms-list/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "main.js"
+    ]
+  },
+  "module/blog-module/page/werkl-blog-author/werkl-blog-author-create/index.js": {
+    "file": "assets/index-D6V-0Sx3.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-author/werkl-blog-author-create/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/page/werkl-blog-author/werkl-blog-author-detail/index.js": {
+    "file": "assets/index-DYcY17ja.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-author/werkl-blog-author-detail/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-Df5fb96Q.css"
+    ]
+  },
+  "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js": {
+    "file": "assets/index-Cxmxn72b.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/index-DAqgNfxg.css"
+    ]
+  },
+  "module/blog-module/page/werkl-blog-create/index.js": {
+    "file": "assets/index-_TB058Wl.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-create/index.js",
+    "isDynamicEntry": true
+  },
+  "module/blog-module/page/werkl-blog-detail/index.js": {
+    "file": "assets/index-B4eHKQ7h.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-detail/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_slugify-CLfdhm_z.js",
+      "main.js"
+    ]
+  },
+  "module/blog-module/page/werkl-blog-list/index.js": {
+    "file": "assets/index-Ci4v9l6C.js",
+    "name": "index",
+    "src": "module/blog-module/page/werkl-blog-list/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_slugify-CLfdhm_z.js"
+    ],
+    "css": [
+      "assets/index-Cf66Q-If.css"
+    ]
+  }
+}

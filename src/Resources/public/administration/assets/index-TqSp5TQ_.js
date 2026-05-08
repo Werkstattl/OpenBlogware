@@ -1,0 +1,2 @@
+const e=`{% block werkl_cms_element_blog_newest_listing %} <div class="werkl-cms-el-blog-newest-listing"> <h2> {{ $tc('werkl-blog.elements.blogNewestListing.component.elementHeadline') }} </h2> <sw-alert variant="info"> {{ $tc('werkl-blog.elements.blogNewestListing.component.infoText') }} </sw-alert> </div> {% endblock %}`,t={template:e};export{t as default};
+//# sourceMappingURL=index-TqSp5TQ_.js.map

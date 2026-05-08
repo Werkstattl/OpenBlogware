@@ -1,0 +1,2 @@
+const e=`{% block werkl_cms_element_blog_categories_config %} <div class="werkl-cms-el-config-blog-categories"> <sw-alert variant="info"> {{ $tc('werkl-blog.elements.blogCategories.component.infoText') }} </sw-alert> </div> {% endblock %}`,{Mixin:t}=Shopware,o={template:e,inject:["repositoryFactory"],mixins:[t.getByName("cms-element")],created(){this.createdComponent()},methods:{createdComponent(){this.initElementConfig("blog-categories")}}};export{o as default};
+//# sourceMappingURL=index-DnhQa9HV.js.map
