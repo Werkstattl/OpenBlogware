@@ -53,9 +53,10 @@ class BlogCategoryIndexer extends EntityIndexer
     {
         $iterator = $this->getIterator($offset);
 
+        /** @var array<string> $ids */
         $ids = $iterator->fetch();
 
-        if (empty($ids)) {
+        if ($ids === []) {
             return null;
         }
 
@@ -81,12 +82,12 @@ class BlogCategoryIndexer extends EntityIndexer
             }
             $state = $result->getExistence()->getState();
 
-            if (isset($state['parent_id'])) {
+            if (isset($state['parent_id']) && is_string($state['parent_id'])) {
                 $ids[] = Uuid::fromBytesToHex($state['parent_id']);
             }
 
             $payload = $result->getPayload();
-            if (\array_key_exists('parentId', $payload)) {
+            if (\array_key_exists('parentId', $payload) && (is_string($payload['parentId']) || $payload['parentId'] === null) && \array_key_exists('id', $payload) && is_string($payload['id'])) {
                 if ($payload['parentId'] !== null) {
                     $ids[] = $payload['parentId'];
                 }
@@ -94,7 +95,7 @@ class BlogCategoryIndexer extends EntityIndexer
             }
         }
 
-        if (empty($ids)) {
+        if ($ids === []) {
             return null;
         }
 
@@ -173,7 +174,7 @@ class BlogCategoryIndexer extends EntityIndexer
     /**
      * @param array<string> $categoryIds
      *
-     * @return array<string>
+     * @return list<string>
      */
     private function fetchChildren(array $categoryIds, string $versionId): array
     {
@@ -192,7 +193,10 @@ class BlogCategoryIndexer extends EntityIndexer
         $query->andWhere('category.version_id = :version');
         $query->setParameter('version', Uuid::fromHexToBytes($versionId));
 
-        return $query->executeQuery()->fetchFirstColumn();
+        /** @var list<string> $result */
+        $result = $query->executeQuery()->fetchFirstColumn();
+
+        return $result;
     }
 
     /**

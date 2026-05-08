@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 $sw-property-list-color-error: $color-crimson-500;
 $sw-property-list-color-success: $color-emerald-500;
@@ -27,7 +27,8 @@ $sw-property-list-color-success: $color-emerald-500;
                 color: $color-darkgray-200;
             }
 
-            .sw-tree__content, .sw-tree .sw-tree-actions__headline {
+            .sw-tree__content,
+            .sw-tree .sw-tree-actions__headline {
                 border-left: 1px solid $color-gray-300;
             }
         }
@@ -50,7 +51,7 @@ $sw-property-list-color-success: $color-emerald-500;
 
         &.has--smart-bar.has--side-content {
             grid-template-columns: 120px 440px auto;
-            grid-template-areas: "c a b";
+            grid-template-areas: 'c a b';
         }
 
         .sw-data-grid__cell--active {

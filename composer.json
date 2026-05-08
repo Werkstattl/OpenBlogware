@@ -1,7 +1,7 @@
 {
     "name": "werkstattl/openblogware",
     "description": "OpenBlogware: A Blog Module for Shopware 6.",
-    "version": "5.2.1",
+    "version": "5.3.0",
     "type": "shopware-platform-plugin",
     "keywords": ["blog", "news"],
     "license":"MIT",
@@ -23,16 +23,13 @@
         "shopware/storefront": "~6.7.0"
     },
     "require-dev":{
-        "phpunit/phpunit": "^9.5",
-        "symplify/easy-coding-standard": "^12.1.14",
-        "kubawerlos/php-cs-fixer-custom-fixers": "^3.16",
-        "phpstan/phpstan": "^1.10",
-        "phpcompatibility/php-compatibility": "^9.3",
-        "infection/infection": "^0.29.6"
+        "phpstan/phpstan": "2.1.43",
+        "phpunit/phpunit": "^11.5.19",
+        "shopwarelabs/phpstan-shopware": "^0.1.14",
+        "phpstan/extension-installer": "^1.4"
     },
     "extra": {
         "shopware-plugin-class": "Werkl\\OpenBlogware\\WerklOpenBlogware",
-        "plugin-icon": "src/Resources/config/plugin.png",
         "copyright": "(c) by SMK Shape & Shift LTD and Werkstattl",
         "label": {
             "de-DE": "OpenBlogware",
@@ -59,21 +56,30 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenBlogware\\Tests\\": "tests/PHPUnit/"
+            "Werkl\\OpenBlogware\\Tests\\Unit\\": "tests/unit/"
         }
     },
     "config": {
         "allow-plugins": {
             "symfony/runtime": true,
-            "infection/extension-installer": true
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "[ ! -f vendor/bin/phpcs ] || vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+        "code-style:format": "@code-style:format:fix --dry-run",
+        "code-style:format:fix": "docker run --rm -v %cd%:/ext shopware/shopware-cli:latest extension format /ext",
+        "code-style:ludtwig": "docker run --rm -v %cd%/src/Resources/views:/work maltejanz/ludtwig:latest .",
+        "code-style:ludtwig:fix": "@code-style:ludtwig --fix",
+        "code-style:check": "docker run --rm -v %cd%:/ext shopware/shopware-cli:latest extension validate --full /ext",
+        "code-style": [
+            "@code-style:format",
+            "@code-style:ludtwig",
+            "@code-style:check"
         ],
-        "post-update-cmd": [
-            "[ ! -f vendor/bin/phpcs ] || vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+        "snippets:check": "comparejson -e -s=\"/\" ./src/**/snippet/*.json && comparejson -e -g=\"(\\w+)\\.[a-z]{2}\\-[A-Z]{2}\\.json$\" ./src/Resources/snippet/*/*.json",
+        "tests:phpunit": "vendor/bin/phpunit",
+        "tests": [
+            "@tests:phpunit"
         ]
     }
 }

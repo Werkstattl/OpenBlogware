@@ -10,9 +10,7 @@ export default {
 
     emits: ['element-update'],
 
-    mixins: [
-        Mixin.getByName('cms-element'),
-    ],
+    mixins: [Mixin.getByName('cms-element')],
 
     computed: {
         blogEntryRepository() {
@@ -41,20 +39,24 @@ export default {
                 const criteria = new Criteria();
                 criteria.addAssociation('blogCategories');
 
-                this.blogEntryRepository.get(blogEntryId, Context.api, criteria).then((blogEntry) => {
-                    this.element.config.blogEntry.value = blogEntryId;
+                this.blogEntryRepository
+                    .get(blogEntryId, Context.api, criteria)
+                    .then((blogEntry) => {
+                        this.element.config.blogEntry.value = blogEntryId;
 
-                    if (!blogEntry.translated.mediaId) {
-                        this.element.data.blogEntry = blogEntry;
+                        if (!blogEntry.translated.mediaId) {
+                            this.element.data.blogEntry = blogEntry;
 
-                        return;
-                    }
+                            return;
+                        }
 
-                    this.mediaRepository.get(blogEntry.translated.mediaId).then((media) => {
-                        blogEntry.media = media;
-                        this.element.data.blogEntry = blogEntry;
+                        this.mediaRepository
+                            .get(blogEntry.translated.mediaId)
+                            .then((media) => {
+                                blogEntry.media = media;
+                                this.element.data.blogEntry = blogEntry;
+                            });
                     });
-                });
             }
 
             this.$emit('element-update', this.element);

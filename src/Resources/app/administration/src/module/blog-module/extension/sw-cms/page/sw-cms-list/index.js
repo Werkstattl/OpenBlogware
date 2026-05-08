@@ -1,7 +1,9 @@
 import BLOG from '../../../../constant/open-blogware.constant';
 import template from './sw-cms-list.html.twig';
 
-const { Data: { Criteria } } = Shopware;
+const {
+    Data: { Criteria },
+} = Shopware;
 
 export default {
     template,
@@ -10,12 +12,17 @@ export default {
         listCriteria() {
             const criteria = this.$super('listCriteria');
 
-            criteria.getAssociation('blogEntries').addSorting(Criteria.sort('title', 'ASC')).setLimit(this.associationLimit);
+            criteria
+                .getAssociation('blogEntries')
+                .addSorting(Criteria.sort('title', 'ASC'))
+                .setLimit(this.associationLimit);
 
             if (this.currentPageType === null) {
-                criteria.addFilter(Criteria.not('AND', [
-                    Criteria.equals('type', BLOG.PAGE_TYPES.BLOG_DETAIL),
-                ]));
+                criteria.addFilter(
+                    Criteria.not('AND', [
+                        Criteria.equals('type', BLOG.PAGE_TYPES.BLOG_DETAIL),
+                    ])
+                );
             }
 
             return criteria;
@@ -58,7 +65,9 @@ export default {
             const disabledToolTip = this.$super('deleteDisabledToolTip', page);
 
             if (page.type === BLOG.PAGE_TYPES.BLOG_DETAIL) {
-                disabledToolTip.message = this.$tc('sw-cms.general.deleteDisabledBlogToolTip');
+                disabledToolTip.message = this.$tc(
+                    'sw-cms.general.deleteDisabledBlogToolTip'
+                );
             }
 
             return disabledToolTip;
@@ -70,7 +79,9 @@ export default {
 
         getPageCount(page) {
             const originalPageCount = this.$super('getPageCount', page);
-            let pageCount = Number.isInteger(originalPageCount) ? originalPageCount : 0;
+            let pageCount = Number.isInteger(originalPageCount)
+                ? originalPageCount
+                : 0;
 
             pageCount += this.getPageBlogCount(page);
 
@@ -87,7 +98,10 @@ export default {
         },
 
         optionContextDeleteDisabled(page) {
-            const deleteDisabled = this.$super('optionContextDeleteDisabled', page);
+            const deleteDisabled = this.$super(
+                'optionContextDeleteDisabled',
+                page
+            );
 
             return deleteDisabled || this.getPageBlogCount(page) > 0;
         },

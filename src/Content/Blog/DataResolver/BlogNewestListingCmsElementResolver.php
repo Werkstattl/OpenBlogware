@@ -83,8 +83,9 @@ class BlogNewestListingCmsElementResolver extends AbstractCmsElementResolver
             $blogCategoriesConfig = $config->get('blogCategories') ?? null;
         }
 
-        if ($blogCategoriesConfig !== null && \is_array($blogCategoriesConfig->getValue())) {
-            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategoriesConfig->getValue()));
+        if ($blogCategoriesConfig !== null && ($blogCategories = $blogCategoriesConfig->getValue()) && \is_array($blogCategories)) {
+            /** @var list<string> $blogCategories */
+            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategories));
         }
 
         $limit = 1;

@@ -17,7 +17,10 @@
             {% endblock %}
 
             {% block werkl_blog_list_smart_bar_header_amount %}
-            <span v-if="!isLoading" class="sw-page__smart-bar-amount">
+            <span
+                v-if="!isLoading"
+                class="sw-page__smart-bar-amount"
+            >
                 ({{ total }})
             </span>
             {% endblock %}
@@ -25,7 +28,7 @@
     </template>
 
     <template #language-switch>
-        <sw-language-switch @on-change="changeLanguage" />
+        <sw-language-switch @on-change="changeLanguage"/>
     </template>
 
     {% block werkl_blog_list_smart_bar_actions %}
@@ -51,7 +54,7 @@
     {% endblock %}
 
     <template #sidebar>
-        <werkl-blog-vertical-tabs />
+        <werkl-blog-vertical-tabs/>
     </template>
 
     <template #side-content>
@@ -88,7 +91,21 @@
         {% block werkl_blog_list_content %}
         <sw-entity-listing
             v-else-if="entitySearchable"
-            {# @deprecated tag:v6.8.0 - Property items will be removed. data-source will be used instead. #}
+            {#
+            @deprecated
+            tag:v6.8.0
+            -
+            Property
+            items
+            will
+            be
+            removed.
+            data-source
+            will
+            be
+            used
+            instead.
+            #}
             :items="blogEntries"
             :data-source="blogEntries"
             :columns="columns"
@@ -103,7 +120,7 @@
             <template #column-active="{ item, isInlineEdit }">
                 {% block werkl_blog_list_grid_columns_name_inline_edit %}
                 <template v-if="isInlineEdit">
-                    <mt-checkbox v-model:checked="item.active" />
+                    <mt-checkbox v-model:checked="item.active"/>
                 </template>
                 {% endblock %}
 
@@ -129,7 +146,9 @@
             {% block werkl_blog_list_grid_columns_author %}
             <template #column-author="{ item }">
                 {% block werkl_blog_list_grid_columns_author_content %}
-                <router-link :to="{ name: 'blog.module.author.detail', params: { id: item.authorId } }">
+                <router-link
+                    :to="{ name: 'blog.module.author.detail', params: { id: item.authorId } }"
+                >
                     {{ salutation(item.blogAuthor) }}
                 </router-link>
                 {% endblock %}
@@ -145,9 +164,7 @@
             {% block werkl_blog_list_grid_actions %}
             <template #more-actions="{ item }">
                 {% block werkl_blog_list_grid_actions_duplicate %}
-                <sw-context-menu-item
-                    @click="onDuplicate(item)"
-                >
+                <sw-context-menu-item @click="onDuplicate(item)">
                     {{ $tc('sw-cms.components.cmsListItem.duplicate') }}
                 </sw-context-menu-item>
                 {% endblock %}

@@ -1,2 +1,0 @@
-const e='{% block werkl_cms_preview_blog_categories %} <div class="werkl-cms-preview-blog-categories"> <div class="werkl-cms-preview-blog-categories-item"> <h2>Blog categories</h2> <div> <time>{{ today }}</time> <div></div> <div></div> </div> <div> <time>{{ today }}</time> <div></div> <div></div> </div> </div> </div> {% endblock %}',i={template:e,computed:{today(){return new Date().toLocaleDateString()}}};export{i as default};
-//# sourceMappingURL=index-BxtcNrp4.js.map

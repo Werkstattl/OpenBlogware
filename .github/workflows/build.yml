@@ -1,0 +1,18 @@
+name: Build Plugin
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: FriendsOfShopware/actions/.github/workflows/github.yml@main
+    with:
+      extensionName: WerklOpenBlogware
+      shopwareVersion: 6.7.0
+      cliVersion: latest
+    secrets:
+      ghToken: ${{ secrets.GITHUB_TOKEN }}

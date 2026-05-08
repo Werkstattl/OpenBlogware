@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Page\Blog;
 
+use Shopware\Core\Content\Cms\CmsException;
 use Shopware\Core\Content\Cms\CmsPageEntity;
-use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
@@ -42,7 +42,7 @@ class BlogPageLoader
      * It assigns metadata to page instance
      * It dispatches an event to allow other extensions to modify the page instance
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      * @throws InconsistentCriteriaIdsException
      * @throws RoutingException
      * @throws SystemConfigException
@@ -50,7 +50,8 @@ class BlogPageLoader
     public function load(Request $request, SalesChannelContext $context): BlogPage
     {
         $articleId = $request->attributes->get('articleId');
-        if (!$articleId) {
+
+        if ($articleId === null || !\is_string($articleId) || $articleId === '') {
             throw RoutingException::missingRequestParameter('articleId', '/articleId');
         }
 
@@ -69,6 +70,10 @@ class BlogPageLoader
             $metaTitle = $blogEntry->getTranslation('metaTitle') ?? $blogEntry->getTitle();
             $metaDescription = $blogEntry->getTranslation('metaDescription') ?? $blogEntry->getTeaser();
             $metaAuthor = $blogEntry->getBlogAuthor() ? $blogEntry->getBlogAuthor()->getFullName() : '';
+
+            \assert($metaTitle === null || \is_string($metaTitle));
+            \assert($metaDescription === null || \is_string($metaDescription));
+
             $metaInformation->setMetaTitle($metaTitle ?? '');
             $metaInformation->setMetaDescription($metaDescription ?? '');
             $metaInformation->setAuthor($metaAuthor ?? '');
@@ -90,7 +95,7 @@ class BlogPageLoader
      * It dispatches an event to allow other extensions to modify the criteria
      * It gets and returns the Blog Entry's instance for the given criteria
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      */
     private function loadBlogEntry(string $articleId, SalesChannelContext $context): BlogEntryEntity
     {
@@ -106,7 +111,7 @@ class BlogPageLoader
             ->first();
 
         if (!$blogEntry instanceof BlogEntryEntity) {
-            throw new PageNotFoundException($articleId);
+            throw CmsException::pageNotFound($articleId);
         }
 
         return $blogEntry;
@@ -117,19 +122,21 @@ class BlogPageLoader
      * It gets the CMS Page's id from the plugin configuration
      * It gets and returns the CMS Page's instance for the given id
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      * @throws SystemConfigException
      */
     private function loadBlogDetailCmsPage(Request $request, SalesChannelContext $context): CmsPageEntity
     {
-        $detailCmsPageId = $this->systemConfigService->getString('WerklOpenBlogware.config.cmsBlogDetailPage');
+        $detailCmsPageId = $this->systemConfigService->getString('WerklOpenBlogware.config.cmsBlogDetailPage', $context->getSalesChannelId());
+
         if (!$detailCmsPageId) {
             throw SystemConfigException::configurationNotFound('WerklOpenBlogware');
         }
 
         $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->first();
+
         if (!$detailCmsPage instanceof CmsPageEntity) {
-            throw new PageNotFoundException($detailCmsPageId);
+            throw CmsException::pageNotFound($detailCmsPageId);
         }
 
         return $detailCmsPage;

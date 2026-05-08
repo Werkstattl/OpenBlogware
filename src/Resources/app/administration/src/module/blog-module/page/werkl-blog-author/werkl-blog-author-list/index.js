@@ -48,7 +48,8 @@ export default {
                     label: 'werkl-blog-author.list.table.salutation',
                     width: '100px',
                     allowResize: true,
-                }, {
+                },
+                {
                     property: 'fullName',
                     dataIndex: 'firstName,lastName',
                     inlineEdit: 'string',
@@ -56,12 +57,14 @@ export default {
                     routerLink: 'sw.blog.author.detail',
                     allowResize: true,
                     primary: true,
-                }, {
+                },
+                {
                     property: 'displayName',
                     label: 'werkl-blog-author.list.table.displayName',
                     allowResize: true,
                     inlineEdit: 'string',
-                }, {
+                },
+                {
                     property: 'email',
                     label: 'werkl-blog-author.list.table.email',
                     align: 'right',

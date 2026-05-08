@@ -1,6 +1,5 @@
 {% block werkl_cms_element_blog_config %}
 <div class="werkl-cms-el-config-blog">
-
     {% block werkl_cms_element_blog_config_pagination_count %}
     <mt-number-field
         v-model="element.config.paginationCount.value"
@@ -20,7 +19,6 @@
         :label="$tc('werkl-blog.elements.blog.config.showType.label')"
     />
     {% endblock %}
-
 
     {% block werkl_cms_element_blog_config_blog_categories %}
     <werkl-blog-category-tree-field
@@ -58,8 +56,8 @@
         :hero="false"
         :isLoading="false"
         :large="false"
-        class="werkl-cms-el-config-blog-filter">
-
+        class="werkl-cms-el-config-blog-filter"
+    >
         {% block block_werkl_cms_element_blog_config_filter_show_category %}
         <mt-checkbox
             v-model:checked="element.config.showCategoryFilter.value"
@@ -75,6 +73,5 @@
         {% endblock %}
     </sw-card>
     {% endblock %}
-
 </div>
 {% endblock %}

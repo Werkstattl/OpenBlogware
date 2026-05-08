@@ -1,2 +1,0 @@
-const e='{% block werkl_cms_element_blog_preview %} <div class="werkl-cms-el-preview-blog"> <p>Blog listing</p> <hr> <div class="werkl-cms-el-category-placeholder-listing"> <div class="werkl-cms-el-category-navigation__placeholder"></div> <hr> <div class="werkl-cms-el-category-navigation__placeholder"></div> <div class="werkl-cms-el-category-navigation__placeholder--subcategory"></div> <div class="werkl-cms-el-category-navigation__placeholder--subcategory"></div> </div> </div> {% endblock %}',l={template:e};export{l as default};
-//# sourceMappingURL=index-BXczMg9k.js.map

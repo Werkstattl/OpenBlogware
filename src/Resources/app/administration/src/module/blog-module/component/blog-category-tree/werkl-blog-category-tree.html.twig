@@ -34,7 +34,8 @@
                 disableContextMenu,
                 selectedItemsPathIds,
                 checkedItemIds,
-            }">
+            }"
+        >
             <werkl-blog-tree-item
                 v-for="item in treeItems"
                 :key="item.id"
@@ -60,15 +61,14 @@
         </template>
         {% endblock %}
     </sw-tree>
-
     <div v-else>
-        <sw-skeleton variant="tree-item" />
-        <sw-skeleton variant="tree-item-nested" />
-        <sw-skeleton variant="tree-item-nested" />
-        <sw-skeleton variant="tree-item-nested" />
-        <sw-skeleton variant="tree-item" />
-        <sw-skeleton variant="tree-item-nested" />
-        <sw-skeleton variant="tree-item-nested" />
+        <sw-skeleton variant="tree-item"/>
+        <sw-skeleton variant="tree-item-nested"/>
+        <sw-skeleton variant="tree-item-nested"/>
+        <sw-skeleton variant="tree-item-nested"/>
+        <sw-skeleton variant="tree-item"/>
+        <sw-skeleton variant="tree-item-nested"/>
+        <sw-skeleton variant="tree-item-nested"/>
     </div>
 </div>
 {% endblock %}

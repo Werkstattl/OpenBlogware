@@ -1,14 +1,13 @@
 {% block werkl_cms_element_blog_detail_config %}
 <div class="werkl-cms-el-config-blog-detail">
-
     {% block werkl_cms_element_blog_detail_config_meta %}
     <sw-card
         :title="$tc('werkl-blog.elements.blogDetail.config.showMeta.label')"
         :hero="false"
         :isLoading="false"
         :large="false"
-        class="werkl-cms-el-config-blog-detail-meta">
-
+        class="werkl-cms-el-config-blog-detail-meta"
+    >
         {% block werkl_cms_element_blog_detail_config_meta_show_author %}
         <mt-checkbox
             v-model:checked="element.config.showAuthor.value"
@@ -29,9 +28,7 @@
             :label="$tc('werkl-blog.elements.blogDetail.config.showMeta.fullWidth')"
         />
         {% endblock %}
-
     </sw-card>
     {% endblock %}
-
 </div>
 {% endblock %}

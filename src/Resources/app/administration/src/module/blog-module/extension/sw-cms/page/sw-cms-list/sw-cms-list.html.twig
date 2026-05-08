@@ -11,9 +11,11 @@
             {{ item.translated.name }}
         </router-link>
     </template>
+
     <template v-else-if="isBlogPage(item)">
         {{ item.translated.name }}
     </template>
+
     <template v-else>
         <mt-icon
             v-if="item.locked"
@@ -37,6 +39,7 @@
 >
     {{ $tc('sw-cms.components.cmsListItem.edit') }}
 </sw-context-menu-item>
+
 <template v-else-if="!isBlogPage(item)">
     {% parent() %}
 </template>

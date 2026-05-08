@@ -45,12 +45,14 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
     ): ProductSuggestRouteResponse {
         $response = $this->getDecorated()->load($request, $context, $criteria);
 
-        if (!$this->systemConfigService->get('WerklOpenBlogware.config.enableSearchBox')) {
+        if (!$this->systemConfigService->get('WerklOpenBlogware.config.enableSearchBox', $context->getSalesChannelId())) {
             return $response;
         }
 
+        /** @var string|null $search */
+        $search = $request->get('search');
         $limit = $response->getListingResult()->getCriteria()->getLimit() ?? 1;
-        $blogResult = $this->getBlogs($request->get('search'), (int) $limit, $context);
+        $blogResult = $this->getBlogs($search, (int) $limit, $context);
         $response->getListingResult()->addExtension('blogResult', $blogResult);
 
         return $response;
@@ -66,7 +68,7 @@ class ProductSuggestDecorated extends AbstractProductSuggestRoute
      *
      * @return EntitySearchResult<BlogEntryCollection>
      */
-    private function getBlogs(string $term, int $limit, SalesChannelContext $context): EntitySearchResult
+    private function getBlogs(?string $term, int $limit, SalesChannelContext $context): EntitySearchResult
     {
         $criteria = new Criteria();
         $criteria->setTerm($term);

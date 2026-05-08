@@ -1,7 +1,34 @@
 services:
   shop:
+    container_name: shopware_openblogware
     image: dockware/shopware:latest
     ports:
-      - "80:80"
+      - "22:22"     # ssh
+      - "80:80"     # apache2
+      - "5173:5173" # watch admin
+      - "9998:9998" # watch storefront proxy (not needed if you start with "make watch-storefront")
+      - "9999:9999" # watch storefront
     volumes:
-      - .:/var/www/html/custom/plugins/WerklOpenBlogware
+      - "db_volume:/var/lib/mysql"
+      - "shop_volume:/var/www/html"
+      # - ".:/var/www/html/custom/plugins/WerklOpenBlogware"
+    networks:
+      - web
+    environment:
+      - XDEBUG_ENABLED=0
+
+## ***********************************************************************
+##  VOLUMES
+## ***********************************************************************
+volumes:
+  db_volume:
+    driver: local
+  shop_volume:
+    driver: local
+
+## ***********************************************************************
+##  NETWORKS
+## ***********************************************************************
+networks:
+  web:
+    external: false

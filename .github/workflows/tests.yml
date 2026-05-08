@@ -1,0 +1,32 @@
+name: Tests
+on:
+  pull_request:
+    paths:
+      - '**/*.php'
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.php'
+  workflow_dispatch:
+
+jobs:
+  phpunit:
+    name: PHPUnit tests
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up PHP & Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+      - name: Run PHPUnit tests
+        run: composer run tests:phpunit

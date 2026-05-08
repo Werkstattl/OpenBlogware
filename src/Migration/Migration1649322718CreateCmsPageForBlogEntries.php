@@ -66,8 +66,11 @@ class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
             $createdAt = (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT);
             $updateSql = '';
 
+            /** @var list<array{ id: string }> $blogEntries */
             $blogEntries = $connection->fetchAllAssociative('SELECT id FROM werkl_blog_entries WHERE cms_page_id IS NULL');
+
             foreach ($blogEntries as $blogEntry) {
+                /** @var list<array{ language_id: string, title: string, content: string }> $blogTranslations */
                 $blogTranslations = $connection->fetchAllAssociative(
                     'SELECT language_id, title, content FROM werkl_blog_entries_translation WHERE werkl_blog_entries_id = :blogEntryId',
                     ['blogEntryId' => $blogEntry['id']]
@@ -102,7 +105,7 @@ class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
     }
 
     /**
-     * @param list<array<string, mixed>> $blogTranslations
+     * @param list<array{ language_id: string, title: string, content: string }> $blogTranslations
      */
     private function createCmsPage(array $blogTranslations, string $versionId, string $createdAt): string
     {
@@ -180,7 +183,7 @@ class Migration1649322718CreateCmsPageForBlogEntries extends MigrationStep
                 'cms_slot_id' => $cmsSlotId,
                 'cms_slot_version_id' => $versionId,
                 'language_id' => $blogTranslation['language_id'],
-                'config' => json_encode($content),
+                'config' => json_encode($content, JSON_THROW_ON_ERROR),
                 'created_at' => $createdAt,
             ];
         }

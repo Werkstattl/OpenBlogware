@@ -50,6 +50,8 @@ class BlogEntryEntity extends Entity
 
     protected ?string $cmsPageId = null;
 
+    protected ?string $cmsPageVersionId = null;
+
     protected ?CmsPageEntity $cmsPage = null;
 
     protected ?TagCollection $tags = null;
@@ -222,6 +224,16 @@ class BlogEntryEntity extends Entity
     public function setCmsPageId(string $cmsPageId): void
     {
         $this->cmsPageId = $cmsPageId;
+    }
+
+    public function getCmsPageVersionId(): ?string
+    {
+        return $this->cmsPageVersionId;
+    }
+
+    public function setCmsPageVersionId(?string $cmsPageVersionId): void
+    {
+        $this->cmsPageVersionId = $cmsPageVersionId;
     }
 
     public function getTags(): ?TagCollection

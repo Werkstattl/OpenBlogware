@@ -1,7 +1,13 @@
 const { Component } = Shopware;
 
-Component.register('sw-cms-block-blog-single-entry', () => import('./component'));
-Component.register('werkl-cms-preview-blog-single-entry', () => import('./preview'));
+Component.register(
+    'sw-cms-block-blog-single-entry',
+    () => import('./component')
+);
+Component.register(
+    'werkl-cms-preview-blog-single-entry',
+    () => import('./preview')
+);
 
 Shopware.Service('cmsService').registerCmsBlock({
     name: 'blog-single-entry',

@@ -1,7 +1,10 @@
 const { Component } = Shopware;
 
 Component.register('sw-cms-block-blog-categories', () => import('./component'));
-Component.register('werkl-cms-preview-blog-categories', () => import('./preview'));
+Component.register(
+    'werkl-cms-preview-blog-categories',
+    () => import('./preview')
+);
 
 Shopware.Service('cmsService').registerCmsBlock({
     name: 'blog-categories',

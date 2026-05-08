@@ -63,12 +63,14 @@ class BlogCmsElementResolver extends AbstractCmsElementResolver
             $blogTagsConfig = $config->get('blogTags') ?? null;
         }
 
-        if ($blogCategoriesConfig !== null && \is_array($blogCategoriesConfig->getValue())) {
-            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategoriesConfig->getValue()));
+        if ($blogCategoriesConfig !== null && ($blogCategories = $blogCategoriesConfig->getValue()) && \is_array($blogCategories)) {
+            /** @var list<string> $blogCategories */
+            $criteria->addFilter(new EqualsAnyFilter('blogCategories.id', $blogCategories));
         }
 
-        if ($blogTagsConfig !== null && \is_array($blogTagsConfig->getValue())) {
-            $criteria->addFilter(new EqualsAnyFilter('tags.id', $blogTagsConfig->getValue()));
+        if ($blogTagsConfig !== null && ($blogTags = $blogTagsConfig->getValue()) && \is_array($blogTags)) {
+            /** @var list<string> $blogTags */
+            $criteria->addFilter(new EqualsAnyFilter('tags.id', $blogTags));
         }
 
         $request = $resolverContext->getRequest();

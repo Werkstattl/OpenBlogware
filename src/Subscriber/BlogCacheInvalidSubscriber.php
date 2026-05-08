@@ -72,21 +72,23 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     public function onUpdateSeoUrlCmsPage(EntityWrittenEvent $event): void
     {
         $blogIds = $this->getBlogIds($event);
-        if (empty($blogIds)) {
+
+        if ($blogIds === []) {
             return;
         }
 
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, array_values($blogIds));
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $blogIds);
     }
 
     public function onUpdateInvalidateCacheCmsPage(EntityWrittenEvent $event): void
     {
         $blogIds = $this->getBlogIds($event);
-        if (empty($blogIds)) {
+
+        if ($blogIds === []) {
             return;
         }
 
-        $this->invalidateCache(array_values($blogIds));
+        $this->invalidateCache($blogIds);
 
         $this->invalidateCacheCategory($event->getContext());
     }
@@ -176,7 +178,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     /**
      * Invalidate cache
      *
-     * @param array<string> $articleIds
+     * @param list<string> $articleIds
      */
     private function invalidateCache(array $articleIds): void
     {
@@ -206,12 +208,9 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     private function getBlogIds(EntityWrittenEvent $event): array
     {
-        /** @var list<string> $ids */
-        $ids = $this->blogRepository->searchIds(
+        return $this->blogRepository->searchIds(
             (new Criteria())->addFilter(new EqualsAnyFilter('cmsPageId', $event->getIds())),
             $event->getContext()
         )->getIds();
-
-        return $ids;
     }
 }

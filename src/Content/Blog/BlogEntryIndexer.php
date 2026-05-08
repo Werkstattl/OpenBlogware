@@ -33,11 +33,11 @@ class BlogEntryIndexer extends EntityIndexer
     {
         $blogEntryUpdates = $event->getPrimaryKeys(BlogEntryDefinition::ENTITY_NAME);
 
-        if (\count($blogEntryUpdates) === 0) {
+        if ($blogEntryUpdates === []) {
             return null;
         }
 
-        return new BlogEntryIndexingMessage(array_values($blogEntryUpdates), null, $event->getContext());
+        return new BlogEntryIndexingMessage($blogEntryUpdates, null, $event->getContext());
     }
 
     public function handle(EntityIndexingMessage $message): void
@@ -48,8 +48,9 @@ class BlogEntryIndexer extends EntityIndexer
             return;
         }
 
-        $ids = array_unique(array_filter($ids));
-        if (empty($ids)) {
+        $ids = array_values(array_unique(array_filter($ids)));
+
+        if ($ids === []) {
             return;
         }
 
@@ -60,9 +61,10 @@ class BlogEntryIndexer extends EntityIndexer
     {
         $iterator = $this->iteratorFactory->createIterator($this->repository->getDefinition(), $offset);
 
+        /** @var array<string> $ids */
         $ids = $iterator->fetch();
 
-        if (empty($ids)) {
+        if ($ids === []) {
             return null;
         }
 

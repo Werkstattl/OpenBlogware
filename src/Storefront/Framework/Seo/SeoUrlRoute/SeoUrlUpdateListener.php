@@ -8,6 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
@@ -45,27 +46,22 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 
     public function onSalesChannelWritten(EntityWrittenEvent $event): void
     {
-        $blogEntryIds = [];
+        $salesChannelIds = array_filter(array_map(
+            fn (EntityWriteResult $writeResult): ?string => $writeResult->getOperation() === EntityWriteResult::OPERATION_INSERT ? $writeResult->getPrimaryKey() : null,
+            $event->getWriteResults()
+        ));
 
-        foreach ($event->getWriteResults() as $writeResult) {
-            if ($writeResult->getOperation() !== EntityWriteResult::OPERATION_INSERT) {
-                continue;
-            }
-
-            $salesChannelId = $writeResult->getPrimaryKey();
-
-            if (!\is_string($salesChannelId)) {
-                continue;
-            }
-
-            $criteria = new Criteria();
-            $criteria->addFilter(new BlogEntryActiveFilter($salesChannelId));
-
-            $blogEntryIds = [
-                ...$blogEntryIds,
-                ...$this->blogRepository->searchIds($criteria, $event->getContext())->getIds(),
-            ];
+        if ($salesChannelIds === []) {
+            return;
         }
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new MultiFilter(MultiFilter::CONNECTION_OR, array_map(
+            fn (string $salesChannelId) => new BlogEntryActiveFilter($salesChannelId),
+            $salesChannelIds
+        )));
+
+        $blogEntryIds = $this->blogRepository->searchIds($criteria, $event->getContext())->getIds();
 
         if ($blogEntryIds === []) {
             return;
