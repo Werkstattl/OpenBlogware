@@ -1,6 +1,6 @@
 # 5.3.0
 - Behoben: Falsche Kriterien-Associations [#84](https://github.com/Werkstattl/OpenBlogware/pull/84)
-- Verbessert: Workflow- und Build-Pipeline-Setup [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
+- Behoben: Mehrere Fehler [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
 
 # 5.2.1
 - Behoben: Listing Aktionen funktionieren nicht mit älteren Shopware Versionen [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)

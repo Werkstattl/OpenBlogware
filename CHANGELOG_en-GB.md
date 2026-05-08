@@ -1,6 +1,6 @@
 # 5.3.0
 - Fixed: wrong criteria associations [#84](https://github.com/Werkstattl/OpenBlogware/pull/84)
-- Improved: workflow and build pipeline setup [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
+- Fixed: several errors [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
 
 # 5.2.1
 - Fixed listing actions not working with older Shopware versions [#80](https://github.com/Werkstattl/OpenBlogware/pull/80)
