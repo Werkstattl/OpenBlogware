@@ -5,8 +5,8 @@ namespace Werkl\OpenBlogware\Tests\Unit\Page\Blog;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Shopware\Core\Content\Cms\CmsException;
 use Shopware\Core\Content\Cms\CmsPageEntity;
-use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
@@ -140,7 +140,7 @@ class BlogPageLoaderTest extends TestCase
                 false,
                 null,
                 false,
-                PageNotFoundException::class,
+                CmsException::class,
                 1,
                 [],
             ],
@@ -158,7 +158,7 @@ class BlogPageLoaderTest extends TestCase
                 true,
                 'cms-111',
                 false,
-                PageNotFoundException::class,
+                CmsException::class,
                 1,
                 [],
             ],

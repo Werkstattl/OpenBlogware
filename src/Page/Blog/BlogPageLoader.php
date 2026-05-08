@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Werkl\OpenBlogware\Page\Blog;
 
 use Shopware\Core\Content\Cms\CmsPageEntity;
-use Shopware\Core\Content\Cms\Exception\PageNotFoundException;
+use Shopware\Core\Content\Cms\CmsException;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
@@ -42,7 +42,7 @@ class BlogPageLoader
      * It assigns metadata to page instance
      * It dispatches an event to allow other extensions to modify the page instance
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      * @throws InconsistentCriteriaIdsException
      * @throws RoutingException
      * @throws SystemConfigException
@@ -95,7 +95,7 @@ class BlogPageLoader
      * It dispatches an event to allow other extensions to modify the criteria
      * It gets and returns the Blog Entry's instance for the given criteria
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      */
     private function loadBlogEntry(string $articleId, SalesChannelContext $context): BlogEntryEntity
     {
@@ -112,7 +112,7 @@ class BlogPageLoader
             ->first();
 
         if (!$blogEntry instanceof BlogEntryEntity) {
-            throw new PageNotFoundException($articleId);
+            throw CmsException::pageNotFound($articleId);
         }
 
         return $blogEntry;
@@ -123,7 +123,7 @@ class BlogPageLoader
      * It gets the CMS Page's id from the plugin configuration
      * It gets and returns the CMS Page's instance for the given id
      *
-     * @throws PageNotFoundException
+     * @throws CmsException
      * @throws SystemConfigException
      */
     private function loadBlogDetailCmsPage(Request $request, SalesChannelContext $context): CmsPageEntity
@@ -137,7 +137,7 @@ class BlogPageLoader
         $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->first();
 
         if (!$detailCmsPage instanceof CmsPageEntity) {
-            throw new PageNotFoundException($detailCmsPageId);
+            throw CmsException::pageNotFound($detailCmsPageId);
         }
 
         return $detailCmsPage;
