@@ -3,6 +3,7 @@
 # OpenBlogware - Shopware 6 Blog Plugin
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4?logo=github&style=for-the-badge)](https://github.com/sponsors/7underlines)
+[![Donate via PayPal](https://img.shields.io/badge/Donate-PayPal-0070ba?logo=paypal&style=for-the-badge)](https://www.paypal.com/paypalme/thomaspeissl)
 
 **Note:** Version 5 and above require Shopware 6.7 or higher.
 
@@ -83,7 +84,7 @@ bin/console cache:clear
 
 ## 🙏 Support
 
-If you find this plugin useful, consider supporting me on [GitHub Sponsors](https://github.com/sponsors/7underlines)!
+If you find this plugin useful, consider supporting me through [GitHub Sponsors](https://github.com/sponsors/7underlines) or [PayPal](https://www.paypal.com/paypalme/thomaspeissl)!
 
 Your support helps me maintain and improve this project. Thank you! 💜
 
