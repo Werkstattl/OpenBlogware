@@ -44,6 +44,10 @@ class BlogEntryEntity extends Entity
 
     protected ?string $mediaId = null;
 
+    /**
+     * @internal The teaser image is stored in the translations (mediaId), this association is
+     *           hydrated manually by the BlogSubscriber and is not backed by a DAL field.
+     */
     protected ?MediaEntity $media = null;
 
     protected \DateTimeInterface $publishedAt;
@@ -241,7 +245,7 @@ class BlogEntryEntity extends Entity
         return $this->tags;
     }
 
-    public function setTags(?TagCollection $tags): void
+    public function setTags(TagCollection $tags): void
     {
         $this->tags = $tags;
     }

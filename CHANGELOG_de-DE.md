@@ -1,3 +1,6 @@
+# 5.3.1
+- Behoben: Alle 8 Fehler bei der Ausführung von `dal:validate` unter Shopware 6.7.14 [#87](https://github.com/Werkstattl/OpenBlogware/issues/87)
+
 # 5.3.0
 - Behoben: Falsche Kriterien-Associations [#84](https://github.com/Werkstattl/OpenBlogware/pull/84)
 - Behoben: Mehrere Fehler [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
