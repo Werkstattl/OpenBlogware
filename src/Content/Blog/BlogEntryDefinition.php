@@ -17,13 +17,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 use Shopware\Core\System\Tag\TagDefinition;
 use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogEntryBlogCategoryMappingDefinition;
+use Werkl\OpenBlogware\Content\Blog\Aggregate\BlogEntryTagMappingDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryTranslation\BlogEntryTranslationDefinition;
 use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorDefinition;
 use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryDefinition;
@@ -61,7 +61,7 @@ class BlogEntryDefinition extends EntityDefinition
 
             (new FkField('author_id', 'authorId', BlogAuthorDefinition::class))->addFlags(new Required()),
             (new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class))->addFlags(new ApiAware(), new Inherited()),
-            (new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new PrimaryKey(), new Required()),
+            (new ReferenceVersionField(CmsPageDefinition::class))->addFlags(new Required(), new ApiAware()),
 
             (new TranslatedField('mediaId'))->addFlags(new ApiAware()),
             (new TranslatedField('title'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
@@ -78,8 +78,8 @@ class BlogEntryDefinition extends EntityDefinition
 
             (new ManyToManyAssociationField('blogCategories', BlogCategoryDefinition::class, BlogEntryBlogCategoryMappingDefinition::class, 'werkl_blog_entry_id', 'werkl_blog_category_id'))->addFlags(new CascadeDelete(), new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
             (new ManyToOneAssociationField('blogAuthor', 'author_id', BlogAuthorDefinition::class, 'id', false))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
-            (new OneToOneAssociationField('cmsPage', 'cms_page_id', 'id', CmsPageDefinition::class, false))->addFlags(new ApiAware()),
-            (new ManyToManyAssociationField('tags', TagDefinition::class, 'werkl_blog_entry_tag', 'werkl_blog_entry_id', 'tag_id'))->addFlags(new ApiAware()),
+            (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class, 'id', false))->addFlags(new ApiAware()),
+            (new ManyToManyAssociationField('tags', TagDefinition::class, BlogEntryTagMappingDefinition::class, 'werkl_blog_entry_id', 'tag_id'))->addFlags(new ApiAware()),
         ]);
     }
 }

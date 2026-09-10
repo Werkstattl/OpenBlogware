@@ -53,6 +53,10 @@
             <tag name="shopware.entity.extension"/>
         </service>
 
+        <service id="Werkl\OpenBlogware\Content\Extension\TagExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
         <service id="Werkl\OpenBlogware\Page\Blog\BlogPageLoader" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
