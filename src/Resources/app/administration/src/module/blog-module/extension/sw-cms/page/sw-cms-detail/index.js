@@ -3,11 +3,25 @@ const {
 } = Shopware;
 
 export default {
+    data() {
+        return {
+            isBlogPageLookupCancelled: false,
+        };
+    },
+
+    beforeUnmount() {
+        this.isBlogPageLookupCancelled = true;
+    },
+
     methods: {
         async createdComponent() {
-            const blogEntry = await this.findBlogEntryForPage(
-                this.$route.params.id
-            );
+            const route = this.$route;
+            const blogEntry = await this.findBlogEntryForPage(route.params.id);
+
+            // A late response must not redirect or reset stores after navigation.
+            if (this.isBlogPageLookupCancelled || this.$route !== route) {
+                return;
+            }
 
             if (blogEntry) {
                 // blog pages belong to the blog module, the core editor has no blog sidebar

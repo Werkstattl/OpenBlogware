@@ -1,0 +1,31 @@
+name: Administration Tests
+
+on:
+  pull_request:
+    paths:
+      - 'src/Resources/app/administration/**'
+      - 'tests/administration/**'
+      - '.github/workflows/administration-tests.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Resources/app/administration/**'
+      - 'tests/administration/**'
+      - '.github/workflows/administration-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  administration:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run administration tests
+        working-directory: src/Resources/app/administration
+        run: npm test
