@@ -1,8 +1,8 @@
 # 5.3.1
-- Fixed: linked blog CMS pages now open in the blog editor from every entry point [#90](https://github.com/Werkstattl/OpenBlogware/pull/90)
-- Fixed: incorrect permission keys for blog categories and category assignments
-- Fixed: partial translations of blog entries and categories can now be saved, with missing text falling back to the source language
-- Fixed: tag associations, CMS page assignments and translated entry images in the data model
+- Fixed: linked blog CMS pages now open in the blog editor from every entry point; the blog page type is hidden in the layout wizard [#89](https://github.com/Werkstattl/OpenBlogware/issues/89) ([#90](https://github.com/Werkstattl/OpenBlogware/pull/90))
+- Fixed: incorrect permission keys for the blog navigation, blog categories and category assignments [#85](https://github.com/Werkstattl/OpenBlogware/issues/85)
+- Fixed: partial translations of blog entries and categories can now be saved, with missing text falling back to the source language [#87](https://github.com/Werkstattl/OpenBlogware/issues/87)
+- Fixed: tag associations, CMS page assignments and translated entry images in the data model [#87](https://github.com/Werkstattl/OpenBlogware/issues/87)
 - Improved: compatibility of blog and CMS data queries with the Shopware API
 
 # 5.3.0
