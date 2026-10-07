@@ -7,7 +7,7 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
             privileges: [
                 'werkl_blog_entry:read',
                 'werkl_blog_entry_translation:read',
-                'werkl_blog_blog_category:read',
+                'werkl_blog_entry_blog_category:read',
             ],
             dependencies: [],
         },
@@ -23,7 +23,7 @@ Shopware.Service('privileges').addPrivilegeMappingEntry({
             privileges: [
                 'werkl_blog_entry:create',
                 'werkl_blog_entry_translation:create',
-                'werkl_blog_blog_category:create',
+                'werkl_blog_entry_blog_category:create',
                 'system_config:read',
             ],
             dependencies: [],

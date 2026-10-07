@@ -72,7 +72,7 @@ Module.register('blog-module', {
             parent: 'sw-content',
             meta: {
                 privilege: [
-                    'werkl-blog-category:read',
+                    'werkl_blog_category:read',
                     'werkl_blog_author:read',
                     'werkl_blog_entry:read',
                 ],
