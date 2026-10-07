@@ -108,6 +108,7 @@ class BlogPageLoader
 
         $blogEntry = $this->blogRepository
             ->search($criteria, $context->getContext())
+            ->getEntities()
             ->first();
 
         if (!$blogEntry instanceof BlogEntryEntity) {
@@ -133,7 +134,7 @@ class BlogPageLoader
             throw SystemConfigException::configurationNotFound('WerklOpenBlogware');
         }
 
-        $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->first();
+        $detailCmsPage = $this->cmsPageLoader->load($request, new Criteria([$detailCmsPageId]), $context)->getEntities()->first();
 
         if (!$detailCmsPage instanceof CmsPageEntity) {
             throw CmsException::pageNotFound($detailCmsPageId);

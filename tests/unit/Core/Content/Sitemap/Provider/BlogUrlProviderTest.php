@@ -98,6 +98,7 @@ class BlogUrlProviderTest extends TestCase
     {
         $blogEntity = $this->createConfiguredMock(BlogEntryEntity::class, [
             'getId' => $articleId,
+            'getApiAlias' => BlogEntryDefinition::ENTITY_NAME,
         ]);
 
         return new EntitySearchResult(

@@ -6,6 +6,7 @@ namespace Werkl\OpenBlogware\Tests\Unit\Page\Blog;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Cms\CmsException;
+use Shopware\Core\Content\Cms\CmsPageCollection;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoaderInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -19,6 +20,7 @@ use Shopware\Storefront\Page\MetaInformation;
 use Shopware\Storefront\Page\Page;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
 use Werkl\OpenBlogware\Content\BlogAuthor\BlogAuthorEntity;
@@ -180,7 +182,7 @@ class BlogPageLoaderTest extends TestCase
 
     /**
      * Create search result for the blog repository.
-     * It also creates blog entry entity and config first method to return it.
+     * It also creates the blog entry collection returned by getEntities().
      */
     private function createBlogSearchResult(
         bool $hasBlogEntry,
@@ -188,6 +190,8 @@ class BlogPageLoaderTest extends TestCase
         ?array $metaInformation
     ): ?EntitySearchResult {
         $searchResults = $this->createMock(EntitySearchResult::class);
+        $entities = new BlogEntryCollection();
+        $searchResults->method('getEntities')->willReturn($entities);
 
         if ($hasBlogEntry) {
             $blogEntry = $this->createConfiguredMock(BlogEntryEntity::class, [
@@ -202,7 +206,7 @@ class BlogPageLoaderTest extends TestCase
                 ]),
             ]);
 
-            $searchResults->method('first')->willReturn($blogEntry);
+            $entities->add($blogEntry);
         }
 
         return $searchResults;
@@ -210,18 +214,20 @@ class BlogPageLoaderTest extends TestCase
 
     /**
      * Create search result with the given cms page id.
-     * It also creates cms page entity and config first method to return it.
+     * It also creates the CMS page collection returned by getEntities().
      */
     private function createCmsPageLoaderResult(?string $cmsPageId = null): ?EntitySearchResult
     {
         $searchResults = $this->createMock(EntitySearchResult::class);
+        $entities = new CmsPageCollection();
+        $searchResults->method('getEntities')->willReturn($entities);
 
         if ($cmsPageId) {
             $cmsPage = $this->createConfiguredMock(CmsPageEntity::class, [
                 'getId' => $cmsPageId,
             ]);
 
-            $searchResults->method('first')->willReturn($cmsPage);
+            $entities->add($cmsPage);
         }
 
         return $searchResults;

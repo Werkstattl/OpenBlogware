@@ -57,12 +57,12 @@ class BlogSingleSelectCmsElementResolver extends AbstractCmsElementResolver
     {
         $werklBlogs = $result->get(BlogEntryDefinition::ENTITY_NAME . '_' . $slot->getUniqueIdentifier());
 
-        if ($werklBlogs === null || $werklBlogs->first() === null) {
+        if ($werklBlogs === null || $werklBlogs->getEntities()->first() === null) {
             return;
         }
 
         /** @var BlogEntryEntity $werklBlog */
-        $werklBlog = $werklBlogs->first();
+        $werklBlog = $werklBlogs->getEntities()->first();
 
         $slot->setData($werklBlog);
     }

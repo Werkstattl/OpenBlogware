@@ -172,7 +172,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
         $criteria->addFilter(new EqualsFilter('cmsPage.sections.blocks.type', 'blog-listing'));
         $criteria->addAssociation('cmsPage.sections.blocks');
 
-        return $this->categoryRepository->search($criteria, $context)->getIds();
+        return $this->categoryRepository->search($criteria, $context)->getEntities()->getIds();
     }
 
     /**
