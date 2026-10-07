@@ -5,3 +5,4 @@ Component.override(
     () => import('./component/sw-cms-sidebar')
 );
 Component.override('sw-cms-list', () => import('./page/sw-cms-list'));
+Component.override('sw-cms-detail', () => import('./page/sw-cms-detail'));
