@@ -11,9 +11,11 @@ class BlogCategoryTranslationEntity extends TranslationEntity
 {
     use EntityCustomFieldsTrait;
 
-    protected string $name;
+    protected ?string $name = null;
 
     protected string $werklBlogCategoryId;
+
+    protected string $werklBlogCategoryVersionId;
 
     protected ?BlogCategoryEntity $werklBlogCategory = null;
 
@@ -22,7 +24,7 @@ class BlogCategoryTranslationEntity extends TranslationEntity
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -35,6 +37,16 @@ class BlogCategoryTranslationEntity extends TranslationEntity
     public function setWerklBlogCategoryId(string $werklBlogCategoryId): void
     {
         $this->werklBlogCategoryId = $werklBlogCategoryId;
+    }
+
+    public function getWerklBlogCategoryVersionId(): string
+    {
+        return $this->werklBlogCategoryVersionId;
+    }
+
+    public function setWerklBlogCategoryVersionId(string $werklBlogCategoryVersionId): void
+    {
+        $this->werklBlogCategoryVersionId = $werklBlogCategoryVersionId;
     }
 
     public function getWerklBlogCategory(): ?BlogCategoryEntity

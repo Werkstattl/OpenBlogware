@@ -241,7 +241,7 @@ class BlogEntryEntity extends Entity
         return $this->tags;
     }
 
-    public function setTags(?TagCollection $tags): void
+    public function setTags(TagCollection $tags): void
     {
         $this->tags = $tags;
     }

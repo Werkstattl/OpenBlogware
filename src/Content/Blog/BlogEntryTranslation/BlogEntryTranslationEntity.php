@@ -17,13 +17,13 @@ class BlogEntryTranslationEntity extends TranslationEntity
 
     protected ?string $mediaId = null;
 
-    protected string $title;
+    protected ?string $title = null;
 
-    protected string $slug;
+    protected ?string $slug = null;
 
-    protected string $content;
+    protected ?string $content = null;
 
-    protected string $teaser;
+    protected ?string $teaser = null;
 
     protected ?string $metaTitle = null;
 
@@ -64,7 +64,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
@@ -74,7 +74,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
+    public function setSlug(?string $slug): void
     {
         $this->slug = $slug;
     }
@@ -84,7 +84,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }
@@ -94,7 +94,7 @@ class BlogEntryTranslationEntity extends TranslationEntity
         return $this->teaser;
     }
 
-    public function setTeaser(string $teaser): void
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }
