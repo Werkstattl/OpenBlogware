@@ -1,3 +1,10 @@
+# 5.3.1
+- Behoben: Verknüpfte Blog-CMS-Seiten werden jetzt aus allen Einstiegspunkten im Blog-Editor geöffnet [#90](https://github.com/Werkstattl/OpenBlogware/pull/90)
+- Behoben: Falsche Berechtigungsschlüssel für Blog-Kategorien und Kategoriezuordnungen
+- Behoben: Unvollständige Übersetzungen von Blogbeiträgen und Kategorien können jetzt gespeichert werden und verwenden fehlende Texte aus der Ausgangssprache
+- Behoben: Tag-Verknüpfungen, CMS-Seitenzuordnungen und die Bereitstellung übersetzter Beitragsbilder im Datenmodell
+- Verbessert: Kompatibilität der Blog- und CMS-Datenabfragen mit der Shopware-API
+
 # 5.3.0
 - Behoben: Falsche Kriterien-Associations [#84](https://github.com/Werkstattl/OpenBlogware/pull/84)
 - Behoben: Mehrere Fehler [#82](https://github.com/Werkstattl/OpenBlogware/pull/82)
