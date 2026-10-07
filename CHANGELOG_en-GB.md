@@ -1,3 +1,6 @@
+# 5.3.2
+- Fixed: the save button in the blog editor now displays its translated label instead of the translation key
+
 # 5.3.1
 - Fixed: linked blog CMS pages now open in the blog editor from every entry point; the blog page type is hidden in the layout wizard [#89](https://github.com/Werkstattl/OpenBlogware/issues/89) ([#90](https://github.com/Werkstattl/OpenBlogware/pull/90))
 - Fixed: incorrect permission keys for the blog navigation, blog categories and category assignments [#85](https://github.com/Werkstattl/OpenBlogware/issues/85)

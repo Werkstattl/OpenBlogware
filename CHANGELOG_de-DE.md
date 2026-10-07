@@ -1,3 +1,6 @@
+# 5.3.2
+- Behoben: Der Speichern-Button im Blog-Editor zeigt jetzt die übersetzte Beschriftung statt des Übersetzungsschlüssels an
+
 # 5.3.1
 - Behoben: Verknüpfte Blog-CMS-Seiten werden jetzt aus allen Einstiegspunkten im Blog-Editor geöffnet; der Blog-Seitentyp wird im Layout-Assistenten ausgeblendet [#89](https://github.com/Werkstattl/OpenBlogware/issues/89) ([#90](https://github.com/Werkstattl/OpenBlogware/pull/90))
 - Behoben: Falsche Berechtigungsschlüssel für die Blog-Navigation, Blog-Kategorien und Kategoriezuordnungen [#85](https://github.com/Werkstattl/OpenBlogware/issues/85)
