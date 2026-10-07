@@ -87,7 +87,7 @@ export default {
                 Context.api
             );
 
-            if (this.element.config.blogCategories.value.length <= 0) {
+            if (!this.element.config.blogCategories.value?.length) {
                 return;
             }
 
@@ -105,7 +105,7 @@ export default {
                 Context.api
             );
 
-            if (this.element.config.blogTags.value.length <= 0) {
+            if (!this.element.config.blogTags.value?.length) {
                 return;
             }
 
@@ -120,7 +120,7 @@ export default {
                 this.blogCategoryCollection.getIds();
 
             if (this.element.translated?.config?.blogCategories) {
-                this.element.translated.config.blogCategories =
+                this.element.translated.config.blogCategories.value =
                     this.blogCategoryCollection.getIds();
             }
 
@@ -131,11 +131,12 @@ export default {
             this.element.data.blogCategories = this.blogCategoryCollection;
         },
 
-        onTagsChange() {
+        onTagsChange(tagCollection) {
+            this.tagCollection = tagCollection;
             this.element.config.blogTags.value = this.tagCollection.getIds();
 
             if (this.element.translated?.config?.blogTags) {
-                this.element.translated.config.blogTags =
+                this.element.translated.config.blogTags.value =
                     this.tagCollection.getIds();
             }
 

@@ -1,3 +1,7 @@
+# 5.3.3
+- Behoben: Leere Kategorie- und Tag-Auswahlen verhindern nicht mehr das Öffnen der CMS-Konfiguration für Blog-Listings und neueste Blogbeiträge
+- Behoben: Änderungen an Kategorie- und Tag-Auswahlen erhalten die Feldstruktur der übersetzten CMS-Konfiguration
+
 # 5.3.2
 - Behoben: Der Speichern-Button im Blog-Editor zeigt jetzt die übersetzte Beschriftung statt des Übersetzungsschlüssels an
 

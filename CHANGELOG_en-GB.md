@@ -1,3 +1,7 @@
+# 5.3.3
+- Fixed: empty category and tag selections no longer prevent opening the CMS configuration for blog listings and newest blog entries
+- Fixed: category and tag selection changes preserve the field structure of translated CMS configuration
+
 # 5.3.2
 - Fixed: the save button in the blog editor now displays its translated label instead of the translation key
 

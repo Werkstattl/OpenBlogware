@@ -43,7 +43,7 @@
     {% block werkl_cms_element_blog_config_tags %}
     <sw-entity-tag-select
         v-if="element.config.showTags.value === 'select'"
-        v-model:entity-collection="tagCollection"
+        :entity-collection="tagCollection"
         :label="$tc('werkl-blog.elements.blog.config.blogTags.label')"
         :placeholder="$tc('werkl-blog.elements.blog.config.blogTags.placeholder')"
         @update:entity-collection="onTagsChange"
