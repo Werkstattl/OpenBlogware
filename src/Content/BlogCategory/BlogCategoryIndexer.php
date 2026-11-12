@@ -110,7 +110,7 @@ class BlogCategoryIndexer extends EntityIndexer
         }
 
         $children = $this->fetchChildren($ids, $event->getContext()->getVersionId());
-        $ids = EntityIds::normalize([...$ids, ...$children]);
+        $ids = array_unique(array_merge($ids, $children));
 
         $chunks = \array_chunk($ids, self::UPDATE_IDS_CHUNK_SIZE);
         $idsForReturnedMessage = array_shift($chunks);

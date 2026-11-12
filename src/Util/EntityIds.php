@@ -15,7 +15,10 @@ namespace Werkl\OpenBlogware\Util;
 final class EntityIds
 {
     /**
-     * @param array<array-key, array<array-key, mixed>|float|int|string|null> $identifiers
+     * The data abstraction layer announces this parameter as a plain array, so every value type
+     * it documents for the supported Shopware versions has to be accepted here.
+     *
+     * @param array<mixed> $identifiers
      *
      * @return list<string>
      */
