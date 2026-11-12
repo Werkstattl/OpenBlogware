@@ -13,6 +13,7 @@ use Shopware\Storefront\Page\Page;
 use Symfony\Component\HttpFoundation\Request;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryDefinition;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryEntity;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 use Werkl\OpenBlogware\Page\Search\BlogSearchPage;
 use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 use Werkl\OpenBlogware\Tests\Unit\Fakes\FakeEntityRepository;
@@ -68,5 +69,23 @@ class BlogSearchPageLoaderTest extends TestCase
         $actualResult = $this->blogSearchPageLoader->load($request, $this->salesChannelContext);
 
         static::assertInstanceOf(BlogSearchPage::class, $actualResult);
+    }
+
+    /**
+     * This test verifies that the search only finds active and published entries of the current sales channel
+     */
+    public function testLoadOnlySearchesActiveEntries(): void
+    {
+        $request = new Request(['search' => 'foo'], [], []);
+        $this->blogRepository->entitySearchResults = [$this->createMock(EntitySearchResult::class)];
+
+        $this->genericLoader->method('load')->willReturn($this->createMock(Page::class));
+        $this->blogSearchPageLoader->load($request, $this->salesChannelContext);
+
+        $filters = $this->blogRepository->criteria[0]->getFilters();
+        static::assertCount(1, $filters);
+        static::assertInstanceOf(BlogEntryActiveFilter::class, $filters[0]);
+        static::assertSame($this->salesChannelContext->getSalesChannelId(), $filters[0]->getSalesChannelId());
+        static::assertTrue($filters[0]->isPublishedAtFilterEnabled());
     }
 }

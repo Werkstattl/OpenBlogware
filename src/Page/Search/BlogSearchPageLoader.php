@@ -12,6 +12,7 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Page\GenericPageLoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
+use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
 
 class BlogSearchPageLoader
 {
@@ -49,7 +50,7 @@ class BlogSearchPageLoader
             $page->getMetaInformation()->setRobots('noindex,follow');
         }
 
-        $criteria = $this->createCriteria($request);
+        $criteria = $this->createCriteria($request, $context);
 
         $result = $this->blogRepository->search($criteria, $context->getContext());
         $page->setListing($result);
@@ -66,8 +67,9 @@ class BlogSearchPageLoader
      * It gets limit and page from the request.
      * It calculates the offset.
      * It sets the search term.
+     * It only finds active entries of the sales channel that are already published.
      */
-    private function createCriteria(Request $request): Criteria
+    private function createCriteria(Request $request, SalesChannelContext $context): Criteria
     {
         /** @var string $term */
         $term = $request->query->get('search');
@@ -81,6 +83,7 @@ class BlogSearchPageLoader
         $criteria->setOffset($offset);
         $criteria->setTitle('blog-search-page');
         $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_EXACT);
+        $criteria->addFilter(new BlogEntryActiveFilter($context->getSalesChannelId()));
 
         $criteria->addAssociations([
             'blogAuthor',
