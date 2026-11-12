@@ -11,6 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
+use Werkl\OpenBlogware\Util\EntityIds;
 
 class BlogEntryIndexer extends EntityIndexer
 {
@@ -31,7 +32,7 @@ class BlogEntryIndexer extends EntityIndexer
 
     public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage
     {
-        $blogEntryUpdates = $event->getPrimaryKeys(BlogEntryDefinition::ENTITY_NAME);
+        $blogEntryUpdates = EntityIds::normalize($event->getPrimaryKeys(BlogEntryDefinition::ENTITY_NAME));
 
         if ($blogEntryUpdates === []) {
             return null;

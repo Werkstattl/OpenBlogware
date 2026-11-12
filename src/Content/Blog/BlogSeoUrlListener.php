@@ -6,6 +6,7 @@ namespace Werkl\OpenBlogware\Content\Blog;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Werkl\OpenBlogware\Util\EntityIds;
 
 class BlogSeoUrlListener implements EventSubscriberInterface
 {
@@ -22,6 +23,6 @@ class BlogSeoUrlListener implements EventSubscriberInterface
 
     public function onBlogUpdated(EntityWrittenEvent $event): void
     {
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $event->getIds());
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, EntityIds::normalize($event->getIds()));
     }
 }
