@@ -18,6 +18,7 @@ use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Werkl\OpenBlogware\Util\EntityIds;
 
 class BlogCategoryIndexer extends EntityIndexer
 {
@@ -74,7 +75,7 @@ class BlogCategoryIndexer extends EntityIndexer
             return null;
         }
 
-        $ids = $categoryEvent->getIds();
+        $ids = EntityIds::normalize($categoryEvent->getIds());
         $idsWithChangedParentIds = [];
         foreach ($categoryEvent->getWriteResults() as $result) {
             if (!$result->getExistence()) {

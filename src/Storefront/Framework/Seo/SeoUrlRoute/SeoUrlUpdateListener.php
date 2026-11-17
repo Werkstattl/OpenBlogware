@@ -15,6 +15,7 @@ use Werkl\OpenBlogware\Content\Blog\BlogEntryCollection;
 use Werkl\OpenBlogware\Content\Blog\BlogSeoUrlRoute;
 use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 use Werkl\OpenBlogware\Content\Blog\SalesChannel\BlogEntryActiveFilter;
+use Werkl\OpenBlogware\Util\EntityIds;
 
 class SeoUrlUpdateListener implements EventSubscriberInterface
 {
@@ -46,8 +47,8 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
 
     public function onSalesChannelWritten(EntityWrittenEvent $event): void
     {
-        $salesChannelIds = array_filter(array_map(
-            fn (EntityWriteResult $writeResult): ?string => $writeResult->getOperation() === EntityWriteResult::OPERATION_INSERT ? $writeResult->getPrimaryKey() : null,
+        $salesChannelIds = EntityIds::normalize(array_map(
+            fn (EntityWriteResult $writeResult) => $writeResult->getOperation() === EntityWriteResult::OPERATION_INSERT ? $writeResult->getPrimaryKey() : null,
             $event->getWriteResults()
         ));
 
@@ -67,6 +68,6 @@ class SeoUrlUpdateListener implements EventSubscriberInterface
             return;
         }
 
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, array_values(array_unique($blogEntryIds)));
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, EntityIds::normalize($blogEntryIds));
     }
 }

@@ -26,6 +26,7 @@ use Werkl\OpenBlogware\Content\BlogCategory\BlogCategoryCollection;
 use Werkl\OpenBlogware\Controller\BlogController;
 use Werkl\OpenBlogware\Controller\BlogRssController;
 use Werkl\OpenBlogware\Controller\BlogSearchController;
+use Werkl\OpenBlogware\Util\EntityIds;
 
 /**
  * After you change the SEO Template within the SEO settings, we need to re-generate all existing URLs.
@@ -98,7 +99,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     public function onUpdateSeoUrl(EntityWrittenEvent $event): void
     {
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $event->getIds());
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, EntityIds::normalize($event->getIds()));
     }
 
     /**
@@ -106,7 +107,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     public function onDeleteSeoUrl(EntityDeletedEvent $event): void
     {
-        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, $event->getIds());
+        $this->seoUrlUpdater->update(BlogSeoUrlRoute::ROUTE_NAME, EntityIds::normalize($event->getIds()));
     }
 
     /**
@@ -114,7 +115,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     public function onUpdateInvalidateCache(EntityWrittenEvent $event): void
     {
-        $this->invalidateCache($event->getIds());
+        $this->invalidateCache(EntityIds::normalize($event->getIds()));
 
         $this->invalidateCacheCategory($event->getContext());
     }
@@ -124,7 +125,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     public function onDeleteInvalidateCache(EntityDeletedEvent $event): void
     {
-        $this->invalidateCache($event->getIds());
+        $this->invalidateCache(EntityIds::normalize($event->getIds()));
 
         $this->invalidateCacheCategory($event->getContext());
     }
@@ -136,7 +137,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
     {
         $context = $event->getContext();
 
-        $criteria = (new Criteria($event->getIds()))
+        $criteria = (new Criteria(EntityIds::normalize($event->getIds())))
             ->addFilter(new EqualsFilter('entityName', BlogEntryDefinition::ENTITY_NAME));
 
         if ($this->seoUrlTemplateRepository->searchIds($criteria, $context)->getTotal() < 1) {
@@ -208,9 +209,11 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
      */
     private function getBlogIds(EntityWrittenEvent $event): array
     {
-        return $this->blogRepository->searchIds(
-            (new Criteria())->addFilter(new EqualsAnyFilter('cmsPageId', $event->getIds())),
-            $event->getContext()
-        )->getIds();
+        return EntityIds::normalize(
+            $this->blogRepository->searchIds(
+                (new Criteria())->addFilter(new EqualsAnyFilter('cmsPageId', EntityIds::normalize($event->getIds()))),
+                $event->getContext()
+            )->getIds()
+        );
     }
 }

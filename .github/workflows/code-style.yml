@@ -33,7 +33,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download --repo MalteJanz/ludtwig --pattern '*unknown-linux-gnu.tar.gz' && tar xf *.tar.gz
+          # Pinned to keep the lint results stable; bump together with the version in
+          # src/Resources/views/ludtwig-config.toml
+          gh release download v0.15.0 --repo MalteJanz/ludtwig --pattern '*unknown-linux-gnu.tar.gz' && tar xf *.tar.gz
           mv ./ludtwig /usr/local/bin
 
       - name: Run ludtwig linter

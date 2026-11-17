@@ -27,7 +27,7 @@
 # -------------------------------
 # Ludtwig configuration
 # -------------------------------
-version = "0.13.0"
+version = "0.15.0"
 # -------------------------------
 [general]
 active-rules = [
@@ -37,7 +37,6 @@ active-rules = [
 #    "indentation",
     "twig-block-line-breaks",
     "twig-block-name-snake-case",
-    "html-attribute-name-kebab-case",
     "twig-logic-and",
     "twig-logic-or",
     "twig-string-quotation",
