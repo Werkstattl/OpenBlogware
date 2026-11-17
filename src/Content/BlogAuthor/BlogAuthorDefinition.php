@@ -61,7 +61,7 @@ class BlogAuthorDefinition extends EntityDefinition
             new TranslationsAssociationField(BlogAuthorTranslationDefinition::class, 'werkl_blog_author_id'),
 
             (new OneToOneAssociationField('media', 'media_id', 'id', MediaDefinition::class, true))->addFlags(new ApiAware()),
-            (new OneToManyAssociationField('blogEntries', BlogEntryDefinition::class, 'author_id', 'id'))->addFlags(new CascadeDelete(), new SearchRanking(SearchRanking::ASSOCIATION_SEARCH_RANKING)),
+            (new OneToManyAssociationField('blogEntries', BlogEntryDefinition::class, 'author_id', 'id'))->addFlags(new CascadeDelete()),
             new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class, 'id', false),
         ]);
     }
