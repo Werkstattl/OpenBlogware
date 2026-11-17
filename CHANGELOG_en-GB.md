@@ -1,3 +1,9 @@
+# 5.3.4
+
+- The storefront blog search now shows only active, published entries that are visible in the current sales channel. [#93](https://github.com/Werkstattl/OpenBlogware/pull/93)
+- Searching for blog entries, authors or categories in the global Administration search could exhaust PHP memory. The search now follows these associations only from an entry to its author or categories. [#92](https://github.com/Werkstattl/OpenBlogware/issues/92)
+- The plugin now normalises IDs for blog indexing, SEO URL updates and cache invalidation across supported Shopware 6.7 versions. The automated Twig check now uses ludtwig 0.15.0. [#94](https://github.com/Werkstattl/OpenBlogware/pull/94)
+
 # 5.3.3
 - Fixed: empty category and tag selections no longer prevent opening the CMS configuration for blog listings and newest blog entries
 - Fixed: category and tag selection changes preserve the field structure of translated CMS configuration

@@ -1,3 +1,9 @@
+# 5.3.4
+
+- Die Blogsuche in der Storefront zeigt nur aktive, bereits veröffentlichte Beiträge an, die im aktuellen Verkaufskanal sichtbar sind. [#93](https://github.com/Werkstattl/OpenBlogware/pull/93)
+- Bei der Suche nach Blogbeiträgen, Autoren und Kategorien konnte die globale Admin-Suche das PHP-Speicherlimit erreichen. Die Suche folgt diesen Verknüpfungen jetzt nur noch vom Beitrag zum Autor oder zur Kategorie. [#92](https://github.com/Werkstattl/OpenBlogware/issues/92)
+- Das Plugin vereinheitlicht die IDs für die Blog-Indexierung, SEO-URL-Aktualisierungen und Cache-Invalidierung über die unterstützten Shopware-6.7-Versionen hinweg. Die automatische Twig-Prüfung verwendet jetzt ludtwig 0.15.0. [#94](https://github.com/Werkstattl/OpenBlogware/pull/94)
+
 # 5.3.3
 - Behoben: Leere Kategorie- und Tag-Auswahlen verhindern nicht mehr das Öffnen der CMS-Konfiguration für Blog-Listings und neueste Blogbeiträge
 - Behoben: Änderungen an Kategorie- und Tag-Auswahlen erhalten die Feldstruktur der übersetzten CMS-Konfiguration
