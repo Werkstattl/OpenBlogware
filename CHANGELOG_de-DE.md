@@ -1,3 +1,8 @@
+# 5.3.5
+
+- Beim Duplizieren eines Blogbeitrags werden jetzt auch seine Tags übernommen. [#98](https://github.com/Werkstattl/OpenBlogware/pull/98)
+- Die Aktion „Duplizieren“ in der Blogliste und die Aktion „Bearbeiten“ für Blog-Layouts in der Erlebniswelten-Übersicht zeigen jetzt ihre übersetzten Beschriftungen an.
+
 # 5.3.4
 
 - Die Blogsuche in der Storefront zeigt nur aktive, bereits veröffentlichte Beiträge an, die im aktuellen Verkaufskanal sichtbar sind. [#93](https://github.com/Werkstattl/OpenBlogware/pull/93)

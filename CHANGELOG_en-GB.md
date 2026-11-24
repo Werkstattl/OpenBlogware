@@ -1,3 +1,8 @@
+# 5.3.5
+
+- Duplicating a blog entry now copies its tags. [#98](https://github.com/Werkstattl/OpenBlogware/pull/98)
+- The Duplicate action in the blog list and the Edit action for blog layouts in the Shopping Experiences list now display their translated labels.
+
 # 5.3.4
 
 - The storefront blog search now shows only active, published entries that are visible in the current sales channel. [#93](https://github.com/Werkstattl/OpenBlogware/pull/93)
